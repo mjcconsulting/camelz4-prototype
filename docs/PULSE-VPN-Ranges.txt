@@ -1,0 +1,4 @@
+Thu 4/16/2020 - Connect to Americas - public: 20.132.6.254, vpn: 10.83.2.160    (Think this went to Newark)
+Thu 4/16/2020 - Connect to Americas - public: 192.46.52.12, vpn: 10.218.203.160 (Think this went to Houston)
+Thu 4/16/2020 - Connect to Houston  - public: 192.46.52.12, vpn: 10.218.203.160
+Thu 4/16/2020 - Connect to Newark   - public: 20.132.6.254, vpn: 10.83.2.160

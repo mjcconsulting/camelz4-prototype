@@ -1,0 +1,36 @@
+---
+schemaVersion: '2.2'
+description: Write a Script.
+parameters:
+  scriptPath:
+    type: String
+    description: '(Optional) Script Path. Must be within C:\\Windows\\Setup\\Scripts'
+    default: 'C:\Windows\Setup\Scripts\CAMELZ-Default-Script.ps1'
+    allowedPattern: '^C:\\Windows\\Setup\\Scripts\\[\w\- ]+\.ps1$'
+  scriptContent:
+    type: String
+    description: '(Required) Specify the content of the Script.'
+    default: |
+      # CAMELZ Default Script
+      Write-Host 'CAMELZ Default Script Running'
+      'CAMELZ-Default-Script Processed' | Out-File -FilePath $$Env:USERPROFILE\Desktop\CAMELZ-Default-Script.log
+      Write-Host 'CAMELZ Default Script Complete'
+    displayType: textarea
+mainSteps:
+- action: aws:runPowerShellScript
+  name: runPowerShellScript
+  precondition:
+    StringEquals: [ platformType, Windows ]
+  inputs:
+    runCommand:
+    - |
+      $ScriptPath = '{{scriptPath}}'
+
+      Write-Host "Write Script to $ScriptPath"
+
+      $Content = @'
+      {{scriptContent}}
+      '@
+      $Content.Replace("(?<!`r)`n","`r`n") | Set-Content -Path $ScriptPath -NoNewline -Force
+
+      Write-Host 'Script written'

@@ -1,0 +1,34 @@
+;
+; Private Reverse-DNS zone for 72.215.187.176/28
+;
+$TTL 1H
+$ORIGIN 187.215.72.in-addr.arpa.
+;Name	TTL	Type	Value
+@		SOA	mjcsbapns71.sba.mjcconsulting.com. hostmaster.mjcconsulting.com. (
+			2017020901	; serial
+			1H		; refresh
+			15M		; retry
+			1D		; expire
+			1H )		; minimum
+
+		NS	mjcsbapns41.sba.mjcconsulting.com.	
+		NS	mjcsbapns42.sba.mjcconsulting.com.	
+
+177		PTR	coxsbaprn01.sba.mjcconsulting.com.
+178		PTR	mjcsbahfn01.sba.mjcconsulting.com.
+179		PTR	mjcsbapfn01.sba.mjcconsulting.com.
+
+180		PTR	ns1.sba.mjcconsulting.com.
+181		PTR	ns2.sba.mjcconsulting.com.
+
+180		PTR	smtp1.sba.mjcconsulting.com.
+181		PTR	smtp2.sba.mjcconsulting.com.
+
+180		PTR	www1.mjcconsulting.com.
+181		PTR	www2.mjcconsulting.com.
+180		PTR	services1.mjcconsulting.com.
+181		PTR	services2.mjcconsulting.com.
+180		PTR	sites1.mjcconsulting.com.
+181		PTR	sites2.mjcconsulting.com.
+180		PTR	hosts1.mjcconsulting.com.
+181		PTR	hosts2.mjcconsulting.com.

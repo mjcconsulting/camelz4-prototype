@@ -1,0 +1,31 @@
+#!/bin/bash
+#
+# This simple script stops all ActiveDirectoryManagement instances in all accounts, all regions
+# - Uses filters to identify which instances to stop
+#   Name=tag:Project,Values="CAMELZ3 POC"
+#   Name=tag:Utility,Values=ActiveDirectoryManagement
+#   Name=instance-state-name,Values=running,pending
+#
+
+accounts='dxcapm'
+regions='us-east-1 us-east-2 eu-west-1'
+
+for a in $accounts; do
+  echo "== Account $a ========================"
+  for r in $regions; do
+    echo "-- Region $r ------------------------"
+    instances=$(aws ec2 describe-instances --filters Name=tag:Project,Values="CAMELZ3 POC" \
+                                                     Name=tag:Utility,Values=ActiveDirectoryManagement \
+                                                     Name=instance-state-name,Values=running,pending \
+                                           --query 'Reservations[].Instances[].InstanceId' \
+                                           --profile $a-bootstrapadministrator --region $r --output text)
+    for i in $instances; do
+      i_name=$(aws ec2 describe-instances --instance-id $i \
+                                           --query 'Reservations[].Instances[0].Tags[?Key==`Name`].Value' \
+                                           --profile $a-bootstrapadministrator --region $r --output text)
+
+      echo " - Instance: $i_name ($i)"
+      aws ec2 stop-instances --instance-id $i --profile $a-bootstrapadministrator --region $r --output text
+    done
+  done
+done

@@ -1,0 +1,41 @@
+---
+schemaVersion: '2.2'
+description: Install Windows Active Directory Management Tools.
+parameters:
+  installRSATADTools:
+    type: String
+    description: '(Optional) Install WindowsFeature RSAT-AD-Tools.'
+    default: 'True'
+    allowedValues:
+    - 'True'
+    - 'False'
+  installRSATDNSServer:
+    type: String
+    description: '(Optional) Install WindowsFeature RSAT-DNS-Server.'
+    default: 'True'
+    allowedValues:
+    - 'True'
+    - 'False'
+mainSteps:
+- action: aws:runPowerShellScript
+  name: runPowerShellScript
+  precondition:
+    StringEquals: [ platformType, Windows ]
+  inputs:
+    runCommand:
+    - |
+      Try {
+          If ([System.Convert]::ToBoolean('{{ installRSATADTools }}')) {
+              Write-Host 'Install Active Directory Management Tools'
+              Install-WindowsFeature RSAT-AD-Tools -IncludeAllSubFeature
+          }
+          If ([System.Convert]::ToBoolean('{{ installRSATDNSServer }}')) {
+              Write-Host 'Install Active Directory DNS Management Tools'
+              Install-WindowsFeature RSAT-DNS-Server -IncludeAllSubFeature
+          }
+          Write-Host 'Successfully installed Active Directory Management Tools.'
+      } Catch {
+          $Message = 'Exception on line {0}: {1}' -f $_.InvocationInfo.ScriptLineNumber, $_.Exception.Message
+          Write-Error $Message
+          Exit 1
+      }

@@ -1,0 +1,97 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            6e:04:b1:08:ce:0f:af:92:e4:54:71:f4:fa:0a:24:11
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C=US, O=DXC Technology Company, OU=DXC Analytics Platform, CN=DXC Analytics Platform Issuing CA
+        Validity
+            Not Before: Mar  9 19:33:06 2020 GMT
+            Not After : Mar  7 19:33:06 2030 GMT
+        Subject: C=US, O=DXC Technology Company, OU=DXC Analytics Platform, CN=mcrawford.c.us-east-2.m1.dxc-ap.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:a8:37:02:46:b0:ff:07:bc:b7:86:ad:8c:c2:4c:
+                    27:ed:5b:96:df:be:43:16:00:1b:9e:8b:ee:42:1d:
+                    75:42:11:d2:b6:2c:bb:c5:34:5a:36:94:48:cb:ab:
+                    c2:6a:cc:18:81:29:0f:68:4d:d2:02:37:30:64:cd:
+                    8c:0b:0e:7c:63:c9:9e:ca:70:17:70:cc:72:e2:ce:
+                    23:34:c6:95:70:e3:e8:32:1e:28:42:fd:8c:be:6e:
+                    63:a1:f0:49:89:ce:86:6e:f8:c1:1b:fc:eb:ab:bd:
+                    03:13:ab:56:74:28:77:23:70:0a:76:33:dd:b5:48:
+                    fe:ca:44:31:00:75:25:a9:5e:91:5a:69:93:b4:c1:
+                    ee:48:33:ce:07:3c:4a:1b:39:4b:e2:fd:8f:7a:0e:
+                    ec:38:3a:14:eb:b8:ca:44:c3:9d:92:b6:cc:4c:8c:
+                    4e:41:a7:36:a0:07:91:84:de:1a:bb:2a:80:30:91:
+                    be:15:0a:9e:06:24:6e:3c:71:a9:88:a4:89:4e:2e:
+                    7b:5b:88:cd:78:1b:4b:05:e9:9f:e3:37:a1:87:d9:
+                    77:06:29:bc:3c:ef:7d:4a:d5:47:e0:60:0f:51:6c:
+                    1b:76:1e:6c:65:dc:0f:f5:31:20:51:94:ad:71:be:
+                    ff:ab:6e:ab:13:10:1b:c4:30:1a:33:e7:36:15:a2:
+                    69:67
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 CRL Distribution Points: 
+
+                Full Name:
+                  URI:http://pki.m1.dxc-ap.com/DXC_Analytics_Platform_Root_CA.crl
+
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            X509v3 Subject Key Identifier: 
+                2D:B0:CD:9F:5B:BA:AF:8D:5B:FE:C6:CC:CC:9A:78:4E:2E:99:80:A2
+            X509v3 Authority Key Identifier: 
+                keyid:6F:DA:50:58:37:4D:90:2F:72:0E:07:CE:67:14:07:B6:B4:AB:69:FE
+                DirName:/C=US/O=DXC Technology Company/OU=DXC Analytics Platform/CN=DXC Analytics Platform Root CA
+                serial:55:D1:96:52:91:1E:14:9E:31:BA:EB:99:EA:9A:BC:71
+
+            X509v3 Extended Key Usage: 
+                TLS Web Client Authentication
+            X509v3 Key Usage: 
+                Digital Signature
+    Signature Algorithm: sha256WithRSAEncryption
+         1a:d0:ae:06:52:9b:77:a7:10:84:a8:1e:66:b9:69:f3:1f:e8:
+         5c:f3:4e:fa:1b:82:82:6c:0b:c2:60:4d:80:8b:26:0d:21:2a:
+         d6:98:c7:ab:69:99:8b:ec:1d:ca:08:48:1b:54:09:40:d5:40:
+         1d:3f:7b:d9:24:38:fd:11:9a:91:74:7d:bc:9b:d6:bb:60:98:
+         65:ee:05:db:1b:6a:e9:55:37:aa:e8:fe:24:d5:9f:08:aa:59:
+         1e:28:62:ff:a0:49:70:71:73:3e:d2:72:1e:9f:fd:0c:9c:52:
+         2c:76:61:a7:01:f2:af:46:3a:94:e3:f9:4f:01:ed:de:c9:c6:
+         bd:3c:83:4b:18:fe:cc:98:ec:4a:b0:83:9b:d1:ae:24:b4:80:
+         a0:a9:ca:51:1f:12:f9:3c:82:af:e3:9a:b7:4b:37:59:e8:3b:
+         fc:56:b6:ec:85:9d:7b:90:26:8b:1f:49:3b:fb:85:db:c1:c6:
+         c8:cb:0a:4a:40:e5:c6:e6:b4:64:5d:21:82:3c:c1:2f:79:01:
+         f2:5b:a1:cf:71:d9:36:ae:b4:35:d0:f3:99:77:1b:9a:f7:d1:
+         30:af:4a:f0:29:81:a3:73:e3:d6:69:61:b0:a6:f0:57:39:15:
+         fa:7e:02:5a:d5:61:31:03:ba:47:fd:85:22:f7:c0:db:47:60:
+         e2:9d:0c:f0
+-----BEGIN CERTIFICATE-----
+MIIE1jCCA76gAwIBAgIQbgSxCM4Pr5LkVHH0+gokETANBgkqhkiG9w0BAQsFADB7
+MQswCQYDVQQGEwJVUzEfMB0GA1UECgwWRFhDIFRlY2hub2xvZ3kgQ29tcGFueTEf
+MB0GA1UECwwWRFhDIEFuYWx5dGljcyBQbGF0Zm9ybTEqMCgGA1UEAwwhRFhDIEFu
+YWx5dGljcyBQbGF0Zm9ybSBJc3N1aW5nIENBMB4XDTIwMDMwOTE5MzMwNloXDTMw
+MDMwNzE5MzMwNlowfTELMAkGA1UEBhMCVVMxHzAdBgNVBAoMFkRYQyBUZWNobm9s
+b2d5IENvbXBhbnkxHzAdBgNVBAsMFkRYQyBBbmFseXRpY3MgUGxhdGZvcm0xLDAq
+BgNVBAMMI21jcmF3Zm9yZC5jLnVzLWVhc3QtMi5tMS5keGMtYXAuY29tMIIBIjAN
+BgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqDcCRrD/B7y3hq2Mwkwn7VuW375D
+FgAbnovuQh11QhHStiy7xTRaNpRIy6vCaswYgSkPaE3SAjcwZM2MCw58Y8meynAX
+cMxy4s4jNMaVcOPoMh4oQv2Mvm5jofBJic6GbvjBG/zrq70DE6tWdCh3I3AKdjPd
+tUj+ykQxAHUlqV6RWmmTtMHuSDPOBzxKGzlL4v2Peg7sODoU67jKRMOdkrbMTIxO
+Qac2oAeRhN4auyqAMJG+FQqeBiRuPHGpiKSJTi57W4jNeBtLBemf4zehh9l3Bim8
+PO99StVH4GAPUWwbdh5sZdwP9TEgUZStcb7/q26rExAbxDAaM+c2FaJpZwIDAQAB
+o4IBUjCCAU4wTAYDVR0fBEUwQzBBoD+gPYY7aHR0cDovL3BraS5tMS5keGMtYXAu
+Y29tL0RYQ19BbmFseXRpY3NfUGxhdGZvcm1fUm9vdF9DQS5jcmwwCQYDVR0TBAIw
+ADAdBgNVHQ4EFgQULbDNn1u6r41b/sbMzJp4Ti6ZgKIwgbEGA1UdIwSBqTCBpoAU
+b9pQWDdNkC9yDgfOZxQHtrSraf6hfKR6MHgxCzAJBgNVBAYTAlVTMR8wHQYDVQQK
+DBZEWEMgVGVjaG5vbG9neSBDb21wYW55MR8wHQYDVQQLDBZEWEMgQW5hbHl0aWNz
+IFBsYXRmb3JtMScwJQYDVQQDDB5EWEMgQW5hbHl0aWNzIFBsYXRmb3JtIFJvb3Qg
+Q0GCEFXRllKRHhSeMbrrmeqavHEwEwYDVR0lBAwwCgYIKwYBBQUHAwIwCwYDVR0P
+BAQDAgeAMA0GCSqGSIb3DQEBCwUAA4IBAQAa0K4GUpt3pxCEqB5muWnzH+hc8076
+G4KCbAvCYE2AiyYNISrWmMeraZmL7B3KCEgbVAlA1UAdP3vZJDj9EZqRdH28m9a7
+YJhl7gXbG2rpVTeq6P4k1Z8IqlkeKGL/oElwcXM+0nIen/0MnFIsdmGnAfKvRjqU
+4/lPAe3eyca9PINLGP7MmOxKsIOb0a4ktICgqcpRHxL5PIKv45q3SzdZ6Dv8Vrbs
+hZ17kCaLH0k7+4XbwcbIywpKQOXG5rRkXSGCPMEveQHyW6HPcdk2rrQ10POZdxua
+99Ewr0rwKYGjc+PWaWGwpvBXORX6fgJa1WExA7pH/YUi98DbR2DinQzw
+-----END CERTIFICATE-----

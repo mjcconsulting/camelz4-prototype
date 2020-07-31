@@ -1,0 +1,129 @@
+;
+; Private DNS zone for loc.mjcconsulting.com
+;
+$TTL 1H	
+$ORIGIN loc.mjcconsulting.com.
+;Name		TTL	Type	Value
+@			SOA	mjclocpns91 hostmaster.mjcconsulting.com. (
+				2018010201	; serial
+				1H		; refresh
+				15M		; retry
+				1W		; expiry
+				1H )		; minimum
+
+			NS	mjclocuns01
+			NS	mjclocuns02
+
+		1W	MX	10 mjclocums01
+		1W	MX	20 mjclocums02
+
+mjclocuns00		A	192.168.40.2
+mjclocuns01		A	192.168.40.8
+mjclocuns02		A	192.168.40.9
+
+hplocuns01		A	192.168.40.10
+hplocuns02		A	192.168.40.11
+
+mjclocums01		A	192.168.40.12
+mjclocums02		A	192.168.40.13
+
+hplocums01		A	192.168.40.14
+hplocums02		A	192.168.40.15
+
+mjclocuws01		A	192.168.40.16
+mjclocuws02		A	192.168.40.17
+
+mjclocuas01		A	192.168.40.32
+mjclocuas02		A	192.168.40.33
+
+mjclocuds01		A	192.168.40.48
+mjclocuds02		A	192.168.40.49
+
+mjclocuss01		A	192.168.40.56
+mjclocuss02		A	192.168.40.57
+mjclocuss03		A	192.168.40.58
+mjclocuss04		A	192.168.40.59
+
+mjclocuss01-san		A	192.168.34.56
+mjclocuss02-san		A	192.168.34.57
+mjclocuss03-san		A	192.168.34.58
+mjclocuss04-san		A	192.168.34.59
+
+mjclocuss01-cls		A	192.168.35.56
+mjclocuss02-cls		A	192.168.35.57
+mjclocuss03-cls		A	192.168.35.58
+mjclocuss04-cls		A	192.168.35.59
+
+mjclocubs01		A	192.168.40.64
+mjclocubs02		A	192.168.40.65
+
+mjclocucs01		A	192.168.40.72
+mjclocucs02		A	192.168.40.73
+
+mjclocueucaclc01	A	192.168.40.80
+mjclocueucaosp01	A	192.168.40.81
+mjclocueucacca01	A	192.168.40.82
+mjclocueucacca01	A	192.168.40.83
+mjclocueucanc01		A	192.168.40.84
+mjclocueucanc02		A	192.168.40.85
+mjclocueucanc03		A	192.168.40.86
+mjclocueucanc04		A	192.168.40.87
+
+mjclocueucaclc01-pri	A	192.168.33.80
+mjclocueucaosp01-pri	A	192.168.33.81
+mjclocueucacca01-pri	A	192.168.33.82
+mjclocueucacca01-pri	A	192.168.33.83
+mjclocueucanc01-pri	A	192.168.33.84
+mjclocueucanc02-pri	A	192.168.33.85
+mjclocueucanc03-pri	A	192.168.33.86
+mjclocueucanc04-pri	A	192.168.33.87
+
+mjclocueucaclc01-san	A	192.168.34.80
+mjclocueucaosp01-san	A	192.168.34.81
+mjclocueucacca01-san	A	192.168.34.82
+mjclocueucacca01-san	A	192.168.34.83
+mjclocueucanc01-san	A	192.168.34.84
+mjclocueucanc02-san	A	192.168.34.85
+mjclocueucanc03-san	A	192.168.34.86
+mjclocueucanc04-san	A	192.168.34.87
+
+mjcloctas01		A	192.168.40.120
+mjcloctas02		A	192.168.40.121
+mjcloctas11		A	192.168.40.122
+mjcloctas12		A	192.168.40.123
+mjcloctas21		A	192.168.40.124
+mjcloctas22		A	192.168.40.125
+mjcloctas31		A	192.168.40.126
+mjcloctas32		A	192.168.40.127
+
+mjcloctbs01		A	192.168.40.136
+mjcloctbs02		A	192.168.40.137
+mjcloctbs11		A	192.168.40.138
+mjcloctbs12		A	192.168.40.139
+mjcloctbs21		A	192.168.40.140
+mjcloctbs22		A	192.168.40.141
+mjcloctbs31		A	192.168.40.142
+mjcloctbs32		A	192.168.40.143
+
+mjcloctcs01		A	192.168.40.144
+mjcloctcs02		A	192.168.40.145
+mjcloctcs11		A	192.168.40.146
+mjcloctcs12		A	192.168.40.147
+mjcloctcs21		A	192.168.40.148
+mjcloctcs22		A	192.168.40.149
+mjcloctcs31		A	192.168.40.150
+mjcloctcs32		A	192.168.40.151
+
+mjcloctvs01		A	192.168.40.152
+mjcloctvs02		A	192.168.40.153
+mjcloctvs11		A	192.168.40.154
+mjcloctvs12		A	192.168.40.155
+mjcloctvs21		A	192.168.40.156
+mjcloctvs22		A	192.168.40.157
+
+mjcmcrawford31		A	192.168.40.230
+mjcmcrawford32		A	192.168.40.231
+
+hpemcrawford31		A	192.168.40.238
+dxcmcrawford31		A	192.168.40.239
+

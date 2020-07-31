@@ -1,0 +1,107 @@
+;
+; Private DNS zone for mjcconsulting.com
+;
+$TTL 1H
+$ORIGIN mjcconsulting.com.
+;Name		TTL	Type	Value
+@			SOA	mjcsbapns91.sba.mjcconsulting.com. hostmaster.mjcconsulting.com. (
+				2017020901	; serial
+				1H		; refresh
+				15M		; retry
+				1D		; expiry
+				1H )		; minimum
+
+			NS	mjcsbapns41.sba
+			NS	mjcsbapns42.sba
+
+		1D	MX	30 mjcsbapms41.sba
+		1D	MX	40 mjcsbapms42.sba
+
+			A	72.215.187.180
+
+; Production
+smtp			CNAME	smtp1
+smtp1			A	72.215.187.180
+smtp2			A	72.215.187.181
+
+ns1			A	72.215.187.180
+ns2			A	72.215.187.181
+
+www			A	10.0.2.144
+services		A	10.0.2.152
+sites			A	10.0.2.160
+hosts			A	10.0.2.168
+
+www1			A	10.0.2.144
+services1		A	10.0.2.152
+sites1			A	10.0.2.160
+hosts1			A	10.0.2.168
+
+www2			A	10.0.2.145
+services2		A	10.0.2.153
+
+unifi			A	10.0.1.40
+
+mirror			CNAME	mirror01
+mirror01		A	10.0.1.72
+mirror02		A	10.0.1.73
+mirror61		A	10.0.12.208
+mirror62		A	10.0.12.209
+mirror81		A	10.0.14.16
+mirror82		A	10.0.14.17
+
+mirrorlist		CNAME	mirrorlist01
+mirrorlist01		A	10.0.1.72
+mirrorlist02		A	10.0.1.73
+mirrorlist61		A	10.0.12.208
+mirrorlist62		A	10.0.12.209
+mirrorlist81		A	10.0.14.16
+mirrorlist82		A	10.0.14.17
+
+
+; Santa Barbara Net Zone
+coxsbaprn01		A	72.215.187.177
+mjcsbahfn01		A	72.215.187.178
+mjcsbapfn01		A	72.215.187.179
+
+vpnh			CNAME	mjcsbahfn01
+vpn			CNAME	vpnc
+vpnc			CNAME	mjcsbapfn01
+
+
+; Sub-Domains
+$ORIGIN sba.mjcconsulting.com.
+@			NS	mjcsbapns41
+			NS	mjcsbapns42
+
+mjcsbapns41		A	10.0.6.8
+mjcsbapns42		A	10.0.6.9
+
+mjcsbapms41		A	10.0.6.12
+mjcsbapms42		A	10.0.6.13
+
+$ORIGIN s.mjcconsulting.com.
+@			NS	mjcsbapns41.sba.mjcconsulting.com.
+			NS	mjcsbapns42.sba.mjcconsulting.com.
+
+$ORIGIN q.mjcconsulting.com.
+@			NS	mjcsbapns41.sba.mjcconsulting.com.
+			NS	mjcsbapns42.sba.mjcconsulting.com.
+
+$ORIGIN d.mjcconsulting.com.
+@			NS	mjcsbapns41.sba.mjcconsulting.com.
+			NS	mjcsbapns42.sba.mjcconsulting.com.
+
+$ORIGIN u.mjcconsulting.com.
+@			NS	mjcsbapns41.sba.mjcconsulting.com.
+			NS	mjcsbapns42.sba.mjcconsulting.com.
+
+$ORIGIN h.mjcconsulting.com.
+@			NS	mjcsbapns41.sba.mjcconsulting.com.
+			NS	mjcsbapns42.sba.mjcconsulting.com.
+
+$ORIGIN aws.mjcconsulting.com.
+@			NS	ns-108.awsdns-13.com.
+			NS	ns-1353.awsdns-41.org.
+			NS	ns-1730.awsdns-24.co.uk.
+			NS	ns-915.awsdns-50.net.

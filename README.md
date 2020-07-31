@@ -1,2 +1,2 @@
-# camelz3-prototype
-Cross-Account Multi-Environment Landing Zones 3 Prototype
+# CAMELZ Gen3 Prototype
+This contains the scripts used to prototype Cross-Account Multi-Environment Landing Zone Gen III

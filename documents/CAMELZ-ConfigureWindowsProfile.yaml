@@ -1,0 +1,666 @@
+---
+schemaVersion: '2.2'
+description: Configure Windows Profile.
+parameters:
+  configureConsoleSize:
+    type: String
+    description: '(Optional) Configure PowerShell Console Size.'
+    default: 'True'
+    allowedValues:
+    - 'True'
+    - 'False'
+  consoleColumns:
+    type: String
+    description: '(Optional) PowerShell Console Columns.'
+    default: '160'
+    allowedValues:
+    - '80'
+    - '132'
+    - '160'
+    - '192'
+    - '224'
+    - '256'
+  consoleLines:
+    type: String
+    description: '(Optional) PowerShell Console Lines.'
+    default: '40'
+    allowedValues:
+    - '24'
+    - '32'
+    - '40'
+    - '48'
+    - '64'
+    - '80'
+  configureConsoleFont:
+    type: String
+    description: '(Optional) Configure PowerShell Console Font.'
+    default: 'True'
+    allowedValues:
+    - 'True'
+    - 'False'
+  consoleFontSize:
+    type: String
+    description: '(Optional) PowerShell Console Font Size.'
+    default: '14'
+    allowedValues:
+    - '12'
+    - '14'
+    - '16'
+  configureConsoleColors:
+    type: String
+    description: '(Optional) Configure PowerShell Console Colors.'
+    default: 'True'
+    allowedValues:
+    - 'True'
+    - 'False'
+  consoleColorBlack:
+    type: String
+    description: '(Optional) PowerShell Console Color Black (format: 0x00BBGGRR).'
+    default: '0x001e1414' # RGB = (20,20,30)
+    allowedPattern: '^0x00(?:[0-9a-fA-F]{2}){3}$'
+  consoleColorDarkBlue:
+    type: String
+    description: '(Optional) PowerShell Console Color DarkBlue (format: 0x00BBGGRR).'
+    default: '0x00642800' # RGB = (0,40,100)
+    allowedPattern: '^0x00(?:[0-9a-fA-F]{2}){3}$'
+  consoleColorDarkGreen:
+    type: String
+    description: '(Optional) PowerShell Console Color DarkGreen (format: 0x00BBGGRR).'
+    default: '0x00144632' # RGB = (50,70,20)
+    allowedPattern: '^0x00(?:[0-9a-fA-F]{2}){3}$'
+  consoleColorDarkCyan:
+    type: String
+    description: '(Optional) PowerShell Console Color DarkCyan (format: 0x00BBGGRR).'
+    default: '0x00aa9600' # RGB = (0,150,170)
+    allowedPattern: '^0x00(?:[0-9a-fA-F]{2}){3}$'
+  consoleColorDarkRed:
+    type: String
+    description: '(Optional) PowerShell Console Color DarkRed (format: 0x00BBGGRR).'
+    default: '0x00100880' # RGB = (128,8,16)
+    allowedPattern: '^0x00(?:[0-9a-fA-F]{2}){3}$'
+  consoleColorDarkMagenta:
+    type: String
+    description: '(Optional) PowerShell Console Color DarkMagenta (format: 0x00BBGGRR).'
+    default: '0x00400820' # RGB = (32,8,64)
+    allowedPattern: '^0x00(?:[0-9a-fA-F]{2}){3}$'
+  consoleColorDarkYellow:
+    type: String
+    description: '(Optional) PowerShell Console Color DarkYellow (format: 0x00BBGGRR).'
+    default: '0x0000aaff' # RGB = (255,170,0)
+    allowedPattern: '^0x00(?:[0-9a-fA-F]{2}){3}$'
+  consoleColorGray:
+    type: String
+    description: '(Optional) PowerShell Console Color Gray (format: 0x00BBGGRR).'
+    default: '0x00e6dcd2' # RGB = (210,220,230)
+    allowedPattern: '^0x00(?:[0-9a-fA-F]{2}){3}$'
+  consoleColorDarkGray:
+    type: String
+    description: '(Optional) PowerShell Console Color DarkGray (format: 0x00BBGGRR).'
+    default: '0x00beb4a0' # RGB = (160,180,190)
+    allowedPattern: '^0x00(?:[0-9a-fA-F]{2}){3}$'
+  consoleColorBlue:
+    type: String
+    description: '(Optional) PowerShell Console Color Blue (format: 0x00BBGGRR).'
+    default: '0x00f08c28' # RGB = (40,140,240)
+    allowedPattern: '^0x00(?:[0-9a-fA-F]{2}){3}$'
+  consoleColorGreen:
+    type: String
+    description: '(Optional) PowerShell Console Color Green (format: 0x00BBGGRR).'
+    default: '0x0028c882' # RGB = (130,200,40)
+    allowedPattern: '^0x00(?:[0-9a-fA-F]{2}){3}$'
+  consoleColorCyan:
+    type: String
+    description: '(Optional) PowerShell Console Color Cyan (format: 0x00BBGGRR).'
+    default: '0x00dcc850' # RGB = (80,200,220)
+    allowedPattern: '^0x00(?:[0-9a-fA-F]{2}){3}$'
+  consoleColorRed:
+    type: String
+    description: '(Optional) PowerShell Console Color Red (format: 0x00BBGGRR).'
+    default: '0x004040ff' # RGB = (255,64,64)
+    allowedPattern: '^0x00(?:[0-9a-fA-F]{2}){3}$'
+  consoleColorMagenta:
+    type: String
+    description: '(Optional) PowerShell Console Color Magenta (format: 0x00BBGGRR).'
+    default: '0x00d28caa' # RGB = (170,140,210)
+    allowedPattern: '^0x00(?:[0-9a-fA-F]{2}){3}$'
+  consoleColorYellow:
+    type: String
+    description: '(Optional) PowerShell Console Color Yellow (format: 0x00BBGGRR).'
+    default: '0x0014d2ff' # RGB = (255,210,20)
+    allowedPattern: '^0x00(?:[0-9a-fA-F]{2}){3}$'
+  consoleColorWhite:
+    type: String
+    description: '(Optional) PowerShell Console Color White (format: 0x00BBGGRR).'
+    default: '0x00f0faff' # RGB = (255,250,240)
+    allowedPattern: '^0x00(?:[0-9a-fA-F]{2}){3}$'
+  consoleScreenForegroundColor:
+    type: String
+    description: '(Optional) PowerShell Console Screen Foreground Color.'
+    default: 'White'
+    allowedValues:
+    - 'Black'
+    - 'DarkBlue'
+    - 'DarkGreen'
+    - 'DarkCyan'
+    - 'DarkRed'
+    - 'DarkMagenta'
+    - 'DarkYellow'
+    - 'Gray'
+    - 'DarkGray'
+    - 'Blue'
+    - 'Green'
+    - 'Cyan'
+    - 'Red'
+    - 'Magenta'
+    - 'Yellow'
+    - 'White'
+  consoleScreenBackgroundColor:
+    type: String
+    description: '(Optional) PowerShell Console Screen Background Color.'
+    default: 'DarkMagenta'
+    allowedValues:
+    - 'Black'
+    - 'DarkBlue'
+    - 'DarkGreen'
+    - 'DarkCyan'
+    - 'DarkRed'
+    - 'DarkMagenta'
+    - 'DarkYellow'
+    - 'Gray'
+    - 'DarkGray'
+    - 'Blue'
+    - 'Green'
+    - 'Cyan'
+    - 'Red'
+    - 'Magenta'
+    - 'Yellow'
+    - 'White'
+  consolePopupForegroundColor:
+    type: String
+    description: '(Optional) PowerShell Console Popup Foreground Color.'
+    default: 'DarkCyan'
+    allowedValues:
+    - 'Black'
+    - 'DarkBlue'
+    - 'DarkGreen'
+    - 'DarkCyan'
+    - 'DarkRed'
+    - 'DarkMagenta'
+    - 'DarkYellow'
+    - 'Gray'
+    - 'DarkGray'
+    - 'Blue'
+    - 'Green'
+    - 'Cyan'
+    - 'Red'
+    - 'Magenta'
+    - 'Yellow'
+    - 'White'
+  consolePopupBackgroundColor:
+    type: String
+    description: '(Optional) PowerShell Console Popup Background Color.'
+    default: 'White'
+    allowedValues:
+    - 'Black'
+    - 'DarkBlue'
+    - 'DarkGreen'
+    - 'DarkCyan'
+    - 'DarkRed'
+    - 'DarkMagenta'
+    - 'DarkYellow'
+    - 'Gray'
+    - 'DarkGray'
+    - 'Blue'
+    - 'Green'
+    - 'Cyan'
+    - 'Red'
+    - 'Magenta'
+    - 'Yellow'
+    - 'White'
+  consoleErrorForegroundColor:
+    type: String
+    description: '(Optional) PowerShell Console Error Foreground Color.'
+    default: 'Red'
+    allowedValues:
+    - 'Black'
+    - 'DarkBlue'
+    - 'DarkGreen'
+    - 'DarkCyan'
+    - 'DarkRed'
+    - 'DarkMagenta'
+    - 'DarkYellow'
+    - 'Gray'
+    - 'DarkGray'
+    - 'Blue'
+    - 'Green'
+    - 'Cyan'
+    - 'Red'
+    - 'Magenta'
+    - 'Yellow'
+    - 'White'
+  consoleErrorBackgroundColor:
+    type: String
+    description: '(Optional) PowerShell Console Error Background Color.'
+    default: ''
+    allowedValues:
+    - ''
+    - 'Black'
+    - 'DarkBlue'
+    - 'DarkGreen'
+    - 'DarkCyan'
+    - 'DarkRed'
+    - 'DarkMagenta'
+    - 'DarkYellow'
+    - 'Gray'
+    - 'DarkGray'
+    - 'Blue'
+    - 'Green'
+    - 'Cyan'
+    - 'Red'
+    - 'Magenta'
+    - 'Yellow'
+    - 'White'
+  consoleWarningForegroundColor:
+    type: String
+    description: '(Optional) PowerShell Console Warning Foreground Color.'
+    default: 'DarkYellow'
+    allowedValues:
+    - 'Black'
+    - 'DarkBlue'
+    - 'DarkGreen'
+    - 'DarkCyan'
+    - 'DarkRed'
+    - 'DarkMagenta'
+    - 'DarkYellow'
+    - 'Gray'
+    - 'DarkGray'
+    - 'Blue'
+    - 'Green'
+    - 'Cyan'
+    - 'Red'
+    - 'Magenta'
+    - 'Yellow'
+    - 'White'
+  consoleWarningBackgroundColor:
+    type: String
+    description: '(Optional) PowerShell Console Warning Background Color.'
+    default: ''
+    allowedValues:
+    - ''
+    - 'Black'
+    - 'DarkBlue'
+    - 'DarkGreen'
+    - 'DarkCyan'
+    - 'DarkRed'
+    - 'DarkMagenta'
+    - 'DarkYellow'
+    - 'Gray'
+    - 'DarkGray'
+    - 'Blue'
+    - 'Green'
+    - 'Cyan'
+    - 'Red'
+    - 'Magenta'
+    - 'Yellow'
+    - 'White'
+  consoleDebugForegroundColor:
+    type: String
+    description: '(Optional) PowerShell Console Debug Foreground Color.'
+    default: 'Cyan'
+    allowedValues:
+    - 'Black'
+    - 'DarkBlue'
+    - 'DarkGreen'
+    - 'DarkCyan'
+    - 'DarkRed'
+    - 'DarkMagenta'
+    - 'DarkYellow'
+    - 'Gray'
+    - 'DarkGray'
+    - 'Blue'
+    - 'Green'
+    - 'Cyan'
+    - 'Red'
+    - 'Magenta'
+    - 'Yellow'
+    - 'White'
+  consoleDebugBackgroundColor:
+    type: String
+    description: '(Optional) PowerShell Console Debug Background Color.'
+    default: ''
+    allowedValues:
+    - ''
+    - 'Black'
+    - 'DarkBlue'
+    - 'DarkGreen'
+    - 'DarkCyan'
+    - 'DarkRed'
+    - 'DarkMagenta'
+    - 'DarkYellow'
+    - 'Gray'
+    - 'DarkGray'
+    - 'Blue'
+    - 'Green'
+    - 'Cyan'
+    - 'Red'
+    - 'Magenta'
+    - 'Yellow'
+    - 'White'
+  consoleVerboseForegroundColor:
+    type: String
+    description: '(Optional) PowerShell Console Verbose Foreground Color.'
+    default: 'Green'
+    allowedValues:
+    - 'Black'
+    - 'DarkBlue'
+    - 'DarkGreen'
+    - 'DarkCyan'
+    - 'DarkRed'
+    - 'DarkMagenta'
+    - 'DarkYellow'
+    - 'Gray'
+    - 'DarkGray'
+    - 'Blue'
+    - 'Green'
+    - 'Cyan'
+    - 'Red'
+    - 'Magenta'
+    - 'Yellow'
+    - 'White'
+  consoleVerboseBackgroundColor:
+    type: String
+    description: '(Optional) PowerShell Console Verbose Background Color.'
+    default: ''
+    allowedValues:
+    - ''
+    - 'Black'
+    - 'DarkBlue'
+    - 'DarkGreen'
+    - 'DarkCyan'
+    - 'DarkRed'
+    - 'DarkMagenta'
+    - 'DarkYellow'
+    - 'Gray'
+    - 'DarkGray'
+    - 'Blue'
+    - 'Green'
+    - 'Cyan'
+    - 'Red'
+    - 'Magenta'
+    - 'Yellow'
+    - 'White'
+  configurePowerShellShortcut:
+    type: String
+    description: '(Optional) Configure PowerShell Shortcut.'
+    default: 'True'
+    allowedValues:
+    - 'True'
+    - 'False'
+  configureShowHiddenFiles:
+    type: String
+    description: '(Optional) Configure Show Hidden Files.'
+    default: 'Enabled'
+    allowedValues:
+    - ''
+    - 'Enabled'
+    - 'Disabled'
+  configureRunOnceScript:
+    type: String
+    description: '(Optional) Configure User RunOnce Script.'
+    default: 'False'
+    allowedValues:
+    - 'True'
+    - 'False'
+  runOnceScriptPath:
+    type: String
+    description: '(Optional) RunOnce Script Path. Must be within C:\\Windows\\Setup\\Scripts'
+    default: 'C:\Windows\Setup\Scripts\CAMELZ-RunOnce-Script.ps1'
+    allowedPattern: '^C:\\Windows\\Setup\\Scripts\\[\w\- ]+\.ps1$'
+  runOnceScriptContent:
+    type: String
+    description: '(Required) Specify the content of the RunOnce Script.'
+    default: |
+      # CAMELZ Default RunOnce Script
+      Write-Host 'CAMELZ Default RunOnce Script Running'
+      'CAMELZ-RunOnce-Script Processed' | Out-File -FilePath $$Env:USERPROFILE\Desktop\CAMELZ-RunOnce-Script.log
+      Write-Host 'CAMELZ Default RunOnce Script Complete'
+    displayType: textarea
+  removeDesktopShortcuts:
+    type: String
+    description: '(Optional) Remove Default AWS Desktop Shortcuts.'
+    default: 'True'
+    allowedValues:
+    - 'True'
+    - 'False'
+mainSteps:
+- action: aws:runPowerShellScript
+  name: runPowerShellScript
+  precondition:
+    StringEquals: [ platformType, Windows ]
+  inputs:
+    runCommand:
+    - |
+      Try {
+          $Profiles=@() # You must put the Administrator Profile first, or Console Shortcut changes will not work
+
+          $AdministratorProfile = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\*' | `
+                                  Where {$_.PSChildName -match 'S-1-5-21-(\d+-?){4}-500$'} | `
+                                  Select-Object @{Name='SID'; Expression={$_.PSChildName}}, @{Name='UserHive';Expression={"$($_.ProfileImagePath)\NTuser.dat"}}
+          $Profiles += $AdministratorProfile
+
+          $DefaultProfile = '' | Select-Object SID, UserHive
+          $DefaultProfile.SID = 'Default'
+          $DefaultProfile.Userhive = 'C:\Users\Default\NTuser.dat'
+          $Profiles += $DefaultProfile
+
+          Foreach ($Profile in $Profiles) {
+              $User = ($Profile.Userhive -Split '\\')[2]
+              Write-Host "- Configure $User"
+
+              If (($Loaded = Test-Path -Path "Registry::HKEY_USERS\$($Profile.SID)") -eq $False) {
+                  Write-Host "--- Load $User Profile"
+                  Start-Process -FilePath "CMD.EXE" -ArgumentList "/C REG.EXE LOAD HKU\$($Profile.SID) $($Profile.UserHive)" -Wait -WindowStyle Hidden
+              }
+              Else {
+                  Write-Host "--- $User Profile Already Loaded"
+              }
+
+              $ConsolePath = "Registry::HKEY_USERS\$($Profile.SID)\Console"
+
+              If ([System.Convert]::ToBoolean('{{configureConsoleSize}}')) {
+                  Write-Host '--- Configure Console Size'
+                  Set-ItemProperty -Path $ConsolePath -Name WindowSize -Value $({{consoleColumns}} + ({{consoleLines}} -shl 16)) -Force | Out-Null
+                  Set-ItemProperty -Path $ConsolePath -Name ScreenBufferSize -Value $({{consoleColumns}} + (5000 -shl 16)) -Force | Out-Null
+              }
+
+              If ([System.Convert]::ToBoolean('{{configureConsoleFont}}')) {
+                  Write-Host '--- Configure Console Font'
+                  Set-ItemProperty -Path $ConsolePath -Name FaceName   -Value 'Lucida Console' -Force | Out-Null
+                  Set-ItemProperty -Path $ConsolePath -Name FontFamily -Value 0x00000036 -Force | Out-Null
+                  Set-ItemProperty -Path $ConsolePath -Name FontWeight -Value 0x00000190 -Force | Out-Null
+                  Set-ItemProperty -Path $ConsolePath -Name FontSize   -Value $({{consoleFontSize}} -shl 16) -Force | Out-Null
+              }
+
+              If ([System.Convert]::ToBoolean('{{configureConsoleColors}}')) {
+                  Write-Host '--- Configure Console Colors'
+                  Set-ItemProperty -Path $ConsolePath -Name ColorTable00 -Value {{consoleColorBlack}} -Force | Out-Null
+                  Set-ItemProperty -Path $ConsolePath -Name ColorTable01 -Value {{consoleColorDarkBlue}} -Force | Out-Null
+                  Set-ItemProperty -Path $ConsolePath -Name ColorTable02 -Value {{consoleColorDarkGreen}} -Force | Out-Null
+                  Set-ItemProperty -Path $ConsolePath -Name ColorTable03 -Value {{consoleColorDarkCyan}} -Force | Out-Null
+                  Set-ItemProperty -Path $ConsolePath -Name ColorTable04 -Value {{consoleColorDarkRed}} -Force | Out-Null
+                  Set-ItemProperty -Path $ConsolePath -Name ColorTable05 -Value {{consoleColorDarkMagenta}} -Force | Out-Null
+                  Set-ItemProperty -Path $ConsolePath -Name ColorTable06 -Value {{consoleColorDarkYellow}} -Force | Out-Null
+                  Set-ItemProperty -Path $ConsolePath -Name ColorTable07 -Value {{consoleColorGray}} -Force | Out-Null
+                  Set-ItemProperty -Path $ConsolePath -Name ColorTable08 -Value {{consoleColorDarkGray}} -Force | Out-Null
+                  Set-ItemProperty -Path $ConsolePath -Name ColorTable09 -Value {{consoleColorBlue}} -Force | Out-Null
+                  Set-ItemProperty -Path $ConsolePath -Name ColorTable10 -Value {{consoleColorGreen}} -Force | Out-Null
+                  Set-ItemProperty -Path $ConsolePath -Name ColorTable11 -Value {{consoleColorCyan}} -Force | Out-Null
+                  Set-ItemProperty -Path $ConsolePath -Name ColorTable12 -Value {{consoleColorRed}} -Force | Out-Null
+                  Set-ItemProperty -Path $ConsolePath -Name ColorTable13 -Value {{consoleColorMagenta}} -Force | Out-Null
+                  Set-ItemProperty -Path $ConsolePath -Name ColorTable14 -Value {{consoleColorYellow}} -Force | Out-Null
+                  Set-ItemProperty -Path $ConsolePath -Name ColorTable15 -Value {{consoleColorWhite}} -Force | Out-Null
+
+                  $ColorTableCodes = @{ 'Black'       = '0'
+                                        'DarkBlue'    = '1'
+                                        'DarkGreen'   = '2'
+                                        'DarkCyan'    = '3'
+                                        'DarkRed'     = '4'
+                                        'DarkMagenta' = '5'
+                                        'DarkYellow'  = '6'
+                                        'Gray'        = '7'
+                                        'DarkGray'    = '8'
+                                        'Blue'        = '9'
+                                        'Green'       = 'a'
+                                        'Cyan'        = 'b'
+                                        'Red'         = 'c'
+                                        'Magenta'     = 'd'
+                                        'Yellow'      = 'e'
+                                        'white'       = 'f' }
+
+                  $ScreenColors = "0x000000$($ColorTableCodes['{{consoleScreenBackgroundColor}}'])$($ColorTableCodes['{{consoleScreenForegroundColor}}'])"
+                  Set-ItemProperty -Path $ConsolePath -Name ScreenColors -Value $ScreenColors -Force | Out-Null
+
+                  $PopupColors = "0x000000$($ColorTableCodes['{{consolePopupBackgroundColor}}'])$($ColorTableCodes['{{consolePopupForegroundColor}}'])"
+                  Set-ItemProperty -Path $ConsolePath -Name PopupColors  -Value $PopupColors -Force | Out-Null
+              }
+
+              Write-Host '--- Remove PowerShell Registry Key which overrides Console Defaults'
+              $PowerShellPath = "Registry::HKEY_USERS\$($Profile.SID)\Console\%SystemRoot%_System32_WindowsPowerShell_v1.0_powershell.exe"
+
+              If (Test-Path -Path $PowerShellPath) {
+                  # Remove PowerShell Registry ItemProperties which override the Console Defaults.
+                  # - This will allow the Console Defaults modified above to come through unmodified.
+                  # - This Registry Key will be re-created if a user modifies the defaults.
+                  # - See note below when creating the replacement PowerShell shortcut.
+                  Remove-Item -Path $PowerShellPath -Force | Out-Null
+              }
+
+              If ([System.Convert]::ToBoolean('{{configurePowerShellShortcut}}')) {
+                  Write-Host '--- Configure PowerShell Shortcut'
+                  $TargetPath = '%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe'
+                  $ShortcutPath = "C:\Users\$User\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Windows PowerShell\Windows PowerShell.lnk"
+
+                  # When a PowerShell Shortcut is created, the Shortcut captures and stores the values of the Console and
+                  #  PowerShell Registry properties in effect for the User creating the Shortcut. There is no way to set
+                  #  these values within the Shortcut at creation time or modify them once the Shortcut exists.
+                  # The default PowerShell Shortcut has within it the Registry property values which come by default on
+                  #  a new system, and will override any Registry changes made above, making it appear that such changes
+                  #  have been ignored.
+                  # That's not the case, it's just that the PowerShell Shortcut's stored properties have a higher priority
+                  #  than what's in the PowerShell Registry Key, which then has a higher priority than what's in
+                  #  the Console Registry Key.
+                  # To see the changes we make in the Console Registry Key above, we must first remove the PowerShell
+                  #  Registry Key, which would otherwise override the Console defaults. This will let us see the changes
+                  #  if we start PowerShell directly by double-clicking on it's executable.
+                  # But, if we start PowerShell by the more common method, clicking on it's entry in the Start Menu, we
+                  #  go through a Shortcut, which has the stored Properties based on the default values, so this will
+                  #  override what's in the Registry. So, to get the modified values in the Registry, we must re-create
+                  #  the PowerShell Shortcut, where it will again capture and store the new Registry Values.
+                  # Note it will use the values visible to the User creating the Shortcut, so we must first fix the
+                  #  current User's Registry, THEN we can create the new Shortcut for use by any other User, including Default.
+                  Remove-Item -Path $ShortcutPath -ErrorAction SilentlyContinue
+
+                  $Shell = New-Object -comObject WScript.Shell
+                  $Shortcut = $Shell.CreateShortcut($ShortcutPath)
+                  $Shortcut.TargetPath = $TargetPath
+                  $Shortcut.WorkingDirectory = '%HOMEDRIVE%%HOMEPATH%'
+                  $Shortcut.Description = 'CAMELZ PowerShell'
+                  $Shortcut.IconLocation = "$TargetPath,0"
+                  $Shortcut.Save()
+              }
+
+              If ('{{configureShowHiddenFiles}}' -ne '') {
+                  $Path = "Registry::HKEY_USERS\$($Profile.SID)\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+                  If (!(Test-Path -Path $Path)) {
+                      New-Item -Path $Path -Force | Out-Null
+                  }
+                  If ('{{configureShowHiddenFiles}}' -eq 'Enabled') {
+                      Write-Host "--- Enable Show Hidden Files"
+                      Set-ItemProperty -Path $Path -Name 'Hidden' -Value 1 -Force | Out-Null
+                  }
+                  Else {
+                      Write-Host "--- Disable Show Hidden Files"
+                      Set-ItemProperty -Path $Path -Name 'Hidden' -Value 2 -Force | Out-Null
+                  }
+              }
+
+              If ([System.Convert]::ToBoolean('{{configureRunOnceScript}}')) {
+                  $RunOnceScriptPath = '{{runOnceScriptPath}}'
+
+                  Write-Host "--- Write RunOnce Script to $runOnceScriptPath"
+
+                  $Content = @'
+      {{runOnceScriptContent}}
+      '@
+                  $Content.Replace("(?<!`r)`n","`r`n") | Set-Content -Path $RunOnceScriptPath -NoNewline -Force
+
+                  $Path = "Registry::HKEY_USERS\$($Profile.SID)\Software\Microsoft\Windows\CurrentVersion\Runonce"
+                  If (!(Test-Path -Path $Path)) {
+                      New-Item -Path $PATH -Force | Out-Null
+                  }
+                  New-ItemProperty -Path $Path -Name '!CAMELZUserRunonce' -PropertyType ExpandString -Value "C:\Windows\System32\cmd.exe /C C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -NonInteractive -NoLogo -ExecutionPolicy Unrestricted -File `"{{runOnceScriptPath}}`"" | Out-Null
+              }
+
+              If ([System.Convert]::ToBoolean('{{removeDesktopShortcuts}}')) {
+                    Write-Host '--- Remove Desktop Shortcuts'
+                    Remove-Item -Path "C:\Users\$User\Desktop\EC2*" -ErrorAction SilentlyContinue
+              }
+
+              If (($Loaded -eq $False) -or ($User -eq 'Default')) {
+                  Write-Host "--- Unload $User Profile"
+                  [gc]::Collect()
+                  Start-Sleep 1
+                  Start-Process -FilePath "CMD.EXE" -ArgumentList "/C REG.EXE UNLOAD HKU\$($Profile.SID)" -Wait -WindowStyle Hidden| Out-Null
+              }
+          }
+      } Catch {
+          $Message = 'Exception on line {0}: {1}' -f $_.InvocationInfo.ScriptLineNumber, $_.Exception.Message
+          Write-Error $Message
+          Exit 1
+      }
+
+      Try {
+          If ([System.Convert]::ToBoolean('{{configureConsoleColors}}')) {
+              $FilePath = 'C:\Windows\System32\WindowsPowerShell\v1.0\Profile.ps1'
+              Write-Host '- Configure PowerShell Profile'
+              '# Configure Console Colors' | Out-File -FilePath $FilePath -Append
+
+              '$Host.PrivateData.ErrorForegroundColor = ''{{consoleErrorForegroundColor}}''' | Out-File -FilePath $FilePath -Append
+              If ('{{consoleErrorBackgroundColor}}' -ne '') {
+                  '$Host.PrivateData.ErrorBackgroundColor = ''{{consoleErrorBackgroundColor}}''' | Out-File -FilePath $FilePath -Append
+              }
+              Else {
+                  '$Host.PrivateData.ErrorBackgroundColor = $Host.UI.RawUI.BackgroundColor' | Out-File -FilePath $FilePath -Append
+              }
+
+              '$Host.PrivateData.WarningForegroundColor = ''{{consoleWarningForegroundColor}}''' | Out-File -FilePath $FilePath -Append
+              If ('{{consoleWarningBackgroundColor}}' -ne '') {
+                  '$Host.PrivateData.WarningBackgroundColor = ''{{consoleWarningBackgroundColor}}''' | Out-File -FilePath $FilePath -Append
+              }
+              Else {
+                  '$Host.PrivateData.WarningBackgroundColor = $Host.UI.RawUI.BackgroundColor' | Out-File -FilePath $FilePath -Append
+              }
+
+              '$Host.PrivateData.DebugForegroundColor = ''{{consoleDebugForegroundColor}}''' | Out-File -FilePath $FilePath -Append
+              If ('{{consoleDebugBackgroundColor}}' -ne '') {
+                  '$Host.PrivateData.DebugBackgroundColor = ''{{consoleDebugBackgroundColor}}''' | Out-File -FilePath $FilePath -Append
+              }
+              Else {
+                  '$Host.PrivateData.DebugBackgroundColor = $Host.UI.RawUI.BackgroundColor' | Out-File -FilePath $FilePath -Append
+              }
+
+              '$Host.PrivateData.VerboseForegroundColor = ''{{consoleVerboseForegroundColor}}''' | Out-File -FilePath $FilePath -Append
+              If ('{{consoleVerboseBackgroundColor}}' -ne '') {
+                  '$Host.PrivateData.VerboseBackgroundColor = ''{{consoleVerboseBackgroundColor}}''' | Out-File -FilePath $FilePath -Append
+              }
+              Else {
+                  '$Host.PrivateData.VerboseBackgroundColor = $Host.UI.RawUI.BackgroundColor' | Out-File -FilePath $FilePath -Append
+              }
+          }
+      } Catch {
+          $Message = 'Exception on line {0}: {1}' -f $_.InvocationInfo.ScriptLineNumber, $_.Exception.Message
+          Write-Error $Message
+          Exit 1
+      }
+
+      Write-Host 'Successfully configured Windows Profile.'

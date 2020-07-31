@@ -1,0 +1,19 @@
+---
+schemaVersion: '2.2'
+description: Use this document to configure a Linux Profile.
+mainSteps:
+- action: aws:runShellScript
+  name: configureProfile
+  precondition:
+    StringEquals: [ platformType, Linux ]
+  inputs:
+    runCommand:
+    - |
+      #!/bin/bash
+      echo "Installing local profile ...."
+      sudo tee -a /etc/profile.d/local.sh <<EOF
+      alias lsa='ls -lAF'
+      alias ip4='ip addr | grep " inet "'
+      EOF
+      sudo chmod 0644 /etc/profile.d/local.sh
+      echo "Local profile installed"

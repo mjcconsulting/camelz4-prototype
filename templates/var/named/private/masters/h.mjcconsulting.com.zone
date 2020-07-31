@@ -1,0 +1,60 @@
+;
+; Private DNS zone for h.mjcconsulting.com (Home)
+;
+$TTL 1H	
+$ORIGIN h.mjcconsulting.com.
+;Name		TTL	Type	Value
+@			SOA	mjcsbapns71.sba.mjcconsulting.com. hostmaster.mjcconsulting.com. (
+				2016060601	; serial
+				1H		; refresh
+				15M		; retry
+				1W		; expiry
+				1H )		; minimum
+
+			NS	mjcsbahdc01.sba.mjcconsulting.com.
+			NS	mjcsbahns02.sba.mjcconsulting.com.
+
+		1W	MX	10 mjcsbahns01.sba.mjcconsulting.com.
+
+; Home
+mirror			CNAME	mirror01
+mirror01		A	10.0.1.72
+mirror02		A	10.0.1.73
+
+mirrorlist		CNAME	mirrorlist01
+mirrorlist01		A	10.0.1.72
+mirrorlist02		A	10.0.1.73
+
+confluence		CNAME	confluence01
+confluence12		A	10.0.1.64
+
+bamboo			CNAME	bamboo01
+bamboo12		A	10.0.1.64
+
+stash			CNAME	stash01
+stash12			A	10.0.1.64
+
+jenkins			CNAME	jenkins01
+jenkins01		A	10.0.1.64
+jenkins02		A	10.0.1.65
+jenkins11		A	10.0.1.138
+jenkins12		A	10.0.1.139
+
+nexus			CNAME	nexus01
+nexus01			A	10.0.1.64
+nexus02			A	10.0.1.65
+nexus11			A	10.0.1.138
+nexus12			A	10.0.1.139
+
+projects		CNAME	projects01
+projects01		A	10.0.1.64
+projects02		A	10.0.1.65
+projects11		A	10.0.1.138
+projects12		A	10.0.1.139
+
+chef01			A	10.0.1.72
+chef02			A	10.0.1.73
+chef11			A	10.0.1.138
+chef12			A	10.0.1.139
+
+unifi			A	10.0.1.40

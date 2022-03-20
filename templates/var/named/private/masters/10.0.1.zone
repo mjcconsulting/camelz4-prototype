@@ -1,0 +1,125 @@
+;
+; Private Reverse-DNS zone for 10.0.1/24 (MJC Consulting Santa Barbara Home Zone)
+;
+$TTL 1H
+$ORIGIN 1.0.10.in-addr.arpa.
+;Name		TTL	Type	Value
+@			SOA	mjcsbapns71.sba.mjcconsulting.com. hostmaster.mjcconsulting.com. (
+				2018010201	; serial
+				1H		; refresh
+				15M		; retry
+				1D		; expiry
+				1H )		; minimum
+
+			NS	mjcsbahns01.sba.mjcconsulting.com.
+			NS	mjcsbahns02.sba.mjcconsulting.com.
+			NS	mjcsbapns41.sba.mjcconsulting.com.
+			NS	mjcsbapns42.sba.mjcconsulting.com.
+
+1			PTR	mjcsbahfn01-hme.sba.mjcconsulting.com.
+2			PTR	mjcsbahsn01.sba.mjcconsulting.com.
+3			PTR	mjcsbahwn01.sba.mjcconsulting.com.
+4			PTR	mjcsbahwn02.sba.mjcconsulting.com.
+5			PTR	mjcsbahwn03.sba.mjcconsulting.com.
+
+6			PTR	mjcsbahcp01.sba.mjcconsulting.com.
+7			PTR	mjcsbahip01.sba.mjcconsulting.com.
+
+8			PTR	mjcsbahns01.sba.mjcconsulting.com.
+9			PTR	mjcsbahns02.sba.mjcconsulting.com.
+
+10			PTR	hpsbahns01.sba.mjcconsulting.com.
+11			PTR	hpsbahns02.sba.mjcconsulting.com.
+
+12			PTR	mjcsbahms01.sba.mjcconsulting.com.
+13			PTR	mjcsbahms02.sba.mjcconsulting.com.
+
+14			PTR	hpsbahms01.sba.mjcconsulting.com.
+15			PTR	hpsbahms02.sba.mjcconsulting.com.
+
+16			PTR	mjcsbahws01.sba.mjcconsulting.com.
+17			PTR	mjcsbahws02.sba.mjcconsulting.com.
+
+32			PTR	mjcsbahas01.sba.mjcconsulting.com.
+33			PTR	mjcsbahas02.sba.mjcconsulting.com.
+
+48			PTR	mjcsbahds01.sba.mjcconsulting.com.
+49			PTR	mjcsbahds02.sba.mjcconsulting.com.
+
+64			PTR	mjcsbahbs01.sba.mjcconsulting.com.
+65			PTR	mjcsbahbs02.sba.mjcconsulting.com.
+
+68			PTR	hpsbahbs01.sba.mjcconsulting.com.
+69			PTR	hpsbahbs02.sba.mjcconsulting.com.
+
+72			PTR	mjcsbahcs01.sba.mjcconsulting.com.
+73			PTR	mjcsbahcs02.sba.mjcconsulting.com.
+
+76			PTR	hpsbahcs01.sba.mjcconsulting.com.
+77			PTR	hpsbahcs02.sba.mjcconsulting.com.
+
+80			PTR	mjcsbahvs01.sba.mjcconsulting.com.
+81			PTR	mjcsbahvs02.sba.mjcconsulting.com.
+
+120			PTR	mjcsbatas01.sba.mjcconsulting.com.
+121			PTR	mjcsbatas02.sba.mjcconsulting.com.
+122			PTR	mjcsbatas11.sba.mjcconsulting.com.
+123			PTR	mjcsbatas12.sba.mjcconsulting.com.
+124			PTR	mjcsbatas21.sba.mjcconsulting.com.
+125			PTR	mjcsbatas22.sba.mjcconsulting.com.
+126			PTR	mjcsbatas31.sba.mjcconsulting.com.
+127			PTR	mjcsbatas32.sba.mjcconsulting.com.
+
+136			PTR	mjcsbatbs01.sba.mjcconsulting.com.
+137			PTR	mjcsbatbs02.sba.mjcconsulting.com.
+138			PTR	mjcsbatbs11.sba.mjcconsulting.com.
+139			PTR	mjcsbatbs12.sba.mjcconsulting.com.
+140			PTR	mjcsbatbs21.sba.mjcconsulting.com.
+141			PTR	mjcsbatbs22.sba.mjcconsulting.com.
+142			PTR	mjcsbatbs31.sba.mjcconsulting.com.
+143			PTR	mjcsbatbs32.sba.mjcconsulting.com.
+
+144			PTR	mjcsbatcs01.sba.mjcconsulting.com.
+145			PTR	mjcsbatcs02.sba.mjcconsulting.com.
+146			PTR	mjcsbatcs11.sba.mjcconsulting.com.
+147			PTR	mjcsbatcs12.sba.mjcconsulting.com.
+148			PTR	mjcsbatcs21.sba.mjcconsulting.com.
+149			PTR	mjcsbatcs22.sba.mjcconsulting.com.
+150			PTR	mjcsbatcs31.sba.mjcconsulting.com.
+151			PTR	mjcsbatcs32.sba.mjcconsulting.com.
+
+152			PTR	mjcsbatvs01.sba.mjcconsulting.com.
+153			PTR	mjcsbatvs02.sba.mjcconsulting.com.
+154			PTR	mjcsbatvs11.sba.mjcconsulting.com.
+155			PTR	mjcsbatvs12.sba.mjcconsulting.com.
+156			PTR	mjcsbatvs21.sba.mjcconsulting.com.
+157			PTR	mjcsbatvs22.sba.mjcconsulting.com.
+
+192			PTR	mjcmcrawford01.sba.mjcconsulting.com.
+193			PTR	mjcmcrawford01-w.sba.mjcconsulting.com.
+
+196			PTR	dxcmcrawford01.sba.mjcconsulting.com.
+197			PTR	dxcmcrawford01-w.sba.mjcconsulting.com.
+
+200			PTR	mjcsbahappletvlr.sba.mjcconsulting.com.
+201			PTR	mjcsbahappletvgbr.sba.mjcconsulting.com.
+204			PTR	mjcsbahsamsungtvlr.sba.mjcconsulting.com.
+205			PTR	mjcsbahsamsungtvgbr.sba.mjcconsulting.com.
+
+208			PTR	mjcsbahdc01.sba.mjcconsulting.com.
+
+212			PTR	michaels-iphone.sba.mjcconsulting.com.
+213			PTR	rachels-iphone.sba.mjcconsulting.com.
+
+216			PTR	mjcsbahsonosp5hall.sba.mjcconsulting.com.
+217			PTR	mjcsbahsonosp3office.sba.mjcconsulting.com.
+218			PTR	mjcsbahsonosp1lr.sba.mjcconsulting.com.
+219			PTR	mjcsbahsonosp12br.sba.mjcconsulting.com.
+220			PTR	mjcsbahsonosp13br.sba.mjcconsulting.com.
+223			PTR	mjcsbahsonosswlr.sba.mjcconsulting.com.
+
+230			PTR	mjcmcrawford31.sba.mjcconsulting.com.
+231			PTR	mjcmcrawford32.sba.mjcconsulting.com.
+
+238			PTR	hpemcrawford31.sba.mjcconsulting.com.
+239			PTR	dxcmcrawford31.sba.mjcconsulting.com.

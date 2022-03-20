@@ -1,0 +1,176 @@
+---
+schemaVersion: '2.2'
+description: Configure Windows Start Menu and TaskBar.
+parameters:
+  configureGoogleChrome:
+    type: String
+    description: '(Optional) Add Google Chrome to the Start Menu and Taskbar.'
+    default: 'True'
+    allowedValues:
+    - 'True'
+    - 'False'
+  configureRoyalTS:
+    type: String
+    description: '(Optional) Add Royal TS to the Start Menu and Taskbar.'
+    default: 'False'
+    allowedValues:
+    - 'True'
+    - 'False'
+  configureNotepad:
+    type: String
+    description: '(Optional) Add Notepad to the Taskbar.'
+    default: 'True'
+    allowedValues:
+    - 'True'
+    - 'False'
+  configureServerManager:
+    type: String
+    description: '(Optional) Add Server Manager to the Taskbar.'
+    default: 'False'
+    allowedValues:
+    - 'True'
+    - 'False'
+  configureRemoteDesktop:
+    type: String
+    description: '(Optional) Add Remote Desktop to the Taskbar.'
+    default: 'False'
+    allowedValues:
+    - 'True'
+    - 'False'
+  configureRegEdit:
+    type: String
+    description: '(Optional) Add RegEdit to the Taskbar.'
+    default: 'False'
+    allowedValues:
+    - 'True'
+    - 'False'
+  configureEventViewer:
+    type: String
+    description: '(Optional) Add Task Scheduler to the Taskbar.'
+    default: 'False'
+    allowedValues:
+    - 'True'
+    - 'False'
+  configureTaskScheduler:
+    type: String
+    description: '(Optional) Add Task Scheduler to the Taskbar.'
+    default: 'False'
+    allowedValues:
+    - 'True'
+    - 'False'
+  configureActiveDirectoryTools:
+    type: String
+    description: '(Optional) Add Active Directory Management Tools to the Taskbar.'
+    default: 'False'
+    allowedValues:
+    - 'True'
+    - 'False'
+mainSteps:
+- action: aws:runPowerShellScript
+  name: runPowerShellScript
+  precondition:
+    StringEquals: [ platformType, Windows ]
+  inputs:
+    runCommand:
+    - |
+      Write-Host 'Configure Default Start Menu & Taskbar Layout'
+      $FilePath = 'C:\Users\Default\AppData\Local\Microsoft\Windows\Shell\LayoutModification.xml'
+
+      '<LayoutModificationTemplate' | Out-File -File $FilePath
+      '    xmlns="http://schemas.microsoft.com/Start/2014/LayoutModification"' | Out-File -File $FilePath -Append
+      '    xmlns:defaultlayout="http://schemas.microsoft.com/Start/2014/FullDefaultLayout"' | Out-File -File $FilePath -Append
+      '    xmlns:start="http://schemas.microsoft.com/Start/2014/StartLayout"' | Out-File -File $FilePath -Append
+      '    xmlns:taskbar="http://schemas.microsoft.com/Start/2014/TaskbarLayout"' | Out-File -File $FilePath -Append
+      '    Version="1">' | Out-File -File $FilePath -Append
+      '  <LayoutOptions StartTileGroupCellWidth="6" />' | Out-File -File $FilePath -Append
+      '  <DefaultLayoutOverride>' | Out-File -File $FilePath -Append
+      '    <StartLayoutCollection>' | Out-File -File $FilePath -Append
+      '      <defaultlayout:StartLayout GroupCellWidth="6" xmlns:defaultlayout="http://schemas.microsoft.com/Start/2014/FullDefaultLayout">' | Out-File -File $FilePath -Append
+      '        <start:Group Name="Windows Server" xmlns:start="http://schemas.microsoft.com/Start/2014/StartLayout">' | Out-File -File $FilePath -Append
+      '          <start:DesktopApplicationTile Size="2x2" Column="0" Row="0" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Server Manager.lnk" />' | Out-File -File $FilePath -Append
+      '          <start:DesktopApplicationTile Size="2x2" Column="2" Row="0" DesktopApplicationLinkPath="%APPDATA%\Microsoft\Windows\Start Menu\Programs\Windows PowerShell\Windows PowerShell.lnk" />' | Out-File -File $FilePath -Append
+      '          <start:DesktopApplicationTile Size="2x2" Column="4" Row="0" DesktopApplicationLinkPath="%APPDATA%\Microsoft\Windows\Start Menu\Programs\Windows PowerShell\Windows PowerShell ISE.lnk" />' | Out-File -File $FilePath -Append
+      '          <start:DesktopApplicationTile Size="2x2" Column="0" Row="2" DesktopApplicationLinkPath="%APPDATA%\Microsoft\Windows\Start Menu\Programs\System Tools\Administrative Tools.lnk" />' | Out-File -File $FilePath -Append
+      '          <start:DesktopApplicationTile Size="2x2" Column="2" Row="2" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\System Tools\Task Manager.lnk" />' | Out-File -File $FilePath -Append
+      '          <start:DesktopApplicationTile Size="2x2" Column="4" Row="2" DesktopApplicationLinkPath="%APPDATA%\Microsoft\Windows\Start Menu\Programs\System Tools\Control Panel.lnk" />' | Out-File -File $FilePath -Append
+      '          <start:DesktopApplicationTile Size="2x2" Column="0" Row="4" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Accessories\Remote Desktop Connection.lnk" />' | Out-File -File $FilePath -Append
+      '          <start:DesktopApplicationTile Size="2x2" Column="2" Row="4" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Administrative Tools\Event Viewer.lnk" />' | Out-File -File $FilePath -Append
+      '          <start:DesktopApplicationTile Size="2x2" Column="4" Row="4" DesktopApplicationLinkPath="%APPDATA%\Microsoft\Windows\Start Menu\Programs\System Tools\File Explorer.lnk" />' | Out-File -File $FilePath -Append
+      '        </start:Group>' | Out-File -File $FilePath -Append
+      '        <start:Group Name="" xmlns:start="http://schemas.microsoft.com/Start/2014/StartLayout">' | Out-File -File $FilePath -Append
+
+      If ([System.Convert]::ToBoolean('{{configureGoogleChrome}}')) {
+          '          <start:DesktopApplicationTile Size="2x2" Column="0" Row="0" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Google Chrome.lnk" />' | Out-File -File $FilePath -Append
+      }
+
+      If ([System.Convert]::ToBoolean('{{configureRoyalTS}}')) {
+          '          <start:DesktopApplicationTile Size="2x2" Column="2" Row="0" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Royal TS V5\Royal TS V5.lnk" />' | Out-File -File $FilePath -Append
+      }
+
+      '        </start:Group>' | Out-File -File $FilePath -Append
+      '      </defaultlayout:StartLayout>' | Out-File -File $FilePath -Append
+      '    </StartLayoutCollection>' | Out-File -File $FilePath -Append
+      '  </DefaultLayoutOverride>' | Out-File -File $FilePath -Append
+      '  <CustomTaskbarLayoutCollection PinListPlacement="Replace">' | Out-File -File $FilePath -Append
+      '    <defaultlayout:TaskbarLayout>' | Out-File -File $FilePath -Append
+      '      <taskbar:TaskbarPinList>' | Out-File -File $FilePath -Append
+      '        <taskbar:DesktopApp DesktopApplicationLinkPath="%APPDATA%\Microsoft\Windows\Start Menu\Programs\System Tools\File Explorer.lnk" />' | Out-File -File $FilePath -Append
+      '        <taskbar:DesktopApp DesktopApplicationLinkPath="%APPDATA%\Microsoft\Windows\Start Menu\Programs\Windows PowerShell\Windows PowerShell.lnk" />' | Out-File -File $FilePath -Append
+
+      If ([System.Convert]::ToBoolean('{{configureNotepad}}')) {
+          '        <taskbar:DesktopApp DesktopApplicationLinkPath="%APPDATA%\Microsoft\Windows\Start Menu\Programs\Accessories\Notepad.lnk" />' | Out-File -File $FilePath -Append
+      }
+
+      If ([System.Convert]::ToBoolean('{{configureServerManager}}')) {
+          '        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Server Manager.lnk" />' | Out-File -File $FilePath -Append
+      }
+
+      If ([System.Convert]::ToBoolean('{{configureGoogleChrome}}')) {
+          '        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Google Chrome.lnk" />' | Out-File -File $FilePath -Append
+      }
+
+      If ([System.Convert]::ToBoolean('{{configureRoyalTS}}')) {
+          '        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Royal TS V5\Royal TS V5.lnk" />' | Out-File -File $FilePath -Append
+      }
+
+      If ([System.Convert]::ToBoolean('{{configureRemoteDesktop}}')) {
+          '        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Accessories\Remote Desktop Connection.lnk" />' | Out-File -File $FilePath -Append
+      }
+
+      If ([System.Convert]::ToBoolean('{{configureRegEdit}}')) {
+          $TargetPath = 'C:\Windows\regedit.exe'
+          $ShortcutPath = 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\RegEdit.lnk'
+
+          $Shell = New-Object -comObject WScript.Shell
+          $Shortcut = $Shell.CreateShortcut($ShortcutPath)
+          $Shortcut.TargetPath = $TargetPath
+          $Shortcut.WorkingDirectory = 'C:\Windows'
+          $Shortcut.IconLocation = "$TargetPath,0"
+          $Shortcut.Save()
+
+          '        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Administrative Tools\RegEdit.lnk" />' | Out-File -File $FilePath -Append
+      }
+
+      If ([System.Convert]::ToBoolean('{{configureEventViewer}}')) {
+          '        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Administrative Tools\Event Viewer.lnk" />' | Out-File -File $FilePath -Append
+      }
+
+      If ([System.Convert]::ToBoolean('{{configureTaskScheduler}}')) {
+          '        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Administrative Tools\Task Scheduler.lnk" />' | Out-File -File $FilePath -Append
+      }
+
+      If ([System.Convert]::ToBoolean('{{configureActiveDirectoryTools}}')) {
+          '        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Administrative Tools\Active Directory Domains and Trusts.lnk" />' | Out-File -File $FilePath -Append
+          '        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Administrative Tools\Active Directory Sites and Services.lnk" />' | Out-File -File $FilePath -Append
+          '        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Administrative Tools\Active Directory Users and Computers.lnk" />' | Out-File -File $FilePath -Append
+          '        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Administrative Tools\DNS.lnk" />' | Out-File -File $FilePath -Append
+      }
+
+      '      </taskbar:TaskbarPinList>' | Out-File -File $FilePath -Append
+      '    </defaultlayout:TaskbarLayout>' | Out-File -File $FilePath -Append
+      '  </CustomTaskbarLayoutCollection>' | Out-File -File $FilePath -Append
+      '</LayoutModificationTemplate>' | Out-File -File $FilePath -Append
+
+      (Get-Content -Path $FilePath) | Set-Content -Path $FilePath # Fix Line Endings if necessary
+
+      Write-Host 'Successfully configured Default Start Menu & Taskbar.'

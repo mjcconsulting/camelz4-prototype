@@ -1,0 +1,460 @@
+;
+; Private DNS zone for sba.mjcconsulting.com
+;
+$TTL 1H	
+$ORIGIN sba.mjcconsulting.com.
+;Name		TTL	Type	Value
+@			SOA	mjcsbapns91 hostmaster.mjcconsulting.com. (
+				2018010201	; serial
+				1H		; refresh
+				15M		; retry
+				1W		; expiry
+				1H )		; minimum
+
+			NS	mjcsbapns41
+			NS	mjcsbapns42
+
+		1W	MX	10 mjcsbapms41
+		1W	MX	20 mjcsbapms42
+
+			A	72.215.187.180
+
+; Public
+vpnh			CNAME	mjcsbahfn01
+vpn			CNAME	vpnc
+vpnc			CNAME	mjcsbapfn01
+
+smtp			CNAME	smtp1
+smtp1			A	72.215.187.180
+smtp2			A	72.215.187.181
+
+ns1			A	72.215.187.180
+ns2			A	72.215.187.181
+
+
+; Net Zone
+coxsbaprn01		A	72.215.187.177
+mjcsbahfn01		A	72.215.187.178
+mjcsbapfn01		A	72.215.187.179
+
+
+; Guest Zone
+mjcsbapfn01-gst		A	172.16.16.1
+mjcsbapsn11-gst		A	172.16.16.2
+
+
+; Home Zone
+mjcsbapfn01-hme		A	10.0.1.1
+mjcsbahfn01-hme		A	10.0.1.1
+mjcsbahsn01		A	10.0.1.2
+mjcsbahwn01		A	10.0.1.3
+mjcsbahwn02		A	10.0.1.4
+mjcsbahwn03		A	10.0.1.5
+mjcsbahcp01		A	10.0.1.6
+mjcsbahip01		A	10.0.1.7
+
+mjcsbahns01		A	10.0.1.8
+mjcsbahns02		A	10.0.1.9
+
+hpsbahns01		A	10.0.1.10
+hpsbahns02		A	10.0.1.11
+
+mjcsbahms01		A	10.0.1.12
+mjcsbahms02		A	10.0.1.13
+
+hpsbahms01		A	10.0.1.14
+hpsbahms02		A	10.0.1.15
+
+mjcsbahws01		A	10.0.1.16
+mjcsbahws02		A	10.0.1.17
+
+hpsbahws01		A	10.0.1.20
+hpsbahws02		A	10.0.1.21
+
+mjcsbahas01		A	10.0.1.32
+mjcsbahas02		A	10.0.1.33
+
+hpsbahas01		A	10.0.1.36
+hpsbahas02		A	10.0.1.37
+
+mjcsbahas11		A	10.0.1.40
+mjcsbahas12		A	10.0.1.41
+
+hpsbahas11		A	10.0.1.44
+hpsbahas12		A	10.0.1.45
+
+mjcsbahds01		A	10.0.1.48
+mjcsbahds02		A	10.0.1.49
+
+hpsbahds01		A	10.0.1.52
+hpsbahds02		A	10.0.1.53
+
+mjcsbahbs01		A	10.0.1.64
+mjcsbahbs02		A	10.0.1.65
+
+hpsbahbs01		A	10.0.1.68
+hpsbahbs02		A	10.0.1.69
+
+mjcsbahcs01		A	10.0.1.72
+mjcsbahcs02		A	10.0.1.73
+
+hpsbahcs01		A	10.0.1.76
+hpsbahcs02		A	10.0.1.77
+
+mjcsbaheucaclc01	A	10.0.1.80
+mjcsbaheucaosp01	A	10.0.1.81
+mjcsbaheucacca01	A	10.0.1.82
+mjcsbaheucaccb01	A	10.0.1.83
+mjcsbaheucanc01		A	10.0.1.84
+mjcsbaheucanc02		A	10.0.1.85
+mjcsbaheucanc03		A	10.0.1.86
+mjcsbaheucanc04		A	10.0.1.87
+
+hpsbaheucaclc01		A	10.0.1.88
+hpsbaheucaosp01		A	10.0.1.89
+hpsbaheucacca01		A	10.0.1.90
+hpsbaheucaccb01		A	10.0.1.91
+hpsbaheucanc01		A	10.0.1.92
+hpsbaheucanc02		A	10.0.1.93
+hpsbaheucanc03		A	10.0.1.94
+hpsbaheucanc04		A	10.0.1.95
+
+mjcsbatas01		A	10.0.1.120
+mjcsbatas02		A	10.0.1.121
+mjcsbatas11		A	10.0.1.122
+mjcsbatas12		A	10.0.1.123
+mjcsbatas21		A	10.0.1.124
+mjcsbatas22		A	10.0.1.125
+mjcsbatas31		A	10.0.1.126
+mjcsbatas32		A	10.0.1.127
+
+mjcsbatbs01		A	10.0.1.136
+mjcsbatbs02		A	10.0.1.137
+mjcsbatbs11		A	10.0.1.138
+mjcsbatbs12		A	10.0.1.139
+mjcsbatbs21		A	10.0.1.140
+mjcsbatbs22		A	10.0.1.141
+mjcsbatbs31		A	10.0.1.142
+mjcsbatbs32		A	10.0.1.143
+
+mjcsbatcs01		A	10.0.1.144
+mjcsbatcs02		A	10.0.1.145
+mjcsbatcs11		A	10.0.1.146
+mjcsbatcs12		A	10.0.1.147
+mjcsbatcs21		A	10.0.1.148
+mjcsbatcs22		A	10.0.1.149
+mjcsbatcs31		A	10.0.1.150
+mjcsbatcs32		A	10.0.1.151
+
+mjcsbatvs01		A	10.0.1.152
+mjcsbatvs02		A	10.0.1.153
+mjcsbatvs11		A	10.0.1.154
+mjcsbatvs12		A	10.0.1.155
+mjcsbatvs21		A	10.0.1.156
+mjcsbatvs22		A	10.0.1.157
+
+mjcmcrawford01		A	10.0.1.192
+mjcmcrawford01-w	A	10.0.1.193
+
+dxcmcrawford01		A	10.0.1.196
+dxcmcrawford01-w	A	10.0.1.197
+
+mjcsbahappletvlr	A	10.0.1.200
+mjcsbahappletvgbr	A	10.0.1.201
+mjcsbahsamsungtvlr	A	10.0.1.204
+mjcsbahsamsungtvgbr	A	10.0.1.205
+
+mjcsbahdc01		A	10.0.1.208
+
+michaels-iphone		A	10.0.1.212
+rachels-iphone		A	10.0.1.213
+
+mjcsbahsonosp5hall	A	10.0.1.216
+mjcsbahsonosp3office	A	10.0.1.217
+mjcsbahsonosp1lr	A	10.0.1.218
+mjcsbahsonosp12br	A	10.0.1.219
+mjcsbahsonosp13br	A	10.0.1.220
+mjcsbahsonosswlr	A	10.0.1.223
+
+mjcmcrawford31		A	10.0.1.230
+mjcmcrawford32		A	10.0.1.231
+
+hpemcrawford31		A	10.0.1.238
+dxcmcrawford31		A	10.0.1.239
+
+
+; Web Zone
+mjcsbapfn01-web		A	10.0.2.1
+mjcsbassn11-web		A	10.0.2.2
+
+mjcsbapns01		A	10.0.2.8
+mjcsbapns02		A	10.0.2.9
+
+mjcsbapms01		A	10.0.2.12
+mjcsbapms02		A	10.0.2.13
+
+mjcsbapws01		A	10.0.2.16
+mjcsbapws02		A	10.0.2.17
+
+mjcsbapws11		A	10.0.2.24
+mjcsbapws12		A	10.0.2.25
+
+mjcsbatns01		A	10.0.2.64
+mjcsbatns02		A	10.0.2.65
+mjcsbatns11		A	10.0.2.66
+mjcsbatns12		A	10.0.2.67
+mjcsbatns21		A	10.0.2.68
+mjcsbatns22		A	10.0.2.69
+mjcsbatns31		A	10.0.2.70
+mjcsbatns32		A	10.0.2.71
+
+mjcsbatms01		A	10.0.2.72
+mjcsbatms02		A	10.0.2.73
+mjcsbatms11		A	10.0.2.74
+mjcsbatms12		A	10.0.2.75
+mjcsbatms21		A	10.0.2.76
+mjcsbatms22		A	10.0.2.77
+mjcsbatms31		A	10.0.2.78
+mjcsbatms32		A	10.0.2.79
+
+mjcsbatws01		A	10.0.2.80
+mjcsbatws02		A	10.0.2.81
+mjcsbatws11		A	10.0.2.82
+mjcsbatws12		A	10.0.2.83
+mjcsbatws21		A	10.0.2.84
+mjcsbatws22		A	10.0.2.85
+mjcsbatws31		A	10.0.2.86
+mjcsbatws32		A	10.0.2.87
+
+
+; User Zone
+mjcsbapsn11-usr		A	10.0.4.1
+
+mjcmcrawford01-usr	A	10.0.4.192
+mjcmcrawford01-usr-w	A	10.0.4.193
+
+dxcmcrawford01-usr	A	10.0.4.196
+dxcmcrawford01-usr-w	A	10.0.4.197
+
+mjcmcrawford31-usr	A	10.0.4.230
+mjcmcrawford32-usr	A	10.0.4.231
+
+
+; Administrator Zone
+mjcsbapsn11-adm		A	10.0.5.1
+
+mjcmcrawford01-adm	A	10.0.5.192
+mjcmcrawford01-adm-w	A	10.0.5.193
+
+dxcmcrawford01-adm	A	10.0.5.196
+dxcmcrawford01-adm-w	A	10.0.5.197
+
+mjcmcrawford31-adm	A	10.0.5.230
+mjcmcrawford32-adm	A	10.0.5.231
+
+
+; Application Zone
+mjcsbapsn11-app		A	10.0.6.1
+
+mjcsbapns41		A	10.0.6.8
+mjcsbapns42		A	10.0.6.9
+
+mjcsbapms41		A	10.0.6.12
+mjcsbapms42		A	10.0.6.13
+
+mjcsbapas01		A	10.0.6.16
+mjcsbapas02		A	10.0.6.17
+
+mjcsbapas11		A	10.0.6.24
+mjcsbapas12		A	10.0.6.25
+
+services.app		A	10.0.6.48
+services1.app		A	10.0.6.48
+
+;services.app		A	10.0.6.49
+services2.app		A	10.0.6.49
+
+mjcsbatns41		A	10.0.6.64
+mjcsbatns42		A	10.0.6.65
+mjcsbatns51		A	10.0.6.66
+mjcsbatns52		A	10.0.6.67
+mjcsbatns61		A	10.0.6.68
+mjcsbatns72		A	10.0.6.69
+mjcsbatns71		A	10.0.6.70
+mjcsbatns72		A	10.0.6.71
+
+mjcsbatms41		A	10.0.6.72
+mjcsbatms42		A	10.0.6.73
+mjcsbatms51		A	10.0.6.74
+mjcsbatms52		A	10.0.6.75
+mjcsbatms61		A	10.0.6.76
+mjcsbatms62		A	10.0.6.77
+mjcsbatms71		A	10.0.6.78
+mjcsbatms72		A	10.0.6.79
+
+mjcsbatas01		A	10.0.6.80
+mjcsbatas02		A	10.0.6.81
+mjcsbatas11		A	10.0.6.82
+mjcsbatas12		A	10.0.6.83
+mjcsbatas21		A	10.0.6.84
+mjcsbatas22		A	10.0.6.85
+mjcsbatas31		A	10.0.6.86
+mjcsbatas32		A	10.0.6.87
+
+
+; Database Zone
+mjcsbapsn11-dat		A	10.0.10.1
+
+mjcsbapds01		A	10.0.10.16
+mjcsbapds02		A	10.0.10.17
+
+mjcsbapds11		A	10.0.10.24
+mjcsbapds12		A	10.0.10.25
+
+mjcsbapds21		A	10.0.10.32
+mjcsbapds22		A	10.0.10.33
+
+mjcsbapds31		A	10.0.10.48
+mjcsbapds32		A	10.0.10.49
+
+mjcsbapds00-01		A	10.0.10.144
+mjcsbapds00-02		A	10.0.10.145
+mjcsbapds00-03		A	10.0.10.146
+mjcsbapds00-04		A	10.0.10.147
+
+
+; Bld Zone
+mjcsbapsn11-bld		A	10.0.12.1
+
+mjcsbapbs01		A	10.0.12.16
+mjcsbapbs02		A	10.0.12.17
+
+mjcsbapbs11		A	10.0.12.24
+mjcsbapbs12		A	10.0.12.25
+
+mjcsbapfs01		A	10.0.12.208
+mjcsbapfs02		A	10.0.12.209
+
+
+; Cfg Zone
+mjcsbapsn11-cfg		A	10.0.13.1
+
+mjcsbapns71		A	10.0.13.8
+mjcsbapns72		A	10.0.13.9
+
+mjcsbapms71		A	10.0.13.12
+mjcsbapms72		A	10.0.13.13
+
+mjcsbapcs01		A	10.0.13.16
+mjcsbapcs02		A	10.0.13.17
+
+mjcsbapcs11		A	10.0.13.24
+mjcsbapcs12		A	10.0.13.25
+
+mjcsbapls01		A	10.0.13.80
+mjcsbapls02		A	10.0.13.81
+
+mjcsbapos01		A	10.0.13.144
+mjcsbapos02		A	10.0.13.145
+
+
+; Vrt Zone
+mjcsbapsn11-vrt		A	10.0.14.1
+
+mjcsbapns81		A	10.0.14.8
+mjcsbapns82		A	10.0.14.9
+
+mjcsbapms81		A	10.0.14.12
+mjcsbapms82		A	10.0.14.13
+
+mjcsbapvs01		A	10.0.14.16
+mjcsbapvs02		A	10.0.14.17
+
+mjcsbapvs11		A	10.0.14.24
+mjcsbapvs12		A	10.0.14.25
+
+mjcsbateucaclc01	A	10.0.14.48
+mjcsbateucaufs01	A	10.0.14.49
+mjcsbateucaosp01	A	10.0.14.50
+mjcsbateucacca01	A	10.0.14.51
+mjcsbateucanc01		A	10.0.14.52
+mjcsbateucanc02		A	10.0.14.53
+mjcsbateucanc03		A	10.0.14.54
+mjcsbateucanc04		A	10.0.14.55
+
+mjcsbapfs81		A	10.0.14.208
+mjcsbapfs82		A	10.0.14.209
+
+
+; Mgt Zone
+mjcsbapsn11-mgt		A	10.0.15.1
+mjcsbapwn11		A	10.0.15.5
+
+mjcsbapns91		A	10.0.15.8
+mjcsbapns92		A	10.0.15.9
+
+mjcsbapms91		A	10.0.15.12
+mjcsbapms92		A	10.0.15.13
+
+
+; Web-Q Zone
+mjcsbapsn11-web-q	A	10.0.130.1
+
+mjcsbaqns01		A	10.0.130.8
+mjcsbaqns02		A	10.0.130.9
+
+mjcsbaqms01		A	10.0.130.12
+mjcsbaqms02		A	10.0.130.13
+
+mjcsbaqws01		A	10.0.130.16
+mjcsbaqws02		A	10.0.130.17
+
+mjcsbaqws11		A	10.0.130.24
+mjcsbaqws12		A	10.0.130.25
+
+
+; Application-Q Zone
+mjcsbapsn11-app-q	A	10.0.134.1
+
+mjcsbaqns41		A	10.0.134.8
+mjcsbaqns42		A	10.0.134.9
+
+mjcsbaqms41		A	10.0.134.12
+mjcsbaqms42		A	10.0.134.13
+
+mjcsbaqas01		A	10.0.134.16
+mjcsbaqas02		A	10.0.134.17
+
+mjcsbaqas11		A	10.0.134.24
+mjcsbaqas12		A	10.0.134.25
+
+
+; Database-Q Zone
+mjcsbapsn11-dat-q	A	10.0.138.1
+
+mjcsbaqds01		A	10.0.138.16
+mjcsbaqds02		A	10.0.138.17
+
+mjcsbaqds11		A	10.0.138.24
+mjcsbaqds12		A	10.0.138.25
+
+mjcsbaqds21		A	10.0.138.32
+mjcsbaqds22		A	10.0.138.33
+
+mjcsbaqds31		A	10.0.138.48
+mjcsbaqds32		A	10.0.138.49
+
+mjcsbaqds10-01		A	10.0.138.144
+mjcsbaqds10-02		A	10.0.138.145
+mjcsbaqds10-03		A	10.0.138.146
+mjcsbaqds10-04		A	10.0.138.147
+mjcsbaqds10-01c		A	10.0.138.148
+mjcsbaqds10-02c		A	10.0.138.149
+
+mjcsbaqds20-01		A	10.0.138.152
+mjcsbaqds20-02		A	10.0.138.153
+
+
+; Core Zone
+mjcsbapfn01-cor		A	10.0.255.1
+mjcsbapsn11		A	10.0.255.2

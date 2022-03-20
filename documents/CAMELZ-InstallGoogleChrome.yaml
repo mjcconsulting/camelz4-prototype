@@ -1,0 +1,76 @@
+---
+schemaVersion: '2.2'
+description: Install, repair, or uninstall the Google Chrome application using an .msi file.
+parameters:
+  action:
+    type: String
+    description: '(Optional) The type of action to perform. Valid values: Install'
+    default: Install
+    allowedValues:
+    - Install
+    #- Repair     # May add this second once I can add logic and test
+    #- Uninstall  # Will add this first once I can add logic and test
+  source:
+    type: String
+    description: '(Required) The URL or local path on the instance to the application .msi file.'
+    default: http://installers-dxcapm.s3-website-us-east-1.amazonaws.com/GoogleChromeStandaloneEnterprise64.msi
+  sourceHash:
+    type: String
+    description: '(Optional) The SHA256 hash of the .msi file.'
+    default: 82bc081286f48148dce2c81f97bdb849b38680b7bb3435221fa470adcf75aa5b
+mainSteps:
+- action: aws:runPowerShellScript
+  name: runPowerShellScript
+  precondition:
+    StringEquals: [ platformType, Windows ]
+  inputs:
+    runCommand:
+    - |
+      $LogDir = 'C:\ProgramData\Amazon\SSM\Logs'
+      Start-Transcript -Path "$LogDir\CAMELZ-InstallGoogleChromeTranscript.log" -Append
+
+      $Temp = "$Env:SystemRoot\Temp"
+      Write-Host 'Download Google Chrome Installer'
+      $Url = '{{ source }}'
+      Try {
+          $Delay = 5
+          $Counter = 60
+          Do {
+              Try {
+                  $Response = Invoke-WebRequest -Uri $Url -Method Head -UseBasicParsing
+                  $Installer = $Response.BaseResponse.ResponseUri.LocalPath.TrimStart('/')
+                  Write-Host "- Downloading $Url to $Temp\$Installer"
+                  (New-Object System.Net.WebClient).DownloadFile($Url, "$Temp\$Installer")
+                  $StatusCode = $Response.StatusCode
+              }
+              Catch {
+                  $StatusCode = $_.Exception.Response.StatusCode.value__
+                  $Message = $_.Exception.Message
+                  Switch ($Message) {
+                      'Unable to connect to the remote server' { Write-Host -NoNewline "- $Message." }
+                      Default { Throw }
+                  }
+                  If (--$Counter -gt 0) {
+                      Write-Host " Trying again in $Delay seconds..."
+                      Start-Sleep $Delay
+                  }
+                  Else {
+                      Write-Host
+                      Throw New-Object -TypeName System.TimeoutException('Download attempts exceeded', $_.Exception)
+                  }
+              }
+          } Until ($StatusCode -eq 200)
+          Write-Host '- Download Succeeded'
+
+          Write-Host 'Install Google Chrome'
+          $P = Start-Process -FilePath msiexec.exe -ArgumentList "/I $Temp\$Installer /QN /L*V ""$LogDir\$($Installer.TrimEnd('.msi')).log""" -NoNewWindow -Wait -PassThru
+          If ($P.ExitCode -eq 0) {
+              Write-Host '- Install Succeeded'
+              Remove-Item "$Temp\$Installer" -ErrorAction SilentlyContinue
+          } Else {
+              Write-Error "- Install Failed ($P.ExitCode)"
+          }
+      } Catch {
+          $Message = 'Exception on line {0}: {1}' -f $_.InvocationInfo.ScriptLineNumber, $_.Exception.Message
+          Write-Error $Message
+      }

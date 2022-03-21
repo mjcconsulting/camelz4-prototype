@@ -92,12 +92,12 @@ This was created via the OpenVPN easy-rsa program.
 
 ## DXC Analytics Platform Root CA
 
-This is a new CA I setup in 2020, in virtual machine within the DAP Core Account.
+This is a new CA I setup in 2020, in virtual machine within the CaMeLz Core Account.
 
 This was created via the OpenVPN easy-rsa program.
 
 This is an initial iteration to be used for testing. We need to re-create this within the
-DAP Management Account for more permanent use.
+CaMeLz Management Account for more permanent use.
 
 ### Details
 #### Subject Name
@@ -152,10 +152,10 @@ DAP Management Account for more permanent use.
 
 ## Steps to use easy-rsa to create Root CA, Issuing CA and Client and Server Certificates
 
-1.  Created a new temp host (to be replaced once details worked out), in the DAP
+1.  Created a new temp host (to be replaced once details worked out), in the CaMeLz
     Core Account, Ohio, Default-VPC, named Default-PKI-RootCertificateAuthorityInstance.
 
-2.  Setup a Route53 DNS name to reach this host, root.pki.us-east-2.m1.dxc-ap.com
+2.  Setup a Route53 DNS name to reach this host, root.pki.us-east-2.camelz.io
 
 3.  Setup source code directory under root: /root/src/OpenSSL
 
@@ -209,7 +209,7 @@ DAP Management Account for more permanent use.
     update-ca-trust extract
     ```
 
-13. Copy the new Root CA Certificate to the DAP Management Account pki-dxcapm bucket
+13. Copy the new Root CA Certificate to the CaMeLz Management Account pki-camelzm bucket
     - We will use this location as the standard location to store the PKI certificates and
       certificate revocation lists (.crl).
 
@@ -260,44 +260,44 @@ DAP Management Account for more permanent use.
     update-ca-trust extract
     ```
 
-22. Copy the new Issuing CA Certificate to the DAP Management Account pki-dxcapm bucket
+22. Copy the new Issuing CA Certificate to the CaMeLz Management Account pki-camelzm bucket
     - We will use this location as the standard location to store the PKI certificates and
       certificate revocation lists (.crl).
 
 23. Generate the VPN Server Certificate and Key using the Issuing CA
     - This is not the best way to do this, but it's a quick one to get this initially tested
     ```bash
-    ./easyrsa --vars=./vars.issuing build-server-full vpn.c.us-east-2.m1.dxc-ap.com nopass
+    ./easyrsa --vars=./vars.issuing build-server-full vpn.c.us-east-2.camelz.io nopass
     ```
 
 24. Generate an mcrawford client Certificate and Key using the Issuing CA
     - This is not the best way to do this, but it's a quick one to get this initially tested
     ```bash
-    ./easyrsa --vars=./vars.issuing build-client-full mcrawford.c.us-east-2.m1.dxc-ap.com nopass
+    ./easyrsa --vars=./vars.issuing build-client-full mcrawford.c.us-east-2.camelz.io nopass
     ```
 
 25. Create a directory and collect all the relevant files there for further processing
     ```bash
-    mkdir -p /var/tmp/vpn.c.us-east-2.m1.dxc-ap.com/
-    cp /root/etc/pki/DXC_Analytics_Platform_Root_CA/pki/ca.crt /var/tmp/vpn.c.us-east-2.m1.dxc-ap.com/DXC_Analytics_Platform_Root_CA.crt
-    cp /root/etc/pki/DXC_Analytics_Platform_Issuing_CA/pki/ca.crt /var/tmp/vpn.c.us-east-2.m1.dxc-ap.com/DXC_Analytics_Platform_Issuing_CA.crt
-    cp /root/etc/pki/DXC_Analytics_Platform_Issuing_CA/pki/issued/vpn.c.us-east-2.m1.dxc-ap.com.crt /var/tmp/vpn.c.us-east-2.m1.dxc-ap.com/
-    cp /root/etc/pki/DXC_Analytics_Platform_Issuing_CA/pki/private/vpn.c.us-east-2.m1.dxc-ap.com.key /var/tmp/vpn.c.us-east-2.m1.dxc-ap.com/
-    cp /root/etc/pki/DXC_Analytics_Platform_Issuing_CA/pki/issued/mcrawford.c.us-east-2.m1.dxc-ap.com.crt /var/tmp/vpn.c.us-east-2.m1.dxc-ap.com/
-    cp /root/etc/pki/DXC_Analytics_Platform_Issuing_CA/pki/private/mcrawford.c.us-east-2.m1.dxc-ap.com.key /var/tmp/vpn.c.us-east-2.m1.dxc-ap.com/
-    cd /var/tmp/vpn.c.us-east-2.m1.dxc-ap.com/
+    mkdir -p /var/tmp/vpn.c.us-east-2.camelz.io/
+    cp /root/etc/pki/DXC_Analytics_Platform_Root_CA/pki/ca.crt /var/tmp/vpn.c.us-east-2.camelz.io/DXC_Analytics_Platform_Root_CA.crt
+    cp /root/etc/pki/DXC_Analytics_Platform_Issuing_CA/pki/ca.crt /var/tmp/vpn.c.us-east-2.camelz.io/DXC_Analytics_Platform_Issuing_CA.crt
+    cp /root/etc/pki/DXC_Analytics_Platform_Issuing_CA/pki/issued/vpn.c.us-east-2.camelz.io.crt /var/tmp/vpn.c.us-east-2.camelz.io/
+    cp /root/etc/pki/DXC_Analytics_Platform_Issuing_CA/pki/private/vpn.c.us-east-2.camelz.io.key /var/tmp/vpn.c.us-east-2.camelz.io/
+    cp /root/etc/pki/DXC_Analytics_Platform_Issuing_CA/pki/issued/mcrawford.c.us-east-2.camelz.io.crt /var/tmp/vpn.c.us-east-2.camelz.io/
+    cp /root/etc/pki/DXC_Analytics_Platform_Issuing_CA/pki/private/mcrawford.c.us-east-2.camelz.io.key /var/tmp/vpn.c.us-east-2.camelz.io/
+    cd /var/tmp/vpn.c.us-east-2.camelz.io/
     cat DXC_Analytics_Platform_Issuing_CA.crt DXC_Analytics_Platform_Root_CA.crt > DXC_Analytics_Platform_Chain.crt
     ```
 
 26. Import the Certificates into AWS Certificate Manager
     ```bash
-    aws acm import-certificate --certificate file://vpn.us-east-2.m1.dxc-ap.com.crt \
-                               --private-key file://vpn.us-east-2.m1.dxc-ap.com.key \
-                               --certificate-chain file://DXC_Analytics_Platform_Chain.crt \
-                               --profile dxcapc-administrator --region us-east-2
+    aws acm import-certificate --certificate file://vpn.us-east-2.camelz.io.crt \
+                               --private-key file://vpn.us-east-2.camelz.io.key \
+                               --certificate-chain file://CaMeLz_Chain.crt \
+                               --profile camelzc-administrator --region us-east-2
 
-    aws acm import-certificate --certificate file://mcrawford.vpn.us-east-2.m1.dxc-ap.com.crt \
-                               --private-key file://mcrawford.vpn.us-east-2.m1.dxc-ap.com.key \
-                               --certificate-chain file://DXC_Analytics_Platform_Chain.crt \
-                                --profile dxcapc-administrator --region us-east-2
+    aws acm import-certificate --certificate file://mcrawford.vpn.us-east-2.camelz.io.crt \
+                               --private-key file://mcrawford.vpn.us-east-2.camelz.io.key \
+                               --certificate-chain file://CaMeLz_Chain.crt \
+                                --profile camelzc-administrator --region us-east-2
     ```

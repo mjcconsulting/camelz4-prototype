@@ -98,8 +98,8 @@ $ORIGIN 1.0.10.in-addr.arpa.
 192			PTR	mjcmcrawford01.sba.mjcconsulting.com.
 193			PTR	mjcmcrawford01-w.sba.mjcconsulting.com.
 
-196			PTR	dxcmcrawford01.sba.mjcconsulting.com.
-197			PTR	dxcmcrawford01-w.sba.mjcconsulting.com.
+196			PTR	cmlmcrawford01.sba.mjcconsulting.com.
+197			PTR	cmlmcrawford01-w.sba.mjcconsulting.com.
 
 200			PTR	mjcsbahappletvlr.sba.mjcconsulting.com.
 201			PTR	mjcsbahappletvgbr.sba.mjcconsulting.com.
@@ -122,4 +122,4 @@ $ORIGIN 1.0.10.in-addr.arpa.
 231			PTR	mjcmcrawford32.sba.mjcconsulting.com.
 
 238			PTR	hpemcrawford31.sba.mjcconsulting.com.
-239			PTR	dxcmcrawford31.sba.mjcconsulting.com.
+239			PTR	cmlmcrawford31.sba.mjcconsulting.com.

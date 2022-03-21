@@ -1,5 +1,5 @@
 # Variables:
-# thiszone=tgwwalk.dxc-ap.com
+# thiszone=tgwwalk.camelz.io
 # thisserver=$(!GetAtt BindENI.PrimaryPrivateIpAddress)
 #
 #!/bin/bash

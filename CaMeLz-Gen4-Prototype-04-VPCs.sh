@@ -30,17 +30,10 @@ profile=$management_profile
 
 # Create VPC
 global_management_vpc_id=$(aws ec2 create-vpc --cidr-block $global_management_vpc_cidr \
+                                              --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=Management-VPC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                               --query 'Vpc.VpcId' \
                                               --profile $profile --region us-east-1 --output text)
 echo "global_management_vpc_id=$global_management_vpc_id"
-
-aws ec2 create-tags --resources $global_management_vpc_id \
-                    --tags Key=Name,Value=Management-VPC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 aws ec2 modify-vpc-attribute --vpc-id $global_management_vpc_id \
                              --enable-dns-support \
@@ -62,17 +55,10 @@ aws ec2 create-flow-logs --resource-type VPC --resource-ids $global_management_v
                          --profile $profile --region us-east-1 --output text
 
 # Create Internet Gateway & Attach
-global_management_igw_id=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' \
+global_management_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=Management-InternetGateway},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
+                                                           --query 'InternetGateway.InternetGatewayId' \
                                                            --profile $profile --region us-east-1 --output text)
 echo "global_management_igw_id=$global_management_igw_id"
-
-aws ec2 create-tags --resources $global_management_igw_id \
-                    --tags Key=Name,Value=Management-InternetGateway \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 aws ec2 attach-internet-gateway --vpc-id $global_management_vpc_id \
                                 --internet-gateway-id $global_management_igw_id \
@@ -90,17 +76,10 @@ echo "global_management_private_hostedzone_id=$global_management_private_hostedz
 # Create DHCP Options Set
 global_management_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$global_management_private_domain]" \
                                                                               "Key=domain-name-servers,Values=[AmazonProvidedDNS]" \
+                                                        --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=Management-DHCPOptions},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                         --query 'DhcpOptions.DhcpOptionsId' \
                                                         --profile $profile --region us-east-1 --output text)
 echo "global_management_dopt_id=$global_management_dopt_id"
-
-aws ec2 create-tags --resources $global_management_dopt_id \
-                    --tags Key=Name,Value=Management-DHCPOptions \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 aws ec2 associate-dhcp-options --vpc-id $global_management_vpc_id \
                                --dhcp-options-id $global_management_dopt_id \
@@ -110,385 +89,217 @@ aws ec2 associate-dhcp-options --vpc-id $global_management_vpc_id \
 global_management_public_subneta_id=$(aws ec2 create-subnet --vpc-id $global_management_vpc_id \
                                                             --cidr-block $global_management_subnet_publica_cidr \
                                                             --availability-zone us-east-1a \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-PublicSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region us-east-1 --output text)
 echo "global_management_public_subneta_id=$global_management_public_subneta_id"
-
-aws ec2 create-tags --resources $global_management_public_subneta_id \
-                    --tags Key=Name,Value=Management-PublicSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Public Subnet B
 global_management_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $global_management_vpc_id \
                                                             --cidr-block $global_management_subnet_publicb_cidr \
                                                             --availability-zone us-east-1b \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-PublicSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region us-east-1 --output text)
 echo "global_management_public_subnetb_id=$global_management_public_subnetb_id"
-
-aws ec2 create-tags --resources $global_management_public_subnetb_id \
-                    --tags Key=Name,Value=Management-PublicSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Public Subnet C
 global_management_public_subnetc_id=$(aws ec2 create-subnet --vpc-id $global_management_vpc_id \
                                                             --cidr-block $global_management_subnet_publicc_cidr \
                                                             --availability-zone us-east-1c \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-PublicSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region us-east-1 --output text)
 echo "global_management_public_subnetc_id=$global_management_public_subnetc_id"
-
-aws ec2 create-tags --resources $global_management_public_subnetc_id \
-                    --tags Key=Name,Value=Management-PublicSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Web Subnet A
 global_management_web_subneta_id=$(aws ec2 create-subnet --vpc-id $global_management_vpc_id \
                                                          --cidr-block $global_management_subnet_weba_cidr \
                                                          --availability-zone us-east-1a \
+                                                         --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-WebSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                          --query 'Subnet.SubnetId' \
                                                          --profile $profile --region us-east-1 --output text)
 echo "global_management_web_subneta_id=$global_management_web_subneta_id"
-
-aws ec2 create-tags --resources $global_management_web_subneta_id \
-                    --tags Key=Name,Value=Management-WebSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Web Subnet B
 global_management_web_subnetb_id=$(aws ec2 create-subnet --vpc-id $global_management_vpc_id \
                                                          --cidr-block $global_management_subnet_webb_cidr \
                                                          --availability-zone us-east-1b \
+                                                         --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-WebSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                          --query 'Subnet.SubnetId' \
                                                          --profile $profile --region us-east-1 --output text)
 echo "global_management_web_subnetb_id=$global_management_web_subnetb_id"
-
-aws ec2 create-tags --resources $global_management_web_subnetb_id \
-                    --tags Key=Name,Value=Management-WebSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Web Subnet C
 global_management_web_subnetc_id=$(aws ec2 create-subnet --vpc-id $global_management_vpc_id \
                                                          --cidr-block $global_management_subnet_webc_cidr \
                                                          --availability-zone us-east-1c \
+                                                         --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-WebSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                          --query 'Subnet.SubnetId' \
                                                          --profile $profile --region us-east-1 --output text)
 echo "global_management_web_subnetc_id=$global_management_web_subnetc_id"
-
-aws ec2 create-tags --resources $global_management_web_subnetc_id \
-                    --tags Key=Name,Value=Management-WebSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Application Subnet A
 global_management_application_subneta_id=$(aws ec2 create-subnet --vpc-id $global_management_vpc_id \
                                                                  --cidr-block $global_management_subnet_applicationa_cidr \
                                                                  --availability-zone us-east-1a \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-ApplicationSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-east-1 --output text)
 echo "global_management_application_subneta_id=$global_management_application_subneta_id"
-
-aws ec2 create-tags --resources $global_management_application_subneta_id \
-                    --tags Key=Name,Value=Management-ApplicationSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Application Subnet B
 global_management_application_subnetb_id=$(aws ec2 create-subnet --vpc-id $global_management_vpc_id \
                                                                  --cidr-block $global_management_subnet_applicationb_cidr \
                                                                  --availability-zone us-east-1b \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-ApplicationSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-east-1 --output text)
 echo "global_management_application_subnetb_id=$global_management_application_subnetb_id"
-
-aws ec2 create-tags --resources $global_management_application_subnetb_id \
-                    --tags Key=Name,Value=Management-ApplicationSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Application Subnet C
 global_management_application_subnetc_id=$(aws ec2 create-subnet --vpc-id $global_management_vpc_id \
                                                                  --cidr-block $global_management_subnet_applicationc_cidr \
                                                                  --availability-zone us-east-1c \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-ApplicationSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-east-1 --output text)
 echo "global_management_application_subnetc_id=$global_management_application_subnetc_id"
-
-aws ec2 create-tags --resources $global_management_application_subnetc_id \
-                    --tags Key=Name,Value=Management-ApplicationSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Database Subnet A
 global_management_database_subneta_id=$(aws ec2 create-subnet --vpc-id $global_management_vpc_id \
                                                               --cidr-block $global_management_subnet_databasea_cidr \
                                                               --availability-zone us-east-1a \
+                                                              --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-DatabaseSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                               --query 'Subnet.SubnetId' \
                                                               --profile $profile --region us-east-1 --output text)
 echo "global_management_database_subneta_id=$global_management_database_subneta_id"
-
-aws ec2 create-tags --resources $global_management_database_subneta_id \
-                    --tags Key=Name,Value=Management-DatabaseSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Database Subnet B
 global_management_database_subnetb_id=$(aws ec2 create-subnet --vpc-id $global_management_vpc_id \
                                                               --cidr-block $global_management_subnet_databaseb_cidr \
                                                               --availability-zone us-east-1b \
+                                                              --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-DatabaseSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                               --query 'Subnet.SubnetId' \
                                                               --profile $profile --region us-east-1 --output text)
 echo "global_management_database_subnetb_id=$global_management_database_subnetb_id"
-
-aws ec2 create-tags --resources $global_management_database_subnetb_id \
-                    --tags Key=Name,Value=Management-DatabaseSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Database Subnet C
 global_management_database_subnetc_id=$(aws ec2 create-subnet --vpc-id $global_management_vpc_id \
                                                               --cidr-block $global_management_subnet_databasec_cidr \
                                                               --availability-zone us-east-1c \
+                                                              --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-DatabaseSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                               --query 'Subnet.SubnetId' \
                                                               --profile $profile --region us-east-1 --output text)
 echo "global_management_database_subnetc_id=$global_management_database_subnetc_id"
-
-aws ec2 create-tags --resources $global_management_database_subnetc_id \
-                    --tags Key=Name,Value=Management-DatabaseSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Directory Subnet A
 global_management_directory_subneta_id=$(aws ec2 create-subnet --vpc-id $global_management_vpc_id \
                                                                --cidr-block $global_management_subnet_directorya_cidr \
                                                                --availability-zone us-east-1a \
+                                                               --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-DirectorySubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                --query 'Subnet.SubnetId' \
                                                                --profile $profile --region us-east-1 --output text)
 echo "global_management_directory_subneta_id=$global_management_directory_subneta_id"
-
-aws ec2 create-tags --resources $global_management_directory_subneta_id \
-                    --tags Key=Name,Value=Management-DirectorySubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Directory Subnet B
 global_management_directory_subnetb_id=$(aws ec2 create-subnet --vpc-id $global_management_vpc_id \
                                                                --cidr-block $global_management_subnet_directoryb_cidr \
                                                                --availability-zone us-east-1b \
+                                                               --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-DirectorySubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                --query 'Subnet.SubnetId' \
                                                                --profile $profile --region us-east-1 --output text)
 echo "global_management_directory_subnetb_id=$global_management_directory_subnetb_id"
-
-aws ec2 create-tags --resources $global_management_directory_subnetb_id \
-                    --tags Key=Name,Value=Management-DirectorySubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Directory Subnet C
 global_management_directory_subnetc_id=$(aws ec2 create-subnet --vpc-id $global_management_vpc_id \
                                                                --cidr-block $global_management_subnet_directoryc_cidr \
                                                                --availability-zone us-east-1c \
+                                                               --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-DirectorySubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                --query 'Subnet.SubnetId' \
                                                                --profile $profile --region us-east-1 --output text)
 echo "global_management_directory_subnetc_id=$global_management_directory_subnetc_id"
-
-aws ec2 create-tags --resources $global_management_directory_subnetc_id \
-                    --tags Key=Name,Value=Management-DirectorySubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Management Subnet A
 global_management_management_subneta_id=$(aws ec2 create-subnet --vpc-id $global_management_vpc_id \
                                                                 --cidr-block $global_management_subnet_managementa_cidr \
                                                                 --availability-zone us-east-1a \
+                                                                --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-ManagementSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                 --query 'Subnet.SubnetId' \
                                                                 --profile $profile --region us-east-1 --output text)
 echo "global_management_management_subneta_id=$global_management_management_subneta_id"
-
-aws ec2 create-tags --resources $global_management_management_subneta_id \
-                    --tags Key=Name,Value=Management-ManagementSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Management Subnet B
 global_management_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $global_management_vpc_id \
                                                                 --cidr-block $global_management_subnet_managementb_cidr \
                                                                 --availability-zone us-east-1b \
+                                                                --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-ManagementSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                 --query 'Subnet.SubnetId' \
                                                                 --profile $profile --region us-east-1 --output text)
 echo "global_management_management_subnetb_id=$global_management_management_subnetb_id"
-
-aws ec2 create-tags --resources $global_management_management_subnetb_id \
-                    --tags Key=Name,Value=Management-ManagementSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Management Subnet C
 global_management_management_subnetc_id=$(aws ec2 create-subnet --vpc-id $global_management_vpc_id \
                                                                 --cidr-block $global_management_subnet_managementc_cidr \
                                                                 --availability-zone us-east-1c \
+                                                                --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-ManagementSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                 --query 'Subnet.SubnetId' \
                                                                 --profile $profile --region us-east-1 --output text)
 echo "global_management_management_subnetc_id=$global_management_management_subnetc_id"
-
-aws ec2 create-tags --resources $global_management_management_subnetc_id \
-                    --tags Key=Name,Value=Management-ManagementSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Gateway Subnet A
 global_management_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $global_management_vpc_id \
                                                              --cidr-block $global_management_subnet_gatewaya_cidr \
                                                              --availability-zone us-east-1a \
+                                                             --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-GatewaySubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                              --query 'Subnet.SubnetId' \
                                                              --profile $profile --region us-east-1 --output text)
 echo "global_management_gateway_subneta_id=$global_management_gateway_subneta_id"
-
-aws ec2 create-tags --resources $global_management_gateway_subneta_id \
-                    --tags Key=Name,Value=Management-GatewaySubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Gateway Subnet B
 global_management_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $global_management_vpc_id \
                                                              --cidr-block $global_management_subnet_gatewayb_cidr \
                                                              --availability-zone us-east-1b \
+                                                             --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-GatewaySubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                              --query 'Subnet.SubnetId' \
                                                              --profile $profile --region us-east-1 --output text)
 echo "global_management_gateway_subnetb_id=$global_management_gateway_subnetb_id"
-
-aws ec2 create-tags --resources $global_management_gateway_subnetb_id \
-                    --tags Key=Name,Value=Management-GatewaySubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Gateway Subnet C
 global_management_gateway_subnetc_id=$(aws ec2 create-subnet --vpc-id $global_management_vpc_id \
                                                              --cidr-block $global_management_subnet_gatewayc_cidr \
                                                              --availability-zone us-east-1c \
+                                                             --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-GatewaySubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                              --query 'Subnet.SubnetId' \
                                                              --profile $profile --region us-east-1 --output text)
 echo "global_management_gateway_subnetc_id=$global_management_gateway_subnetc_id"
-
-aws ec2 create-tags --resources $global_management_gateway_subnetc_id \
-                    --tags Key=Name,Value=Management-GatewaySubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Endpoint Subnet A
 global_management_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $global_management_vpc_id \
                                                               --cidr-block $global_management_subnet_endpointa_cidr \
                                                               --availability-zone us-east-1a \
+                                                              --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-EndpointSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                               --query 'Subnet.SubnetId' \
                                                               --profile $profile --region us-east-1 --output text)
 echo "global_management_endpoint_subneta_id=$global_management_endpoint_subneta_id"
-
-aws ec2 create-tags --resources $global_management_endpoint_subneta_id \
-                    --tags Key=Name,Value=Management-EndpointSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Endpoint Subnet B
 global_management_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $global_management_vpc_id \
                                                               --cidr-block $global_management_subnet_endpointb_cidr \
                                                               --availability-zone us-east-1b \
+                                                              --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-EndpointSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                               --query 'Subnet.SubnetId' \
                                                               --profile $profile --region us-east-1 --output text)
 echo "global_management_endpoint_subnetb_id=$global_management_endpoint_subnetb_id"
-
-aws ec2 create-tags --resources $global_management_endpoint_subnetb_id \
-                    --tags Key=Name,Value=Management-EndpointSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Endpoint Subnet C
 global_management_endpoint_subnetc_id=$(aws ec2 create-subnet --vpc-id $global_management_vpc_id \
                                                               --cidr-block $global_management_subnet_endpointc_cidr \
                                                               --availability-zone us-east-1c \
+                                                              --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-EndpointSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                               --query 'Subnet.SubnetId' \
                                                               --profile $profile --region us-east-1 --output text)
 echo "global_management_endpoint_subnetc_id=$global_management_endpoint_subnetc_id"
-
-aws ec2 create-tags --resources $global_management_endpoint_subnetc_id \
-                    --tags Key=Name,Value=Management-EndpointSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Public Route Table, Default Route and Associate with Public Subnets
 global_management_public_rtb_id=$(aws ec2 create-route-table --vpc-id $global_management_vpc_id \
@@ -819,7 +630,7 @@ global_management_ssmm_vpce_id=$(aws ec2 create-vpc-endpoint --vpc-id $global_ma
                                                              --security-group-ids $global_management_vpce_sg_id \
                                                              --subnet-ids $global_management_endpoint_subneta_id $global_management_endpoint_subnetb_id $global_management_endpoint_subnetc_id \
                                                              --client-token $(date +%s) \
-                                                             --tag-specifications --tag-specifications "ResourceType=vpc-endpoint,Tags=[{Key=Name,Value=Management-SSMMessagesVpcEndpoint},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                             --tag-specifications "ResourceType=vpc-endpoint,Tags=[{Key=Name,Value=Management-SSMMessagesVpcEndpoint},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                              --query 'VpcEndpoint.VpcEndpointId' \
                                                              --profile $profile --region us-east-1 --output text)
 echo "global_management_ssmm_vpce_id=$global_management_ssmm_vpce_id"
@@ -832,17 +643,10 @@ profile=$core_profile
 
 # Create VPC
 global_core_vpc_id=$(aws ec2 create-vpc --cidr-block $global_core_vpc_cidr \
+                                        --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=Core-VPC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                         --query 'Vpc.VpcId' \
                                         --profile $profile --region us-east-1 --output text)
 echo "global_core_vpc_id=$global_core_vpc_id"
-
-aws ec2 create-tags --resources $global_core_vpc_id \
-                    --tags Key=Name,Value=Core-VPC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 aws ec2 modify-vpc-attribute --vpc-id $global_core_vpc_id \
                              --enable-dns-support \
@@ -864,17 +668,10 @@ aws ec2 create-flow-logs --resource-type VPC --resource-ids $global_core_vpc_id 
                          --profile $profile --region us-east-1 --output text
 
 # Create Internet Gateway & Attach
-global_core_igw_id=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' \
+global_core_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=Core-InternetGateway},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
+                                                     --query 'InternetGateway.InternetGatewayId' \
                                                      --profile $profile --region us-east-1 --output text)
 echo "global_core_igw_id=$global_core_igw_id"
-
-aws ec2 create-tags --resources $global_core_igw_id \
-                    --tags Key=Name,Value=Core-InternetGateway \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 aws ec2 attach-internet-gateway --vpc-id $global_core_vpc_id \
                                 --internet-gateway-id $global_core_igw_id \
@@ -892,17 +689,10 @@ echo "global_core_private_hostedzone_id=$global_core_private_hostedzone_id"
 # Create DHCP Options Set
 global_core_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$global_core_private_domain]" \
                                                                         "Key=domain-name-servers,Values=[AmazonProvidedDNS]" \
+                                                  --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=Core-DHCPOptions},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                   --query 'DhcpOptions.DhcpOptionsId' \
                                                   --profile $profile --region us-east-1 --output text)
 echo "global_core_dopt_id=$global_core_dopt_id"
-
-aws ec2 create-tags --resources $global_core_dopt_id \
-                    --tags Key=Name,Value=Core-DHCPOptions \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 aws ec2 associate-dhcp-options --vpc-id $global_core_vpc_id \
                                --dhcp-options-id $global_core_dopt_id \
@@ -912,337 +702,190 @@ aws ec2 associate-dhcp-options --vpc-id $global_core_vpc_id \
 global_core_public_subneta_id=$(aws ec2 create-subnet --vpc-id $global_core_vpc_id \
                                                       --cidr-block $global_core_subnet_publica_cidr \
                                                       --availability-zone us-east-1a \
+                                                      --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-PublicSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                       --query 'Subnet.SubnetId' \
                                                       --profile $profile --region us-east-1 --output text)
 echo "global_core_public_subneta_id=$global_core_public_subneta_id"
-
-aws ec2 create-tags --resources $global_core_public_subneta_id \
-                    --tags Key=Name,Value=Core-PublicSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Public Subnet B
 global_core_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $global_core_vpc_id \
                                                       --cidr-block $global_core_subnet_publicb_cidr \
                                                       --availability-zone us-east-1b \
+                                                      --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-PublicSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                       --query 'Subnet.SubnetId' \
                                                       --profile $profile --region us-east-1 --output text)
 echo "global_core_public_subnetb_id=$global_core_public_subnetb_id"
-
-aws ec2 create-tags --resources $global_core_public_subnetb_id \
-                    --tags Key=Name,Value=Core-PublicSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Public Subnet C
 global_core_public_subnetc_id=$(aws ec2 create-subnet --vpc-id $global_core_vpc_id \
                                                       --cidr-block $global_core_subnet_publicc_cidr \
                                                       --availability-zone us-east-1c \
+                                                      --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-PublicSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                       --query 'Subnet.SubnetId' \
                                                       --profile $profile --region us-east-1 --output text)
 echo "global_core_public_subnetc_id=$global_core_public_subnetc_id"
-
-aws ec2 create-tags --resources $global_core_public_subnetc_id \
-                    --tags Key=Name,Value=Core-PublicSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Web Subnet A
 global_core_web_subneta_id=$(aws ec2 create-subnet --vpc-id $global_core_vpc_id \
                                                    --cidr-block $global_core_subnet_weba_cidr \
                                                    --availability-zone us-east-1a \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-WebSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-1 --output text)
 echo "global_core_web_subneta_id=$global_core_web_subneta_id"
-
-aws ec2 create-tags --resources $global_core_web_subneta_id \
-                    --tags Key=Name,Value=Core-WebSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Web Subnet B
 global_core_web_subnetb_id=$(aws ec2 create-subnet --vpc-id $global_core_vpc_id \
                                                    --cidr-block $global_core_subnet_webb_cidr \
                                                    --availability-zone us-east-1b \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-WebSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-1 --output text)
 echo "global_core_web_subnetb_id=$global_core_web_subnetb_id"
-
-aws ec2 create-tags --resources $global_core_web_subnetb_id \
-                    --tags Key=Name,Value=Core-WebSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Web Subnet C
 global_core_web_subnetc_id=$(aws ec2 create-subnet --vpc-id $global_core_vpc_id \
                                                    --cidr-block $global_core_subnet_webc_cidr \
                                                    --availability-zone us-east-1c \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-WebSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-1 --output text)
 echo "global_core_web_subnetc_id=$global_core_web_subnetc_id"
-
-aws ec2 create-tags --resources $global_core_web_subnetc_id \
-                    --tags Key=Name,Value=Core-WebSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Application Subnet A
 global_core_application_subneta_id=$(aws ec2 create-subnet --vpc-id $global_core_vpc_id \
                                                            --cidr-block $global_core_subnet_applicationa_cidr \
                                                            --availability-zone us-east-1a \
+                                                           --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-ApplicationSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                            --query 'Subnet.SubnetId' \
                                                            --profile $profile --region us-east-1 --output text)
 echo "global_core_application_subneta_id=$global_core_application_subneta_id"
-
-aws ec2 create-tags --resources $global_core_application_subneta_id \
-                    --tags Key=Name,Value=Core-ApplicationSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Application Subnet B
 global_core_application_subnetb_id=$(aws ec2 create-subnet --vpc-id $global_core_vpc_id \
                                                            --cidr-block $global_core_subnet_applicationb_cidr \
                                                            --availability-zone us-east-1b \
+                                                           --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-ApplicationSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                            --query 'Subnet.SubnetId' \
                                                            --profile $profile --region us-east-1 --output text)
 echo "global_core_application_subnetb_id=$global_core_application_subnetb_id"
-
-aws ec2 create-tags --resources $global_core_application_subnetb_id \
-                    --tags Key=Name,Value=Core-ApplicationSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Application Subnet C
 global_core_application_subnetc_id=$(aws ec2 create-subnet --vpc-id $global_core_vpc_id \
                                                            --cidr-block $global_core_subnet_applicationc_cidr \
                                                            --availability-zone us-east-1c \
+                                                           --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-ApplicationSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                            --query 'Subnet.SubnetId' \
                                                            --profile $profile --region us-east-1 --output text)
 echo "global_core_application_subnetc_id=$global_core_application_subnetc_id"
-
-aws ec2 create-tags --resources $global_core_application_subnetc_id \
-                    --tags Key=Name,Value=Core-ApplicationSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Database Subnet A
 global_core_database_subneta_id=$(aws ec2 create-subnet --vpc-id $global_core_vpc_id \
                                                         --cidr-block $global_core_subnet_databasea_cidr \
                                                         --availability-zone us-east-1a \
+                                                        --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-DatabaseSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                         --query 'Subnet.SubnetId' \
                                                         --profile $profile --region us-east-1 --output text)
 echo "global_core_database_subneta_id=$global_core_database_subneta_id"
-
-aws ec2 create-tags --resources $global_core_database_subneta_id \
-                    --tags Key=Name,Value=Core-DatabaseSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Database Subnet B
 global_core_database_subnetb_id=$(aws ec2 create-subnet --vpc-id $global_core_vpc_id \
                                                         --cidr-block $global_core_subnet_databaseb_cidr \
                                                         --availability-zone us-east-1b \
+                                                        --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-DatabaseSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                         --query 'Subnet.SubnetId' \
                                                         --profile $profile --region us-east-1 --output text)
 echo "global_core_database_subnetb_id=$global_core_database_subnetb_id"
-
-aws ec2 create-tags --resources $global_core_database_subnetb_id \
-                    --tags Key=Name,Value=Core-DatabaseSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Database Subnet C
 global_core_database_subnetc_id=$(aws ec2 create-subnet --vpc-id $global_core_vpc_id \
                                                         --cidr-block $global_core_subnet_databasec_cidr \
                                                         --availability-zone us-east-1c \
+                                                        --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-DatabaseSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                         --query 'Subnet.SubnetId' \
                                                         --profile $profile --region us-east-1 --output text)
 echo "global_core_database_subnetc_id=$global_core_database_subnetc_id"
-
-aws ec2 create-tags --resources $global_core_database_subnetc_id \
-                    --tags Key=Name,Value=Core-DatabaseSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Management Subnet A
 global_core_management_subneta_id=$(aws ec2 create-subnet --vpc-id $global_core_vpc_id \
                                                           --cidr-block $global_core_subnet_managementa_cidr \
                                                           --availability-zone us-east-1a \
+                                                          --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-ManagementSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                           --query 'Subnet.SubnetId' \
                                                           --profile $profile --region us-east-1 --output text)
 echo "global_core_management_subneta_id=$global_core_management_subneta_id"
-
-aws ec2 create-tags --resources $global_core_management_subneta_id \
-                    --tags Key=Name,Value=Core-ManagementSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Management Subnet B
 global_core_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $global_core_vpc_id \
                                                           --cidr-block $global_core_subnet_managementb_cidr \
                                                           --availability-zone us-east-1b \
+                                                          --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-ManagementSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                           --query 'Subnet.SubnetId' \
                                                           --profile $profile --region us-east-1 --output text)
 echo "global_core_management_subnetb_id=$global_core_management_subnetb_id"
-
-aws ec2 create-tags --resources $global_core_management_subnetb_id \
-                    --tags Key=Name,Value=Core-ManagementSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Management Subnet C
 global_core_management_subnetc_id=$(aws ec2 create-subnet --vpc-id $global_core_vpc_id \
                                                           --cidr-block $global_core_subnet_managementc_cidr \
                                                           --availability-zone us-east-1c \
+                                                          --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-ManagementSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                           --query 'Subnet.SubnetId' \
                                                           --profile $profile --region us-east-1 --output text)
 echo "global_core_management_subnetc_id=$global_core_management_subnetc_id"
-
-aws ec2 create-tags --resources $global_core_management_subnetc_id \
-                    --tags Key=Name,Value=Core-ManagementSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Gateway Subnet A
 global_core_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $global_core_vpc_id \
                                                        --cidr-block $global_core_subnet_gatewaya_cidr \
                                                        --availability-zone us-east-1a \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-GatewaySubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-1 --output text)
 echo "global_core_gateway_subneta_id=$global_core_gateway_subneta_id"
-
-aws ec2 create-tags --resources $global_core_gateway_subneta_id \
-                    --tags Key=Name,Value=Core-GatewaySubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Gateway Subnet B
 global_core_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $global_core_vpc_id \
                                                        --cidr-block $global_core_subnet_gatewayb_cidr \
                                                        --availability-zone us-east-1b \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-GatewaySubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-1 --output text)
 echo "global_core_gateway_subnetb_id=$global_core_gateway_subnetb_id"
-
-aws ec2 create-tags --resources $global_core_gateway_subnetb_id \
-                    --tags Key=Name,Value=Core-GatewaySubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Gateway Subnet C
 global_core_gateway_subnetc_id=$(aws ec2 create-subnet --vpc-id $global_core_vpc_id \
                                                        --cidr-block $global_core_subnet_gatewayc_cidr \
                                                        --availability-zone us-east-1c \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-GatewaySubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-1 --output text)
 echo "global_core_gateway_subnetc_id=$global_core_gateway_subnetc_id"
-
-aws ec2 create-tags --resources $global_core_gateway_subnetc_id \
-                    --tags Key=Name,Value=Core-GatewaySubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Endpoint Subnet A
 global_core_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $global_core_vpc_id \
                                                         --cidr-block $global_core_subnet_endpointa_cidr \
                                                         --availability-zone us-east-1a \
+                                                        --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-EndpointSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                         --query 'Subnet.SubnetId' \
                                                         --profile $profile --region us-east-1 --output text)
 echo "global_core_endpoint_subneta_id=$global_core_endpoint_subneta_id"
-
-aws ec2 create-tags --resources $global_core_endpoint_subneta_id \
-                    --tags Key=Name,Value=Core-EndpointSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Endpoint Subnet B
 global_core_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $global_core_vpc_id \
                                                         --cidr-block $global_core_subnet_endpointb_cidr \
                                                         --availability-zone us-east-1b \
+                                                        --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-EndpointSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                         --query 'Subnet.SubnetId' \
                                                         --profile $profile --region us-east-1 --output text)
 echo "global_core_endpoint_subnetb_id=$global_core_endpoint_subnetb_id"
-
-aws ec2 create-tags --resources $global_core_endpoint_subnetb_id \
-                    --tags Key=Name,Value=Core-EndpointSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Endpoint Subnet C
 global_core_endpoint_subnetc_id=$(aws ec2 create-subnet --vpc-id $global_core_vpc_id \
                                                         --cidr-block $global_core_subnet_endpointc_cidr \
                                                         --availability-zone us-east-1c \
+                                                        --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-EndpointSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                         --query 'Subnet.SubnetId' \
                                                         --profile $profile --region us-east-1 --output text)
 echo "global_core_endpoint_subnetc_id=$global_core_endpoint_subnetc_id"
-
-aws ec2 create-tags --resources $global_core_endpoint_subnetc_id \
-                    --tags Key=Name,Value=Core-EndpointSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Public Route Table, Default Route and Associate with Public Subnets
 global_core_public_rtb_id=$(aws ec2 create-route-table --vpc-id $global_core_vpc_id \
@@ -1606,17 +1249,10 @@ profile=$log_profile
 
 # Create VPC
 global_log_vpc_id=$(aws ec2 create-vpc --cidr-block $global_log_vpc_cidr \
+                                       --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=Log-VPC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                        --query 'Vpc.VpcId' \
                                        --profile $profile --region us-east-1 --output text)
 echo "global_log_vpc_id=$global_log_vpc_id"
-
-aws ec2 create-tags --resources $global_log_vpc_id \
-                    --tags Key=Name,Value=Log-VPC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 aws ec2 modify-vpc-attribute --vpc-id $global_log_vpc_id \
                              --enable-dns-support \
@@ -1638,17 +1274,10 @@ aws ec2 create-flow-logs --resource-type VPC --resource-ids $global_log_vpc_id \
                          --profile $profile --region us-east-1 --output text
 
 # Create Internet Gateway & Attach
-global_log_igw_id=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' \
+global_log_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=Log-InternetGateway},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
+                                                    --query 'InternetGateway.InternetGatewayId' \
                                                     --profile $profile --region us-east-1 --output text)
 echo "global_log_igw_id=$global_log_igw_id"
-
-aws ec2 create-tags --resources $global_log_igw_id \
-                    --tags Key=Name,Value=Log-InternetGateway \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 aws ec2 attach-internet-gateway --vpc-id $global_log_vpc_id \
                                 --internet-gateway-id $global_log_igw_id \
@@ -1666,17 +1295,10 @@ echo "global_log_private_hostedzone_id=$global_log_private_hostedzone_id"
 # Create DHCP Options Set
 global_log_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$global_log_private_domain]" \
                                                                        "Key=domain-name-servers,Values=[AmazonProvidedDNS]" \
+                                                 --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=Log-DHCPOptions},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                  --query 'DhcpOptions.DhcpOptionsId' \
                                                  --profile $profile --region us-east-1 --output text)
 echo "global_log_dopt_id=$global_log_dopt_id"
-
-aws ec2 create-tags --resources $global_log_dopt_id \
-                    --tags Key=Name,Value=Log-DHCPOptions \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 aws ec2 associate-dhcp-options --vpc-id $global_log_vpc_id \
                                --dhcp-options-id $global_log_dopt_id \
@@ -1686,337 +1308,190 @@ aws ec2 associate-dhcp-options --vpc-id $global_log_vpc_id \
 global_log_public_subneta_id=$(aws ec2 create-subnet --vpc-id $global_log_vpc_id \
                                                      --cidr-block $global_log_subnet_publica_cidr \
                                                      --availability-zone us-east-1a \
+                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-PublicSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                      --query 'Subnet.SubnetId' \
                                                      --profile $profile --region us-east-1 --output text)
 echo "global_log_public_subneta_id=$global_log_public_subneta_id"
-
-aws ec2 create-tags --resources $global_log_public_subneta_id \
-                    --tags Key=Name,Value=Log-PublicSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Public Subnet B
 global_log_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $global_log_vpc_id \
                                                      --cidr-block $global_log_subnet_publicb_cidr \
                                                      --availability-zone us-east-1b \
+                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-PublicSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                      --query 'Subnet.SubnetId' \
                                                      --profile $profile --region us-east-1 --output text)
 echo "global_log_public_subnetb_id=$global_log_public_subnetb_id"
-
-aws ec2 create-tags --resources $global_log_public_subnetb_id \
-                    --tags Key=Name,Value=Log-PublicSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Public Subnet C
 global_log_public_subnetc_id=$(aws ec2 create-subnet --vpc-id $global_log_vpc_id \
                                                      --cidr-block $global_log_subnet_publicc_cidr \
                                                      --availability-zone us-east-1c \
+                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-PublicSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                      --query 'Subnet.SubnetId' \
                                                      --profile $profile --region us-east-1 --output text)
 echo "global_log_public_subnetc_id=$global_log_public_subnetc_id"
-
-aws ec2 create-tags --resources $global_log_public_subnetc_id \
-                    --tags Key=Name,Value=Log-PublicSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Web Subnet A
 global_log_web_subneta_id=$(aws ec2 create-subnet --vpc-id $global_log_vpc_id \
                                                   --cidr-block $global_log_subnet_weba_cidr \
                                                   --availability-zone us-east-1a \
+                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-WebSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                   --query 'Subnet.SubnetId' \
                                                   --profile $profile --region us-east-1 --output text)
 echo "global_log_web_subneta_id=$global_log_web_subneta_id"
-
-aws ec2 create-tags --resources $global_log_web_subneta_id \
-                    --tags Key=Name,Value=Log-WebSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Web Subnet B
 global_log_web_subnetb_id=$(aws ec2 create-subnet --vpc-id $global_log_vpc_id \
                                                   --cidr-block $global_log_subnet_webb_cidr \
                                                   --availability-zone us-east-1b \
+                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-WebSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                   --query 'Subnet.SubnetId' \
                                                   --profile $profile --region us-east-1 --output text)
 echo "global_log_web_subnetb_id=$global_log_web_subnetb_id"
-
-aws ec2 create-tags --resources $global_log_web_subnetb_id \
-                    --tags Key=Name,Value=Log-WebSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Web Subnet C
 global_log_web_subnetc_id=$(aws ec2 create-subnet --vpc-id $global_log_vpc_id \
                                                   --cidr-block $global_log_subnet_webc_cidr \
                                                   --availability-zone us-east-1c \
+                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-WebSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                   --query 'Subnet.SubnetId' \
                                                   --profile $profile --region us-east-1 --output text)
 echo "global_log_web_subnetc_id=$global_log_web_subnetc_id"
-
-aws ec2 create-tags --resources $global_log_web_subnetc_id \
-                    --tags Key=Name,Value=Log-WebSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Application Subnet A
 global_log_application_subneta_id=$(aws ec2 create-subnet --vpc-id $global_log_vpc_id \
                                                           --cidr-block $global_log_subnet_applicationa_cidr \
                                                           --availability-zone us-east-1a \
+                                                          --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-ApplicationSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                           --query 'Subnet.SubnetId' \
                                                           --profile $profile --region us-east-1 --output text)
 echo "global_log_application_subneta_id=$global_log_application_subneta_id"
-
-aws ec2 create-tags --resources $global_log_application_subneta_id \
-                    --tags Key=Name,Value=Log-ApplicationSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Application Subnet B
 global_log_application_subnetb_id=$(aws ec2 create-subnet --vpc-id $global_log_vpc_id \
                                                           --cidr-block $global_log_subnet_applicationb_cidr \
                                                           --availability-zone us-east-1b \
+                                                          --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-ApplicationSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                           --query 'Subnet.SubnetId' \
                                                           --profile $profile --region us-east-1 --output text)
 echo "global_log_application_subnetb_id=$global_log_application_subnetb_id"
-
-aws ec2 create-tags --resources $global_log_application_subnetb_id \
-                    --tags Key=Name,Value=Log-ApplicationSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Application Subnet C
 global_log_application_subnetc_id=$(aws ec2 create-subnet --vpc-id $global_log_vpc_id \
                                                           --cidr-block $global_log_subnet_applicationc_cidr \
                                                           --availability-zone us-east-1c \
+                                                          --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-ApplicationSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                           --query 'Subnet.SubnetId' \
                                                           --profile $profile --region us-east-1 --output text)
 echo "global_log_application_subnetc_id=$global_log_application_subnetc_id"
-
-aws ec2 create-tags --resources $global_log_application_subnetc_id \
-                    --tags Key=Name,Value=Log-ApplicationSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Database Subnet A
 global_log_database_subneta_id=$(aws ec2 create-subnet --vpc-id $global_log_vpc_id \
                                                        --cidr-block $global_log_subnet_databasea_cidr \
                                                        --availability-zone us-east-1a \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-DatabaseSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-1 --output text)
 echo "global_log_database_subneta_id=$global_log_database_subneta_id"
-
-aws ec2 create-tags --resources $global_log_database_subneta_id \
-                    --tags Key=Name,Value=Log-DatabaseSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Database Subnet B
 global_log_database_subnetb_id=$(aws ec2 create-subnet --vpc-id $global_log_vpc_id \
                                                        --cidr-block $global_log_subnet_databaseb_cidr \
                                                        --availability-zone us-east-1b \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-DatabaseSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-1 --output text)
 echo "global_log_database_subnetb_id=$global_log_database_subnetb_id"
-
-aws ec2 create-tags --resources $global_log_database_subnetb_id \
-                    --tags Key=Name,Value=Log-DatabaseSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Database Subnet C
 global_log_database_subnetc_id=$(aws ec2 create-subnet --vpc-id $global_log_vpc_id \
                                                        --cidr-block $global_log_subnet_databasec_cidr \
                                                        --availability-zone us-east-1c \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-DatabaseSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-1 --output text)
 echo "global_log_database_subnetc_id=$global_log_database_subnetc_id"
-
-aws ec2 create-tags --resources $global_log_database_subnetc_id \
-                    --tags Key=Name,Value=Log-DatabaseSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Management Subnet A
 global_log_management_subneta_id=$(aws ec2 create-subnet --vpc-id $global_log_vpc_id \
                                                          --cidr-block $global_log_subnet_managementa_cidr \
                                                          --availability-zone us-east-1a \
+                                                         --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-ManagementSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                          --query 'Subnet.SubnetId' \
                                                          --profile $profile --region us-east-1 --output text)
 echo "global_log_management_subneta_id=$global_log_management_subneta_id"
-
-aws ec2 create-tags --resources $global_log_management_subneta_id \
-                    --tags Key=Name,Value=Log-ManagementSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Management Subnet B
 global_log_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $global_log_vpc_id \
                                                          --cidr-block $global_log_subnet_managementb_cidr \
                                                          --availability-zone us-east-1b \
+                                                         --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-ManagementSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                          --query 'Subnet.SubnetId' \
                                                          --profile $profile --region us-east-1 --output text)
 echo "global_log_management_subnetb_id=$global_log_management_subnetb_id"
-
-aws ec2 create-tags --resources $global_log_management_subnetb_id \
-                    --tags Key=Name,Value=Log-ManagementSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Management Subnet C
 global_log_management_subnetc_id=$(aws ec2 create-subnet --vpc-id $global_log_vpc_id \
                                                          --cidr-block $global_log_subnet_managementc_cidr \
                                                          --availability-zone us-east-1c \
+                                                         --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-ManagementSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                          --query 'Subnet.SubnetId' \
                                                          --profile $profile --region us-east-1 --output text)
 echo "global_log_management_subnetc_id=$global_log_management_subnetc_id"
-
-aws ec2 create-tags --resources $global_log_management_subnetc_id \
-                    --tags Key=Name,Value=Log-ManagementSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Gateway Subnet A
 global_log_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $global_log_vpc_id \
                                                       --cidr-block $global_log_subnet_gatewaya_cidr \
                                                       --availability-zone us-east-1a \
+                                                      --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-GatewaySubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                       --query 'Subnet.SubnetId' \
                                                       --profile $profile --region us-east-1 --output text)
 echo "global_log_gateway_subneta_id=$global_log_gateway_subneta_id"
-
-aws ec2 create-tags --resources $global_log_gateway_subneta_id \
-                    --tags Key=Name,Value=Log-GatewaySubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Gateway Subnet B
 global_log_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $global_log_vpc_id \
                                                       --cidr-block $global_log_subnet_gatewayb_cidr \
                                                       --availability-zone us-east-1b \
+                                                      --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-GatewaySubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                       --query 'Subnet.SubnetId' \
                                                       --profile $profile --region us-east-1 --output text)
 echo "global_log_gateway_subnetb_id=$global_log_gateway_subnetb_id"
-
-aws ec2 create-tags --resources $global_log_gateway_subnetb_id \
-                    --tags Key=Name,Value=Log-GatewaySubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Gateway Subnet C
 global_log_gateway_subnetc_id=$(aws ec2 create-subnet --vpc-id $global_log_vpc_id \
                                                       --cidr-block $global_log_subnet_gatewayc_cidr \
                                                       --availability-zone us-east-1c \
+                                                      --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-GatewaySubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                       --query 'Subnet.SubnetId' \
                                                       --profile $profile --region us-east-1 --output text)
 echo "global_log_gateway_subnetc_id=$global_log_gateway_subnetc_id"
-
-aws ec2 create-tags --resources $global_log_gateway_subnetc_id \
-                    --tags Key=Name,Value=Log-GatewaySubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Endpoint Subnet A
 global_log_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $global_log_vpc_id \
                                                        --cidr-block $global_log_subnet_endpointa_cidr \
                                                        --availability-zone us-east-1a \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-EndpointSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-1 --output text)
 echo "global_log_endpoint_subneta_id=$global_log_endpoint_subneta_id"
-
-aws ec2 create-tags --resources $global_log_endpoint_subneta_id \
-                    --tags Key=Name,Value=Log-EndpointSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Endpoint Subnet B
 global_log_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $global_log_vpc_id \
                                                        --cidr-block $global_log_subnet_endpointb_cidr \
                                                        --availability-zone us-east-1b \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-EndpointSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-1 --output text)
 echo "global_log_endpoint_subnetb_id=$global_log_endpoint_subnetb_id"
-
-aws ec2 create-tags --resources $global_log_endpoint_subnetb_id \
-                    --tags Key=Name,Value=Log-EndpointSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Endpoint Subnet C
 global_log_endpoint_subnetc_id=$(aws ec2 create-subnet --vpc-id $global_log_vpc_id \
                                                        --cidr-block $global_log_subnet_endpointc_cidr \
                                                        --availability-zone us-east-1c \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-EndpointSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-1 --output text)
 echo "global_log_endpoint_subnetc_id=$global_log_endpoint_subnetc_id"
-
-aws ec2 create-tags --resources $global_log_endpoint_subnetc_id \
-                    --tags Key=Name,Value=Log-EndpointSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create Public Route Table, Default Route and Associate with Public Subnets
 global_log_public_rtb_id=$(aws ec2 create-route-table --vpc-id $global_log_vpc_id \
@@ -2354,17 +1829,10 @@ profile=$management_profile
 
 # Create VPC
 ohio_management_vpc_id=$(aws ec2 create-vpc --cidr-block $ohio_management_vpc_cidr \
+                                            --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=Management-VPC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                             --query 'Vpc.VpcId' \
                                             --profile $profile --region us-east-2 --output text)
 echo "ohio_management_vpc_id=$ohio_management_vpc_id"
-
-aws ec2 create-tags --resources $ohio_management_vpc_id \
-                    --tags Key=Name,Value=Management-VPC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 modify-vpc-attribute --vpc-id $ohio_management_vpc_id \
                              --enable-dns-support \
@@ -2387,17 +1855,10 @@ aws ec2 create-flow-logs --resource-type VPC --resource-ids $ohio_management_vpc
                          --profile $profile --region us-east-2 --output text
 
 # Create Internet Gateway & Attach
-ohio_management_igw_id=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' \
+ohio_management_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=Management-InternetGateway},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
+                                                         --query 'InternetGateway.InternetGatewayId' \
                                                          --profile $profile --region us-east-2 --output text)
 echo "ohio_management_igw_id=$ohio_management_igw_id"
-
-aws ec2 create-tags --resources $ohio_management_igw_id \
-                    --tags Key=Name,Value=Management-InternetGateway \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 attach-internet-gateway --vpc-id $ohio_management_vpc_id \
                                 --internet-gateway-id $ohio_management_igw_id \
@@ -2415,17 +1876,10 @@ echo "ohio_management_private_hostedzone_id=$ohio_management_private_hostedzone_
 # Create DHCP Options Set
 ohio_management_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$ohio_management_public_domain]" \
                                                                             "Key=domain-name-servers,Values=[AmazonProvidedDNS]" \
+                                                      --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=Management-DHCPOptions},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                       --query 'DhcpOptions.DhcpOptionsId' \
                                                       --profile $profile --region us-east-2 --output text)
 echo "ohio_management_dopt_id=$ohio_management_dopt_id"
-
-aws ec2 create-tags --resources $ohio_management_dopt_id \
-                    --tags Key=Name,Value=Management-DHCPOptions \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 associate-dhcp-options --vpc-id $ohio_management_vpc_id \
                                --dhcp-options-id $ohio_management_dopt_id \
@@ -2435,385 +1889,217 @@ aws ec2 associate-dhcp-options --vpc-id $ohio_management_vpc_id \
 ohio_management_public_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
                                                           --cidr-block $ohio_management_subnet_publica_cidr \
                                                           --availability-zone us-east-2a \
+                                                          --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-PublicSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                           --query 'Subnet.SubnetId' \
                                                           --profile $profile --region us-east-2 --output text)
 echo "ohio_management_public_subneta_id=$ohio_management_public_subneta_id"
-
-aws ec2 create-tags --resources $ohio_management_public_subneta_id \
-                    --tags Key=Name,Value=Management-PublicSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Subnet B
 ohio_management_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
                                                           --cidr-block $ohio_management_subnet_publicb_cidr \
                                                           --availability-zone us-east-2b \
+                                                          --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-PublicSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                           --query 'Subnet.SubnetId' \
                                                           --profile $profile --region us-east-2 --output text)
 echo "ohio_management_public_subnetb_id=$ohio_management_public_subnetb_id"
-
-aws ec2 create-tags --resources $ohio_management_public_subnetb_id \
-                    --tags Key=Name,Value=Management-PublicSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Subnet C
 ohio_management_public_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
                                                           --cidr-block $ohio_management_subnet_publicc_cidr \
                                                           --availability-zone us-east-2c \
+                                                          --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-PublicSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                           --query 'Subnet.SubnetId' \
                                                           --profile $profile --region us-east-2 --output text)
 echo "ohio_management_public_subnetc_id=$ohio_management_public_subnetc_id"
-
-aws ec2 create-tags --resources $ohio_management_public_subnetc_id \
-                    --tags Key=Name,Value=Management-PublicSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Web Subnet A
 ohio_management_web_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
                                                        --cidr-block $ohio_management_subnet_weba_cidr \
                                                        --availability-zone us-east-2a \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-WebSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-2 --output text)
 echo "ohio_management_web_subneta_id=$ohio_management_web_subneta_id"
-
-aws ec2 create-tags --resources $ohio_management_web_subneta_id \
-                    --tags Key=Name,Value=Management-WebSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Web Subnet B
 ohio_management_web_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
                                                        --cidr-block $ohio_management_subnet_webb_cidr \
                                                        --availability-zone us-east-2b \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-WebSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-2 --output text)
 echo "ohio_management_web_subnetb_id=$ohio_management_web_subnetb_id"
-
-aws ec2 create-tags --resources $ohio_management_web_subnetb_id \
-                    --tags Key=Name,Value=Management-WebSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Web Subnet C
 ohio_management_web_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
                                                        --cidr-block $ohio_management_subnet_webc_cidr \
                                                        --availability-zone us-east-2c \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-WebSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-2 --output text)
 echo "ohio_management_web_subnetc_id=$ohio_management_web_subnetc_id"
-
-aws ec2 create-tags --resources $ohio_management_web_subnetc_id \
-                    --tags Key=Name,Value=Management-WebSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Application Subnet A
 ohio_management_application_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
                                                                --cidr-block $ohio_management_subnet_applicationa_cidr \
                                                                --availability-zone us-east-2a \
+                                                               --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-ApplicationSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                --query 'Subnet.SubnetId' \
                                                                --profile $profile --region us-east-2 --output text)
 echo "ohio_management_application_subneta_id=$ohio_management_application_subneta_id"
-
-aws ec2 create-tags --resources $ohio_management_application_subneta_id \
-                    --tags Key=Name,Value=Management-ApplicationSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Application Subnet B
 ohio_management_application_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
                                                                --cidr-block $ohio_management_subnet_applicationb_cidr \
                                                                --availability-zone us-east-2b \
+                                                               --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-ApplicationSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                --query 'Subnet.SubnetId' \
                                                                --profile $profile --region us-east-2 --output text)
 echo "ohio_management_application_subnetb_id=$ohio_management_application_subnetb_id"
-
-aws ec2 create-tags --resources $ohio_management_application_subnetb_id \
-                    --tags Key=Name,Value=Management-ApplicationSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Application Subnet C
 ohio_management_application_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
                                                                --cidr-block $ohio_management_subnet_applicationc_cidr \
                                                                --availability-zone us-east-2c \
+                                                               --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-ApplicationSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                --query 'Subnet.SubnetId' \
                                                                --profile $profile --region us-east-2 --output text)
 echo "ohio_management_application_subnetc_id=$ohio_management_application_subnetc_id"
-
-aws ec2 create-tags --resources $ohio_management_application_subnetc_id \
-                    --tags Key=Name,Value=Management-ApplicationSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Database Subnet A
 ohio_management_database_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
                                                             --cidr-block $ohio_management_subnet_databasea_cidr \
                                                             --availability-zone us-east-2a \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-DatabaseSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region us-east-2 --output text)
 echo "ohio_management_database_subneta_id=$ohio_management_database_subneta_id"
-
-aws ec2 create-tags --resources $ohio_management_database_subneta_id \
-                    --tags Key=Name,Value=Management-DatabaseSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Database Subnet B
 ohio_management_database_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
                                                             --cidr-block $ohio_management_subnet_databaseb_cidr \
                                                             --availability-zone us-east-2b \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-DatabaseSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region us-east-2 --output text)
 echo "ohio_management_database_subnetb_id=$ohio_management_database_subnetb_id"
-
-aws ec2 create-tags --resources $ohio_management_database_subnetb_id \
-                    --tags Key=Name,Value=Management-DatabaseSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Database Subnet C
 ohio_management_database_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
                                                             --cidr-block $ohio_management_subnet_databasec_cidr \
                                                             --availability-zone us-east-2c \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-DatabaseSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region us-east-2 --output text)
 echo "ohio_management_database_subnetc_id=$ohio_management_database_subnetc_id"
-
-aws ec2 create-tags --resources $ohio_management_database_subnetc_id \
-                    --tags Key=Name,Value=Management-DatabaseSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Directory Subnet A
 ohio_management_directory_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
                                                             --cidr-block $ohio_management_subnet_directorya_cidr \
                                                             --availability-zone us-east-2a \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-DirectorySubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region us-east-2 --output text)
 echo "ohio_management_directory_subneta_id=$ohio_management_directory_subneta_id"
-
-aws ec2 create-tags --resources $ohio_management_directory_subneta_id \
-                    --tags Key=Name,Value=Management-DirectorySubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Directory Subnet B
 ohio_management_directory_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
                                                             --cidr-block $ohio_management_subnet_directoryb_cidr \
                                                             --availability-zone us-east-2b \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-DirectorySubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region us-east-2 --output text)
 echo "ohio_management_directory_subnetb_id=$ohio_management_directory_subnetb_id"
-
-aws ec2 create-tags --resources $ohio_management_directory_subnetb_id \
-                    --tags Key=Name,Value=Management-DirectorySubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Directory Subnet C
 ohio_management_directory_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
                                                             --cidr-block $ohio_management_subnet_directoryc_cidr \
                                                             --availability-zone us-east-2c \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-DirectorySubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region us-east-2 --output text)
 echo "ohio_management_directory_subnetc_id=$ohio_management_directory_subnetc_id"
-
-aws ec2 create-tags --resources $ohio_management_directory_subnetc_id \
-                    --tags Key=Name,Value=Management-DirectorySubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet A
 ohio_management_management_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
                                                               --cidr-block $ohio_management_subnet_managementa_cidr \
                                                               --availability-zone us-east-2a \
+                                                              --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-ManagementSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                               --query 'Subnet.SubnetId' \
                                                               --profile $profile --region us-east-2 --output text)
 echo "ohio_management_management_subneta_id=$ohio_management_management_subneta_id"
-
-aws ec2 create-tags --resources $ohio_management_management_subneta_id \
-                    --tags Key=Name,Value=Management-ManagementSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet B
 ohio_management_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
                                                               --cidr-block $ohio_management_subnet_managementb_cidr \
                                                               --availability-zone us-east-2b \
+                                                              --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-ManagementSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                               --query 'Subnet.SubnetId' \
                                                               --profile $profile --region us-east-2 --output text)
 echo "ohio_management_management_subnetb_id=$ohio_management_management_subnetb_id"
-
-aws ec2 create-tags --resources $ohio_management_management_subnetb_id \
-                    --tags Key=Name,Value=Management-ManagementSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet C
 ohio_management_management_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
                                                               --cidr-block $ohio_management_subnet_managementc_cidr \
                                                               --availability-zone us-east-2c \
+                                                              --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-ManagementSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                               --query 'Subnet.SubnetId' \
                                                               --profile $profile --region us-east-2 --output text)
 echo "ohio_management_management_subnetc_id=$ohio_management_management_subnetc_id"
-
-aws ec2 create-tags --resources $ohio_management_management_subnetc_id \
-                    --tags Key=Name,Value=Management-ManagementSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet A
 ohio_management_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
                                                            --cidr-block $ohio_management_subnet_gatewaya_cidr \
                                                            --availability-zone us-east-2a \
+                                                           --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-GatewaySubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                            --query 'Subnet.SubnetId' \
                                                            --profile $profile --region us-east-2 --output text)
 echo "ohio_management_gateway_subneta_id=$ohio_management_gateway_subneta_id"
-
-aws ec2 create-tags --resources $ohio_management_gateway_subneta_id \
-                    --tags Key=Name,Value=Management-GatewaySubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet B
 ohio_management_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
                                                            --cidr-block $ohio_management_subnet_gatewayb_cidr \
                                                            --availability-zone us-east-2b \
+                                                           --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-GatewaySubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                            --query 'Subnet.SubnetId' \
                                                            --profile $profile --region us-east-2 --output text)
 echo "ohio_management_gateway_subnetb_id=$ohio_management_gateway_subnetb_id"
-
-aws ec2 create-tags --resources $ohio_management_gateway_subnetb_id \
-                    --tags Key=Name,Value=Management-GatewaySubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet C
 ohio_management_gateway_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
                                                            --cidr-block $ohio_management_subnet_gatewayc_cidr \
                                                            --availability-zone us-east-2c \
+                                                           --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-GatewaySubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                            --query 'Subnet.SubnetId' \
                                                            --profile $profile --region us-east-2 --output text)
 echo "ohio_management_gateway_subnetc_id=$ohio_management_gateway_subnetc_id"
-
-aws ec2 create-tags --resources $ohio_management_gateway_subnetc_id \
-                    --tags Key=Name,Value=Management-GatewaySubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet A
 ohio_management_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
                                                             --cidr-block $ohio_management_subnet_endpointa_cidr \
                                                             --availability-zone us-east-2a \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-EndpointSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region us-east-2 --output text)
 echo "ohio_management_endpoint_subneta_id=$ohio_management_endpoint_subneta_id"
-
-aws ec2 create-tags --resources $ohio_management_endpoint_subneta_id \
-                    --tags Key=Name,Value=Management-EndpointSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet B
 ohio_management_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
                                                             --cidr-block $ohio_management_subnet_endpointb_cidr \
                                                             --availability-zone us-east-2b \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-EndpointSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region us-east-2 --output text)
 echo "ohio_management_endpoint_subnetb_id=$ohio_management_endpoint_subnetb_id"
-
-aws ec2 create-tags --resources $ohio_management_endpoint_subnetb_id \
-                    --tags Key=Name,Value=Management-EndpointSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet C
 ohio_management_endpoint_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
                                                             --cidr-block $ohio_management_subnet_endpointc_cidr \
                                                             --availability-zone us-east-2c \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-EndpointSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region us-east-2 --output text)
 echo "ohio_management_endpoint_subnetc_id=$ohio_management_endpoint_subnetc_id"
-
-aws ec2 create-tags --resources $ohio_management_endpoint_subnetc_id \
-                    --tags Key=Name,Value=Management-EndpointSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Route Table, Default Route and Associate with Public Subnets
 ohio_management_public_rtb_id=$(aws ec2 create-route-table --vpc-id $ohio_management_vpc_id \
@@ -3157,17 +2443,10 @@ profile=$core_profile
 
 # Create VPC
 ohio_core_vpc_id=$(aws ec2 create-vpc --cidr-block $ohio_core_vpc_cidr \
+                                      --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=Core-VPC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                       --query 'Vpc.VpcId' \
                                       --profile $profile --region us-east-2 --output text)
 echo "ohio_core_vpc_id=$ohio_core_vpc_id"
-
-aws ec2 create-tags --resources $ohio_core_vpc_id \
-                    --tags Key=Name,Value=Core-VPC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 modify-vpc-attribute --vpc-id $ohio_core_vpc_id \
                              --enable-dns-support \
@@ -3189,17 +2468,10 @@ aws ec2 create-flow-logs --resource-type VPC --resource-ids $ohio_core_vpc_id \
                          --profile $profile --region us-east-2 --output text
 
 # Create Internet Gateway & Attach
-ohio_core_igw_id=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' \
+ohio_core_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=Core-InternetGateway},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
+                                                   --query 'InternetGateway.InternetGatewayId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "ohio_core_igw_id=$ohio_core_igw_id"
-
-aws ec2 create-tags --resources $ohio_core_igw_id \
-                    --tags Key=Name,Value=Core-InternetGateway \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 attach-internet-gateway --vpc-id $ohio_core_vpc_id \
                                 --internet-gateway-id $ohio_core_igw_id \
@@ -3217,17 +2489,10 @@ echo "ohio_core_private_hostedzone_id=$ohio_core_private_hostedzone_id"
 # Create DHCP Options Set
 ohio_core_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$ohio_core_private_domain]" \
                                                                       "Key=domain-name-servers,Values=[AmazonProvidedDNS]" \
+                                                --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=Core-DHCPOptions},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                 --query 'DhcpOptions.DhcpOptionsId' \
                                                 --profile $profile --region us-east-2 --output text)
 echo "ohio_core_dopt_id=$ohio_core_dopt_id"
-
-aws ec2 create-tags --resources $ohio_core_dopt_id \
-                    --tags Key=Name,Value=Core-DHCPOptions \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 associate-dhcp-options --vpc-id $ohio_core_vpc_id \
                                --dhcp-options-id $ohio_core_dopt_id \
@@ -3237,337 +2502,190 @@ aws ec2 associate-dhcp-options --vpc-id $ohio_core_vpc_id \
 ohio_core_public_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_core_vpc_id \
                                                     --cidr-block $ohio_core_subnet_publica_cidr \
                                                     --availability-zone us-east-2a \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-PublicSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "ohio_core_public_subneta_id=$ohio_core_public_subneta_id"
-
-aws ec2 create-tags --resources $ohio_core_public_subneta_id \
-                    --tags Key=Name,Value=Core-PublicSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Subnet B
 ohio_core_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_core_vpc_id \
                                                     --cidr-block $ohio_core_subnet_publicb_cidr \
                                                     --availability-zone us-east-2b \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-PublicSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "ohio_core_public_subnetb_id=$ohio_core_public_subnetb_id"
-
-aws ec2 create-tags --resources $ohio_core_public_subnetb_id \
-                    --tags Key=Name,Value=Core-PublicSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Subnet C
 ohio_core_public_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_core_vpc_id \
                                                     --cidr-block $ohio_core_subnet_publicc_cidr \
                                                     --availability-zone us-east-2c \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-PublicSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "ohio_core_public_subnetc_id=$ohio_core_public_subnetc_id"
-
-aws ec2 create-tags --resources $ohio_core_public_subnetc_id \
-                    --tags Key=Name,Value=Core-PublicSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Web Subnet A
 ohio_core_web_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_core_vpc_id \
                                                  --cidr-block $ohio_core_subnet_weba_cidr \
                                                  --availability-zone us-east-2a \
+                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-WebSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                  --query 'Subnet.SubnetId' \
                                                  --profile $profile --region us-east-2 --output text)
 echo "ohio_core_web_subneta_id=$ohio_core_web_subneta_id"
-
-aws ec2 create-tags --resources $ohio_core_web_subneta_id \
-                    --tags Key=Name,Value=Core-WebSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Web Subnet B
 ohio_core_web_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_core_vpc_id \
                                                  --cidr-block $ohio_core_subnet_webb_cidr \
                                                  --availability-zone us-east-2b \
+                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-WebSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                  --query 'Subnet.SubnetId' \
                                                  --profile $profile --region us-east-2 --output text)
 echo "ohio_core_web_subnetb_id=$ohio_core_web_subnetb_id"
-
-aws ec2 create-tags --resources $ohio_core_web_subnetb_id \
-                    --tags Key=Name,Value=Core-WebSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Web Subnet C
 ohio_core_web_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_core_vpc_id \
                                                  --cidr-block $ohio_core_subnet_webc_cidr \
                                                  --availability-zone us-east-2c \
+                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-WebSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                  --query 'Subnet.SubnetId' \
                                                  --profile $profile --region us-east-2 --output text)
 echo "ohio_core_web_subnetc_id=$ohio_core_web_subnetc_id"
-
-aws ec2 create-tags --resources $ohio_core_web_subnetc_id \
-                    --tags Key=Name,Value=Core-WebSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Application Subnet A
 ohio_core_application_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_core_vpc_id \
                                                          --cidr-block $ohio_core_subnet_applicationa_cidr \
                                                          --availability-zone us-east-2a \
+                                                         --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-ApplicationSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                          --query 'Subnet.SubnetId' \
                                                          --profile $profile --region us-east-2 --output text)
 echo "ohio_core_application_subneta_id=$ohio_core_application_subneta_id"
-
-aws ec2 create-tags --resources $ohio_core_application_subneta_id \
-                    --tags Key=Name,Value=Core-ApplicationSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Application Subnet B
 ohio_core_application_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_core_vpc_id \
                                                          --cidr-block $ohio_core_subnet_applicationb_cidr \
                                                          --availability-zone us-east-2b \
+                                                         --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-ApplicationSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                          --query 'Subnet.SubnetId' \
                                                          --profile $profile --region us-east-2 --output text)
 echo "ohio_core_application_subnetb_id=$ohio_core_application_subnetb_id"
-
-aws ec2 create-tags --resources $ohio_core_application_subnetb_id \
-                    --tags Key=Name,Value=Core-ApplicationSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Application Subnet C
 ohio_core_application_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_core_vpc_id \
                                                          --cidr-block $ohio_core_subnet_applicationc_cidr \
                                                          --availability-zone us-east-2c \
+                                                         --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-ApplicationSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                          --query 'Subnet.SubnetId' \
                                                          --profile $profile --region us-east-2 --output text)
 echo "ohio_core_application_subnetc_id=$ohio_core_application_subnetc_id"
-
-aws ec2 create-tags --resources $ohio_core_application_subnetc_id \
-                    --tags Key=Name,Value=Core-ApplicationSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Database Subnet A
 ohio_core_database_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_core_vpc_id \
                                                       --cidr-block $ohio_core_subnet_databasea_cidr \
                                                       --availability-zone us-east-2a \
+                                                      --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-DatabaseSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                       --query 'Subnet.SubnetId' \
                                                       --profile $profile --region us-east-2 --output text)
 echo "ohio_core_database_subneta_id=$ohio_core_database_subneta_id"
-
-aws ec2 create-tags --resources $ohio_core_database_subneta_id \
-                    --tags Key=Name,Value=Core-DatabaseSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Database Subnet B
 ohio_core_database_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_core_vpc_id \
                                                       --cidr-block $ohio_core_subnet_databaseb_cidr \
                                                       --availability-zone us-east-2b \
+                                                      --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-DatabaseSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                       --query 'Subnet.SubnetId' \
                                                       --profile $profile --region us-east-2 --output text)
 echo "ohio_core_database_subnetb_id=$ohio_core_database_subnetb_id"
-
-aws ec2 create-tags --resources $ohio_core_database_subnetb_id \
-                    --tags Key=Name,Value=Core-DatabaseSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Database Subnet C
 ohio_core_database_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_core_vpc_id \
                                                       --cidr-block $ohio_core_subnet_databasec_cidr \
                                                       --availability-zone us-east-2c \
+                                                      --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-DatabaseSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                       --query 'Subnet.SubnetId' \
                                                       --profile $profile --region us-east-2 --output text)
 echo "ohio_core_database_subnetc_id=$ohio_core_database_subnetc_id"
-
-aws ec2 create-tags --resources $ohio_core_database_subnetc_id \
-                    --tags Key=Name,Value=Core-DatabaseSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet A
 ohio_core_management_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_core_vpc_id \
                                                         --cidr-block $ohio_core_subnet_managementa_cidr \
                                                         --availability-zone us-east-2a \
+                                                        --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-ManagementSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                         --query 'Subnet.SubnetId' \
                                                         --profile $profile --region us-east-2 --output text)
 echo "ohio_core_management_subneta_id=$ohio_core_management_subneta_id"
-
-aws ec2 create-tags --resources $ohio_core_management_subneta_id \
-                    --tags Key=Name,Value=Core-ManagementSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet B
 ohio_core_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_core_vpc_id \
                                                         --cidr-block $ohio_core_subnet_managementb_cidr \
                                                         --availability-zone us-east-2b \
+                                                        --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-ManagementSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                         --query 'Subnet.SubnetId' \
                                                         --profile $profile --region us-east-2 --output text)
 echo "ohio_core_management_subnetb_id=$ohio_core_management_subnetb_id"
-
-aws ec2 create-tags --resources $ohio_core_management_subnetb_id \
-                    --tags Key=Name,Value=Core-ManagementSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet C
 ohio_core_management_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_core_vpc_id \
                                                         --cidr-block $ohio_core_subnet_managementc_cidr \
                                                         --availability-zone us-east-2c \
+                                                        --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-ManagementSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                         --query 'Subnet.SubnetId' \
                                                         --profile $profile --region us-east-2 --output text)
 echo "ohio_core_management_subnetc_id=$ohio_core_management_subnetc_id"
-
-aws ec2 create-tags --resources $ohio_core_management_subnetc_id \
-                    --tags Key=Name,Value=Core-ManagementSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet A
 ohio_core_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_core_vpc_id \
                                                      --cidr-block $ohio_core_subnet_gatewaya_cidr \
                                                      --availability-zone us-east-2a \
+                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-GatewaySubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                      --query 'Subnet.SubnetId' \
                                                      --profile $profile --region us-east-2 --output text)
 echo "ohio_core_gateway_subneta_id=$ohio_core_gateway_subneta_id"
-
-aws ec2 create-tags --resources $ohio_core_gateway_subneta_id \
-                    --tags Key=Name,Value=Core-GatewaySubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet B
 ohio_core_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_core_vpc_id \
                                                      --cidr-block $ohio_core_subnet_gatewayb_cidr \
                                                      --availability-zone us-east-2b \
+                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-GatewaySubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                      --query 'Subnet.SubnetId' \
                                                      --profile $profile --region us-east-2 --output text)
 echo "ohio_core_gateway_subnetb_id=$ohio_core_gateway_subnetb_id"
-
-aws ec2 create-tags --resources $ohio_core_gateway_subnetb_id \
-                    --tags Key=Name,Value=Core-GatewaySubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet C
 ohio_core_gateway_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_core_vpc_id \
                                                      --cidr-block $ohio_core_subnet_gatewayc_cidr \
                                                      --availability-zone us-east-2c \
+                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-GatewaySubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                      --query 'Subnet.SubnetId' \
                                                      --profile $profile --region us-east-2 --output text)
 echo "ohio_core_gateway_subnetc_id=$ohio_core_gateway_subnetc_id"
-
-aws ec2 create-tags --resources $ohio_core_gateway_subnetc_id \
-                    --tags Key=Name,Value=Core-GatewaySubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet A
 ohio_core_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_core_vpc_id \
                                                       --cidr-block $ohio_core_subnet_endpointa_cidr \
                                                       --availability-zone us-east-2a \
+                                                      --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-EndpointSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                       --query 'Subnet.SubnetId' \
                                                       --profile $profile --region us-east-2 --output text)
 echo "ohio_core_endpoint_subneta_id=$ohio_core_endpoint_subneta_id"
-
-aws ec2 create-tags --resources $ohio_core_endpoint_subneta_id \
-                    --tags Key=Name,Value=Core-EndpointSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet B
 ohio_core_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_core_vpc_id \
                                                       --cidr-block $ohio_core_subnet_endpointb_cidr \
                                                       --availability-zone us-east-2b \
+                                                      --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-EndpointSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                       --query 'Subnet.SubnetId' \
                                                       --profile $profile --region us-east-2 --output text)
 echo "ohio_core_endpoint_subnetb_id=$ohio_core_endpoint_subnetb_id"
-
-aws ec2 create-tags --resources $ohio_core_endpoint_subnetb_id \
-                    --tags Key=Name,Value=Core-EndpointSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet C
 ohio_core_endpoint_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_core_vpc_id \
                                                       --cidr-block $ohio_core_subnet_endpointc_cidr \
                                                       --availability-zone us-east-2c \
+                                                      --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-EndpointSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                       --query 'Subnet.SubnetId' \
                                                       --profile $profile --region us-east-2 --output text)
 echo "ohio_core_endpoint_subnetc_id=$ohio_core_endpoint_subnetc_id"
-
-aws ec2 create-tags --resources $ohio_core_endpoint_subnetc_id \
-                    --tags Key=Name,Value=Core-EndpointSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Route Table, Default Route and Associate with Public Subnets
 ohio_core_public_rtb_id=$(aws ec2 create-route-table --vpc-id $ohio_core_vpc_id \
@@ -3905,17 +3023,10 @@ profile=$log_profile
 
 # Create VPC
 ohio_log_vpc_id=$(aws ec2 create-vpc --cidr-block $ohio_log_vpc_cidr \
+                                     --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=Log-VPC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                      --query 'Vpc.VpcId' \
                                      --profile $profile --region us-east-2 --output text)
 echo "ohio_log_vpc_id=$ohio_log_vpc_id"
-
-aws ec2 create-tags --resources $ohio_log_vpc_id \
-                    --tags Key=Name,Value=Log-VPC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 modify-vpc-attribute --vpc-id $ohio_log_vpc_id \
                              --enable-dns-support \
@@ -3937,17 +3048,10 @@ aws ec2 create-flow-logs --resource-type VPC --resource-ids $ohio_log_vpc_id \
                          --profile $profile --region us-east-2 --output text
 
 # Create Internet Gateway & Attach
-ohio_log_igw_id=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' \
+ohio_log_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=Log-InternetGateway},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
+                                                  --query 'InternetGateway.InternetGatewayId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "ohio_log_igw_id=$ohio_log_igw_id"
-
-aws ec2 create-tags --resources $ohio_log_igw_id \
-                    --tags Key=Name,Value=Log-InternetGateway \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 attach-internet-gateway --vpc-id $ohio_log_vpc_id \
                                 --internet-gateway-id $ohio_log_igw_id \
@@ -3965,17 +3069,10 @@ echo "ohio_log_private_hostedzone_id=$ohio_log_private_hostedzone_id"
 # Create DHCP Options Set
 ohio_log_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$ohio_log_private_domain]" \
                                                                      "Key=domain-name-servers,Values=[AmazonProvidedDNS]" \
+                                               --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=Log-DHCPOptions},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                --query 'DhcpOptions.DhcpOptionsId' \
                                                --profile $profile --region us-east-2 --output text)
 echo "ohio_log_dopt_id=$ohio_log_dopt_id"
-
-aws ec2 create-tags --resources $ohio_log_dopt_id \
-                    --tags Key=Name,Value=Log-DHCPOptions \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 associate-dhcp-options --vpc-id $ohio_log_vpc_id \
                                --dhcp-options-id $ohio_log_dopt_id \
@@ -3985,337 +3082,190 @@ aws ec2 associate-dhcp-options --vpc-id $ohio_log_vpc_id \
 ohio_log_public_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_log_vpc_id \
                                                    --cidr-block $ohio_log_subnet_publica_cidr \
                                                    --availability-zone us-east-2a \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-PublicSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "ohio_log_public_subneta_id=$ohio_log_public_subneta_id"
-
-aws ec2 create-tags --resources $ohio_log_public_subneta_id \
-                    --tags Key=Name,Value=Log-PublicSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Subnet B
 ohio_log_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_log_vpc_id \
                                                    --cidr-block $ohio_log_subnet_publicb_cidr \
                                                    --availability-zone us-east-2b \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-PublicSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "ohio_log_public_subnetb_id=$ohio_log_public_subnetb_id"
-
-aws ec2 create-tags --resources $ohio_log_public_subnetb_id \
-                    --tags Key=Name,Value=Log-PublicSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Subnet C
 ohio_log_public_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_log_vpc_id \
                                                    --cidr-block $ohio_log_subnet_publicc_cidr \
                                                    --availability-zone us-east-2c \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-PublicSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "ohio_log_public_subnetc_id=$ohio_log_public_subnetc_id"
-
-aws ec2 create-tags --resources $ohio_log_public_subnetc_id \
-                    --tags Key=Name,Value=Log-PublicSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Web Subnet A
 ohio_log_web_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_log_vpc_id \
                                                 --cidr-block $ohio_log_subnet_weba_cidr \
                                                 --availability-zone us-east-2a \
+                                                --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-WebSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                 --query 'Subnet.SubnetId' \
                                                 --profile $profile --region us-east-2 --output text)
 echo "ohio_log_web_subneta_id=$ohio_log_web_subneta_id"
-
-aws ec2 create-tags --resources $ohio_log_web_subneta_id \
-                    --tags Key=Name,Value=Log-WebSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Web Subnet B
 ohio_log_web_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_log_vpc_id \
                                                 --cidr-block $ohio_log_subnet_webb_cidr \
                                                 --availability-zone us-east-2b \
+                                                --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-WebSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                 --query 'Subnet.SubnetId' \
                                                 --profile $profile --region us-east-2 --output text)
 echo "ohio_log_web_subnetb_id=$ohio_log_web_subnetb_id"
-
-aws ec2 create-tags --resources $ohio_log_web_subnetb_id \
-                    --tags Key=Name,Value=Log-WebSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Web Subnet C
 ohio_log_web_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_log_vpc_id \
                                                 --cidr-block $ohio_log_subnet_webc_cidr \
                                                 --availability-zone us-east-2c \
+                                                --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-WebSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                 --query 'Subnet.SubnetId' \
                                                 --profile $profile --region us-east-2 --output text)
 echo "ohio_log_web_subnetc_id=$ohio_log_web_subnetc_id"
-
-aws ec2 create-tags --resources $ohio_log_web_subnetc_id \
-                    --tags Key=Name,Value=Log-WebSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Application Subnet A
 ohio_log_application_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_log_vpc_id \
                                                         --cidr-block $ohio_log_subnet_applicationa_cidr \
                                                         --availability-zone us-east-2a \
+                                                        --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-ApplicationSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                         --query 'Subnet.SubnetId' \
                                                         --profile $profile --region us-east-2 --output text)
 echo "ohio_log_application_subneta_id=$ohio_log_application_subneta_id"
-
-aws ec2 create-tags --resources $ohio_log_application_subneta_id \
-                    --tags Key=Name,Value=Log-ApplicationSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Application Subnet B
 ohio_log_application_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_log_vpc_id \
                                                         --cidr-block $ohio_log_subnet_applicationb_cidr \
                                                         --availability-zone us-east-2b \
+                                                        --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-ApplicationSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                         --query 'Subnet.SubnetId' \
                                                         --profile $profile --region us-east-2 --output text)
 echo "ohio_log_application_subnetb_id=$ohio_log_application_subnetb_id"
-
-aws ec2 create-tags --resources $ohio_log_application_subnetb_id \
-                    --tags Key=Name,Value=Log-ApplicationSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Application Subnet C
 ohio_log_application_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_log_vpc_id \
                                                         --cidr-block $ohio_log_subnet_applicationc_cidr \
                                                         --availability-zone us-east-2c \
+                                                        --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-ApplicationSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                         --query 'Subnet.SubnetId' \
                                                         --profile $profile --region us-east-2 --output text)
 echo "ohio_log_application_subnetc_id=$ohio_log_application_subnetc_id"
-
-aws ec2 create-tags --resources $ohio_log_application_subnetc_id \
-                    --tags Key=Name,Value=Log-ApplicationSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Database Subnet A
 ohio_log_database_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_log_vpc_id \
                                                      --cidr-block $ohio_log_subnet_databasea_cidr \
                                                      --availability-zone us-east-2a \
+                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-DatabaseSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                      --query 'Subnet.SubnetId' \
                                                      --profile $profile --region us-east-2 --output text)
 echo "ohio_log_database_subneta_id=$ohio_log_database_subneta_id"
-
-aws ec2 create-tags --resources $ohio_log_database_subneta_id \
-                    --tags Key=Name,Value=Log-DatabaseSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Database Subnet B
 ohio_log_database_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_log_vpc_id \
                                                      --cidr-block $ohio_log_subnet_databaseb_cidr \
                                                      --availability-zone us-east-2b \
+                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-DatabaseSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                      --query 'Subnet.SubnetId' \
                                                      --profile $profile --region us-east-2 --output text)
 echo "ohio_log_database_subnetb_id=$ohio_log_database_subnetb_id"
-
-aws ec2 create-tags --resources $ohio_log_database_subnetb_id \
-                    --tags Key=Name,Value=Log-DatabaseSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Database Subnet C
 ohio_log_database_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_log_vpc_id \
                                                      --cidr-block $ohio_log_subnet_databasec_cidr \
                                                      --availability-zone us-east-2c \
+                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-DatabaseSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                      --query 'Subnet.SubnetId' \
                                                      --profile $profile --region us-east-2 --output text)
 echo "ohio_log_database_subnetc_id=$ohio_log_database_subnetc_id"
-
-aws ec2 create-tags --resources $ohio_log_database_subnetc_id \
-                    --tags Key=Name,Value=Log-DatabaseSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet A
 ohio_log_management_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_log_vpc_id \
                                                        --cidr-block $ohio_log_subnet_managementa_cidr \
                                                        --availability-zone us-east-2a \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-ManagementSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-2 --output text)
 echo "ohio_log_management_subneta_id=$ohio_log_management_subneta_id"
-
-aws ec2 create-tags --resources $ohio_log_management_subneta_id \
-                    --tags Key=Name,Value=Log-ManagementSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet B
 ohio_log_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_log_vpc_id \
                                                        --cidr-block $ohio_log_subnet_managementb_cidr \
                                                        --availability-zone us-east-2b \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-ManagementSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-2 --output text)
 echo "ohio_log_management_subnetb_id=$ohio_log_management_subnetb_id"
-
-aws ec2 create-tags --resources $ohio_log_management_subnetb_id \
-                    --tags Key=Name,Value=Log-ManagementSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet C
 ohio_log_management_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_log_vpc_id \
                                                        --cidr-block $ohio_log_subnet_managementc_cidr \
                                                        --availability-zone us-east-2c \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-ManagementSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-2 --output text)
 echo "ohio_log_management_subnetc_id=$ohio_log_management_subnetc_id"
-
-aws ec2 create-tags --resources $ohio_log_management_subnetc_id \
-                    --tags Key=Name,Value=Log-ManagementSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet A
 ohio_log_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_log_vpc_id \
                                                     --cidr-block $ohio_log_subnet_gatewaya_cidr \
                                                     --availability-zone us-east-2a \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-GatewaySubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "ohio_log_gateway_subneta_id=$ohio_log_gateway_subneta_id"
-
-aws ec2 create-tags --resources $ohio_log_gateway_subneta_id \
-                    --tags Key=Name,Value=Log-GatewaySubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet B
 ohio_log_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_log_vpc_id \
                                                     --cidr-block $ohio_log_subnet_gatewayb_cidr \
                                                     --availability-zone us-east-2b \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-GatewaySubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "ohio_log_gateway_subnetb_id=$ohio_log_gateway_subnetb_id"
-
-aws ec2 create-tags --resources $ohio_log_gateway_subnetb_id \
-                    --tags Key=Name,Value=Log-GatewaySubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet C
 ohio_log_gateway_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_log_vpc_id \
                                                     --cidr-block $ohio_log_subnet_gatewayc_cidr \
                                                     --availability-zone us-east-2c \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-GatewaySubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "ohio_log_gateway_subnetc_id=$ohio_log_gateway_subnetc_id"
-
-aws ec2 create-tags --resources $ohio_log_gateway_subnetc_id \
-                    --tags Key=Name,Value=Log-GatewaySubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet A
 ohio_log_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_log_vpc_id \
                                                      --cidr-block $ohio_log_subnet_endpointa_cidr \
                                                      --availability-zone us-east-2a \
+                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-EndpointSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                      --query 'Subnet.SubnetId' \
                                                      --profile $profile --region us-east-2 --output text)
 echo "ohio_log_endpoint_subneta_id=$ohio_log_endpoint_subneta_id"
-
-aws ec2 create-tags --resources $ohio_log_endpoint_subneta_id \
-                    --tags Key=Name,Value=Log-EndpointSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet B
 ohio_log_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_log_vpc_id \
                                                      --cidr-block $ohio_log_subnet_endpointb_cidr \
                                                      --availability-zone us-east-2b \
+                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-EndpointSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                      --query 'Subnet.SubnetId' \
                                                      --profile $profile --region us-east-2 --output text)
 echo "ohio_log_endpoint_subnetb_id=$ohio_log_endpoint_subnetb_id"
-
-aws ec2 create-tags --resources $ohio_log_endpoint_subnetb_id \
-                    --tags Key=Name,Value=Log-EndpointSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet C
 ohio_log_endpoint_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_log_vpc_id \
                                                      --cidr-block $ohio_log_subnet_endpointc_cidr \
                                                      --availability-zone us-east-2c \
+                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-EndpointSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                      --query 'Subnet.SubnetId' \
                                                      --profile $profile --region us-east-2 --output text)
 echo "ohio_log_endpoint_subnetc_id=$ohio_log_endpoint_subnetc_id"
-
-aws ec2 create-tags --resources $ohio_log_endpoint_subnetc_id \
-                    --tags Key=Name,Value=Log-EndpointSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Route Table, Default Route and Associate with Public Subnets
 ohio_log_public_rtb_id=$(aws ec2 create-route-table --vpc-id $ohio_log_vpc_id \
@@ -4653,17 +3603,10 @@ profile=$production_profile
 
 # Create VPC
 alfa_ohio_production_vpc_id=$(aws ec2 create-vpc --cidr-block $alfa_ohio_production_vpc_cidr \
+                                                 --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=Alfa-Production-VPC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                  --query 'Vpc.VpcId' \
                                                  --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_vpc_id=$alfa_ohio_production_vpc_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_vpc_id \
-                    --tags Key=Name,Value=Alfa-Production-VPC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 modify-vpc-attribute --vpc-id $alfa_ohio_production_vpc_id \
                              --enable-dns-support \
@@ -4685,17 +3628,10 @@ aws ec2 create-flow-logs --resource-type VPC --resource-ids $alfa_ohio_productio
                          --profile $profile --region us-east-2 --output text
 
 # Create Internet Gateway & Attach
-alfa_ohio_production_igw_id=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' \
+alfa_ohio_production_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=Alfa-Production-InternetGateway},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
+                                                              --query 'InternetGateway.InternetGatewayId' \
                                                               --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_igw_id=$alfa_ohio_production_igw_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_igw_id \
-                    --tags Key=Name,Value=Alfa-Production-InternetGateway \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 attach-internet-gateway --vpc-id $alfa_ohio_production_vpc_id \
                                 --internet-gateway-id $alfa_ohio_production_igw_id \
@@ -4713,17 +3649,10 @@ echo "alfa_ohio_production_private_hostedzone_id=$alfa_ohio_production_private_h
 # Create DHCP Options Set
 alfa_ohio_production_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$alfa_ohio_production_private_domain]" \
                                                                                  "Key=domain-name-servers,Values=[AmazonProvidedDNS]" \
+                                                           --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=Alfa-Production-DHCPOptions},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                            --query 'DhcpOptions.DhcpOptionsId' \
                                                            --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_dopt_id=$alfa_ohio_production_dopt_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_dopt_id \
-                    --tags Key=Name,Value=Alfa-Production-DHCPOptions \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 associate-dhcp-options --vpc-id $alfa_ohio_production_vpc_id \
                                --dhcp-options-id $alfa_ohio_production_dopt_id \
@@ -4733,337 +3662,190 @@ aws ec2 associate-dhcp-options --vpc-id $alfa_ohio_production_vpc_id \
 alfa_ohio_production_public_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
                                                                --cidr-block $alfa_ohio_production_subnet_publica_cidr \
                                                                --availability-zone us-east-2a \
+                                                               --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-PublicSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                --query 'Subnet.SubnetId' \
                                                                --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_public_subneta_id=$alfa_ohio_production_public_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_public_subneta_id \
-                    --tags Key=Name,Value=Alfa-Production-PublicSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Subnet B
 alfa_ohio_production_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
                                                                --cidr-block $alfa_ohio_production_subnet_publicb_cidr \
                                                                --availability-zone us-east-2b \
+                                                               --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-PublicSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                --query 'Subnet.SubnetId' \
                                                                --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_public_subnetb_id=$alfa_ohio_production_public_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_public_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Production-PublicSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Subnet C
 alfa_ohio_production_public_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
                                                                --cidr-block $alfa_ohio_production_subnet_publicc_cidr \
                                                                --availability-zone us-east-2c \
+                                                               --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-PublicSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                --query 'Subnet.SubnetId' \
                                                                --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_public_subnetc_id=$alfa_ohio_production_public_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_public_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Production-PublicSubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Web Subnet A
 alfa_ohio_production_web_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
                                                             --cidr-block $alfa_ohio_production_subnet_weba_cidr \
                                                             --availability-zone us-east-2a \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-WebSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_web_subneta_id=$alfa_ohio_production_web_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_web_subneta_id \
-                    --tags Key=Name,Value=Alfa-Production-WebSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Web Subnet B
 alfa_ohio_production_web_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
                                                             --cidr-block $alfa_ohio_production_subnet_webb_cidr \
                                                             --availability-zone us-east-2b \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-WebSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_web_subnetb_id=$alfa_ohio_production_web_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_web_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Production-WebSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Web Subnet C
 alfa_ohio_production_web_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
                                                             --cidr-block $alfa_ohio_production_subnet_webc_cidr \
                                                             --availability-zone us-east-2c \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-WebSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_web_subnetc_id=$alfa_ohio_production_web_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_web_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Production-WebSubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Application Subnet A
 alfa_ohio_production_application_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
                                                                     --cidr-block $alfa_ohio_production_subnet_applicationa_cidr \
                                                                     --availability-zone us-east-2a \
+                                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-ApplicationSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                     --query 'Subnet.SubnetId' \
                                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_application_subneta_id=$alfa_ohio_production_application_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_application_subneta_id \
-                    --tags Key=Name,Value=Alfa-Production-ApplicationSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Application Subnet B
 alfa_ohio_production_application_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
                                                                     --cidr-block $alfa_ohio_production_subnet_applicationb_cidr \
                                                                     --availability-zone us-east-2b \
+                                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-ApplicationSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                     --query 'Subnet.SubnetId' \
                                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_application_subnetb_id=$alfa_ohio_production_application_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_application_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Production-ApplicationSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Application Subnet C
 alfa_ohio_production_application_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
                                                                     --cidr-block $alfa_ohio_production_subnet_applicationc_cidr \
                                                                     --availability-zone us-east-2c \
+                                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-ApplicationSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                     --query 'Subnet.SubnetId' \
                                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_application_subnetc_id=$alfa_ohio_production_application_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_application_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Production-ApplicationSubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Database Subnet A
 alfa_ohio_production_database_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
                                                                  --cidr-block $alfa_ohio_production_subnet_databasea_cidr \
                                                                  --availability-zone us-east-2a \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-DatabaseSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_database_subneta_id=$alfa_ohio_production_database_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_database_subneta_id \
-                    --tags Key=Name,Value=Alfa-Production-DatabaseSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Database Subnet B
 alfa_ohio_production_database_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
                                                                  --cidr-block $alfa_ohio_production_subnet_databaseb_cidr \
                                                                  --availability-zone us-east-2b \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-DatabaseSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_database_subnetb_id=$alfa_ohio_production_database_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_database_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Production-DatabaseSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Database Subnet C
 alfa_ohio_production_database_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
                                                                  --cidr-block $alfa_ohio_production_subnet_databasec_cidr \
                                                                  --availability-zone us-east-2c \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-DatabaseSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_database_subnetc_id=$alfa_ohio_production_database_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_database_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Production-DatabaseSubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet A
 alfa_ohio_production_management_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
                                                                    --cidr-block $alfa_ohio_production_subnet_managementa_cidr \
                                                                    --availability-zone us-east-2a \
+                                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-ManagementSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                    --query 'Subnet.SubnetId' \
                                                                    --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_management_subneta_id=$alfa_ohio_production_management_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_management_subneta_id \
-                    --tags Key=Name,Value=Alfa-Production-ManagementSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet B
 alfa_ohio_production_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
                                                                    --cidr-block $alfa_ohio_production_subnet_managementb_cidr \
                                                                    --availability-zone us-east-2b \
+                                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-ManagementSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                    --query 'Subnet.SubnetId' \
                                                                    --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_management_subnetb_id=$alfa_ohio_production_management_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_management_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Production-ManagementSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet C
 alfa_ohio_production_management_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
                                                                    --cidr-block $alfa_ohio_production_subnet_managementc_cidr \
                                                                    --availability-zone us-east-2c \
+                                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-ManagementSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                    --query 'Subnet.SubnetId' \
                                                                    --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_management_subnetc_id=$alfa_ohio_production_management_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_management_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Production-ManagementSubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet A
 alfa_ohio_production_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
                                                                 --cidr-block $alfa_ohio_production_subnet_gatewaya_cidr \
                                                                 --availability-zone us-east-2a \
+                                                                --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-GatewaySubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                 --query 'Subnet.SubnetId' \
                                                                 --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_gateway_subneta_id=$alfa_ohio_production_gateway_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_gateway_subneta_id \
-                    --tags Key=Name,Value=Alfa-Production-GatewaySubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet B
 alfa_ohio_production_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
                                                                 --cidr-block $alfa_ohio_production_subnet_gatewayb_cidr \
                                                                 --availability-zone us-east-2b \
+                                                                --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-GatewaySubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                 --query 'Subnet.SubnetId' \
                                                                 --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_gateway_subnetb_id=$alfa_ohio_production_gateway_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_gateway_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Production-GatewaySubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet C
 alfa_ohio_production_gateway_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
                                                                 --cidr-block $alfa_ohio_production_subnet_gatewayc_cidr \
                                                                 --availability-zone us-east-2c \
+                                                                --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-GatewaySubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                 --query 'Subnet.SubnetId' \
                                                                 --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_gateway_subnetc_id=$alfa_ohio_production_gateway_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_gateway_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Production-GatewaySubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet A
 alfa_ohio_production_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
                                                                  --cidr-block $alfa_ohio_production_subnet_endpointa_cidr \
                                                                  --availability-zone us-east-2a \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-EndpointSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_endpoint_subneta_id=$alfa_ohio_production_endpoint_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_endpoint_subneta_id \
-                    --tags Key=Name,Value=Alfa-Production-EndpointSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet B
 alfa_ohio_production_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
                                                                  --cidr-block $alfa_ohio_production_subnet_endpointb_cidr \
                                                                  --availability-zone us-east-2b \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-EndpointSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_endpoint_subnetb_id=$alfa_ohio_production_endpoint_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_endpoint_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Production-EndpointSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet C
 alfa_ohio_production_endpoint_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
                                                                  --cidr-block $alfa_ohio_production_subnet_endpointc_cidr \
                                                                  --availability-zone us-east-2c \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-EndpointSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_endpoint_subnetc_id=$alfa_ohio_production_endpoint_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_endpoint_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Production-EndpointSubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Route Table, Default Route and Associate with Public Subnets
 alfa_ohio_production_public_rtb_id=$(aws ec2 create-route-table --vpc-id $alfa_ohio_production_vpc_id \
@@ -5401,17 +4183,10 @@ profile=$testing_profile
 
 # Create VPC
 alfa_ohio_testing_vpc_id=$(aws ec2 create-vpc --cidr-block $alfa_ohio_testing_vpc_cidr \
+                                              --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=Alfa-Testing-VPC},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                               --query 'Vpc.VpcId' \
                                               --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_vpc_id=$alfa_ohio_testing_vpc_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_vpc_id \
-                    --tags Key=Name,Value=Alfa-Testing-VPC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 modify-vpc-attribute --vpc-id $alfa_ohio_testing_vpc_id \
                              --enable-dns-support \
@@ -5433,17 +4208,10 @@ aws ec2 create-flow-logs --resource-type VPC --resource-ids $alfa_ohio_testing_v
                          --profile $profile --region us-east-2 --output text
 
 # Create Internet Gateway & Attach
-alfa_ohio_testing_igw_id=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' \
+alfa_ohio_testing_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=Alfa-Testing-InternetGateway},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
+                                                           --query 'InternetGateway.InternetGatewayId' \
                                                            --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_igw_id=$alfa_ohio_testing_igw_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_igw_id \
-                    --tags Key=Name,Value=Alfa-Testing-InternetGateway \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 attach-internet-gateway --vpc-id $alfa_ohio_testing_vpc_id \
                                 --internet-gateway-id $alfa_ohio_testing_igw_id \
@@ -5461,17 +4229,10 @@ echo "alfa_ohio_testing_private_hostedzone_id=$alfa_ohio_testing_private_hostedz
 # Create DHCP Options Set
 alfa_ohio_testing_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$alfa_ohio_testing_private_domain]" \
                                                                               "Key=domain-name-servers,Values=[AmazonProvidedDNS]" \
+                                                        --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=Alfa-Testing-DHCPOptions},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                         --query 'DhcpOptions.DhcpOptionsId' \
                                                         --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_dopt_id=$alfa_ohio_testing_dopt_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_dopt_id \
-                    --tags Key=Name,Value=Alfa-Testing-DHCPOptions \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 associate-dhcp-options --vpc-id $alfa_ohio_testing_vpc_id \
                                --dhcp-options-id $alfa_ohio_testing_dopt_id \
@@ -5481,337 +4242,190 @@ aws ec2 associate-dhcp-options --vpc-id $alfa_ohio_testing_vpc_id \
 alfa_ohio_testing_public_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_testing_vpc_id \
                                                             --cidr-block $alfa_ohio_testing_subnet_publica_cidr \
                                                             --availability-zone us-east-2a \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Testing-PublicSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_public_subneta_id=$alfa_ohio_testing_public_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_public_subneta_id \
-                    --tags Key=Name,Value=Alfa-Testing-PublicSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Subnet B
 alfa_ohio_testing_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_testing_vpc_id \
                                                             --cidr-block $alfa_ohio_testing_subnet_publicb_cidr \
                                                             --availability-zone us-east-2b \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Testing-PublicSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_public_subnetb_id=$alfa_ohio_testing_public_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_public_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Testing-PublicSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Subnet C
 alfa_ohio_testing_public_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_testing_vpc_id \
                                                             --cidr-block $alfa_ohio_testing_subnet_publicc_cidr \
                                                             --availability-zone us-east-2c \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Testing-PublicSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_public_subnetc_id=$alfa_ohio_testing_public_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_public_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Testing-PublicSubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Web Subnet A
 alfa_ohio_testing_web_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_testing_vpc_id \
                                                          --cidr-block $alfa_ohio_testing_subnet_weba_cidr \
                                                          --availability-zone us-east-2a \
+                                                         --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Testing-WebSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                          --query 'Subnet.SubnetId' \
                                                          --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_web_subneta_id=$alfa_ohio_testing_web_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_web_subneta_id \
-                    --tags Key=Name,Value=Alfa-Testing-WebSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Web Subnet B
 alfa_ohio_testing_web_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_testing_vpc_id \
                                                          --cidr-block $alfa_ohio_testing_subnet_webb_cidr \
                                                          --availability-zone us-east-2b \
+                                                         --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Testing-WebSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                          --query 'Subnet.SubnetId' \
                                                          --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_web_subnetb_id=$alfa_ohio_testing_web_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_web_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Testing-WebSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Web Subnet C
 alfa_ohio_testing_web_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_testing_vpc_id \
                                                          --cidr-block $alfa_ohio_testing_subnet_webc_cidr \
                                                          --availability-zone us-east-2c \
+                                                         --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Testing-WebSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                          --query 'Subnet.SubnetId' \
                                                          --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_web_subnetc_id=$alfa_ohio_testing_web_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_web_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Testing-WebSubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Application Subnet A
 alfa_ohio_testing_application_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_testing_vpc_id \
                                                                  --cidr-block $alfa_ohio_testing_subnet_applicationa_cidr \
                                                                  --availability-zone us-east-2a \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Testing-ApplicationSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_application_subneta_id=$alfa_ohio_testing_application_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_application_subneta_id \
-                    --tags Key=Name,Value=Alfa-Testing-ApplicationSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Application Subnet B
 alfa_ohio_testing_application_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_testing_vpc_id \
                                                                  --cidr-block $alfa_ohio_testing_subnet_applicationb_cidr \
                                                                  --availability-zone us-east-2b \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Testing-ApplicationSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_application_subnetb_id=$alfa_ohio_testing_application_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_application_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Testing-ApplicationSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Application Subnet C
 alfa_ohio_testing_application_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_testing_vpc_id \
                                                                  --cidr-block $alfa_ohio_testing_subnet_applicationc_cidr \
                                                                  --availability-zone us-east-2c \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Testing-ApplicationSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_application_subnetc_id=$alfa_ohio_testing_application_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_application_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Testing-ApplicationSubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Database Subnet A
 alfa_ohio_testing_database_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_testing_vpc_id \
                                                               --cidr-block $alfa_ohio_testing_subnet_databasea_cidr \
                                                               --availability-zone us-east-2a \
+                                                              --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Testing-DatabaseSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                               --query 'Subnet.SubnetId' \
                                                               --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_database_subneta_id=$alfa_ohio_testing_database_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_database_subneta_id \
-                    --tags Key=Name,Value=Alfa-Testing-DatabaseSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Database Subnet B
 alfa_ohio_testing_database_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_testing_vpc_id \
                                                               --cidr-block $alfa_ohio_testing_subnet_databaseb_cidr \
                                                               --availability-zone us-east-2b \
+                                                              --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Testing-DatabaseSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                               --query 'Subnet.SubnetId' \
                                                               --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_database_subnetb_id=$alfa_ohio_testing_database_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_database_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Testing-DatabaseSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Database Subnet C
 alfa_ohio_testing_database_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_testing_vpc_id \
                                                               --cidr-block $alfa_ohio_testing_subnet_databasec_cidr \
                                                               --availability-zone us-east-2c \
+                                                              --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Testing-DatabaseSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                               --query 'Subnet.SubnetId' \
                                                               --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_database_subnetc_id=$alfa_ohio_testing_database_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_database_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Testing-DatabaseSubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet A
 alfa_ohio_testing_management_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_testing_vpc_id \
                                                                 --cidr-block $alfa_ohio_testing_subnet_managementa_cidr \
                                                                 --availability-zone us-east-2a \
+                                                                --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Testing-ManagementSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                 --query 'Subnet.SubnetId' \
                                                                 --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_management_subneta_id=$alfa_ohio_testing_management_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_management_subneta_id \
-                    --tags Key=Name,Value=Alfa-Testing-ManagementSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet B
 alfa_ohio_testing_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_testing_vpc_id \
                                                                 --cidr-block $alfa_ohio_testing_subnet_managementb_cidr \
                                                                 --availability-zone us-east-2b \
+                                                                --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Testing-ManagementSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                 --query 'Subnet.SubnetId' \
                                                                 --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_management_subnetb_id=$alfa_ohio_testing_management_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_management_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Testing-ManagementSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet C
 alfa_ohio_testing_management_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_testing_vpc_id \
                                                                 --cidr-block $alfa_ohio_testing_subnet_managementc_cidr \
                                                                 --availability-zone us-east-2c \
+                                                                --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Testing-ManagementSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                 --query 'Subnet.SubnetId' \
                                                                 --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_management_subnetc_id=$alfa_ohio_testing_management_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_management_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Testing-ManagementSubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet A
 alfa_ohio_testing_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_testing_vpc_id \
                                                              --cidr-block $alfa_ohio_testing_subnet_gatewaya_cidr \
                                                              --availability-zone us-east-2a \
+                                                             --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Testing-GatewaySubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                              --query 'Subnet.SubnetId' \
                                                              --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_gateway_subneta_id=$alfa_ohio_testing_gateway_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_gateway_subneta_id \
-                    --tags Key=Name,Value=Alfa-Testing-GatewaySubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet B
 alfa_ohio_testing_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_testing_vpc_id \
                                                              --cidr-block $alfa_ohio_testing_subnet_gatewayb_cidr \
                                                              --availability-zone us-east-2b \
+                                                             --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Testing-GatewaySubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                              --query 'Subnet.SubnetId' \
                                                              --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_gateway_subnetb_id=$alfa_ohio_testing_gateway_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_gateway_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Testing-GatewaySubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet C
 alfa_ohio_testing_gateway_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_testing_vpc_id \
                                                              --cidr-block $alfa_ohio_testing_subnet_gatewayc_cidr \
                                                              --availability-zone us-east-2c \
+                                                             --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Testing-GatewaySubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                              --query 'Subnet.SubnetId' \
                                                              --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_gateway_subnetc_id=$alfa_ohio_testing_gateway_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_gateway_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Testing-GatewaySubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endopint Subnet A
 alfa_ohio_testing_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_testing_vpc_id \
                                                               --cidr-block $alfa_ohio_testing_subnet_endpointa_cidr \
                                                               --availability-zone us-east-2a \
+                                                              --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Testing-EndpointSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                               --query 'Subnet.SubnetId' \
                                                               --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_endpoint_subneta_id=$alfa_ohio_testing_endpoint_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_endpoint_subneta_id \
-                    --tags Key=Name,Value=Alfa-Testing-EndpointSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet B
 alfa_ohio_testing_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_testing_vpc_id \
                                                               --cidr-block $alfa_ohio_testing_subnet_endpointb_cidr \
                                                               --availability-zone us-east-2b \
+                                                              --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Testing-EndpointSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                               --query 'Subnet.SubnetId' \
                                                               --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_endpoint_subnetb_id=$alfa_ohio_testing_endpoint_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_endpoint_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Testing-EndpointSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet C
 alfa_ohio_testing_endpoint_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_testing_vpc_id \
                                                               --cidr-block $alfa_ohio_testing_subnet_endpointc_cidr \
                                                               --availability-zone us-east-2c \
+                                                              --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Testing-EndpointSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                               --query 'Subnet.SubnetId' \
                                                               --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_endpoint_subnetc_id=$alfa_ohio_testing_endpoint_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_endpoint_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Testing-EndpointSubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Route Table, Default Route and Associate with Public Subnets
 alfa_ohio_testing_public_rtb_id=$(aws ec2 create-route-table --vpc-id $alfa_ohio_testing_vpc_id \
@@ -6037,17 +4651,10 @@ profile=$development_profile
 
 # Create VPC
 alfa_ohio_development_vpc_id=$(aws ec2 create-vpc --cidr-block $alfa_ohio_development_vpc_cidr \
+                                                  --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=Alfa-Development-VPC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                   --query 'Vpc.VpcId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_vpc_id=$alfa_ohio_development_vpc_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_vpc_id \
-                    --tags Key=Name,Value=Alfa-Development-VPC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 modify-vpc-attribute --vpc-id $alfa_ohio_development_vpc_id \
                              --enable-dns-support \
@@ -6069,17 +4676,10 @@ aws ec2 create-flow-logs --resource-type VPC --resource-ids $alfa_ohio_developme
                          --profile $profile --region us-east-2 --output text
 
 # Create Internet Gateway & Attach
-alfa_ohio_development_igw_id=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' \
+alfa_ohio_development_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=Alfa-Development-InternetGateway},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
+                                                               --query 'InternetGateway.InternetGatewayId' \
                                                                --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_igw_id=$alfa_ohio_development_igw_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_igw_id \
-                    --tags Key=Name,Value=Alfa-Development-InternetGateway \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 attach-internet-gateway --vpc-id $alfa_ohio_development_vpc_id \
                                 --internet-gateway-id $alfa_ohio_development_igw_id \
@@ -6097,17 +4697,10 @@ echo "alfa_ohio_development_private_hostedzone_id=$alfa_ohio_development_private
 # Create DHCP Options Set
 alfa_ohio_development_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$alfa_ohio_development_private_domain]" \
                                                                                   "Key=domain-name-servers,Values=[AmazonProvidedDNS]" \
+                                                            --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=Alfa-Development-DHCPOptions},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'DhcpOptions.DhcpOptionsId' \
                                                             --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_dopt_id=$alfa_ohio_development_dopt_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_dopt_id \
-                    --tags Key=Name,Value=Alfa-Development-DHCPOptions \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 associate-dhcp-options --vpc-id $alfa_ohio_development_vpc_id \
                                --dhcp-options-id $alfa_ohio_development_dopt_id \
@@ -6117,337 +4710,190 @@ aws ec2 associate-dhcp-options --vpc-id $alfa_ohio_development_vpc_id \
 alfa_ohio_development_public_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
                                                                 --cidr-block $alfa_ohio_development_subnet_publica_cidr \
                                                                 --availability-zone us-east-2a \
+                                                                --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-PublicSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                 --query 'Subnet.SubnetId' \
                                                                 --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_public_subneta_id=$alfa_ohio_development_public_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_public_subneta_id \
-                    --tags Key=Name,Value=Alfa-Development-PublicSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Subnet B
 alfa_ohio_development_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
                                                                 --cidr-block $alfa_ohio_development_subnet_publicb_cidr \
                                                                 --availability-zone us-east-2b \
+                                                                --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-PublicSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                 --query 'Subnet.SubnetId' \
                                                                 --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_public_subnetb_id=$alfa_ohio_development_public_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_public_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Development-PublicSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Subnet C
 alfa_ohio_development_public_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
                                                                 --cidr-block $alfa_ohio_development_subnet_publicc_cidr \
                                                                 --availability-zone us-east-2c \
+                                                                --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-PublicSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                 --query 'Subnet.SubnetId' \
                                                                 --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_public_subnetc_id=$alfa_ohio_development_public_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_public_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Development-PublicSubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Web Subnet A
 alfa_ohio_development_web_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
                                                              --cidr-block $alfa_ohio_development_subnet_weba_cidr \
                                                              --availability-zone us-east-2a \
+                                                             --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-WebSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                              --query 'Subnet.SubnetId' \
                                                              --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_web_subneta_id=$alfa_ohio_development_web_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_web_subneta_id \
-                    --tags Key=Name,Value=Alfa-Development-WebSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Web Subnet B
 alfa_ohio_development_web_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
                                                              --cidr-block $alfa_ohio_development_subnet_webb_cidr \
                                                              --availability-zone us-east-2b \
+                                                             --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-WebSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                              --query 'Subnet.SubnetId' \
                                                              --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_web_subnetb_id=$alfa_ohio_development_web_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_web_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Development-WebSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Web Subnet C
 alfa_ohio_development_web_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
                                                              --cidr-block $alfa_ohio_development_subnet_webc_cidr \
                                                              --availability-zone us-east-2c \
+                                                             --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-WebSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                              --query 'Subnet.SubnetId' \
                                                              --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_web_subnetc_id=$alfa_ohio_development_web_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_web_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Development-WebSubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Application Subnet A
 alfa_ohio_development_application_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
                                                                      --cidr-block $alfa_ohio_development_subnet_applicationa_cidr \
                                                                      --availability-zone us-east-2a \
+                                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-ApplicationSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                      --query 'Subnet.SubnetId' \
                                                                      --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_application_subneta_id=$alfa_ohio_development_application_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_application_subneta_id \
-                    --tags Key=Name,Value=Alfa-Development-ApplicationSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Application Subnet B
 alfa_ohio_development_application_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
                                                                      --cidr-block $alfa_ohio_development_subnet_applicationb_cidr \
                                                                      --availability-zone us-east-2b \
+                                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-ApplicationSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                      --query 'Subnet.SubnetId' \
                                                                      --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_application_subnetb_id=$alfa_ohio_development_application_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_application_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Development-ApplicationSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Application Subnet C
 alfa_ohio_development_application_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
                                                                      --cidr-block $alfa_ohio_development_subnet_applicationc_cidr \
                                                                      --availability-zone us-east-2c \
+                                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-ApplicationSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                      --query 'Subnet.SubnetId' \
                                                                      --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_application_subnetc_id=$alfa_ohio_development_application_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_application_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Development-ApplicationSubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Database Subnet A
 alfa_ohio_development_database_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
                                                                   --cidr-block $alfa_ohio_development_subnet_databasea_cidr \
                                                                   --availability-zone us-east-2a \
+                                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-DatabaseSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_database_subneta_id=$alfa_ohio_development_database_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_database_subneta_id \
-                    --tags Key=Name,Value=Alfa-Development-DatabaseSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Database Subnet B
 alfa_ohio_development_database_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
                                                                   --cidr-block $alfa_ohio_development_subnet_databaseb_cidr \
                                                                   --availability-zone us-east-2b \
+                                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-DatabaseSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_database_subnetb_id=$alfa_ohio_development_database_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_database_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Development-DatabaseSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Database Subnet C
 alfa_ohio_development_database_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
                                                                   --cidr-block $alfa_ohio_development_subnet_databasec_cidr \
                                                                   --availability-zone us-east-2c \
+                                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-DatabaseSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_database_subnetc_id=$alfa_ohio_development_database_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_database_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Development-DatabaseSubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet A
 alfa_ohio_development_management_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
                                                                     --cidr-block $alfa_ohio_development_subnet_managementa_cidr \
                                                                     --availability-zone us-east-2a \
+                                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-ManagementSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                     --query 'Subnet.SubnetId' \
                                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_management_subneta_id=$alfa_ohio_development_management_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_management_subneta_id \
-                    --tags Key=Name,Value=Alfa-Development-ManagementSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet B
 alfa_ohio_development_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
                                                                     --cidr-block $alfa_ohio_development_subnet_managementb_cidr \
                                                                     --availability-zone us-east-2b \
+                                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-ManagementSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                     --query 'Subnet.SubnetId' \
                                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_management_subnetb_id=$alfa_ohio_development_management_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_management_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Development-ManagementSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet C
 alfa_ohio_development_management_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
                                                                     --cidr-block $alfa_ohio_development_subnet_managementc_cidr \
                                                                     --availability-zone us-east-2c \
+                                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-ManagementSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                     --query 'Subnet.SubnetId' \
                                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_management_subnetc_id=$alfa_ohio_development_management_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_management_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Development-ManagementSubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet A
 alfa_ohio_development_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
                                                                  --cidr-block $alfa_ohio_development_subnet_gatewaya_cidr \
                                                                  --availability-zone us-east-2a \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-GatewaySubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_gateway_subneta_id=$alfa_ohio_development_gateway_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_gateway_subneta_id \
-                    --tags Key=Name,Value=Alfa-Development-GatewaySubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet B
 alfa_ohio_development_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
                                                                  --cidr-block $alfa_ohio_development_subnet_gatewayb_cidr \
                                                                  --availability-zone us-east-2b \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-GatewaySubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_gateway_subnetb_id=$alfa_ohio_development_gateway_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_gateway_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Development-GatewaySubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet C
 alfa_ohio_development_gateway_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
                                                                  --cidr-block $alfa_ohio_development_subnet_gatewayc_cidr \
                                                                  --availability-zone us-east-2c \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-GatewaySubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_gateway_subnetc_id=$alfa_ohio_development_gateway_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_gateway_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Development-GatewaySubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet A
 alfa_ohio_development_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
                                                                   --cidr-block $alfa_ohio_development_subnet_endpointa_cidr \
                                                                   --availability-zone us-east-2a \
+                                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-EndpointSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_endpoint_subneta_id=$alfa_ohio_development_endpoint_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_endpoint_subneta_id \
-                    --tags Key=Name,Value=Alfa-Development-EndpointSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet B
 alfa_ohio_development_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
                                                                   --cidr-block $alfa_ohio_development_subnet_endpointb_cidr \
                                                                   --availability-zone us-east-2b \
+                                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-EndpointSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_endpoint_subnetb_id=$alfa_ohio_development_endpoint_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_endpoint_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Development-EndpointSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet C
 alfa_ohio_development_endpoint_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
                                                                   --cidr-block $alfa_ohio_development_subnet_endpointc_cidr \
                                                                   --availability-zone us-east-2c \
+                                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-EndpointSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_endpoint_subnetc_id=$alfa_ohio_development_endpoint_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_endpoint_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Development-EndpointSubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Route Table, Default Route and Associate with Public Subnets
 alfa_ohio_development_public_rtb_id=$(aws ec2 create-route-table --vpc-id $alfa_ohio_development_vpc_id \
@@ -6673,17 +5119,10 @@ profile=$production_profile
 
 # Create VPC
 zulu_ohio_production_vpc_id=$(aws ec2 create-vpc --cidr-block $zulu_ohio_production_vpc_cidr \
+                                                 --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=Zulu-Production-VPC},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                  --query 'Vpc.VpcId' \
                                                  --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_vpc_id=$zulu_ohio_production_vpc_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_vpc_id \
-                    --tags Key=Name,Value=Zulu-Production-VPC \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 modify-vpc-attribute --vpc-id $zulu_ohio_production_vpc_id \
                              --enable-dns-support \
@@ -6705,17 +5144,10 @@ aws ec2 create-flow-logs --resource-type VPC --resource-ids $zulu_ohio_productio
                          --profile $profile --region us-east-2 --output text
 
 # Create Internet Gateway & Attach
-zulu_ohio_production_igw_id=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' \
-                                                                --profile $profile --region us-east-2 --output text)
+zulu_ohio_production_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=Zulu-Production-InternetGateway},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
+                                                              --query 'InternetGateway.InternetGatewayId' \
+                                                              --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_igw_id=$zulu_ohio_production_igw_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_igw_id \
-                    --tags Key=Name,Value=Zulu-Production-InternetGateway \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 attach-internet-gateway --vpc-id $zulu_ohio_production_vpc_id \
                                 --internet-gateway-id $zulu_ohio_production_igw_id \
@@ -6733,17 +5165,10 @@ echo "zulu_ohio_production_private_hostedzone_id=$zulu_ohio_production_private_h
 # Create DHCP Options Set
 zulu_ohio_production_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$zulu_ohio_production_private_domain]" \
                                                                                  "Key=domain-name-servers,Values=[AmazonProvidedDNS]" \
+                                                           --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=Zulu-Production-DHCPOptions},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                            --query 'DhcpOptions.DhcpOptionsId' \
                                                            --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_dopt_id=$zulu_ohio_production_dopt_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_dopt_id \
-                    --tags Key=Name,Value=Zulu-Production-DHCPOptions \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 associate-dhcp-options --vpc-id $zulu_ohio_production_vpc_id \
                                --dhcp-options-id $zulu_ohio_production_dopt_id \
@@ -6753,337 +5178,190 @@ aws ec2 associate-dhcp-options --vpc-id $zulu_ohio_production_vpc_id \
 zulu_ohio_production_public_subneta_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_production_vpc_id \
                                                                --cidr-block $zulu_ohio_production_subnet_publica_cidr \
                                                                --availability-zone us-east-2a \
+                                                               --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Production-PublicSubnetA},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                --query 'Subnet.SubnetId' \
                                                                --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_public_subneta_id=$zulu_ohio_production_public_subneta_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_public_subneta_id \
-                    --tags Key=Name,Value=Zulu-Production-PublicSubnetA \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Subnet B
 zulu_ohio_production_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_production_vpc_id \
                                                                --cidr-block $zulu_ohio_production_subnet_publicb_cidr \
                                                                --availability-zone us-east-2b \
+                                                               --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Production-PublicSubnetB},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                --query 'Subnet.SubnetId' \
                                                                --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_public_subnetb_id=$zulu_ohio_production_public_subnetb_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_public_subnetb_id \
-                    --tags Key=Name,Value=Zulu-Production-PublicSubnetB \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Subnet C
 zulu_ohio_production_public_subnetc_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_production_vpc_id \
                                                                --cidr-block $zulu_ohio_production_subnet_publicc_cidr \
                                                                --availability-zone us-east-2c \
+                                                               --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Production-PublicSubnetC},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                --query 'Subnet.SubnetId' \
                                                                --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_public_subnetc_id=$zulu_ohio_production_public_subnetc_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_public_subnetc_id \
-                    --tags Key=Name,Value=Zulu-Production-PublicSubnetC \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Web Subnet A
 zulu_ohio_production_web_subneta_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_production_vpc_id \
                                                             --cidr-block $zulu_ohio_production_subnet_weba_cidr \
                                                             --availability-zone us-east-2a \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Production-WebSubnetA},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_web_subneta_id=$zulu_ohio_production_web_subneta_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_web_subneta_id \
-                    --tags Key=Name,Value=Zulu-Production-WebSubnetA \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Web Subnet B
 zulu_ohio_production_web_subnetb_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_production_vpc_id \
                                                             --cidr-block $zulu_ohio_production_subnet_webb_cidr \
                                                             --availability-zone us-east-2b \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Production-WebSubnetB},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_web_subnetb_id=$zulu_ohio_production_web_subnetb_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_web_subnetb_id \
-                    --tags Key=Name,Value=Zulu-Production-WebSubnetB \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Web Subnet C
 zulu_ohio_production_web_subnetc_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_production_vpc_id \
                                                             --cidr-block $zulu_ohio_production_subnet_webc_cidr \
                                                             --availability-zone us-east-2c \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Production-WebSubnetC},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_web_subnetc_id=$zulu_ohio_production_web_subnetc_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_web_subnetc_id \
-                    --tags Key=Name,Value=Zulu-Production-WebSubnetC \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Application Subnet A
 zulu_ohio_production_application_subneta_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_production_vpc_id \
                                                                     --cidr-block $zulu_ohio_production_subnet_applicationa_cidr \
                                                                     --availability-zone us-east-2a \
+                                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Production-ApplicationSubnetA},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                     --query 'Subnet.SubnetId' \
                                                                     --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_application_subneta_id=$zulu_ohio_production_application_subneta_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_application_subneta_id \
-                    --tags Key=Name,Value=Zulu-Production-ApplicationSubnetA \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Application Subnet B
 zulu_ohio_production_application_subnetb_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_production_vpc_id \
                                                                     --cidr-block $zulu_ohio_production_subnet_applicationb_cidr \
                                                                     --availability-zone us-east-2b \
+                                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Production-ApplicationSubnetB},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                     --query 'Subnet.SubnetId' \
                                                                     --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_application_subnetb_id=$zulu_ohio_production_application_subnetb_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_application_subnetb_id \
-                    --tags Key=Name,Value=Zulu-Production-ApplicationSubnetB \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Application Subnet C
 zulu_ohio_production_application_subnetc_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_production_vpc_id \
                                                                     --cidr-block $zulu_ohio_production_subnet_applicationc_cidr \
                                                                     --availability-zone us-east-2c \
+                                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Production-ApplicationSubnetC},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                     --query 'Subnet.SubnetId' \
                                                                     --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_application_subnetc_id=$zulu_ohio_production_application_subnetc_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_application_subnetc_id \
-                    --tags Key=Name,Value=Zulu-Production-ApplicationSubnetC \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Database Subnet A
 zulu_ohio_production_database_subneta_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_production_vpc_id \
                                                                  --cidr-block $zulu_ohio_production_subnet_databasea_cidr \
                                                                  --availability-zone us-east-2a \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Production-DatabaseSubnetA},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_database_subneta_id=$zulu_ohio_production_database_subneta_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_database_subneta_id \
-                    --tags Key=Name,Value=Zulu-Production-DatabaseSubnetA \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Database Subnet B
 zulu_ohio_production_database_subnetb_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_production_vpc_id \
                                                                  --cidr-block $zulu_ohio_production_subnet_databaseb_cidr \
                                                                  --availability-zone us-east-2b \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Production-DatabaseSubnetB},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_database_subnetb_id=$zulu_ohio_production_database_subnetb_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_database_subnetb_id \
-                    --tags Key=Name,Value=Zulu-Production-DatabaseSubnetB \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Database Subnet C
 zulu_ohio_production_database_subnetc_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_production_vpc_id \
                                                                  --cidr-block $zulu_ohio_production_subnet_databasec_cidr \
                                                                  --availability-zone us-east-2c \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Production-DatabaseSubnetC},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_database_subnetc_id=$zulu_ohio_production_database_subnetc_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_database_subnetc_id \
-                    --tags Key=Name,Value=Zulu-Production-DatabaseSubnetC \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet A
 zulu_ohio_production_management_subneta_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_production_vpc_id \
                                                                    --cidr-block $zulu_ohio_production_subnet_managementa_cidr \
                                                                    --availability-zone us-east-2a \
+                                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Production-ManagementSubnetA},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                    --query 'Subnet.SubnetId' \
                                                                    --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_management_subneta_id=$zulu_ohio_production_management_subneta_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_management_subneta_id \
-                    --tags Key=Name,Value=Zulu-Production-ManagementSubnetA \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet B
 zulu_ohio_production_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_production_vpc_id \
                                                                    --cidr-block $zulu_ohio_production_subnet_managementb_cidr \
                                                                    --availability-zone us-east-2b \
+                                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Production-ManagementSubnetB},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                    --query 'Subnet.SubnetId' \
                                                                    --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_management_subnetb_id=$zulu_ohio_production_management_subnetb_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_management_subnetb_id \
-                    --tags Key=Name,Value=Zulu-Production-ManagementSubnetB \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet C
 zulu_ohio_production_management_subnetc_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_production_vpc_id \
                                                                    --cidr-block $zulu_ohio_production_subnet_managementc_cidr \
                                                                    --availability-zone us-east-2c \
+                                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Production-ManagementSubnetC},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                    --query 'Subnet.SubnetId' \
                                                                    --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_management_subnetc_id=$zulu_ohio_production_management_subnetc_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_management_subnetc_id \
-                    --tags Key=Name,Value=Zulu-Production-ManagementSubnetC \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet A
 zulu_ohio_production_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_production_vpc_id \
                                                                 --cidr-block $zulu_ohio_production_subnet_gatewaya_cidr \
                                                                 --availability-zone us-east-2a \
+                                                                --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Production-GatewaySubnetA},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                 --query 'Subnet.SubnetId' \
                                                                 --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_gateway_subneta_id=$zulu_ohio_production_gateway_subneta_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_gateway_subneta_id \
-                    --tags Key=Name,Value=Zulu-Production-GatewaySubnetA \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet B
 zulu_ohio_production_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_production_vpc_id \
                                                                 --cidr-block $zulu_ohio_production_subnet_gatewayb_cidr \
                                                                 --availability-zone us-east-2b \
+                                                                --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Production-GatewaySubnetB},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                 --query 'Subnet.SubnetId' \
                                                                 --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_gateway_subnetb_id=$zulu_ohio_production_gateway_subnetb_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_gateway_subnetb_id \
-                    --tags Key=Name,Value=Zulu-Production-GatewaySubnetB \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet C
 zulu_ohio_production_gateway_subnetc_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_production_vpc_id \
                                                                 --cidr-block $zulu_ohio_production_subnet_gatewayc_cidr \
                                                                 --availability-zone us-east-2c \
+                                                                --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Production-GatewaySubnetC},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                 --query 'Subnet.SubnetId' \
                                                                 --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_gateway_subnetc_id=$zulu_ohio_production_gateway_subnetc_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_gateway_subnetc_id \
-                    --tags Key=Name,Value=Zulu-Production-GatewaySubnetC \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet A
 zulu_ohio_production_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_production_vpc_id \
                                                                  --cidr-block $zulu_ohio_production_subnet_endpointa_cidr \
                                                                  --availability-zone us-east-2a \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Production-EndpointSubnetA},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_endpoint_subneta_id=$zulu_ohio_production_endpoint_subneta_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_endpoint_subneta_id \
-                    --tags Key=Name,Value=Zulu-Production-EndpointSubnetA \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet B
 zulu_ohio_production_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_production_vpc_id \
                                                                  --cidr-block $zulu_ohio_production_subnet_endpointb_cidr \
                                                                  --availability-zone us-east-2b \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Production-EndpointSubnetB},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_endpoint_subnetb_id=$zulu_ohio_production_endpoint_subnetb_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_endpoint_subnetb_id \
-                    --tags Key=Name,Value=Zulu-Production-EndpointSubnetB \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet C
 zulu_ohio_production_endpoint_subnetc_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_production_vpc_id \
                                                                  --cidr-block $zulu_ohio_production_subnet_endpointc_cidr \
                                                                  --availability-zone us-east-2c \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Production-EndpointSubnetC},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_endpoint_subnetc_id=$zulu_ohio_production_endpoint_subnetc_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_endpoint_subnetc_id \
-                    --tags Key=Name,Value=Zulu-Production-EndpointSubnetC \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Route Table, Default Route and Associate with Public Subnets
 zulu_ohio_production_public_rtb_id=$(aws ec2 create-route-table --vpc-id $zulu_ohio_production_vpc_id \
@@ -7421,17 +5699,10 @@ profile=$development_profile
 
 # Create VPC
 zulu_ohio_development_vpc_id=$(aws ec2 create-vpc --cidr-block $zulu_ohio_development_vpc_cidr \
+                                                  --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=Zulu-Development-VPC},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                   --query 'Vpc.VpcId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_vpc_id=$zulu_ohio_development_vpc_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_vpc_id \
-                    --tags Key=Name,Value=Zulu-Development-VPC \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 modify-vpc-attribute --vpc-id $zulu_ohio_development_vpc_id \
                              --enable-dns-support \
@@ -7453,17 +5724,10 @@ aws ec2 create-flow-logs --resource-type VPC --resource-ids $zulu_ohio_developme
                          --profile $profile --region us-east-2 --output text
 
 # Create Internet Gateway & Attach
-zulu_ohio_development_igw_id=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' \
+zulu_ohio_development_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=Zulu-Development-InternetGateway},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
+                                                               --query 'InternetGateway.InternetGatewayId' \
                                                                --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_igw_id=$zulu_ohio_development_igw_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_igw_id \
-                    --tags Key=Name,Value=Zulu-Development-InternetGateway \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 attach-internet-gateway --vpc-id $zulu_ohio_development_vpc_id \
                                 --internet-gateway-id $zulu_ohio_development_igw_id \
@@ -7481,17 +5745,10 @@ echo "zulu_ohio_development_private_hostedzone_id=$zulu_ohio_development_private
 # Create DHCP Options Set
 zulu_ohio_development_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$zulu_ohio_development_private_domain]" \
                                                                                   "Key=domain-name-servers,Values=[AmazonProvidedDNS]" \
+                                                            --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=Zulu-Development-DHCPOptions},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'DhcpOptions.DhcpOptionsId' \
                                                             --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_dopt_id=$zulu_ohio_development_dopt_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_dopt_id \
-                    --tags Key=Name,Value=Zulu-Development-DHCPOptions \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 associate-dhcp-options --vpc-id $zulu_ohio_development_vpc_id \
                                --dhcp-options-id $zulu_ohio_development_dopt_id \
@@ -7501,337 +5758,190 @@ aws ec2 associate-dhcp-options --vpc-id $zulu_ohio_development_vpc_id \
 zulu_ohio_development_public_subneta_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_development_vpc_id \
                                                                 --cidr-block $zulu_ohio_development_subnet_publica_cidr \
                                                                 --availability-zone us-east-2a \
+                                                                --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Development-PublicSubnetA},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                 --query 'Subnet.SubnetId' \
                                                                 --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_public_subneta_id=$zulu_ohio_development_public_subneta_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_public_subneta_id \
-                    --tags Key=Name,Value=Zulu-Development-PublicSubnetA \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Subnet B
 zulu_ohio_development_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_development_vpc_id \
                                                                 --cidr-block $zulu_ohio_development_subnet_publicb_cidr \
                                                                 --availability-zone us-east-2b \
+                                                                --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Development-PublicSubnetB},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                 --query 'Subnet.SubnetId' \
                                                                 --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_public_subnetb_id=$zulu_ohio_development_public_subnetb_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_public_subnetb_id \
-                    --tags Key=Name,Value=Zulu-Development-PublicSubnetB \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Subnet C
 zulu_ohio_development_public_subnetc_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_development_vpc_id \
                                                                 --cidr-block $zulu_ohio_development_subnet_publicc_cidr \
                                                                 --availability-zone us-east-2c \
+                                                                --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Development-PublicSubnetC},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                 --query 'Subnet.SubnetId' \
                                                                 --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_public_subnetc_id=$zulu_ohio_development_public_subnetc_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_public_subnetc_id \
-                    --tags Key=Name,Value=Zulu-Development-PublicSubnetC \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Web Subnet A
 zulu_ohio_development_web_subneta_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_development_vpc_id \
                                                              --cidr-block $zulu_ohio_development_subnet_weba_cidr \
                                                              --availability-zone us-east-2a \
+                                                             --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Development-WebSubnetA},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                              --query 'Subnet.SubnetId' \
                                                              --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_web_subneta_id=$zulu_ohio_development_web_subneta_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_web_subneta_id \
-                    --tags Key=Name,Value=Zulu-Development-WebSubnetA \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Web Subnet B
 zulu_ohio_development_web_subnetb_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_development_vpc_id \
                                                              --cidr-block $zulu_ohio_development_subnet_webb_cidr \
                                                              --availability-zone us-east-2b \
+                                                             --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Development-WebSubnetB},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                              --query 'Subnet.SubnetId' \
                                                              --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_web_subnetb_id=$zulu_ohio_development_web_subnetb_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_web_subnetb_id \
-                    --tags Key=Name,Value=Zulu-Development-WebSubnetB \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Web Subnet C
 zulu_ohio_development_web_subnetc_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_development_vpc_id \
                                                              --cidr-block $zulu_ohio_development_subnet_webc_cidr \
                                                              --availability-zone us-east-2c \
+                                                             --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Development-WebSubnetC},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                              --query 'Subnet.SubnetId' \
                                                              --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_web_subnetc_id=$zulu_ohio_development_web_subnetc_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_web_subnetc_id \
-                    --tags Key=Name,Value=Zulu-Development-WebSubnetC \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Application Subnet A
 zulu_ohio_development_application_subneta_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_development_vpc_id \
                                                                      --cidr-block $zulu_ohio_development_subnet_applicationa_cidr \
                                                                      --availability-zone us-east-2a \
+                                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Development-ApplicationSubnetA},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                      --query 'Subnet.SubnetId' \
                                                                      --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_application_subneta_id=$zulu_ohio_development_application_subneta_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_application_subneta_id \
-                    --tags Key=Name,Value=Zulu-Development-ApplicationSubnetA \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Application Subnet B
 zulu_ohio_development_application_subnetb_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_development_vpc_id \
                                                                      --cidr-block $zulu_ohio_development_subnet_applicationb_cidr \
                                                                      --availability-zone us-east-2b \
+                                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Development-ApplicationSubnetB},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                      --query 'Subnet.SubnetId' \
                                                                      --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_application_subnetb_id=$zulu_ohio_development_application_subnetb_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_application_subnetb_id \
-                    --tags Key=Name,Value=Zulu-Development-ApplicationSubnetB \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Application Subnet C
 zulu_ohio_development_application_subnetc_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_development_vpc_id \
                                                                      --cidr-block $zulu_ohio_development_subnet_applicationc_cidr \
                                                                      --availability-zone us-east-2c \
+                                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Development-ApplicationSubnetC},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                      --query 'Subnet.SubnetId' \
                                                                      --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_application_subnetc_id=$zulu_ohio_development_application_subnetc_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_application_subnetc_id \
-                    --tags Key=Name,Value=Zulu-Development-ApplicationSubnetC \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Database Subnet A
 zulu_ohio_development_database_subneta_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_development_vpc_id \
                                                                   --cidr-block $zulu_ohio_development_subnet_databasea_cidr \
                                                                   --availability-zone us-east-2a \
+                                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Development-DatabaseSubnetA},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_database_subneta_id=$zulu_ohio_development_database_subneta_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_database_subneta_id \
-                    --tags Key=Name,Value=Zulu-Development-DatabaseSubnetA \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Database Subnet B
 zulu_ohio_development_database_subnetb_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_development_vpc_id \
                                                                   --cidr-block $zulu_ohio_development_subnet_databaseb_cidr \
                                                                   --availability-zone us-east-2b \
+                                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Development-DatabaseSubnetB},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_database_subnetb_id=$zulu_ohio_development_database_subnetb_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_database_subnetb_id \
-                    --tags Key=Name,Value=Zulu-Development-DatabaseSubnetB \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Database Subnet C
 zulu_ohio_development_database_subnetc_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_development_vpc_id \
                                                                   --cidr-block $zulu_ohio_development_subnet_databasec_cidr \
                                                                   --availability-zone us-east-2c \
+                                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Development-DatabaseSubnetC},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_database_subnetc_id=$zulu_ohio_development_database_subnetc_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_database_subnetc_id \
-                    --tags Key=Name,Value=Zulu-Development-DatabaseSubnetC \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet A
 zulu_ohio_development_management_subneta_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_development_vpc_id \
                                                                     --cidr-block $zulu_ohio_development_subnet_managementa_cidr \
                                                                     --availability-zone us-east-2a \
+                                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Development-ManagementSubnetA},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                     --query 'Subnet.SubnetId' \
                                                                     --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_management_subneta_id=$zulu_ohio_development_management_subneta_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_management_subneta_id \
-                    --tags Key=Name,Value=Zulu-Development-ManagementSubnetA \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet B
 zulu_ohio_development_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_development_vpc_id \
                                                                     --cidr-block $zulu_ohio_development_subnet_managementb_cidr \
                                                                     --availability-zone us-east-2b \
+                                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Development-ManagementSubnetB},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                     --query 'Subnet.SubnetId' \
                                                                     --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_management_subnetb_id=$zulu_ohio_development_management_subnetb_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_management_subnetb_id \
-                    --tags Key=Name,Value=Zulu-Development-ManagementSubnetB \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet C
 zulu_ohio_development_management_subnetc_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_development_vpc_id \
                                                                     --cidr-block $zulu_ohio_development_subnet_managementc_cidr \
                                                                     --availability-zone us-east-2c \
+                                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Development-ManagementSubnetC},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                     --query 'Subnet.SubnetId' \
                                                                     --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_management_subnetc_id=$zulu_ohio_development_management_subnetc_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_management_subnetc_id \
-                    --tags Key=Name,Value=Zulu-Development-ManagementSubnetC \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet A
 zulu_ohio_development_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_development_vpc_id \
                                                                  --cidr-block $zulu_ohio_development_subnet_gatewaya_cidr \
                                                                  --availability-zone us-east-2a \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Development-GatewaySubnetA},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_gateway_subneta_id=$zulu_ohio_development_gateway_subneta_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_gateway_subneta_id \
-                    --tags Key=Name,Value=Zulu-Development-GatewaySubnetA \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet B
 zulu_ohio_development_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_development_vpc_id \
                                                                  --cidr-block $zulu_ohio_development_subnet_gatewayb_cidr \
                                                                  --availability-zone us-east-2b \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Development-GatewaySubnetB},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_gateway_subnetb_id=$zulu_ohio_development_gateway_subnetb_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_gateway_subnetb_id \
-                    --tags Key=Name,Value=Zulu-Development-GatewaySubnetB \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet C
 zulu_ohio_development_gateway_subnetc_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_development_vpc_id \
                                                                  --cidr-block $zulu_ohio_development_subnet_gatewayc_cidr \
                                                                  --availability-zone us-east-2c \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Development-GatewaySubnetC},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_gateway_subnetc_id=$zulu_ohio_development_gateway_subnetc_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_gateway_subnetc_id \
-                    --tags Key=Name,Value=Zulu-Development-GatewaySubnetC \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet A
 zulu_ohio_development_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_development_vpc_id \
                                                                   --cidr-block $zulu_ohio_development_subnet_endpointa_cidr \
                                                                   --availability-zone us-east-2a \
+                                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Development-EndpointSubnetA},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_endpoint_subneta_id=$zulu_ohio_development_endpoint_subneta_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_endpoint_subneta_id \
-                    --tags Key=Name,Value=Zulu-Development-EndpointSubnetA \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet B
 zulu_ohio_development_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_development_vpc_id \
                                                                   --cidr-block $zulu_ohio_development_subnet_endpointb_cidr \
                                                                   --availability-zone us-east-2b \
+                                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Development-EndpointSubnetB},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_endpoint_subnetb_id=$zulu_ohio_development_endpoint_subnetb_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_endpoint_subnetb_id \
-                    --tags Key=Name,Value=Zulu-Development-EndpointSubnetB \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet C
 zulu_ohio_development_endpoint_subnetc_id=$(aws ec2 create-subnet --vpc-id $zulu_ohio_development_vpc_id \
                                                                   --cidr-block $zulu_ohio_development_subnet_endpointc_cidr \
                                                                   --availability-zone us-east-2c \
+                                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Development-EndpointSubnetC},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_endpoint_subnetc_id=$zulu_ohio_development_endpoint_subnetc_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_endpoint_subnetc_id \
-                    --tags Key=Name,Value=Zulu-Development-EndpointSubnetC \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Route Table, Default Route and Associate with Public Subnets
 zulu_ohio_development_public_rtb_id=$(aws ec2 create-route-table --vpc-id $zulu_ohio_development_vpc_id \
@@ -8057,17 +6167,10 @@ profile=$management_profile
 
 # Create VPC
 ireland_management_vpc_id=$(aws ec2 create-vpc --cidr-block $ireland_management_vpc_cidr \
+                                               --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=Management-VPC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                --query 'Vpc.VpcId' \
                                                --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_vpc_id=$ireland_management_vpc_id"
-
-aws ec2 create-tags --resources $ireland_management_vpc_id \
-                    --tags Key=Name,Value=Management-VPC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 aws ec2 modify-vpc-attribute --vpc-id $ireland_management_vpc_id \
                              --enable-dns-support \
@@ -8090,17 +6193,10 @@ aws ec2 create-flow-logs --resource-type VPC --resource-ids $ireland_management_
                          --profile $profile --region eu-west-1 --output text
 
 # Create Internet Gateway & Attach
-ireland_management_igw_id=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' \
+ireland_management_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=Management-InternetGateway},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
+                                                            --query 'InternetGateway.InternetGatewayId' \
                                                             --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_igw_id=$ireland_management_igw_id"
-
-aws ec2 create-tags --resources $ireland_management_igw_id \
-                    --tags Key=Name,Value=Management-InternetGateway \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 aws ec2 attach-internet-gateway --vpc-id $ireland_management_vpc_id \
                                 --internet-gateway-id $ireland_management_igw_id \
@@ -8118,17 +6214,10 @@ echo "ireland_management_private_hostedzone_id=$ireland_management_private_hoste
 # Create DHCP Options Set
 ireland_management_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$ireland_management_public_domain]" \
                                                                                "Key=domain-name-servers,Values=[AmazonProvidedDNS]" \
+                                                         --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=Management-DHCPOptions},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                          --query 'DhcpOptions.DhcpOptionsId' \
                                                          --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_dopt_id=$ireland_management_dopt_id"
-
-aws ec2 create-tags --resources $ireland_management_dopt_id \
-                    --tags Key=Name,Value=Management-DHCPOptions \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 aws ec2 associate-dhcp-options --vpc-id $ireland_management_vpc_id \
                                --dhcp-options-id $ireland_management_dopt_id \
@@ -8138,385 +6227,217 @@ aws ec2 associate-dhcp-options --vpc-id $ireland_management_vpc_id \
 ireland_management_public_subneta_id=$(aws ec2 create-subnet --vpc-id $ireland_management_vpc_id \
                                                              --cidr-block $ireland_management_subnet_publica_cidr \
                                                              --availability-zone eu-west-1a \
+                                                             --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-PublicSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                              --query 'Subnet.SubnetId' \
                                                              --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_public_subneta_id=$ireland_management_public_subneta_id"
-
-aws ec2 create-tags --resources $ireland_management_public_subneta_id \
-                    --tags Key=Name,Value=Management-PublicSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Public Subnet B
 ireland_management_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $ireland_management_vpc_id \
                                                              --cidr-block $ireland_management_subnet_publicb_cidr \
                                                              --availability-zone eu-west-1b \
+                                                             --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-PublicSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                              --query 'Subnet.SubnetId' \
                                                              --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_public_subnetb_id=$ireland_management_public_subnetb_id"
-
-aws ec2 create-tags --resources $ireland_management_public_subnetb_id \
-                    --tags Key=Name,Value=Management-PublicSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Public Subnet C
 ireland_management_public_subnetc_id=$(aws ec2 create-subnet --vpc-id $ireland_management_vpc_id \
                                                              --cidr-block $ireland_management_subnet_publicc_cidr \
                                                              --availability-zone eu-west-1c \
+                                                             --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-PublicSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                              --query 'Subnet.SubnetId' \
                                                              --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_public_subnetc_id=$ireland_management_public_subnetc_id"
-
-aws ec2 create-tags --resources $ireland_management_public_subnetc_id \
-                    --tags Key=Name,Value=Management-PublicSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Web Subnet A
 ireland_management_web_subneta_id=$(aws ec2 create-subnet --vpc-id $ireland_management_vpc_id \
                                                           --cidr-block $ireland_management_subnet_weba_cidr \
                                                           --availability-zone eu-west-1a \
+                                                          --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-WebSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                           --query 'Subnet.SubnetId' \
                                                           --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_web_subneta_id=$ireland_management_web_subneta_id"
-
-aws ec2 create-tags --resources $ireland_management_web_subneta_id \
-                    --tags Key=Name,Value=Management-WebSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Web Subnet B
 ireland_management_web_subnetb_id=$(aws ec2 create-subnet --vpc-id $ireland_management_vpc_id \
                                                           --cidr-block $ireland_management_subnet_webb_cidr \
                                                           --availability-zone eu-west-1b \
+                                                          --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-WebSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                           --query 'Subnet.SubnetId' \
                                                           --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_web_subnetb_id=$ireland_management_web_subnetb_id"
-
-aws ec2 create-tags --resources $ireland_management_web_subnetb_id \
-                    --tags Key=Name,Value=Management-WebSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Web Subnet C
 ireland_management_web_subnetc_id=$(aws ec2 create-subnet --vpc-id $ireland_management_vpc_id \
                                                           --cidr-block $ireland_management_subnet_webc_cidr \
                                                           --availability-zone eu-west-1c \
+                                                          --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-WebSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                           --query 'Subnet.SubnetId' \
                                                           --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_web_subnetc_id=$ireland_management_web_subnetc_id"
-
-aws ec2 create-tags --resources $ireland_management_web_subnetc_id \
-                    --tags Key=Name,Value=Management-WebSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Application Subnet A
 ireland_management_application_subneta_id=$(aws ec2 create-subnet --vpc-id $ireland_management_vpc_id \
                                                                   --cidr-block $ireland_management_subnet_applicationa_cidr \
                                                                   --availability-zone eu-west-1a \
+                                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-ApplicationSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_application_subneta_id=$ireland_management_application_subneta_id"
-
-aws ec2 create-tags --resources $ireland_management_application_subneta_id \
-                    --tags Key=Name,Value=Management-ApplicationSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Application Subnet B
 ireland_management_application_subnetb_id=$(aws ec2 create-subnet --vpc-id $ireland_management_vpc_id \
                                                                   --cidr-block $ireland_management_subnet_applicationb_cidr \
                                                                   --availability-zone eu-west-1b \
+                                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-ApplicationSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_application_subnetb_id=$ireland_management_application_subnetb_id"
-
-aws ec2 create-tags --resources $ireland_management_application_subnetb_id \
-                    --tags Key=Name,Value=Management-ApplicationSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Application Subnet C
 ireland_management_application_subnetc_id=$(aws ec2 create-subnet --vpc-id $ireland_management_vpc_id \
                                                                   --cidr-block $ireland_management_subnet_applicationc_cidr \
                                                                   --availability-zone eu-west-1c \
+                                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-ApplicationSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_application_subnetc_id=$ireland_management_application_subnetc_id"
-
-aws ec2 create-tags --resources $ireland_management_application_subnetc_id \
-                    --tags Key=Name,Value=Management-ApplicationSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Database Subnet A
 ireland_management_database_subneta_id=$(aws ec2 create-subnet --vpc-id $ireland_management_vpc_id \
                                                                --cidr-block $ireland_management_subnet_databasea_cidr \
                                                                --availability-zone eu-west-1a \
+                                                               --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-DatabaseSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                --query 'Subnet.SubnetId' \
                                                                --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_database_subneta_id=$ireland_management_database_subneta_id"
-
-aws ec2 create-tags --resources $ireland_management_database_subneta_id \
-                    --tags Key=Name,Value=Management-DatabaseSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Database Subnet B
 ireland_management_database_subnetb_id=$(aws ec2 create-subnet --vpc-id $ireland_management_vpc_id \
                                                                --cidr-block $ireland_management_subnet_databaseb_cidr \
                                                                --availability-zone eu-west-1b \
+                                                               --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-DatabaseSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                --query 'Subnet.SubnetId' \
                                                                --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_database_subnetb_id=$ireland_management_database_subnetb_id"
-
-aws ec2 create-tags --resources $ireland_management_database_subnetb_id \
-                    --tags Key=Name,Value=Management-DatabaseSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Database Subnet C
 ireland_management_database_subnetc_id=$(aws ec2 create-subnet --vpc-id $ireland_management_vpc_id \
                                                                --cidr-block $ireland_management_subnet_databasec_cidr \
                                                                --availability-zone eu-west-1c \
+                                                               --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-DatabaseSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                --query 'Subnet.SubnetId' \
                                                                --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_database_subnetc_id=$ireland_management_database_subnetc_id"
-
-aws ec2 create-tags --resources $ireland_management_database_subnetc_id \
-                    --tags Key=Name,Value=Management-DatabaseSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Directory Subnet A
 ireland_management_directory_subneta_id=$(aws ec2 create-subnet --vpc-id $ireland_management_vpc_id \
                                                             --cidr-block $ireland_management_subnet_directorya_cidr \
                                                             --availability-zone eu-west-1a \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-DirectorySubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_directory_subneta_id=$ireland_management_directory_subneta_id"
-
-aws ec2 create-tags --resources $ireland_management_directory_subneta_id \
-                    --tags Key=Name,Value=Management-DirectorySubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Directory Subnet B
 ireland_management_directory_subnetb_id=$(aws ec2 create-subnet --vpc-id $ireland_management_vpc_id \
                                                             --cidr-block $ireland_management_subnet_directoryb_cidr \
                                                             --availability-zone eu-west-1b \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-DirectorySubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_directory_subnetb_id=$ireland_management_directory_subnetb_id"
-
-aws ec2 create-tags --resources $ireland_management_directory_subnetb_id \
-                    --tags Key=Name,Value=Management-DirectorySubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Directory Subnet C
 ireland_management_directory_subnetc_id=$(aws ec2 create-subnet --vpc-id $ireland_management_vpc_id \
                                                             --cidr-block $ireland_management_subnet_directoryc_cidr \
                                                             --availability-zone eu-west-1c \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-DirectorySubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_directory_subnetc_id=$ireland_management_directory_subnetc_id"
-
-aws ec2 create-tags --resources $ireland_management_directory_subnetc_id \
-                    --tags Key=Name,Value=Management-DirectorySubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Management Subnet A
 ireland_management_management_subneta_id=$(aws ec2 create-subnet --vpc-id $ireland_management_vpc_id \
                                                                  --cidr-block $ireland_management_subnet_managementa_cidr \
                                                                  --availability-zone eu-west-1a \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-ManagementSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_management_subneta_id=$ireland_management_management_subneta_id"
-
-aws ec2 create-tags --resources $ireland_management_management_subneta_id \
-                    --tags Key=Name,Value=Management-ManagementSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Management Subnet B
 ireland_management_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $ireland_management_vpc_id \
                                                                  --cidr-block $ireland_management_subnet_managementb_cidr \
                                                                  --availability-zone eu-west-1b \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-ManagementSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_management_subnetb_id=$ireland_management_management_subnetb_id"
-
-aws ec2 create-tags --resources $ireland_management_management_subnetb_id \
-                    --tags Key=Name,Value=Management-ManagementSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Management Subnet C
 ireland_management_management_subnetc_id=$(aws ec2 create-subnet --vpc-id $ireland_management_vpc_id \
                                                                  --cidr-block $ireland_management_subnet_managementc_cidr \
                                                                  --availability-zone eu-west-1c \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-ManagementSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_management_subnetc_id=$ireland_management_management_subnetc_id"
-
-aws ec2 create-tags --resources $ireland_management_management_subnetc_id \
-                    --tags Key=Name,Value=Management-ManagementSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Gateway Subnet A
 ireland_management_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $ireland_management_vpc_id \
                                                               --cidr-block $ireland_management_subnet_gatewaya_cidr \
                                                               --availability-zone eu-west-1a \
+                                                              --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-GatewaySubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                               --query 'Subnet.SubnetId' \
                                                               --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_gateway_subneta_id=$ireland_management_gateway_subneta_id"
-
-aws ec2 create-tags --resources $ireland_management_gateway_subneta_id \
-                    --tags Key=Name,Value=Management-GatewaySubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Gateway Subnet B
 ireland_management_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $ireland_management_vpc_id \
                                                               --cidr-block $ireland_management_subnet_gatewayb_cidr \
                                                               --availability-zone eu-west-1b \
+                                                              --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-GatewaySubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                               --query 'Subnet.SubnetId' \
                                                               --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_gateway_subnetb_id=$ireland_management_gateway_subnetb_id"
-
-aws ec2 create-tags --resources $ireland_management_gateway_subnetb_id \
-                    --tags Key=Name,Value=Management-GatewaySubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Gateway Subnet C
 ireland_management_gateway_subnetc_id=$(aws ec2 create-subnet --vpc-id $ireland_management_vpc_id \
                                                               --cidr-block $ireland_management_subnet_gatewayc_cidr \
                                                               --availability-zone eu-west-1c \
+                                                              --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-GatewaySubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                               --query 'Subnet.SubnetId' \
                                                               --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_gateway_subnetc_id=$ireland_management_gateway_subnetc_id"
-
-aws ec2 create-tags --resources $ireland_management_gateway_subnetc_id \
-                    --tags Key=Name,Value=Management-GatewaySubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Endpoint Subnet A
 ireland_management_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $ireland_management_vpc_id \
                                                                --cidr-block $ireland_management_subnet_endpointa_cidr \
                                                                --availability-zone eu-west-1a \
+                                                               --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-EndpointSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                --query 'Subnet.SubnetId' \
                                                                --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_endpoint_subneta_id=$ireland_management_endpoint_subneta_id"
-
-aws ec2 create-tags --resources $ireland_management_endpoint_subneta_id \
-                    --tags Key=Name,Value=Management-EndpointSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Endpoint Subnet B
 ireland_management_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $ireland_management_vpc_id \
                                                                --cidr-block $ireland_management_subnet_endpointb_cidr \
                                                                --availability-zone eu-west-1b \
+                                                               --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-EndpointSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                --query 'Subnet.SubnetId' \
                                                                --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_endpoint_subnetb_id=$ireland_management_endpoint_subnetb_id"
-
-aws ec2 create-tags --resources $ireland_management_endpoint_subnetb_id \
-                    --tags Key=Name,Value=Management-EndpointSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Endpoint Subnet C
 ireland_management_endpoint_subnetc_id=$(aws ec2 create-subnet --vpc-id $ireland_management_vpc_id \
                                                                --cidr-block $ireland_management_subnet_endpointc_cidr \
                                                                --availability-zone eu-west-1c \
+                                                               --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Management-EndpointSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                --query 'Subnet.SubnetId' \
                                                                --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_endpoint_subnetc_id=$ireland_management_endpoint_subnetc_id"
-
-aws ec2 create-tags --resources $ireland_management_endpoint_subnetc_id \
-                    --tags Key=Name,Value=Management-EndpointSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Public Route Table, Default Route and Associate with Public Subnets
 ireland_management_public_rtb_id=$(aws ec2 create-route-table --vpc-id $ireland_management_vpc_id \
@@ -8860,17 +6781,10 @@ profile=$core_profile
 
 # Create VPC
 ireland_core_vpc_id=$(aws ec2 create-vpc --cidr-block $ireland_core_vpc_cidr \
+                                         --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=Core-VPC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                          --query 'Vpc.VpcId' \
                                          --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_vpc_id=$ireland_core_vpc_id"
-
-aws ec2 create-tags --resources $ireland_core_vpc_id \
-                    --tags Key=Name,Value=Core-VPC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 aws ec2 modify-vpc-attribute --vpc-id $ireland_core_vpc_id \
                              --enable-dns-support \
@@ -8892,17 +6806,10 @@ aws ec2 create-flow-logs --resource-type VPC --resource-ids $ireland_core_vpc_id
                          --profile $profile --region eu-west-1 --output text
 
 # Create Internet Gateway & Attach
-ireland_core_igw_id=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' \
+ireland_core_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=Core-InternetGateway},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
+                                                      --query 'InternetGateway.InternetGatewayId' \
                                                       --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_igw_id=$ireland_core_igw_id"
-
-aws ec2 create-tags --resources $ireland_core_igw_id \
-                    --tags Key=Name,Value=Core-InternetGateway \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 aws ec2 attach-internet-gateway --vpc-id $ireland_core_vpc_id \
                                 --internet-gateway-id $ireland_core_igw_id \
@@ -8920,17 +6827,10 @@ echo "ireland_core_private_hostedzone_id=$ireland_core_private_hostedzone_id"
 # Create DHCP Options Set
 ireland_core_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$ireland_core_private_domain]" \
                                                                          "Key=domain-name-servers,Values=[AmazonProvidedDNS]" \
+                                                   --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=Core-DHCPOptions},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                    --query 'DhcpOptions.DhcpOptionsId' \
                                                    --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_dopt_id=$ireland_core_dopt_id"
-
-aws ec2 create-tags --resources $ireland_core_dopt_id \
-                    --tags Key=Name,Value=Core-DHCPOptions \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 aws ec2 associate-dhcp-options --vpc-id $ireland_core_vpc_id \
                                --dhcp-options-id $ireland_core_dopt_id \
@@ -8940,337 +6840,190 @@ aws ec2 associate-dhcp-options --vpc-id $ireland_core_vpc_id \
 ireland_core_public_subneta_id=$(aws ec2 create-subnet --vpc-id $ireland_core_vpc_id \
                                                        --cidr-block $ireland_core_subnet_publica_cidr \
                                                        --availability-zone eu-west-1a \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-PublicSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_public_subneta_id=$ireland_core_public_subneta_id"
-
-aws ec2 create-tags --resources $ireland_core_public_subneta_id \
-                    --tags Key=Name,Value=Core-PublicSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Public Subnet B
 ireland_core_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $ireland_core_vpc_id \
                                                        --cidr-block $ireland_core_subnet_publicb_cidr \
                                                        --availability-zone eu-west-1b \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-PublicSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_public_subnetb_id=$ireland_core_public_subnetb_id"
-
-aws ec2 create-tags --resources $ireland_core_public_subnetb_id \
-                    --tags Key=Name,Value=Core-PublicSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Public Subnet C
 ireland_core_public_subnetc_id=$(aws ec2 create-subnet --vpc-id $ireland_core_vpc_id \
                                                        --cidr-block $ireland_core_subnet_publicc_cidr \
                                                        --availability-zone eu-west-1c \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-PublicSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_public_subnetc_id=$ireland_core_public_subnetc_id"
-
-aws ec2 create-tags --resources $ireland_core_public_subnetc_id \
-                    --tags Key=Name,Value=Core-PublicSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Web Subnet A
 ireland_core_web_subneta_id=$(aws ec2 create-subnet --vpc-id $ireland_core_vpc_id \
                                                     --cidr-block $ireland_core_subnet_weba_cidr \
                                                     --availability-zone eu-west-1a \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-WebSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_web_subneta_id=$ireland_core_web_subneta_id"
-
-aws ec2 create-tags --resources $ireland_core_web_subneta_id \
-                    --tags Key=Name,Value=Core-WebSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Web Subnet B
 ireland_core_web_subnetb_id=$(aws ec2 create-subnet --vpc-id $ireland_core_vpc_id \
                                                     --cidr-block $ireland_core_subnet_webb_cidr \
                                                     --availability-zone eu-west-1b \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-WebSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_web_subnetb_id=$ireland_core_web_subnetb_id"
-
-aws ec2 create-tags --resources $ireland_core_web_subnetb_id \
-                    --tags Key=Name,Value=Core-WebSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Web Subnet C
 ireland_core_web_subnetc_id=$(aws ec2 create-subnet --vpc-id $ireland_core_vpc_id \
                                                     --cidr-block $ireland_core_subnet_webc_cidr \
                                                     --availability-zone eu-west-1c \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-WebSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_web_subnetc_id=$ireland_core_web_subnetc_id"
-
-aws ec2 create-tags --resources $ireland_core_web_subnetc_id \
-                    --tags Key=Name,Value=Core-WebSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Application Subnet A
 ireland_core_application_subneta_id=$(aws ec2 create-subnet --vpc-id $ireland_core_vpc_id \
                                                             --cidr-block $ireland_core_subnet_applicationa_cidr \
                                                             --availability-zone eu-west-1a \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-ApplicationSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_application_subneta_id=$ireland_core_application_subneta_id"
-
-aws ec2 create-tags --resources $ireland_core_application_subneta_id \
-                    --tags Key=Name,Value=Core-ApplicationSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Application Subnet B
 ireland_core_application_subnetb_id=$(aws ec2 create-subnet --vpc-id $ireland_core_vpc_id \
                                                             --cidr-block $ireland_core_subnet_applicationb_cidr \
                                                             --availability-zone eu-west-1b \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-ApplicationSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_application_subnetb_id=$ireland_core_application_subnetb_id"
-
-aws ec2 create-tags --resources $ireland_core_application_subnetb_id \
-                    --tags Key=Name,Value=Core-ApplicationSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Application Subnet C
 ireland_core_application_subnetc_id=$(aws ec2 create-subnet --vpc-id $ireland_core_vpc_id \
                                                             --cidr-block $ireland_core_subnet_applicationc_cidr \
                                                             --availability-zone eu-west-1c \
+                                                            --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-ApplicationSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'Subnet.SubnetId' \
                                                             --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_application_subnetc_id=$ireland_core_application_subnetc_id"
-
-aws ec2 create-tags --resources $ireland_core_application_subnetc_id \
-                    --tags Key=Name,Value=Core-ApplicationSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Database Subnet A
 ireland_core_database_subneta_id=$(aws ec2 create-subnet --vpc-id $ireland_core_vpc_id \
                                                          --cidr-block $ireland_core_subnet_databasea_cidr \
                                                          --availability-zone eu-west-1a \
+                                                         --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-DatabaseSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                          --query 'Subnet.SubnetId' \
                                                          --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_database_subneta_id=$ireland_core_database_subneta_id"
-
-aws ec2 create-tags --resources $ireland_core_database_subneta_id \
-                    --tags Key=Name,Value=Core-DatabaseSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Database Subnet B
 ireland_core_database_subnetb_id=$(aws ec2 create-subnet --vpc-id $ireland_core_vpc_id \
                                                          --cidr-block $ireland_core_subnet_databaseb_cidr \
                                                          --availability-zone eu-west-1b \
+                                                         --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-DatabaseSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                          --query 'Subnet.SubnetId' \
                                                          --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_database_subnetb_id=$ireland_core_database_subnetb_id"
-
-aws ec2 create-tags --resources $ireland_core_database_subnetb_id \
-                    --tags Key=Name,Value=Core-DatabaseSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Database Subnet C
 ireland_core_database_subnetc_id=$(aws ec2 create-subnet --vpc-id $ireland_core_vpc_id \
                                                          --cidr-block $ireland_core_subnet_databasec_cidr \
                                                          --availability-zone eu-west-1c \
+                                                         --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-DatabaseSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                          --query 'Subnet.SubnetId' \
                                                          --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_database_subnetc_id=$ireland_core_database_subnetc_id"
-
-aws ec2 create-tags --resources $ireland_core_database_subnetc_id \
-                    --tags Key=Name,Value=Core-DatabaseSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Management Subnet A
 ireland_core_management_subneta_id=$(aws ec2 create-subnet --vpc-id $ireland_core_vpc_id \
                                                            --cidr-block $ireland_core_subnet_managementa_cidr \
                                                            --availability-zone eu-west-1a \
+                                                           --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-ManagementSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                            --query 'Subnet.SubnetId' \
                                                            --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_management_subneta_id=$ireland_core_management_subneta_id"
-
-aws ec2 create-tags --resources $ireland_core_management_subneta_id \
-                    --tags Key=Name,Value=Core-ManagementSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Management Subnet B
 ireland_core_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $ireland_core_vpc_id \
                                                            --cidr-block $ireland_core_subnet_managementb_cidr \
                                                            --availability-zone eu-west-1b \
+                                                           --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-ManagementSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                            --query 'Subnet.SubnetId' \
                                                            --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_management_subnetb_id=$ireland_core_management_subnetb_id"
-
-aws ec2 create-tags --resources $ireland_core_management_subnetb_id \
-                    --tags Key=Name,Value=Core-ManagementSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Management Subnet C
 ireland_core_management_subnetc_id=$(aws ec2 create-subnet --vpc-id $ireland_core_vpc_id \
                                                            --cidr-block $ireland_core_subnet_managementc_cidr \
                                                            --availability-zone eu-west-1c \
+                                                           --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-ManagementSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                            --query 'Subnet.SubnetId' \
                                                            --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_management_subnetc_id=$ireland_core_management_subnetc_id"
-
-aws ec2 create-tags --resources $ireland_core_management_subnetc_id \
-                    --tags Key=Name,Value=Core-ManagementSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Gateway Subnet A
 ireland_core_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $ireland_core_vpc_id \
                                                         --cidr-block $ireland_core_subnet_gatewaya_cidr \
                                                         --availability-zone eu-west-1a \
+                                                        --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-GatewaySubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                         --query 'Subnet.SubnetId' \
                                                         --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_gateway_subneta_id=$ireland_core_gateway_subneta_id"
-
-aws ec2 create-tags --resources $ireland_core_gateway_subneta_id \
-                    --tags Key=Name,Value=Core-GatewaySubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Gateway Subnet B
 ireland_core_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $ireland_core_vpc_id \
                                                         --cidr-block $ireland_core_subnet_gatewayb_cidr \
                                                         --availability-zone eu-west-1b \
+                                                        --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-GatewaySubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                         --query 'Subnet.SubnetId' \
                                                         --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_gateway_subnetb_id=$ireland_core_gateway_subnetb_id"
-
-aws ec2 create-tags --resources $ireland_core_gateway_subnetb_id \
-                    --tags Key=Name,Value=Core-GatewaySubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Gateway Subnet C
 ireland_core_gateway_subnetc_id=$(aws ec2 create-subnet --vpc-id $ireland_core_vpc_id \
                                                         --cidr-block $ireland_core_subnet_gatewayc_cidr \
                                                         --availability-zone eu-west-1c \
+                                                        --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-GatewaySubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                         --query 'Subnet.SubnetId' \
                                                         --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_gateway_subnetc_id=$ireland_core_gateway_subnetc_id"
-
-aws ec2 create-tags --resources $ireland_core_gateway_subnetc_id \
-                    --tags Key=Name,Value=Core-GatewaySubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Endpoint Subnet A
 ireland_core_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $ireland_core_vpc_id \
                                                          --cidr-block $ireland_core_subnet_endpointa_cidr \
                                                          --availability-zone eu-west-1a \
+                                                         --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-EndpointSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                          --query 'Subnet.SubnetId' \
                                                          --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_endpoint_subneta_id=$ireland_core_endpoint_subneta_id"
-
-aws ec2 create-tags --resources $ireland_core_endpoint_subneta_id \
-                    --tags Key=Name,Value=Core-EndpointSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Endpoint Subnet B
 ireland_core_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $ireland_core_vpc_id \
                                                          --cidr-block $ireland_core_subnet_endpointb_cidr \
                                                          --availability-zone eu-west-1b \
+                                                         --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-EndpointSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                          --query 'Subnet.SubnetId' \
                                                          --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_endpoint_subnetb_id=$ireland_core_endpoint_subnetb_id"
-
-aws ec2 create-tags --resources $ireland_core_endpoint_subnetb_id \
-                    --tags Key=Name,Value=Core-EndpointSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Endpoint Subnet C
 ireland_core_endpoint_subnetc_id=$(aws ec2 create-subnet --vpc-id $ireland_core_vpc_id \
                                                          --cidr-block $ireland_core_subnet_endpointc_cidr \
                                                          --availability-zone eu-west-1c \
+                                                         --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Core-EndpointSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                          --query 'Subnet.SubnetId' \
                                                          --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_endpoint_subnetc_id=$ireland_core_endpoint_subnetc_id"
-
-aws ec2 create-tags --resources $ireland_core_endpoint_subnetc_id \
-                    --tags Key=Name,Value=Core-EndpointSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Public Route Table, Default Route and Associate with Public Subnets
 ireland_core_public_rtb_id=$(aws ec2 create-route-table --vpc-id $ireland_core_vpc_id \
@@ -9608,17 +7361,10 @@ profile=$log_profile
 
 # Create VPC
 ireland_log_vpc_id=$(aws ec2 create-vpc --cidr-block $ireland_log_vpc_cidr \
+                                        --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=Log-VPC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                         --query 'Vpc.VpcId' \
                                         --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_vpc_id=$ireland_log_vpc_id"
-
-aws ec2 create-tags --resources $ireland_log_vpc_id \
-                    --tags Key=Name,Value=Log-VPC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 aws ec2 modify-vpc-attribute --vpc-id $ireland_log_vpc_id \
                              --enable-dns-support \
@@ -9640,17 +7386,10 @@ aws ec2 create-flow-logs --resource-type VPC --resource-ids $ireland_log_vpc_id 
                          --profile $profile --region eu-west-1 --output text
 
 # Create Internet Gateway & Attach
-ireland_log_igw_id=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' \
+ireland_log_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=Log-InternetGateway},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
+                                                     --query 'InternetGateway.InternetGatewayId' \
                                                      --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_igw_id=$ireland_log_igw_id"
-
-aws ec2 create-tags --resources $ireland_log_igw_id \
-                    --tags Key=Name,Value=Log-InternetGateway \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 aws ec2 attach-internet-gateway --vpc-id $ireland_log_vpc_id \
                                 --internet-gateway-id $ireland_log_igw_id \
@@ -9668,17 +7407,10 @@ echo "ireland_log_private_hostedzone_id=$ireland_log_private_hostedzone_id"
 # Create DHCP Options Set
 ireland_log_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$ireland_log_private_domain]" \
                                                                         "Key=domain-name-servers,Values=[AmazonProvidedDNS]" \
+                                                  --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=Log-DHCPOptions},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                   --query 'DhcpOptions.DhcpOptionsId' \
                                                   --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_dopt_id=$ireland_log_dopt_id"
-
-aws ec2 create-tags --resources $ireland_log_dopt_id \
-                    --tags Key=Name,Value=Log-DHCPOptions \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 aws ec2 associate-dhcp-options --vpc-id $ireland_log_vpc_id \
                                --dhcp-options-id $ireland_log_dopt_id \
@@ -9688,337 +7420,190 @@ aws ec2 associate-dhcp-options --vpc-id $ireland_log_vpc_id \
 ireland_log_public_subneta_id=$(aws ec2 create-subnet --vpc-id $ireland_log_vpc_id \
                                                       --cidr-block $ireland_log_subnet_publica_cidr \
                                                       --availability-zone eu-west-1a \
+                                                      --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-PublicSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                       --query 'Subnet.SubnetId' \
                                                       --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_public_subneta_id=$ireland_log_public_subneta_id"
-
-aws ec2 create-tags --resources $ireland_log_public_subneta_id \
-                    --tags Key=Name,Value=Log-PublicSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Public Subnet B
 ireland_log_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $ireland_log_vpc_id \
                                                       --cidr-block $ireland_log_subnet_publicb_cidr \
                                                       --availability-zone eu-west-1b \
+                                                      --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-PublicSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                       --query 'Subnet.SubnetId' \
                                                       --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_public_subnetb_id=$ireland_log_public_subnetb_id"
-
-aws ec2 create-tags --resources $ireland_log_public_subnetb_id \
-                    --tags Key=Name,Value=Log-PublicSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Public Subnet C
 ireland_log_public_subnetc_id=$(aws ec2 create-subnet --vpc-id $ireland_log_vpc_id \
                                                       --cidr-block $ireland_log_subnet_publicc_cidr \
                                                       --availability-zone eu-west-1c \
+                                                      --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-PublicSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                       --query 'Subnet.SubnetId' \
                                                       --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_public_subnetc_id=$ireland_log_public_subnetc_id"
-
-aws ec2 create-tags --resources $ireland_log_public_subnetc_id \
-                    --tags Key=Name,Value=Log-PublicSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Web Subnet A
 ireland_log_web_subneta_id=$(aws ec2 create-subnet --vpc-id $ireland_log_vpc_id \
                                                    --cidr-block $ireland_log_subnet_weba_cidr \
                                                    --availability-zone eu-west-1a \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-WebSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_web_subneta_id=$ireland_log_web_subneta_id"
-
-aws ec2 create-tags --resources $ireland_log_web_subneta_id \
-                    --tags Key=Name,Value=Log-WebSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Web Subnet B
 ireland_log_web_subnetb_id=$(aws ec2 create-subnet --vpc-id $ireland_log_vpc_id \
                                                    --cidr-block $ireland_log_subnet_webb_cidr \
                                                    --availability-zone eu-west-1b \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-WebSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_web_subnetb_id=$ireland_log_web_subnetb_id"
-
-aws ec2 create-tags --resources $ireland_log_web_subnetb_id \
-                    --tags Key=Name,Value=Log-WebSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Web Subnet C
 ireland_log_web_subnetc_id=$(aws ec2 create-subnet --vpc-id $ireland_log_vpc_id \
                                                    --cidr-block $ireland_log_subnet_webc_cidr \
                                                    --availability-zone eu-west-1c \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-WebSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_web_subnetc_id=$ireland_log_web_subnetc_id"
-
-aws ec2 create-tags --resources $ireland_log_web_subnetc_id \
-                    --tags Key=Name,Value=Log-WebSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Application Subnet A
 ireland_log_application_subneta_id=$(aws ec2 create-subnet --vpc-id $ireland_log_vpc_id \
                                                            --cidr-block $ireland_log_subnet_applicationa_cidr \
                                                            --availability-zone eu-west-1a \
+                                                           --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-ApplicationSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                            --query 'Subnet.SubnetId' \
                                                            --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_application_subneta_id=$ireland_log_application_subneta_id"
-
-aws ec2 create-tags --resources $ireland_log_application_subneta_id \
-                    --tags Key=Name,Value=Log-ApplicationSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Application Subnet B
 ireland_log_application_subnetb_id=$(aws ec2 create-subnet --vpc-id $ireland_log_vpc_id \
                                                            --cidr-block $ireland_log_subnet_applicationb_cidr \
                                                            --availability-zone eu-west-1b \
+                                                           --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-ApplicationSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                            --query 'Subnet.SubnetId' \
                                                            --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_application_subnetb_id=$ireland_log_application_subnetb_id"
-
-aws ec2 create-tags --resources $ireland_log_application_subnetb_id \
-                    --tags Key=Name,Value=Log-ApplicationSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Application Subnet C
 ireland_log_application_subnetc_id=$(aws ec2 create-subnet --vpc-id $ireland_log_vpc_id \
                                                            --cidr-block $ireland_log_subnet_applicationc_cidr \
                                                            --availability-zone eu-west-1c \
+                                                           --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-ApplicationSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                            --query 'Subnet.SubnetId' \
                                                            --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_application_subnetc_id=$ireland_log_application_subnetc_id"
-
-aws ec2 create-tags --resources $ireland_log_application_subnetc_id \
-                    --tags Key=Name,Value=Log-ApplicationSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Database Subnet A
 ireland_log_database_subneta_id=$(aws ec2 create-subnet --vpc-id $ireland_log_vpc_id \
                                                         --cidr-block $ireland_log_subnet_databasea_cidr \
                                                         --availability-zone eu-west-1a \
+                                                        --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-DatabaseSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                         --query 'Subnet.SubnetId' \
                                                         --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_database_subneta_id=$ireland_log_database_subneta_id"
-
-aws ec2 create-tags --resources $ireland_log_database_subneta_id \
-                    --tags Key=Name,Value=Log-DatabaseSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Database Subnet B
 ireland_log_database_subnetb_id=$(aws ec2 create-subnet --vpc-id $ireland_log_vpc_id \
                                                         --cidr-block $ireland_log_subnet_databaseb_cidr \
                                                         --availability-zone eu-west-1b \
+                                                        --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-DatabaseSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                         --query 'Subnet.SubnetId' \
                                                         --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_database_subnetb_id=$ireland_log_database_subnetb_id"
-
-aws ec2 create-tags --resources $ireland_log_database_subnetb_id \
-                    --tags Key=Name,Value=Log-DatabaseSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Database Subnet C
 ireland_log_database_subnetc_id=$(aws ec2 create-subnet --vpc-id $ireland_log_vpc_id \
                                                         --cidr-block $ireland_log_subnet_databasec_cidr \
                                                         --availability-zone eu-west-1c \
+                                                        --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-DatabaseSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                         --query 'Subnet.SubnetId' \
                                                         --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_database_subnetc_id=$ireland_log_database_subnetc_id"
-
-aws ec2 create-tags --resources $ireland_log_database_subnetc_id \
-                    --tags Key=Name,Value=Log-DatabaseSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Management Subnet A
 ireland_log_management_subneta_id=$(aws ec2 create-subnet --vpc-id $ireland_log_vpc_id \
                                                           --cidr-block $ireland_log_subnet_managementa_cidr \
                                                           --availability-zone eu-west-1a \
+                                                          --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-ManagementSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                           --query 'Subnet.SubnetId' \
                                                           --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_management_subneta_id=$ireland_log_management_subneta_id"
-
-aws ec2 create-tags --resources $ireland_log_management_subneta_id \
-                    --tags Key=Name,Value=Log-ManagementSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Management Subnet B
 ireland_log_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $ireland_log_vpc_id \
                                                           --cidr-block $ireland_log_subnet_managementb_cidr \
                                                           --availability-zone eu-west-1b \
+                                                          --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-ManagementSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                           --query 'Subnet.SubnetId' \
                                                           --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_management_subnetb_id=$ireland_log_management_subnetb_id"
-
-aws ec2 create-tags --resources $ireland_log_management_subnetb_id \
-                    --tags Key=Name,Value=Log-ManagementSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Management Subnet C
 ireland_log_management_subnetc_id=$(aws ec2 create-subnet --vpc-id $ireland_log_vpc_id \
                                                           --cidr-block $ireland_log_subnet_managementc_cidr \
                                                           --availability-zone eu-west-1c \
+                                                          --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-ManagementSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                           --query 'Subnet.SubnetId' \
                                                           --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_management_subnetc_id=$ireland_log_management_subnetc_id"
-
-aws ec2 create-tags --resources $ireland_log_management_subnetc_id \
-                    --tags Key=Name,Value=Log-ManagementSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Gateway Subnet A
 ireland_log_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $ireland_log_vpc_id \
                                                        --cidr-block $ireland_log_subnet_gatewaya_cidr \
                                                        --availability-zone eu-west-1a \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-GatewaySubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_gateway_subneta_id=$ireland_log_gateway_subneta_id"
-
-aws ec2 create-tags --resources $ireland_log_gateway_subneta_id \
-                    --tags Key=Name,Value=Log-GatewaySubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Gateway Subnet B
 ireland_log_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $ireland_log_vpc_id \
                                                        --cidr-block $ireland_log_subnet_gatewayb_cidr \
                                                        --availability-zone eu-west-1b \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-GatewaySubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_gateway_subnetb_id=$ireland_log_gateway_subnetb_id"
-
-aws ec2 create-tags --resources $ireland_log_gateway_subnetb_id \
-                    --tags Key=Name,Value=Log-GatewaySubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Gateway Subnet C
 ireland_log_gateway_subnetc_id=$(aws ec2 create-subnet --vpc-id $ireland_log_vpc_id \
                                                        --cidr-block $ireland_log_subnet_gatewayc_cidr \
                                                        --availability-zone eu-west-1c \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-GatewaySubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_gateway_subnetc_id=$ireland_log_gateway_subnetc_id"
-
-aws ec2 create-tags --resources $ireland_log_gateway_subnetc_id \
-                    --tags Key=Name,Value=Log-GatewaySubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Endpoint Subnet A
 ireland_log_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $ireland_log_vpc_id \
                                                         --cidr-block $ireland_log_subnet_endpointa_cidr \
                                                         --availability-zone eu-west-1a \
+                                                        --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-EndpointSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                         --query 'Subnet.SubnetId' \
                                                         --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_endpoint_subneta_id=$ireland_log_endpoint_subneta_id"
-
-aws ec2 create-tags --resources $ireland_log_endpoint_subneta_id \
-                    --tags Key=Name,Value=Log-EndpointSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Endpoint Subnet B
 ireland_log_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $ireland_log_vpc_id \
                                                         --cidr-block $ireland_log_subnet_endpointb_cidr \
                                                         --availability-zone eu-west-1b \
+                                                        --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-EndpointSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                         --query 'Subnet.SubnetId' \
                                                         --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_endpoint_subnetb_id=$ireland_log_endpoint_subnetb_id"
-
-aws ec2 create-tags --resources $ireland_log_endpoint_subnetb_id \
-                    --tags Key=Name,Value=Log-EndpointSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Endpoint Subnet C
 ireland_log_endpoint_subnetc_id=$(aws ec2 create-subnet --vpc-id $ireland_log_vpc_id \
                                                         --cidr-block $ireland_log_subnet_endpointc_cidr \
                                                         --availability-zone eu-west-1c \
+                                                        --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Log-EndpointSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                         --query 'Subnet.SubnetId' \
                                                         --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_endpoint_subnetc_id=$ireland_log_endpoint_subnetc_id"
-
-aws ec2 create-tags --resources $ireland_log_endpoint_subnetc_id \
-                    --tags Key=Name,Value=Log-EndpointSubnetC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Public Route Table, Default Route and Associate with Public Subnets
 ireland_log_public_rtb_id=$(aws ec2 create-route-table --vpc-id $ireland_log_vpc_id \
@@ -10356,17 +7941,10 @@ profile=$recovery_profile
 
 # Create VPC
 alfa_ireland_recovery_vpc_id=$(aws ec2 create-vpc --cidr-block $alfa_ireland_recovery_vpc_cidr \
+                                                  --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=Alfa-Recovery-VPC},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                   --query 'Vpc.VpcId' \
                                                   --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_vpc_id=$alfa_ireland_recovery_vpc_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_vpc_id \
-                    --tags Key=Name,Value=Alfa-Recovery-VPC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 aws ec2 modify-vpc-attribute --vpc-id $alfa_ireland_recovery_vpc_id \
                              --enable-dns-support \
@@ -10388,17 +7966,10 @@ aws ec2 create-flow-logs --resource-type VPC --resource-ids $alfa_ireland_recove
                          --profile $profile --region eu-west-1 --output text
 
 # Create Internet Gateway & Attach
-alfa_ireland_recovery_igw_id=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' \
+alfa_ireland_recovery_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=Alfa-Recovery-InternetGateway},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
+                                                               --query 'InternetGateway.InternetGatewayId' \
                                                                --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_igw_id=$alfa_ireland_recovery_igw_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_igw_id \
-                    --tags Key=Name,Value=Alfa-Recovery-InternetGateway \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 aws ec2 attach-internet-gateway --vpc-id $alfa_ireland_recovery_vpc_id \
                                 --internet-gateway-id $alfa_ireland_recovery_igw_id \
@@ -10416,17 +7987,10 @@ echo "alfa_ireland_recovery_private_hostedzone_id=$alfa_ireland_recovery_private
 # Create DHCP Options Set
 alfa_ireland_recovery_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$alfa_ireland_recovery_private_domain]" \
                                                                                   "Key=domain-name-servers,Values=[AmazonProvidedDNS]" \
+                                                            --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=Alfa-Recovery-DHCPOptions},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                             --query 'DhcpOptions.DhcpOptionsId' \
                                                             --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_dopt_id=$alfa_ireland_recovery_dopt_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_dopt_id \
-                    --tags Key=Name,Value=Alfa-Recovery-DHCPOptions \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 aws ec2 associate-dhcp-options --vpc-id $alfa_ireland_recovery_vpc_id \
                                --dhcp-options-id $alfa_ireland_recovery_dopt_id \
@@ -10436,337 +8000,190 @@ aws ec2 associate-dhcp-options --vpc-id $alfa_ireland_recovery_vpc_id \
 alfa_ireland_recovery_public_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ireland_recovery_vpc_id \
                                                                 --cidr-block $alfa_ireland_recovery_subnet_publica_cidr \
                                                                 --availability-zone eu-west-1a \
+                                                                --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Recovery-PublicSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                 --query 'Subnet.SubnetId' \
                                                                 --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_public_subneta_id=$alfa_ireland_recovery_public_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_public_subneta_id \
-                    --tags Key=Name,Value=Alfa-Recovery-PublicSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Public Subnet B
 alfa_ireland_recovery_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ireland_recovery_vpc_id \
                                                                 --cidr-block $alfa_ireland_recovery_subnet_publicb_cidr \
                                                                 --availability-zone eu-west-1b \
+                                                                --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Recovery-PublicSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                 --query 'Subnet.SubnetId' \
                                                                 --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_public_subnetb_id=$alfa_ireland_recovery_public_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_public_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Recovery-PublicSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Public Subnet C
 alfa_ireland_recovery_public_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ireland_recovery_vpc_id \
                                                                 --cidr-block $alfa_ireland_recovery_subnet_publicc_cidr \
                                                                 --availability-zone eu-west-1c \
+                                                                --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Recovery-PublicSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                 --query 'Subnet.SubnetId' \
                                                                 --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_public_subnetc_id=$alfa_ireland_recovery_public_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_public_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Recovery-PublicSubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Web Subnet A
 alfa_ireland_recovery_web_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ireland_recovery_vpc_id \
                                                              --cidr-block $alfa_ireland_recovery_subnet_weba_cidr \
                                                              --availability-zone eu-west-1a \
+                                                             --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Recovery-WebSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                              --query 'Subnet.SubnetId' \
                                                              --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_web_subneta_id=$alfa_ireland_recovery_web_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_web_subneta_id \
-                    --tags Key=Name,Value=Alfa-Recovery-WebSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Web Subnet B
 alfa_ireland_recovery_web_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ireland_recovery_vpc_id \
                                                              --cidr-block $alfa_ireland_recovery_subnet_webb_cidr \
                                                              --availability-zone eu-west-1b \
+                                                             --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Recovery-WebSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                              --query 'Subnet.SubnetId' \
                                                              --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_web_subnetb_id=$alfa_ireland_recovery_web_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_web_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Recovery-WebSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Web Subnet C
 alfa_ireland_recovery_web_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ireland_recovery_vpc_id \
                                                              --cidr-block $alfa_ireland_recovery_subnet_webc_cidr \
                                                              --availability-zone eu-west-1c \
+                                                             --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Recovery-WebSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                              --query 'Subnet.SubnetId' \
                                                              --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_web_subnetc_id=$alfa_ireland_recovery_web_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_web_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Recovery-WebSubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Application Subnet A
 alfa_ireland_recovery_application_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ireland_recovery_vpc_id \
                                                                      --cidr-block $alfa_ireland_recovery_subnet_applicationa_cidr \
                                                                      --availability-zone eu-west-1a \
+                                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Recovery-ApplicationSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                      --query 'Subnet.SubnetId' \
                                                                      --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_application_subneta_id=$alfa_ireland_recovery_application_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_application_subneta_id \
-                    --tags Key=Name,Value=Alfa-Recovery-ApplicationSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Application Subnet B
 alfa_ireland_recovery_application_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ireland_recovery_vpc_id \
                                                                      --cidr-block $alfa_ireland_recovery_subnet_applicationb_cidr \
                                                                      --availability-zone eu-west-1b \
+                                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Recovery-ApplicationSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                      --query 'Subnet.SubnetId' \
                                                                      --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_application_subnetb_id=$alfa_ireland_recovery_application_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_application_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Recovery-ApplicationSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Application Subnet C
 alfa_ireland_recovery_application_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ireland_recovery_vpc_id \
                                                                      --cidr-block $alfa_ireland_recovery_subnet_applicationc_cidr \
                                                                      --availability-zone eu-west-1c \
+                                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Recovery-ApplicationSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                      --query 'Subnet.SubnetId' \
                                                                      --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_application_subnetc_id=$alfa_ireland_recovery_application_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_application_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Recovery-ApplicationSubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Database Subnet A
 alfa_ireland_recovery_database_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ireland_recovery_vpc_id \
                                                                   --cidr-block $alfa_ireland_recovery_subnet_databasea_cidr \
                                                                   --availability-zone eu-west-1a \
+                                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Recovery-DatabaseSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_database_subneta_id=$alfa_ireland_recovery_database_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_database_subneta_id \
-                    --tags Key=Name,Value=Alfa-Recovery-DatabaseSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Database Subnet B
 alfa_ireland_recovery_database_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ireland_recovery_vpc_id \
                                                                   --cidr-block $alfa_ireland_recovery_subnet_databaseb_cidr \
                                                                   --availability-zone eu-west-1b \
+                                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Recovery-DatabaseSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_database_subnetb_id=$alfa_ireland_recovery_database_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_database_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Recovery-DatabaseSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Database Subnet C
 alfa_ireland_recovery_database_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ireland_recovery_vpc_id \
                                                                   --cidr-block $alfa_ireland_recovery_subnet_databasec_cidr \
                                                                   --availability-zone eu-west-1c \
+                                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Recovery-DatabaseSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_database_subnetc_id=$alfa_ireland_recovery_database_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_database_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Recovery-DatabaseSubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Management Subnet A
 alfa_ireland_recovery_management_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ireland_recovery_vpc_id \
                                                                     --cidr-block $alfa_ireland_recovery_subnet_managementa_cidr \
                                                                     --availability-zone eu-west-1a \
+                                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Recovery-ManagementSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                     --query 'Subnet.SubnetId' \
                                                                     --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_management_subneta_id=$alfa_ireland_recovery_management_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_management_subneta_id \
-                    --tags Key=Name,Value=Alfa-Recovery-ManagementSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Management Subnet B
 alfa_ireland_recovery_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ireland_recovery_vpc_id \
                                                                     --cidr-block $alfa_ireland_recovery_subnet_managementb_cidr \
                                                                     --availability-zone eu-west-1b \
+                                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Recovery-ManagementSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                     --query 'Subnet.SubnetId' \
                                                                     --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_management_subnetb_id=$alfa_ireland_recovery_management_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_management_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Recovery-ManagementSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Management Subnet C
 alfa_ireland_recovery_management_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ireland_recovery_vpc_id \
                                                                     --cidr-block $alfa_ireland_recovery_subnet_managementc_cidr \
                                                                     --availability-zone eu-west-1c \
+                                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Recovery-ManagementSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                     --query 'Subnet.SubnetId' \
                                                                     --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_management_subnetc_id=$alfa_ireland_recovery_management_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_management_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Recovery-ManagementSubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Gateway Subnet A
 alfa_ireland_recovery_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ireland_recovery_vpc_id \
                                                                  --cidr-block $alfa_ireland_recovery_subnet_gatewaya_cidr \
                                                                  --availability-zone eu-west-1a \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Recovery-GatewaySubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_gateway_subneta_id=$alfa_ireland_recovery_gateway_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_gateway_subneta_id \
-                    --tags Key=Name,Value=Alfa-Recovery-GatewaySubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Gateway Subnet B
 alfa_ireland_recovery_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ireland_recovery_vpc_id \
                                                                  --cidr-block $alfa_ireland_recovery_subnet_gatewayb_cidr \
                                                                  --availability-zone eu-west-1b \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Recovery-GatewaySubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_gateway_subnetb_id=$alfa_ireland_recovery_gateway_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_gateway_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Recovery-GatewaySubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Gateway Subnet C
 alfa_ireland_recovery_gateway_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ireland_recovery_vpc_id \
                                                                  --cidr-block $alfa_ireland_recovery_subnet_gatewayc_cidr \
                                                                  --availability-zone eu-west-1c \
+                                                                 --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Recovery-GatewaySubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_gateway_subnetc_id=$alfa_ireland_recovery_gateway_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_gateway_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Recovery-GatewaySubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Endpoint Subnet A
 alfa_ireland_recovery_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ireland_recovery_vpc_id \
                                                                   --cidr-block $alfa_ireland_recovery_subnet_endpointa_cidr \
                                                                   --availability-zone eu-west-1a \
+                                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Recovery-EndpointSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_endpoint_subneta_id=$alfa_ireland_recovery_endpoint_subneta_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_endpoint_subneta_id \
-                    --tags Key=Name,Value=Alfa-Recovery-EndpointSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Endpoint Subnet B
 alfa_ireland_recovery_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ireland_recovery_vpc_id \
                                                                   --cidr-block $alfa_ireland_recovery_subnet_endpointb_cidr \
                                                                   --availability-zone eu-west-1b \
+                                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Recovery-EndpointSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_endpoint_subnetb_id=$alfa_ireland_recovery_endpoint_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_endpoint_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Recovery-EndpointSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Endpoint Subnet C
 alfa_ireland_recovery_endpoint_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ireland_recovery_vpc_id \
                                                                   --cidr-block $alfa_ireland_recovery_subnet_endpointc_cidr \
                                                                   --availability-zone eu-west-1c \
+                                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Recovery-EndpointSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_endpoint_subnetc_id=$alfa_ireland_recovery_endpoint_subnetc_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_endpoint_subnetc_id \
-                    --tags Key=Name,Value=Alfa-Recovery-EndpointSubnetC \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create Public Route Table, Default Route and Associate with Public Subnets
 alfa_ireland_recovery_public_rtb_id=$(aws ec2 create-route-table --vpc-id $alfa_ireland_recovery_vpc_id \
@@ -11104,17 +8521,10 @@ profile=$management_profile
 
 # Create VPC
 alfa_lax_vpc_id=$(aws ec2 create-vpc --cidr-block $alfa_lax_vpc_cidr \
+                                     --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=Alfa-LosAngeles-VPC},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                      --query 'Vpc.VpcId' \
                                      --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_vpc_id=$alfa_lax_vpc_id"
-
-aws ec2 create-tags --resources $alfa_lax_vpc_id \
-                    --tags Key=Name,Value=Alfa-LosAngeles-VPC \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=LosAngeles \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 modify-vpc-attribute --vpc-id $alfa_lax_vpc_id \
                              --enable-dns-support \
@@ -11136,17 +8546,10 @@ aws ec2 create-flow-logs --resource-type VPC --resource-ids $alfa_lax_vpc_id \
                          --profile $profile --region us-east-2 --output text
 
 # Create Internet Gateway & Attach
-alfa_lax_igw_id=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' \
+alfa_lax_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=Alfa-LosAngeles-InternetGateway},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
+                                                  --query 'InternetGateway.InternetGatewayId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_igw_id=$alfa_lax_igw_id"
-
-aws ec2 create-tags --resources $alfa_lax_igw_id \
-                    --tags Key=Name,Value=Alfa-LosAngeles-InternetGateway \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=LosAngeles \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 attach-internet-gateway --vpc-id $alfa_lax_vpc_id \
                                 --internet-gateway-id $alfa_lax_igw_id \
@@ -11164,17 +8567,10 @@ echo "alfa_lax_private_hostedzone_id=$alfa_lax_private_hostedzone_id"
 # Create DHCP Options Set
 alfa_lax_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$alfa_lax_private_domain]" \
                                                                      "Key=domain-name-servers,Values=[AmazonProvidedDNS]" \
+                                               --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=Alfa-LosAngeles-DHCPOptions},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                --query 'DhcpOptions.DhcpOptionsId' \
                                                --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_dopt_id=$alfa_lax_dopt_id"
-
-aws ec2 create-tags --resources $alfa_lax_dopt_id \
-                    --tags Key=Name,Value=Alfa-LosAngeles-DHCPOptions \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=LosAngeles \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 associate-dhcp-options --vpc-id $alfa_lax_vpc_id \
                                --dhcp-options-id $alfa_lax_dopt_id \
@@ -11184,161 +8580,91 @@ aws ec2 associate-dhcp-options --vpc-id $alfa_lax_vpc_id \
 alfa_lax_public_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_lax_vpc_id \
                                                    --cidr-block $alfa_lax_subnet_publica_cidr \
                                                    --availability-zone us-east-2a \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-PublicSubnetA},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_public_subneta_id=$alfa_lax_public_subneta_id"
-
-aws ec2 create-tags --resources $alfa_lax_public_subneta_id \
-                    --tags Key=Name,Value=Alfa-LosAngeles-PublicSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=LosAngeles \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Subnet B
 alfa_lax_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_lax_vpc_id \
                                                    --cidr-block $alfa_lax_subnet_publicb_cidr \
                                                    --availability-zone us-east-2b \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-PublicSubnetB},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_public_subnetb_id=$alfa_lax_public_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_lax_public_subnetb_id \
-                    --tags Key=Name,Value=Alfa-LosAngeles-PublicSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=LosAngeles \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Private Subnet A
 alfa_lax_private_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_lax_vpc_id \
                                                     --cidr-block $alfa_lax_subnet_privatea_cidr \
                                                     --availability-zone us-east-2a \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-PrivateSubnetA},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_private_subneta_id=$alfa_lax_private_subneta_id"
-
-aws ec2 create-tags --resources $alfa_lax_private_subneta_id \
-                    --tags Key=Name,Value=Alfa-LosAngeles-PrivateSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=LosAngeles \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Private Subnet B
 alfa_lax_private_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_lax_vpc_id \
                                                     --cidr-block $alfa_lax_subnet_privateb_cidr \
                                                     --availability-zone us-east-2b \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-PrivateSubnetB},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_private_subnetb_id=$alfa_lax_private_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_lax_private_subnetb_id \
-                    --tags Key=Name,Value=Alfa-LosAngeles-PrivateSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=LosAngeles \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet A
 alfa_lax_management_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_lax_vpc_id \
                                                        --cidr-block $alfa_lax_subnet_managementa_cidr \
                                                        --availability-zone us-east-2a \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-ManagementSubnetA},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_management_subneta_id=$alfa_lax_management_subneta_id"
-
-aws ec2 create-tags --resources $alfa_lax_management_subneta_id \
-                    --tags Key=Name,Value=Alfa-LosAngeles-ManagementSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=LosAngeles \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet B
 alfa_lax_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_lax_vpc_id \
                                                        --cidr-block $alfa_lax_subnet_managementb_cidr \
                                                        --availability-zone us-east-2b \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-ManagementSubnetB},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_management_subnetb_id=$alfa_lax_management_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_lax_management_subnetb_id \
-                    --tags Key=Name,Value=Alfa-LosAngeles-ManagementSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=LosAngeles \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet A
 alfa_lax_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_lax_vpc_id \
                                                     --cidr-block $alfa_lax_subnet_gatewaya_cidr \
                                                     --availability-zone us-east-2a \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-GatewaySubnetA},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_gateway_subneta_id=$alfa_lax_gateway_subneta_id"
-
-aws ec2 create-tags --resources $alfa_lax_gateway_subneta_id \
-                    --tags Key=Name,Value=Alfa-LosAngeles-GatewaySubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=LosAngeles \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet B
 alfa_lax_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_lax_vpc_id \
                                                     --cidr-block $alfa_lax_subnet_gatewayb_cidr \
                                                     --availability-zone us-east-2b \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-GatewaySubnetB},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_gateway_subnetb_id=$alfa_lax_gateway_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_lax_gateway_subnetb_id \
-                    --tags Key=Name,Value=Alfa-LosAngeles-GatewaySubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=LosAngeles \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet A
 alfa_lax_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_lax_vpc_id \
                                                      --cidr-block $alfa_lax_subnet_endpointa_cidr \
                                                      --availability-zone us-east-2a \
+                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-EndpointSubnetA},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                      --query 'Subnet.SubnetId' \
                                                      --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_endpoint_subneta_id=$alfa_lax_endpoint_subneta_id"
-
-aws ec2 create-tags --resources $alfa_lax_endpoint_subneta_id \
-                    --tags Key=Name,Value=Alfa-LosAngeles-EndpointSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=LosAngeles \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet B
 alfa_lax_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_lax_vpc_id \
                                                      --cidr-block $alfa_lax_subnet_endpointb_cidr \
                                                      --availability-zone us-east-2b \
+                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-EndpointSubnetB},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                      --query 'Subnet.SubnetId' \
                                                      --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_endpoint_subnetb_id=$alfa_lax_endpoint_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_lax_endpoint_subnetb_id \
-                    --tags Key=Name,Value=Alfa-LosAngeles-EndpointSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=LosAngeles \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create CiscoCSR Security Group
 alfa_lax_csr_sg_id=$(aws ec2 create-security-group --group-name Alfa-LosAngeles-CiscoCSR-InstanceSecurityGroup \
@@ -11673,17 +8999,10 @@ profile=$management_profile
 
 # Create VPC
 alfa_mia_vpc_id=$(aws ec2 create-vpc --cidr-block $alfa_mia_vpc_cidr \
+                                     --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=Alfa-Miami-VPC},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                      --query 'Vpc.VpcId' \
                                      --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_vpc_id=$alfa_mia_vpc_id"
-
-aws ec2 create-tags --resources $alfa_mia_vpc_id \
-                    --tags Key=Name,Value=Alfa-Miami-VPC \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=Miami \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 modify-vpc-attribute --vpc-id $alfa_mia_vpc_id \
                              --enable-dns-support \
@@ -11705,17 +9024,10 @@ aws ec2 create-flow-logs --resource-type VPC --resource-ids $alfa_mia_vpc_id \
                          --profile $profile --region us-east-2 --output text
 
 # Create Internet Gateway & Attach
-alfa_mia_igw_id=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' \
+alfa_mia_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=Alfa-Miami-InternetGateway},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
+                                                  --query 'InternetGateway.InternetGatewayId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_igw_id=$alfa_mia_igw_id"
-
-aws ec2 create-tags --resources $alfa_mia_igw_id \
-                    --tags Key=Name,Value=Alfa-Miami-InternetGateway \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=Miami \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 attach-internet-gateway --vpc-id $alfa_mia_vpc_id \
                                 --internet-gateway-id $alfa_mia_igw_id \
@@ -11733,17 +9045,10 @@ echo "alfa_mia_private_hostedzone_id=$alfa_mia_private_hostedzone_id"
 # Create DHCP Options Set
 alfa_mia_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$alfa_mia_private_domain]" \
                                                                      "Key=domain-name-servers,Values=[AmazonProvidedDNS]" \
+                                               --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=Alfa-Miami-DHCPOptions},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                --query 'DhcpOptions.DhcpOptionsId' \
                                                --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_dopt_id=$alfa_mia_dopt_id"
-
-aws ec2 create-tags --resources $alfa_mia_dopt_id \
-                    --tags Key=Name,Value=Alfa-Miami-DHCPOptions \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=Miami \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 associate-dhcp-options --vpc-id $alfa_mia_vpc_id \
                                --dhcp-options-id $alfa_mia_dopt_id \
@@ -11753,161 +9058,91 @@ aws ec2 associate-dhcp-options --vpc-id $alfa_mia_vpc_id \
 alfa_mia_public_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_mia_vpc_id \
                                                    --cidr-block $alfa_mia_subnet_publica_cidr \
                                                    --availability-zone us-east-2a \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-PublicSubnetA},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_public_subneta_id=$alfa_mia_public_subneta_id"
-
-aws ec2 create-tags --resources $alfa_mia_public_subneta_id \
-                    --tags Key=Name,Value=Alfa-Miami-PublicSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=Miami \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Subnet B
 alfa_mia_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_mia_vpc_id \
                                                    --cidr-block $alfa_mia_subnet_publicb_cidr \
                                                    --availability-zone us-east-2b \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-PublicSubnetB},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_public_subnetb_id=$alfa_mia_public_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_mia_public_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Miami-PublicSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=Miami \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Private Subnet A
 alfa_mia_private_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_mia_vpc_id \
                                                     --cidr-block $alfa_mia_subnet_privatea_cidr \
                                                     --availability-zone us-east-2a \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-PrivateSubnetA},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_private_subneta_id=$alfa_mia_private_subneta_id"
-
-aws ec2 create-tags --resources $alfa_mia_private_subneta_id \
-                    --tags Key=Name,Value=Alfa-Miami-PrivateSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=Miami \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Private Subnet B
 alfa_mia_private_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_mia_vpc_id \
                                                     --cidr-block $alfa_mia_subnet_privateb_cidr \
                                                     --availability-zone us-east-2b \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-PrivateSubnetB},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_private_subnetb_id=$alfa_mia_private_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_mia_private_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Miami-PrivateSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=Miami \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet A
 alfa_mia_management_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_mia_vpc_id \
                                                        --cidr-block $alfa_mia_subnet_managementa_cidr \
                                                        --availability-zone us-east-2a \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-ManagementSubnetA},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_management_subneta_id=$alfa_mia_management_subneta_id"
-
-aws ec2 create-tags --resources $alfa_mia_management_subneta_id \
-                    --tags Key=Name,Value=Alfa-Miami-ManagementSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=Miami \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet B
 alfa_mia_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_mia_vpc_id \
                                                        --cidr-block $alfa_mia_subnet_managementb_cidr \
                                                        --availability-zone us-east-2b \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-ManagementSubnetB},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_management_subnetb_id=$alfa_mia_management_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_mia_management_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Miami-ManagementSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=Miami \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet A
 alfa_mia_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_mia_vpc_id \
                                                     --cidr-block $alfa_mia_subnet_gatewaya_cidr \
                                                     --availability-zone us-east-2a \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-GatewaySubnetA},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_gateway_subneta_id=$alfa_mia_gateway_subneta_id"
-
-aws ec2 create-tags --resources $alfa_mia_gateway_subneta_id \
-                    --tags Key=Name,Value=Alfa-Miami-GatewaySubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=Miami \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet B
 alfa_mia_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_mia_vpc_id \
                                                     --cidr-block $alfa_mia_subnet_gatewayb_cidr \
                                                     --availability-zone us-east-2b \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-GatewaySubnetB},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_gateway_subnetb_id=$alfa_mia_gateway_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_mia_gateway_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Miami-GatewaySubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=Miami \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet A
 alfa_mia_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_mia_vpc_id \
                                                      --cidr-block $alfa_mia_subnet_endpointa_cidr \
                                                      --availability-zone us-east-2a \
+                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-EndpointSubnetA},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                      --query 'Subnet.SubnetId' \
                                                      --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_endpoint_subneta_id=$alfa_mia_endpoint_subneta_id"
-
-aws ec2 create-tags --resources $alfa_mia_endpoint_subneta_id \
-                    --tags Key=Name,Value=Alfa-Miami-EndpointSubnetA \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=Miami \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet B
 alfa_mia_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_mia_vpc_id \
                                                      --cidr-block $alfa_mia_subnet_endpointb_cidr \
                                                      --availability-zone us-east-2b \
+                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-EndpointSubnetB},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                      --query 'Subnet.SubnetId' \
                                                      --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_endpoint_subnetb_id=$alfa_mia_endpoint_subnetb_id"
-
-aws ec2 create-tags --resources $alfa_mia_endpoint_subnetb_id \
-                    --tags Key=Name,Value=Alfa-Miami-EndpointSubnetB \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=Miami \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create CiscoCSR Security Group
 alfa_mia_csr_sg_id=$(aws ec2 create-security-group --group-name Alfa-Miami-CiscoCSR-InstanceSecurityGroup \
@@ -12242,17 +9477,10 @@ profile=$management_profile
 
 # Create VPC
 zulu_dfw_vpc_id=$(aws ec2 create-vpc --cidr-block $zulu_dfw_vpc_cidr \
+                                     --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=Zulu-Dallas-VPC},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                      --query 'Vpc.VpcId' \
                                      --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_vpc_id=$zulu_dfw_vpc_id"
-
-aws ec2 create-tags --resources $zulu_dfw_vpc_id \
-                    --tags Key=Name,Value=Zulu-Dallas-VPC \
-                           Key=Company,Value=Zulu \
-                           Key=Location,Value=Dallas \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 modify-vpc-attribute --vpc-id $zulu_dfw_vpc_id \
                              --enable-dns-support \
@@ -12274,17 +9502,10 @@ aws ec2 create-flow-logs --resource-type VPC --resource-ids $zulu_dfw_vpc_id \
                          --profile $profile --region us-east-2 --output text
 
 # Create Internet Gateway & Attach
-zulu_dfw_igw_id=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' \
+zulu_dfw_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=Zulu-Dallas-InternetGateway},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
+                                                  --query 'InternetGateway.InternetGatewayId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_igw_id=$zulu_dfw_igw_id"
-
-aws ec2 create-tags --resources $zulu_dfw_igw_id \
-                    --tags Key=Name,Value=Zulu-Dallas-InternetGateway \
-                           Key=Company,Value=Zulu \
-                           Key=Location,Value=Dallas \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 attach-internet-gateway --vpc-id $zulu_dfw_vpc_id \
                                 --internet-gateway-id $zulu_dfw_igw_id \
@@ -12302,17 +9523,10 @@ echo "zulu_dfw_private_hostedzone_id=$zulu_dfw_private_hostedzone_id"
 # Create DHCP Options Set
 zulu_dfw_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$zulu_dfw_private_domain]" \
                                                                      "Key=domain-name-servers,Values=[AmazonProvidedDNS]" \
+                                               --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=Zulu-Dallas-DHCPOptions},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                --query 'DhcpOptions.DhcpOptionsId' \
                                                --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_dopt_id=$zulu_dfw_dopt_id"
-
-aws ec2 create-tags --resources $zulu_dfw_dopt_id \
-                    --tags Key=Name,Value=Zulu-Dallas-DHCPOptions \
-                           Key=Company,Value=Zulu \
-                           Key=Location,Value=Dallas \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 associate-dhcp-options --vpc-id $zulu_dfw_vpc_id \
                                --dhcp-options-id $zulu_dfw_dopt_id \
@@ -12322,161 +9536,91 @@ aws ec2 associate-dhcp-options --vpc-id $zulu_dfw_vpc_id \
 zulu_dfw_public_subneta_id=$(aws ec2 create-subnet --vpc-id $zulu_dfw_vpc_id \
                                                    --cidr-block $zulu_dfw_subnet_publica_cidr \
                                                    --availability-zone us-east-2a \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-PublicSubnetA},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_public_subneta_id=$zulu_dfw_public_subneta_id"
-
-aws ec2 create-tags --resources $zulu_dfw_public_subneta_id \
-                    --tags Key=Name,Value=Zulu-Dallas-PublicSubnetA \
-                           Key=Company,Value=Zulu \
-                           Key=Location,Value=Dallas \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Subnet B
 zulu_dfw_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $zulu_dfw_vpc_id \
                                                    --cidr-block $zulu_dfw_subnet_publicb_cidr \
                                                    --availability-zone us-east-2b \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-PublicSubnetB},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_public_subnetb_id=$zulu_dfw_public_subnetb_id"
-
-aws ec2 create-tags --resources $zulu_dfw_public_subnetb_id \
-                    --tags Key=Name,Value=Zulu-Dallas-PublicSubnetB \
-                           Key=Company,Value=Zulu \
-                           Key=Location,Value=Dallas \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Private Subnet A
 zulu_dfw_private_subneta_id=$(aws ec2 create-subnet --vpc-id $zulu_dfw_vpc_id \
                                                     --cidr-block $zulu_dfw_subnet_privatea_cidr \
                                                     --availability-zone us-east-2a \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-PrivateSubnetA},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_private_subneta_id=$zulu_dfw_private_subneta_id"
-
-aws ec2 create-tags --resources $zulu_dfw_private_subneta_id \
-                    --tags Key=Name,Value=Zulu-Dallas-PrivateSubnetA \
-                           Key=Company,Value=Zulu \
-                           Key=Location,Value=Dallas \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Private Subnet B
 zulu_dfw_private_subnetb_id=$(aws ec2 create-subnet --vpc-id $zulu_dfw_vpc_id \
                                                     --cidr-block $zulu_dfw_subnet_privateb_cidr \
                                                     --availability-zone us-east-2b \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-PrivateSubnetB},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_private_subnetb_id=$zulu_dfw_private_subnetb_id"
-
-aws ec2 create-tags --resources $zulu_dfw_private_subnetb_id \
-                    --tags Key=Name,Value=Zulu-Dallas-PrivateSubnetB \
-                           Key=Company,Value=Zulu \
-                           Key=Location,Value=Dallas \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet A
 zulu_dfw_management_subneta_id=$(aws ec2 create-subnet --vpc-id $zulu_dfw_vpc_id \
                                                        --cidr-block $zulu_dfw_subnet_managementa_cidr \
                                                        --availability-zone us-east-2a \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-ManagementSubnetA},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_management_subneta_id=$zulu_dfw_management_subneta_id"
-
-aws ec2 create-tags --resources $zulu_dfw_management_subneta_id \
-                    --tags Key=Name,Value=Zulu-Dallas-ManagementSubnetA \
-                           Key=Company,Value=Zulu \
-                           Key=Location,Value=Dallas \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet B
 zulu_dfw_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $zulu_dfw_vpc_id \
                                                        --cidr-block $zulu_dfw_subnet_managementb_cidr \
                                                        --availability-zone us-east-2b \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-ManagementSubnetB},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_management_subnetb_id=$zulu_dfw_management_subnetb_id"
-
-aws ec2 create-tags --resources $zulu_dfw_management_subnetb_id \
-                    --tags Key=Name,Value=Zulu-Dallas-ManagementSubnetB \
-                           Key=Company,Value=Zulu \
-                           Key=Location,Value=Dallas \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet A
 zulu_dfw_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $zulu_dfw_vpc_id \
                                                     --cidr-block $zulu_dfw_subnet_gatewaya_cidr \
                                                     --availability-zone us-east-2a \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-GatewaySubnetA},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_gateway_subneta_id=$zulu_dfw_gateway_subneta_id"
-
-aws ec2 create-tags --resources $zulu_dfw_gateway_subneta_id \
-                    --tags Key=Name,Value=Zulu-Dallas-GatewaySubnetA \
-                           Key=Company,Value=Zulu \
-                           Key=Location,Value=Dallas \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet B
 zulu_dfw_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $zulu_dfw_vpc_id \
                                                     --cidr-block $zulu_dfw_subnet_gatewayb_cidr \
                                                     --availability-zone us-east-2b \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-GatewaySubnetB},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_gateway_subnetb_id=$zulu_dfw_gateway_subnetb_id"
-
-aws ec2 create-tags --resources $zulu_dfw_gateway_subnetb_id \
-                    --tags Key=Name,Value=Zulu-Dallas-GatewaySubnetB \
-                           Key=Company,Value=Zulu \
-                           Key=Location,Value=Dallas \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet A
 zulu_dfw_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $zulu_dfw_vpc_id \
                                                      --cidr-block $zulu_dfw_subnet_endpointa_cidr \
                                                      --availability-zone us-east-2a \
+                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-EndpointSubnetA},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                      --query 'Subnet.SubnetId' \
                                                      --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_endpoint_subneta_id=$zulu_dfw_endpoint_subneta_id"
-
-aws ec2 create-tags --resources $zulu_dfw_endpoint_subneta_id \
-                    --tags Key=Name,Value=Zulu-Dallas-EndpointSubnetA \
-                           Key=Company,Value=Zulu \
-                           Key=Location,Value=Dallas \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet B
 zulu_dfw_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $zulu_dfw_vpc_id \
                                                      --cidr-block $zulu_dfw_subnet_endpointb_cidr \
                                                      --availability-zone us-east-2b \
+                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-EndpointSubnetB},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                      --query 'Subnet.SubnetId' \
                                                      --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_endpoint_subnetb_id=$zulu_dfw_endpoint_subnetb_id"
-
-aws ec2 create-tags --resources $zulu_dfw_endpoint_subnetb_id \
-                    --tags Key=Name,Value=Zulu-Dallas-EndpointSubnetB \
-                           Key=Company,Value=Zulu \
-                           Key=Location,Value=Dallas \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create CiscoCSR Security Group
 zulu_dfw_csr_sg_id=$(aws ec2 create-security-group --group-name Zulu-Dallas-CiscoCSR-InstanceSecurityGroup \
@@ -12811,17 +9955,10 @@ profile=$management_profile
 
 # Create VPC
 cml_sba_vpc_id=$(aws ec2 create-vpc --cidr-block $cml_sba_vpc_cidr \
+                                    --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-VPC},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                     --query 'Vpc.VpcId' \
                                     --profile $profile --region us-east-2 --output text)
 echo "cml_sba_vpc_id=$cml_sba_vpc_id"
-
-aws ec2 create-tags --resources $cml_sba_vpc_id \
-                    --tags Key=Name,Value=CaMeLz-SantaBarbara-VPC \
-                           Key=Company,Value=CaMeLz \
-                           Key=Location,Value=SantaBarbara \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 modify-vpc-attribute --vpc-id $cml_sba_vpc_id \
                              --enable-dns-support \
@@ -12843,17 +9980,10 @@ aws ec2 create-flow-logs --resource-type VPC --resource-ids $cml_sba_vpc_id \
                          --profile $profile --region us-east-2 --output text
 
 # Create Internet Gateway & Attach
-cml_sba_igw_id=$(aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' \
+cml_sba_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-InternetGateway},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
+                                                 --query 'InternetGateway.InternetGatewayId' \
                                                  --profile $profile --region us-east-2 --output text)
 echo "cml_sba_igw_id=$cml_sba_igw_id"
-
-aws ec2 create-tags --resources $cml_sba_igw_id \
-                    --tags Key=Name,Value=CaMeLz-SantaBarbara-InternetGateway \
-                           Key=Company,Value=CaMeLz \
-                           Key=Location,Value=SantaBarbara \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 attach-internet-gateway --vpc-id $cml_sba_vpc_id \
                                 --internet-gateway-id $cml_sba_igw_id \
@@ -12871,17 +10001,10 @@ echo "cml_sba_private_hostedzone_id=$cml_sba_private_hostedzone_id"
 # Create DHCP Options Set
 cml_sba_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$cml_sba_private_domain]" \
                                                                     "Key=domain-name-servers,Values=[AmazonProvidedDNS]" \
+                                              --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-DHCPOptions},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                               --query 'DhcpOptions.DhcpOptionsId' \
                                               --profile $profile --region us-east-2 --output text)
 echo "cml_sba_dopt_id=$cml_sba_dopt_id"
-
-aws ec2 create-tags --resources $cml_sba_dopt_id \
-                    --tags Key=Name,Value=CaMeLz-SantaBarbara-DHCPOptions \
-                           Key=Company,Value=CaMeLz \
-                           Key=Location,Value=SantaBarbara \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 associate-dhcp-options --vpc-id $cml_sba_vpc_id \
                                --dhcp-options-id $cml_sba_dopt_id \
@@ -12891,161 +10014,91 @@ aws ec2 associate-dhcp-options --vpc-id $cml_sba_vpc_id \
 cml_sba_public_subneta_id=$(aws ec2 create-subnet --vpc-id $cml_sba_vpc_id \
                                                   --cidr-block $cml_sba_subnet_publica_cidr \
                                                   --availability-zone us-east-2a \
+                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-PublicSubnetA},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                   --query 'Subnet.SubnetId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "cml_sba_public_subneta_id=$cml_sba_public_subneta_id"
-
-aws ec2 create-tags --resources $cml_sba_public_subneta_id \
-                    --tags Key=Name,Value=CaMeLz-SantaBarbara-PublicSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Location,Value=SantaBarbara \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Public Subnet B
 cml_sba_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $cml_sba_vpc_id \
                                                   --cidr-block $cml_sba_subnet_publicb_cidr \
                                                   --availability-zone us-east-2b \
+                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-PublicSubnetB},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                   --query 'Subnet.SubnetId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "cml_sba_public_subnetb_id=$cml_sba_public_subnetb_id"
-
-aws ec2 create-tags --resources $cml_sba_public_subnetb_id \
-                    --tags Key=Name,Value=CaMeLz-SantaBarbara-PublicSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Location,Value=SantaBarbara \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Private Subnet A
 cml_sba_private_subneta_id=$(aws ec2 create-subnet --vpc-id $cml_sba_vpc_id \
                                                    --cidr-block $cml_sba_subnet_privatea_cidr \
                                                    --availability-zone us-east-2a \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-PrivateSubnetA},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "cml_sba_private_subneta_id=$cml_sba_private_subneta_id"
-
-aws ec2 create-tags --resources $cml_sba_private_subneta_id \
-                    --tags Key=Name,Value=CaMeLz-SantaBarbara-PrivateSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Location,Value=SantaBarbara \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Private Subnet B
 cml_sba_private_subnetb_id=$(aws ec2 create-subnet --vpc-id $cml_sba_vpc_id \
                                                    --cidr-block $cml_sba_subnet_privateb_cidr \
                                                    --availability-zone us-east-2b \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-PrivateSubnetB},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "cml_sba_private_subnetb_id=$cml_sba_private_subnetb_id"
-
-aws ec2 create-tags --resources $cml_sba_private_subnetb_id \
-                    --tags Key=Name,Value=CaMeLz-SantaBarbara-PrivateSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Location,Value=SantaBarbara \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet A
 cml_sba_management_subneta_id=$(aws ec2 create-subnet --vpc-id $cml_sba_vpc_id \
                                                       --cidr-block $cml_sba_subnet_managementa_cidr \
                                                       --availability-zone us-east-2a \
+                                                      --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-ManagementSubnetA},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                       --query 'Subnet.SubnetId' \
                                                       --profile $profile --region us-east-2 --output text)
 echo "cml_sba_management_subneta_id=$cml_sba_management_subneta_id"
-
-aws ec2 create-tags --resources $cml_sba_management_subneta_id \
-                    --tags Key=Name,Value=CaMeLz-SantaBarbara-ManagementSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Location,Value=SantaBarbara \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Management Subnet B
 cml_sba_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $cml_sba_vpc_id \
                                                       --cidr-block $cml_sba_subnet_managementb_cidr \
                                                       --availability-zone us-east-2b \
+                                                      --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-ManagementSubnetB},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                       --query 'Subnet.SubnetId' \
                                                       --profile $profile --region us-east-2 --output text)
 echo "cml_sba_management_subnetb_id=$cml_sba_management_subnetb_id"
-
-aws ec2 create-tags --resources $cml_sba_management_subnetb_id \
-                    --tags Key=Name,Value=CaMeLz-SantaBarbara-ManagementSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Location,Value=SantaBarbara \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet A
 cml_sba_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $cml_sba_vpc_id \
                                                    --cidr-block $cml_sba_subnet_gatewaya_cidr \
                                                    --availability-zone us-east-2a \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-GatewaySubnetA},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "cml_sba_gateway_subneta_id=$cml_sba_gateway_subneta_id"
-
-aws ec2 create-tags --resources $cml_sba_gateway_subneta_id \
-                    --tags Key=Name,Value=CaMeLz-SantaBarbara-GatewaySubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Location,Value=SantaBarbara \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Gateway Subnet B
 cml_sba_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $cml_sba_vpc_id \
                                                    --cidr-block $cml_sba_subnet_gatewayb_cidr \
                                                    --availability-zone us-east-2b \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-GatewaySubnetB},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "cml_sba_gateway_subnetb_id=$cml_sba_gateway_subnetb_id"
-
-aws ec2 create-tags --resources $cml_sba_gateway_subnetb_id \
-                    --tags Key=Name,Value=CaMeLz-SantaBarbara-GatewaySubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Location,Value=SantaBarbara \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet A
 cml_sba_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $cml_sba_vpc_id \
                                                     --cidr-block $cml_sba_subnet_endpointa_cidr \
                                                     --availability-zone us-east-2a \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-EndpointSubnetA},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "cml_sba_endpoint_subneta_id=$cml_sba_endpoint_subneta_id"
-
-aws ec2 create-tags --resources $cml_sba_endpoint_subneta_id \
-                    --tags Key=Name,Value=CaMeLz-SantaBarbara-EndpointSubnetA \
-                           Key=Company,Value=CaMeLz \
-                           Key=Location,Value=SantaBarbara \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create Endpoint Subnet B
 cml_sba_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $cml_sba_vpc_id \
                                                     --cidr-block $cml_sba_subnet_endpointb_cidr \
                                                     --availability-zone us-east-2b \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-EndpointSubnetB},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Project,Value="CaMeLz4 POC"},{Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete"}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "cml_sba_endpoint_subnetb_id=$cml_sba_endpoint_subnetb_id"
-
-aws ec2 create-tags --resources $cml_sba_endpoint_subnetb_id \
-                    --tags Key=Name,Value=CaMeLz-SantaBarbara-EndpointSubnetB \
-                           Key=Company,Value=CaMeLz \
-                           Key=Location,Value=SantaBarbara \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create CiscoCSR Security Group
 cml_sba_csr_sg_id=$(aws ec2 create-security-group --group-name CaMeLz-SantaBarbara-CiscoCSR-InstanceSecurityGroup \

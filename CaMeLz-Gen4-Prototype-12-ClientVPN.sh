@@ -1,44 +1,7 @@
 #!/usr/bin/env bash
 #
-# This is part of a set of scripts to setup a realistic DAP Prototype which uses multiple Accounts, VPCs and
+# This is part of a set of scripts to setup a realistic CaMeLz Prototype which uses multiple Accounts, VPCs and
 # Transit Gateway to connect them all
-#
-# There are MANY resources needed to create this prototype, so we are splitting them into these files
-# - CAMELZ-Gen3-Prototype-00-DefineParameters.sh
-# - CAMELZ-Gen3-Prototype-01-Roles.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-03-PublicHostedZones.sh
-# - CAMELZ-Gen3-Prototype-04-VPCs.sh
-# - CAMELZ-Gen3-Prototype-05-Resolvers-1-Outbound.sh
-# - CAMELZ-Gen3-Prototype-05-Resolvers-2-Inbound.sh
-# - CAMELZ-Gen3-Prototype-06-CustomerGateways.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-1-TransitGateways.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-2-VPCAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-3-StaticVPCRoutes.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-4-PeeringAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-5-VPNAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-6A-SimpleRouting.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-6B-ComplexRouting.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-1-DirectoryService.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-2-ResolverRule.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-3-Trust.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-1-DirectoryService.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-2-ResolverRule.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-3-Trust.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-09-LinuxTestInstances.sh
-# - CAMELZ-Gen3-Prototype-10-WindowsBastions.sh
-# - CAMELZ-Gen3-Prototype-11-ActiveDirectoryManagement-1A-Shared.sh
-# - CAMELZ-Gen3-Prototype-11-ActiveDirectoryManagement-1B-PerClient.sh
-# - CAMELZ-Gen3-Prototype-12-ClientVPN.sh
-# - CAMELZ-Gen3-Prototype-20-Remaining.sh
 #
 # You will need to sign up for the "Cisco Cloud Services Router (CSR) 1000V - BYOL for Maximum Performance" Marketplace AMI
 # in the Management Account (or the account where you will run simulated customer on-prem locations).
@@ -59,7 +22,7 @@ echo "##########################################################################
 #######################################################################################################################
 ## Client VPN #########################################################################################################
 #######################################################################################################################
-## - This step requires external work documented elsewhere, to setup the DXC Analytics Platform PKI infrastructure,
+## - This step requires external work documented elsewhere, to setup the CaMeLz Analytics Platform PKI infrastructure,
 ##   and generate the server and client certificates.
 ## - It is assumed this work has been completed, and the resulting files have been placed into a single directory, where
 ##   we can use them to import the certificates needed into ACM.
@@ -71,14 +34,14 @@ profile=$core_profile
 pushd $core_client_vpn_dir
 core_client_vpn_server_certificate_arn=$(aws acm import-certificate --certificate file://vpn.c.us-east-2.$domain.crt \
                                                                     --private-key file://vpn.c.us-east-2.$domain.key \
-                                                                    --certificate-chain file://DXC_Analytics_Platform_Chain.crt \
+                                                                    --certificate-chain file://CaMeLz_Analytics_Platform_Chain.crt \
                                                                     --query 'CertificateArn' \
                                                                     --profile $profile --region us-east-2 --output text)
 echo "core_client_vpn_server_certificate_arn=$core_client_vpn_server_certificate_arn"
 
 core_client_vpn_client_certificate_arn=$(aws acm import-certificate --certificate file://mcrawford.c.us-east-2.$domain.crt \
                                                                     --private-key file://mcrawford.c.us-east-2.$domain.key \
-                                                                    --certificate-chain file://DXC_Analytics_Platform_Chain.crt \
+                                                                    --certificate-chain file://CaMeLz_Analytics_Platform_Chain.crt \
                                                                     --query 'CertificateArn' \
                                                                     --profile $profile --region us-east-2 --output text)
 echo "core_client_vpn_client_certificate_arn=$core_client_vpn_client_certificate_arn"
@@ -93,11 +56,11 @@ echo "core_client_vpn_sg_id=$core_client_vpn_sg_id"
 
 aws ec2 create-tags --resources $core_client_vpn_sg_id \
                     --tags Key=Name,Value=Core-ClientVpn-EndpointSecurityGroup \
-                           Key=Company,Value=DXC \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
                            Key=Utility,Value=ClientVpn \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $core_client_vpn_sg_id \
@@ -123,7 +86,7 @@ core_client_vpn_endpoint_id=$(aws ec2 create-client-vpn-endpoint --description C
                                                                  --vpn-port 1194 \
                                                                  --split-tunnel \
                                                                  --client-token $(date +%s) \
-                                                                 --tag-specifications "ResourceType=client-vpn-endpoint,Tags=[{Key=Name,Value=Core-ClientVpnEndpoint},{Key=Company,Value=DXC},{Key=Environment,Value=Core},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                                 --tag-specifications "ResourceType=client-vpn-endpoint,Tags=[{Key=Name,Value=Core-ClientVpnEndpoint},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                                  --query 'ClientVpnEndpointId' \
                                                                  --profile $profile --region us-east-2 --output text)
 echo "core_client_vpn_endpoint_id=$core_client_vpn_endpoint_id"

@@ -1,44 +1,7 @@
 #!/usr/bin/env bash
 #
-# This is part of a set of scripts to setup a realistic DAP Prototype which uses multiple Accounts, VPCs and
+# This is part of a set of scripts to setup a realistic CaMeLz Prototype which uses multiple Accounts, VPCs and
 # Transit Gateway to connect them all
-#
-# There are MANY resources needed to create this prototype, so we are splitting them into these files
-# - CAMELZ-Gen3-Prototype-00-DefineParameters.sh
-# - CAMELZ-Gen3-Prototype-01-Roles.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-03-PublicHostedZones.sh
-# - CAMELZ-Gen3-Prototype-04-VPCs.sh
-# - CAMELZ-Gen3-Prototype-05-Resolvers-1-Outbound.sh
-# - CAMELZ-Gen3-Prototype-05-Resolvers-2-Inbound.sh
-# - CAMELZ-Gen3-Prototype-06-CustomerGateways.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-1-TransitGateways.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-2-VPCAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-3-StaticVPCRoutes.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-4-PeeringAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-5-VPNAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-6A-SimpleRouting.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-6B-ComplexRouting.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-1-DirectoryService.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-2-ResolverRule.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-3-Trust.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-1-DirectoryService.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-2-ResolverRule.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-3-Trust.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-09-LinuxTestInstances.sh
-# - CAMELZ-Gen3-Prototype-10-WindowsBastions.sh
-# - CAMELZ-Gen3-Prototype-11-ActiveDirectoryManagement-1A-Shared.sh
-# - CAMELZ-Gen3-Prototype-11-ActiveDirectoryManagement-1B-PerClient.sh
-# - CAMELZ-Gen3-Prototype-12-ClientVPN.sh
-# - CAMELZ-Gen3-Prototype-20-Remaining.sh
 #
 # You will need to sign up for the "Cisco Cloud Services Router (CSR) 1000V - BYOL for Maximum Performance" Marketplace AMI
 # in the Management Account (or the account where you will run simulated customer on-prem locations).
@@ -67,7 +30,7 @@ profile=$core_profile
 
 global_core_tgw_id=$(aws ec2 create-transit-gateway --description Core-TransitGateway \
                                                     --options "AmazonSideAsn=$ohio_core_tgw_asn,AutoAcceptSharedAttachments=enable,DefaultRouteTableAssociation=disable,DefaultRouteTablePropagation=disable,VpnEcmpSupport=enable,DnsSupport=enable" \
-                                                    --tag-specifications "ResourceType=transit-gateway,Tags=[{Key=Name,Value=Core-TransitGateway},{Key=Company,Value=DXC},{Key=Environment,Value=Core},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                    --tag-specifications "ResourceType=transit-gateway,Tags=[{Key=Name,Value=Core-TransitGateway},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                     --query 'TransitGateway.TransitGatewayId' \
                                                     --profile $profile --region us-east-1 --output text)
 echo "global_core_tgw_id=$global_core_tgw_id"
@@ -80,7 +43,7 @@ profile=$core_profile
 
 ohio_core_tgw_id=$(aws ec2 create-transit-gateway --description Core-TransitGateway \
                                                   --options "AmazonSideAsn=$ohio_core_tgw_asn,AutoAcceptSharedAttachments=enable,DefaultRouteTableAssociation=disable,DefaultRouteTablePropagation=disable,VpnEcmpSupport=enable,DnsSupport=enable" \
-                                                  --tag-specifications "ResourceType=transit-gateway,Tags=[{Key=Name,Value=Core-TransitGateway},{Key=Company,Value=DXC},{Key=Environment,Value=Core},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                  --tag-specifications "ResourceType=transit-gateway,Tags=[{Key=Name,Value=Core-TransitGateway},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                   --query 'TransitGateway.TransitGatewayId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "ohio_core_tgw_id=$ohio_core_tgw_id"
@@ -93,7 +56,7 @@ profile=$core_profile
 
 ireland_core_tgw_id=$(aws ec2 create-transit-gateway --description Core-TransitGateway \
                                                      --options "AmazonSideAsn=$ireland_core_tgw_asn,AutoAcceptSharedAttachments=enable,DefaultRouteTableAssociation=disable,DefaultRouteTablePropagation=disable,VpnEcmpSupport=enable,DnsSupport=enable" \
-                                                     --tag-specifications "ResourceType=transit-gateway,Tags=[{Key=Name,Value=Core-TransitGateway},{Key=Company,Value=DXC},{Key=Environment,Value=Core},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                     --tag-specifications "ResourceType=transit-gateway,Tags=[{Key=Name,Value=Core-TransitGateway},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                      --query 'TransitGateway.TransitGatewayId' \
                                                      --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_tgw_id=$ireland_core_tgw_id"
@@ -118,12 +81,12 @@ if [ ! -z $organization_id ]; then
                                                          --profile $profile --region us-east-1 --output text)
   echo "global_core_tgw_rs_arn=$global_core_tgw_rs_arn"
 else
-  # Share TransitGateway with specific Accounts (Management & Log) (works with DXC)
+  # Share TransitGateway with specific Accounts (Management & Log) (works with CaMeLz)
   global_core_tgw_rs_arn=$(aws ram create-resource-share --name Core-TransitGatewayResourceShare \
                                                          --allow-external-principals \
                                                          --principals $management_account_id $log_account_id \
                                                          --resource-arns "arn:aws:ec2:us-east-1:$core_account_id:transit-gateway/$global_core_tgw_id" \
-                                                         --tags key=Name,value=Core-TransitGatewayResourceShare key=Company,value=DXC key=Environment,value=Core \
+                                                         --tags key=Name,value=Core-TransitGatewayResourceShare key=Company,value=CaMeLz key=Environment,value=Core \
                                                          --query 'resourceShare.resourceShareArn' \
                                                          --profile $profile --region us-east-1 --output text)
   echo "global_core_tgw_rs_arn=$global_core_tgw_rs_arn"
@@ -169,12 +132,12 @@ if [ ! -z $organization_id ]; then
                                                        --profile $profile --region us-east-2 --output text)
   echo "ohio_core_tgw_rs_arn=$ohio_core_tgw_rs_arn"
 else
-  # Share TransitGateway with specific Accounts (Management, Log, Production, Recovery, Testing, Development) (works with DXC)
+  # Share TransitGateway with specific Accounts (Management, Log, Production, Recovery, Testing, Development) (works with CaMeLz)
   ohio_core_tgw_rs_arn=$(aws ram create-resource-share --name Core-TransitGatewayResourceShare \
                                                        --allow-external-principals \
                                                        --principals $management_account_id $log_account_id $production_account_id $recovery_account_id $testing_account_id $development_account_id \
                                                        --resource-arns "arn:aws:ec2:us-east-2:$core_account_id:transit-gateway/$ohio_core_tgw_id" \
-                                                       --tags key=Name,value=Core-TransitGatewayResourceShare key=Company,value=DXC key=Environment,value=Core \
+                                                       --tags key=Name,value=Core-TransitGatewayResourceShare key=Company,value=CaMeLz key=Environment,value=Core \
                                                        --query 'resourceShare.resourceShareArn' \
                                                        --profile $profile --region us-east-2 --output text)
   echo "ohio_core_tgw_rs_arn=$ohio_core_tgw_rs_arn"
@@ -268,12 +231,12 @@ if [ ! -z $organization_id ]; then
                                                           --profile $profile --region eu-west-1 --output text)
   echo "ireland_core_tgw_rs_arn=$ireland_core_tgw_rs_arn"
 else
-  # Share TransitGateway with specific Accounts (Management, Log, Production, Recovery, Testing, Development) (works with DXC)
+  # Share TransitGateway with specific Accounts (Management, Log, Production, Recovery, Testing, Development) (works with CaMeLz)
   ireland_core_tgw_rs_arn=$(aws ram create-resource-share --name Core-TransitGatewayResourceShare \
                                                           --allow-external-principals \
                                                           --principals $management_account_id $log_account_id $production_account_id $recovery_account_id $testing_account_id $development_account_id \
                                                           --resource-arns "arn:aws:ec2:eu-west-1:$core_account_id:transit-gateway/$ireland_core_tgw_id" \
-                                                          --tags key=Name,value=Core-TransitGatewayResourceShare key=Company,value=DXC key=Environment,value=Core \
+                                                          --tags key=Name,value=Core-TransitGatewayResourceShare key=Company,value=CaMeLz key=Environment,value=Core \
                                                           --query 'resourceShare.resourceShareArn' \
                                                           --profile $profile --region eu-west-1 --output text)
   echo "ireland_core_tgw_rs_arn=$ireland_core_tgw_rs_arn"

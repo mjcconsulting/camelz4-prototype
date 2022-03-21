@@ -1,44 +1,7 @@
 #!/usr/bin/env bash
 #
-# This is part of a set of scripts to setup a realistic DAP Prototype which uses multiple Accounts, VPCs and
+# This is part of a set of scripts to setup a realistic CaMeLz Prototype which uses multiple Accounts, VPCs and
 # Transit Gateway to connect them all
-#
-# There are MANY resources needed to create this prototype, so we are splitting them into these files
-# - CAMELZ-Gen3-Prototype-00-DefineParameters.sh
-# - CAMELZ-Gen3-Prototype-01-Roles.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-03-PublicHostedZones.sh
-# - CAMELZ-Gen3-Prototype-04-VPCs.sh
-# - CAMELZ-Gen3-Prototype-05-Resolvers-1-Outbound.sh
-# - CAMELZ-Gen3-Prototype-05-Resolvers-2-Inbound.sh
-# - CAMELZ-Gen3-Prototype-06-CustomerGateways.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-1-TransitGateways.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-2-VPCAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-3-StaticVPCRoutes.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-4-PeeringAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-5-VPNAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-6A-SimpleRouting.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-6B-ComplexRouting.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-1-DirectoryService.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-2-ResolverRule.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-3-Trust.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-1-DirectoryService.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-2-ResolverRule.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-3-Trust.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-09-LinuxTestInstances.sh
-# - CAMELZ-Gen3-Prototype-10-WindowsBastions.sh
-# - CAMELZ-Gen3-Prototype-11-ActiveDirectoryManagement-1A-Shared.sh
-# - CAMELZ-Gen3-Prototype-11-ActiveDirectoryManagement-1B-PerClient.sh
-# - CAMELZ-Gen3-Prototype-12-ClientVPN.sh
-# - CAMELZ-Gen3-Prototype-20-Remaining.sh
 #
 # You will need to sign up for the "Cisco Cloud Services Router (CSR) 1000V - BYOL for Maximum Performance" Marketplace AMI
 # in the Management Account (or the account where you will run simulated customer on-prem locations).
@@ -84,8 +47,8 @@ aws ec2 create-tags --resources $alfa_global_management_adm_sg_id \
                            Key=Company,Value=Alfa \
                            Key=Environment,Value=Management \
                            Key=Application,Value=ActiveDirectoryManagement \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $alfa_global_management_adm_sg_id \
@@ -96,7 +59,7 @@ aws ec2 authorize-security-group-ingress --group-id $alfa_global_management_adm_
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,UserIdGroupPairs=[{GroupId=$global_management_wb_sg_id,Description=\"Management-WindowsBastion-InstanceSecurityGroup (RDP)\"}]" \
                                          --profile $profile --region us-east-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_global_management_adm_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (RDP)\"}]" \
                                          --profile $profile --region us-east-1 --output text
 # - Note: We do not allow routing from the client's VPNs, and they are not allowed to manage their own DirectoryService
 
@@ -114,7 +77,7 @@ alfa_global_management_adm_instancea_id=$(aws ec2 run-instances --image-id $glob
                                                                 --iam-instance-profile Name=ManagedInstance \
                                                                 --key-name administrator \
                                                                 --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-ActiveDirectoryManagement-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_global_management_adm_sg_id],SubnetId=$global_management_directory_subneta_id" \
-                                                                --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Management-ActiveDirectoryManagement-InstanceA},{Key=Hostname,Value=alfue1madm01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                                --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Management-ActiveDirectoryManagement-InstanceA},{Key=Hostname,Value=alfue1madm01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                                 --user-data file://$tmpfile \
                                                                 --client-token $(date +%s) \
                                                                 --query 'Instances[0].InstanceId' \
@@ -174,8 +137,8 @@ aws ec2 create-tags --resources $alfa_ohio_management_adm_sg_id \
                            Key=Company,Value=Alfa \
                            Key=Environment,Value=Management \
                            Key=Application,Value=ActiveDirectoryManagement \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_management_adm_sg_id \
@@ -186,7 +149,7 @@ aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_management_adm_sg
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,UserIdGroupPairs=[{GroupId=$ohio_management_wb_sg_id,Description=\"Management-WindowsBastion-InstanceSecurityGroup (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_management_adm_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 # - Note: We do not allow routing from the client's VPNs, and they are not allowed to manage their own DirectoryService
 
@@ -204,7 +167,7 @@ alfa_ohio_management_adm_instancea_id=$(aws ec2 run-instances --image-id $ohio_w
                                                               --iam-instance-profile Name=ManagedInstance \
                                                               --key-name administrator \
                                                               --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-ActiveDirectoryManagement-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_ohio_management_adm_sg_id],SubnetId=$ohio_management_directory_subneta_id" \
-                                                              --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Management-ActiveDirectoryManagement-InstanceA},{Key=Hostname,Value=alfue2madm01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                              --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Management-ActiveDirectoryManagement-InstanceA},{Key=Hostname,Value=alfue2madm01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                               --user-data file://$tmpfile \
                                                               --client-token $(date +%s) \
                                                               --query 'Instances[0].InstanceId' \
@@ -264,8 +227,8 @@ aws ec2 create-tags --resources $zulu_ohio_management_adm_sg_id \
                            Key=Company,Value=Zulu \
                            Key=Environment,Value=Management \
                            Key=Application,Value=ActiveDirectoryManagement \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $zulu_ohio_management_adm_sg_id \
@@ -276,7 +239,7 @@ aws ec2 authorize-security-group-ingress --group-id $zulu_ohio_management_adm_sg
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,UserIdGroupPairs=[{GroupId=$ohio_management_wb_sg_id,Description=\"Management-WindowsBastion-InstanceSecurityGroup (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $zulu_ohio_management_adm_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 
 # Create Active Directory Management Instance
@@ -293,7 +256,7 @@ zulu_ohio_management_adm_instancea_id=$(aws ec2 run-instances --image-id $ohio_w
                                                               --iam-instance-profile Name=ManagedInstance \
                                                               --key-name administrator \
                                                               --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-ActiveDirectoryManagement-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$zulu_ohio_management_adm_sg_id],SubnetId=$ohio_management_directory_subneta_id" \
-                                                              --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Zulu-Management-ActiveDirectoryManagement-InstanceA},{Key=Hostname,Value=zulue2madm01a},{Key=Company,Value=Zulu},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                              --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Zulu-Management-ActiveDirectoryManagement-InstanceA},{Key=Hostname,Value=zulue2madm01a},{Key=Company,Value=Zulu},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                               --user-data file://$tmpfile \
                                                               --client-token $(date +%s) \
                                                               --query 'Instances[0].InstanceId' \
@@ -353,8 +316,8 @@ aws ec2 create-tags --resources $alfa_ireland_management_adm_sg_id \
                            Key=Company,Value=Alfa \
                            Key=Environment,Value=Management \
                            Key=Application,Value=ActiveDirectoryManagement \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region eu-west-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $alfa_ireland_management_adm_sg_id \
@@ -365,7 +328,7 @@ aws ec2 authorize-security-group-ingress --group-id $alfa_ireland_management_adm
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,UserIdGroupPairs=[{GroupId=$ireland_management_wb_sg_id,Description=\"Management-WindowsBastion-InstanceSecurityGroup (RDP)\"}]" \
                                          --profile $profile --region eu-west-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ireland_management_adm_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (RDP)\"}]" \
                                          --profile $profile --region eu-west-1 --output text
 
 # Create Active Directory Management Instance
@@ -382,7 +345,7 @@ alfa_ireland_management_adm_instancea_id=$(aws ec2 run-instances --image-id $ire
                                                                  --iam-instance-profile Name=ManagedInstance \
                                                                  --key-name administrator \
                                                                  --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-ActiveDirectoryManagement-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_ireland_management_adm_sg_id],SubnetId=$ireland_management_directory_subneta_id" \
-                                                                 --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Management-ActiveDirectoryManagement-InstanceA},{Key=Hostname,Value=alfew1madm01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                                 --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Management-ActiveDirectoryManagement-InstanceA},{Key=Hostname,Value=alfew1madm01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                                  --user-data file://$tmpfile \
                                                                  --client-token $(date +%s) \
                                                                  --query 'Instances[0].InstanceId' \

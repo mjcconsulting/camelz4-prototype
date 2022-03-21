@@ -1,44 +1,7 @@
 #!/usr/bin/env bash
 #
-# This is part of a set of scripts to setup a realistic DAP Prototype which uses multiple Accounts, VPCs and
+# This is part of a set of scripts to setup a realistic CaMeLz Prototype which uses multiple Accounts, VPCs and
 # Transit Gateway to connect them all
-#
-# There are MANY resources needed to create this prototype, so we are splitting them into these files
-# - CAMELZ-Gen3-Prototype-00-DefineParameters.sh
-# - CAMELZ-Gen3-Prototype-01-Roles.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-03-PublicHostedZones.sh
-# - CAMELZ-Gen3-Prototype-04-VPCs.sh
-# - CAMELZ-Gen3-Prototype-05-Resolvers-1-Outbound.sh
-# - CAMELZ-Gen3-Prototype-05-Resolvers-2-Inbound.sh
-# - CAMELZ-Gen3-Prototype-06-CustomerGateways.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-1-TransitGateways.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-2-VPCAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-3-StaticVPCRoutes.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-4-PeeringAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-5-VPNAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-6A-SimpleRouting.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-6B-ComplexRouting.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-1-DirectoryService.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-2-ResolverRule.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-3-Trust.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-1-DirectoryService.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-2-ResolverRule.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-3-Trust.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-09-LinuxTestInstances.sh
-# - CAMELZ-Gen3-Prototype-10-WindowsBastions.sh
-# - CAMELZ-Gen3-Prototype-11-ActiveDirectoryManagement-1A-Shared.sh
-# - CAMELZ-Gen3-Prototype-11-ActiveDirectoryManagement-1B-PerClient.sh
-# - CAMELZ-Gen3-Prototype-12-ClientVPN.sh
-# - CAMELZ-Gen3-Prototype-20-Remaining.sh
 #
 # You will need to sign up for the "Cisco Cloud Services Router (CSR) 1000V - BYOL for Maximum Performance" Marketplace AMI
 # in the Management Account (or the account where you will run simulated customer on-prem locations).
@@ -68,10 +31,10 @@ aws ssm put-parameter --name Management-Administrator-Password \
                       --value "$CAMELZ_ADMINISTRATOR_PASSWORD" \
                       --type SecureString \
                       --tags Key=Name,Value=Management-Administrator-Password \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Management \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-1 --output text
 
 aws ssm put-parameter --name Management-Directory-Domain \
@@ -79,10 +42,10 @@ aws ssm put-parameter --name Management-Directory-Domain \
                       --value "$global_management_directory_domain" \
                       --type String \
                       --tags Key=Name,Value=Management-Directory-Domain \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Management \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-1 --output text
 
 aws ssm put-parameter --name Management-Directory-DomainJoin-User \
@@ -90,10 +53,10 @@ aws ssm put-parameter --name Management-Directory-DomainJoin-User \
                       --value "$global_management_directory_admin_user" \
                       --type String \
                       --tags Key=Name,Value=Management-Directory-DomainJoin-User \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Management \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-1 --output text
 
 aws ssm put-parameter --name Management-Directory-DomainJoin-Password \
@@ -101,10 +64,10 @@ aws ssm put-parameter --name Management-Directory-DomainJoin-Password \
                       --value "$global_management_directory_admin_password" \
                       --type SecureString \
                       --tags Key=Name,Value=Management-Directory-DomainJoin-Password \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Management \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-1 --output text
 
 aws ssm put-parameter --name Management-Directory-OhioTrust-Password \
@@ -112,10 +75,10 @@ aws ssm put-parameter --name Management-Directory-OhioTrust-Password \
                       --value "$global_management_directory_ohio_trust_password" \
                       --type SecureString \
                       --tags Key=Name,Value=Management-Directory-OhioTrust-Password \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Management \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-1 --output text
 
 aws ssm put-parameter --name Management-Directory-IrelandTrust-Password \
@@ -123,10 +86,10 @@ aws ssm put-parameter --name Management-Directory-IrelandTrust-Password \
                       --value "$global_management_directory_ireland_trust_password" \
                       --type SecureString \
                       --tags Key=Name,Value=Management-Directory-IrelandTrust-Password \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Management \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-1 --output text
 
 if [ $perclient_ds = 1 ]; then
@@ -137,8 +100,8 @@ if [ $perclient_ds = 1 ]; then
                         --tags Key=Name,Value=Alfa-Management-Directory-Domain \
                                Key=Company,Value=Alfa \
                                Key=Environment,Value=Management \
-                               Key=Project,Value="CAMELZ3 POC" \
-                               Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                               Key=Project,Value="CaMeLz4 POC" \
+                               Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                         --profile $profile --region us-east-1 --output text
 
   aws ssm put-parameter --name Alfa-Management-Directory-DomainJoin-User \
@@ -148,8 +111,8 @@ if [ $perclient_ds = 1 ]; then
                         --tags Key=Name,Value=Alfa-Management-Directory-DomainJoin-User \
                                Key=Company,Value=Alfa \
                                Key=Environment,Value=Management \
-                               Key=Project,Value="CAMELZ3 POC" \
-                               Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                               Key=Project,Value="CaMeLz4 POC" \
+                               Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                         --profile $profile --region us-east-1 --output text
 
   aws ssm put-parameter --name Alfa-Management-Directory-DomainJoin-Password \
@@ -159,8 +122,8 @@ if [ $perclient_ds = 1 ]; then
                         --tags Key=Name,Value=Alfa-Management-Directory-DomainJoin-Password \
                                Key=Company,Value=Alfa \
                                Key=Environment,Value=Management \
-                               Key=Project,Value="CAMELZ3 POC" \
-                               Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                               Key=Project,Value="CaMeLz4 POC" \
+                               Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                         --profile $profile --region us-east-1 --output text
 
   aws ssm put-parameter --name Alfa-Management-Directory-OhioTrust-Password \
@@ -170,8 +133,8 @@ if [ $perclient_ds = 1 ]; then
                         --tags Key=Name,Value=Alfa-Management-Directory-OhioTrust-Password \
                                Key=Company,Value=Alfa \
                                Key=Environment,Value=Management \
-                               Key=Project,Value="CAMELZ3 POC" \
-                               Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                               Key=Project,Value="CaMeLz4 POC" \
+                               Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                         --profile $profile --region us-east-1 --output text
 
   aws ssm put-parameter --name Alfa-Management-Directory-IrelandTrust-Password \
@@ -181,8 +144,8 @@ if [ $perclient_ds = 1 ]; then
                         --tags Key=Name,Value=Alfa-Management-Directory-IrelandTrust-Password \
                                Key=Company,Value=Alfa \
                                Key=Environment,Value=Management \
-                               Key=Project,Value="CAMELZ3 POC" \
-                               Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                               Key=Project,Value="CaMeLz4 POC" \
+                               Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                         --profile $profile --region us-east-1 --output text
 
   aws ssm put-parameter --name Zulu-Management-Directory-Domain \
@@ -192,8 +155,8 @@ if [ $perclient_ds = 1 ]; then
                         --tags Key=Name,Value=Zulu-Management-Directory-Domain \
                                Key=Company,Value=Zulu \
                                Key=Environment,Value=Management \
-                               Key=Project,Value="CAMELZ3 POC" \
-                               Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                               Key=Project,Value="CaMeLz4 POC" \
+                               Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                         --profile $profile --region us-east-1 --output text
 
   aws ssm put-parameter --name Zulu-Management-Directory-DomainJoin-User \
@@ -203,8 +166,8 @@ if [ $perclient_ds = 1 ]; then
                         --tags Key=Name,Value=Zulu-Management-Directory-DomainJoin-User \
                                Key=Company,Value=Zulu \
                                Key=Environment,Value=Management \
-                               Key=Project,Value="CAMELZ3 POC" \
-                               Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                               Key=Project,Value="CaMeLz4 POC" \
+                               Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                         --profile $profile --region us-east-1 --output text
 
   aws ssm put-parameter --name Zulu-Management-Directory-DomainJoin-Password \
@@ -214,8 +177,8 @@ if [ $perclient_ds = 1 ]; then
                         --tags Key=Name,Value=Zulu-Management-Directory-DomainJoin-Password \
                                Key=Company,Value=Zulu \
                                Key=Environment,Value=Management \
-                               Key=Project,Value="CAMELZ3 POC" \
-                               Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                               Key=Project,Value="CaMeLz4 POC" \
+                               Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                         --profile $profile --region us-east-1 --output text
 fi
 
@@ -228,10 +191,10 @@ aws ssm put-parameter --name Core-Administrator-Password \
                       --value "$CAMELZ_ADMINISTRATOR_PASSWORD" \
                       --type SecureString \
                       --tags Key=Name,Value=Core-Administrator-Password \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Core \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-1 --output text
 
 aws ssm put-parameter --name Core-Directory-Domain \
@@ -239,10 +202,10 @@ aws ssm put-parameter --name Core-Directory-Domain \
                       --value "$global_core_directory_domain" \
                       --type String \
                       --tags Key=Name,Value=Core-Directory-Domain \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Core \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-1 --output text
 
 aws ssm put-parameter --name Core-Directory-DomainJoin-User \
@@ -250,10 +213,10 @@ aws ssm put-parameter --name Core-Directory-DomainJoin-User \
                       --value "$global_core_directory_admin_user" \
                       --type String \
                       --tags Key=Name,Value=Core-Directory-DomainJoin-User \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Core \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-1 --output text
 
 aws ssm put-parameter --name Core-Directory-DomainJoin-Password \
@@ -261,10 +224,10 @@ aws ssm put-parameter --name Core-Directory-DomainJoin-Password \
                       --value "$global_core_directory_admin_password" \
                       --type SecureString \
                       --tags Key=Name,Value=Core-Directory-DomainJoin-Password \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Core \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-1 --output text
 
 
@@ -276,10 +239,10 @@ aws ssm put-parameter --name Log-Administrator-Password \
                       --value "$CAMELZ_ADMINISTRATOR_PASSWORD" \
                       --type SecureString \
                       --tags Key=Name,Value=Log-Administrator-Password \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Log \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-1 --output text
 
 aws ssm put-parameter --name Log-Directory-Domain \
@@ -287,10 +250,10 @@ aws ssm put-parameter --name Log-Directory-Domain \
                       --value "$global_log_directory_domain" \
                       --type String \
                       --tags Key=Name,Value=Log-Directory-Domain \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Log \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-1 --output text
 
 aws ssm put-parameter --name Log-Directory-DomainJoin-User \
@@ -298,10 +261,10 @@ aws ssm put-parameter --name Log-Directory-DomainJoin-User \
                       --value "$global_log_directory_admin_user" \
                       --type String \
                       --tags Key=Name,Value=Log-Directory-DomainJoin-User \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Log \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-1 --output text
 
 aws ssm put-parameter --name Log-Directory-DomainJoin-Password \
@@ -309,10 +272,10 @@ aws ssm put-parameter --name Log-Directory-DomainJoin-Password \
                       --value "$global_log_directory_admin_password" \
                       --type SecureString \
                       --tags Key=Name,Value=Log-Directory-DomainJoin-Password \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Log \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-1 --output text
 
 
@@ -324,10 +287,10 @@ aws ssm put-parameter --name Management-Administrator-Password \
                       --value "$CAMELZ_ADMINISTRATOR_PASSWORD" \
                       --type SecureString \
                       --tags Key=Name,Value=Management-Administrator-Password \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Management \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 aws ssm put-parameter --name Management-Directory-Domain \
@@ -335,10 +298,10 @@ aws ssm put-parameter --name Management-Directory-Domain \
                       --value "$ohio_management_directory_domain" \
                       --type String \
                       --tags Key=Name,Value=Management-Directory-Domain \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Management \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 aws ssm put-parameter --name Management-Directory-DomainJoin-User \
@@ -346,10 +309,10 @@ aws ssm put-parameter --name Management-Directory-DomainJoin-User \
                       --value "$ohio_management_directory_admin_user" \
                       --type String \
                       --tags Key=Name,Value=Management-Directory-DomainJoin-User \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Management \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 aws ssm put-parameter --name Management-Directory-DomainJoin-Password \
@@ -357,10 +320,10 @@ aws ssm put-parameter --name Management-Directory-DomainJoin-Password \
                       --value "$ohio_management_directory_admin_password" \
                       --type SecureString \
                       --tags Key=Name,Value=Management-Directory-DomainJoin-Password \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Management \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 if [ $perclient_ds = 1 ]; then
@@ -371,8 +334,8 @@ if [ $perclient_ds = 1 ]; then
                         --tags Key=Name,Value=Alfa-Management-Directory-Domain \
                                Key=Company,Value=Alfa \
                                Key=Environment,Value=Management \
-                               Key=Project,Value="CAMELZ3 POC" \
-                               Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                               Key=Project,Value="CaMeLz4 POC" \
+                               Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                         --profile $profile --region us-east-2 --output text
 
   aws ssm put-parameter --name Alfa-Management-Directory-DomainJoin-User \
@@ -382,8 +345,8 @@ if [ $perclient_ds = 1 ]; then
                         --tags Key=Name,Value=Alfa-Management-Directory-DomainJoin-User \
                                Key=Company,Value=Alfa \
                                Key=Environment,Value=Management \
-                               Key=Project,Value="CAMELZ3 POC" \
-                               Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                               Key=Project,Value="CaMeLz4 POC" \
+                               Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                         --profile $profile --region us-east-2 --output text
 
   aws ssm put-parameter --name Alfa-Management-Directory-DomainJoin-Password \
@@ -393,8 +356,8 @@ if [ $perclient_ds = 1 ]; then
                         --tags Key=Name,Value=Alfa-Management-Directory-DomainJoin-Password \
                                Key=Company,Value=Alfa \
                                Key=Environment,Value=Management \
-                               Key=Project,Value="CAMELZ3 POC" \
-                               Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                               Key=Project,Value="CaMeLz4 POC" \
+                               Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                         --profile $profile --region us-east-2 --output text
 
   aws ssm put-parameter --name Zulu-Management-Directory-Domain \
@@ -404,8 +367,8 @@ if [ $perclient_ds = 1 ]; then
                         --tags Key=Name,Value=Zulu-Management-Directory-Domain \
                                Key=Company,Value=Zulu \
                                Key=Environment,Value=Management \
-                               Key=Project,Value="CAMELZ3 POC" \
-                               Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                               Key=Project,Value="CaMeLz4 POC" \
+                               Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                         --profile $profile --region us-east-2 --output text
 
   aws ssm put-parameter --name Zulu-Management-Directory-DomainJoin-User \
@@ -415,8 +378,8 @@ if [ $perclient_ds = 1 ]; then
                         --tags Key=Name,Value=Zulu-Management-Directory-DomainJoin-User \
                                Key=Company,Value=Zulu \
                                Key=Environment,Value=Management \
-                               Key=Project,Value="CAMELZ3 POC" \
-                               Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                               Key=Project,Value="CaMeLz4 POC" \
+                               Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                         --profile $profile --region us-east-2 --output text
 
   aws ssm put-parameter --name Zulu-Management-Directory-DomainJoin-Password \
@@ -426,8 +389,8 @@ if [ $perclient_ds = 1 ]; then
                         --tags Key=Name,Value=Zulu-Management-Directory-DomainJoin-Password \
                                Key=Company,Value=Zulu \
                                Key=Environment,Value=Management \
-                               Key=Project,Value="CAMELZ3 POC" \
-                               Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                               Key=Project,Value="CaMeLz4 POC" \
+                               Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                         --profile $profile --region us-east-2 --output text
 fi
 
@@ -439,10 +402,10 @@ aws ssm put-parameter --name Core-Administrator-Password \
                       --value "$CAMELZ_ADMINISTRATOR_PASSWORD" \
                       --type SecureString \
                       --tags Key=Name,Value=Core-Administrator-Password \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Core \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 aws ssm put-parameter --name Core-Directory-Domain \
@@ -450,10 +413,10 @@ aws ssm put-parameter --name Core-Directory-Domain \
                       --value "$ohio_core_directory_domain" \
                       --type String \
                       --tags Key=Name,Value=Core-Directory-Domain \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Core \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 aws ssm put-parameter --name Core-Directory-DomainJoin-User \
@@ -461,10 +424,10 @@ aws ssm put-parameter --name Core-Directory-DomainJoin-User \
                       --value "$ohio_core_directory_admin_user" \
                       --type String \
                       --tags Key=Name,Value=Core-Directory-DomainJoin-User \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Core \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 aws ssm put-parameter --name Core-Directory-DomainJoin-Password \
@@ -472,10 +435,10 @@ aws ssm put-parameter --name Core-Directory-DomainJoin-Password \
                       --value "$ohio_core_directory_admin_password" \
                       --type SecureString \
                       --tags Key=Name,Value=Core-Directory-DomainJoin-Password \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Core \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 
@@ -487,10 +450,10 @@ aws ssm put-parameter --name Log-Administrator-Password \
                       --value "$CAMELZ_ADMINISTRATOR_PASSWORD" \
                       --type SecureString \
                       --tags Key=Name,Value=Log-Administrator-Password \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Log \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 aws ssm put-parameter --name Log-Directory-Domain \
@@ -498,10 +461,10 @@ aws ssm put-parameter --name Log-Directory-Domain \
                       --value "$ohio_log_directory_domain" \
                       --type String \
                       --tags Key=Name,Value=Log-Directory-Domain \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Log \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 aws ssm put-parameter --name Log-Directory-DomainJoin-User \
@@ -509,10 +472,10 @@ aws ssm put-parameter --name Log-Directory-DomainJoin-User \
                       --value "$ohio_log_directory_admin_user" \
                       --type String \
                       --tags Key=Name,Value=Log-Directory-DomainJoin-User \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Log \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 aws ssm put-parameter --name Log-Directory-DomainJoin-Password \
@@ -520,10 +483,10 @@ aws ssm put-parameter --name Log-Directory-DomainJoin-Password \
                       --value "$ohio_log_directory_admin_password" \
                       --type SecureString \
                       --tags Key=Name,Value=Log-Directory-DomainJoin-Password \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Log \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 
@@ -537,8 +500,8 @@ aws ssm put-parameter --name Alfa-Production-Administrator-Password \
                       --tags Key=Name,Value=Alfa-Production-Administrator-Password \
                              Key=Company,Value=Alfa \
                              Key=Environment,Value=Production \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 aws ssm put-parameter --name Alfa-Production-Directory-Domain \
@@ -548,8 +511,8 @@ aws ssm put-parameter --name Alfa-Production-Directory-Domain \
                       --tags Key=Name,Value=Alfa-Production-Directory-Domain \
                              Key=Company,Value=Alfa \
                              Key=Environment,Value=Production \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 aws ssm put-parameter --name Alfa-Production-Directory-DomainJoin-User \
@@ -559,8 +522,8 @@ aws ssm put-parameter --name Alfa-Production-Directory-DomainJoin-User \
                       --tags Key=Name,Value=Alfa-Production-Directory-DomainJoin-User \
                              Key=Company,Value=Alfa \
                              Key=Environment,Value=Production \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 aws ssm put-parameter --name Alfa-Production-Directory-DomainJoin-Password \
@@ -570,8 +533,8 @@ aws ssm put-parameter --name Alfa-Production-Directory-DomainJoin-Password \
                       --tags Key=Name,Value=Alfa-Production-Directory-DomainJoin-Password \
                              Key=Company,Value=Alfa \
                              Key=Environment,Value=Production \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 
@@ -585,8 +548,8 @@ aws ssm put-parameter --name Alfa-Testing-Administrator-Password \
                       --tags Key=Name,Value=Alfa-Testing-Administrator-Password \
                              Key=Company,Value=Alfa \
                              Key=Environment,Value=Testing \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 aws ssm put-parameter --name Alfa-Testing-Directory-Domain \
@@ -596,8 +559,8 @@ aws ssm put-parameter --name Alfa-Testing-Directory-Domain \
                       --tags Key=Name,Value=Alfa-Testing-Directory-Domain \
                              Key=Company,Value=Alfa \
                              Key=Environment,Value=Testing \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 aws ssm put-parameter --name Alfa-Testing-Directory-DomainJoin-User \
@@ -607,8 +570,8 @@ aws ssm put-parameter --name Alfa-Testing-Directory-DomainJoin-User \
                       --tags Key=Name,Value=Alfa-Testing-Directory-DomainJoin-User \
                              Key=Company,Value=Alfa \
                              Key=Environment,Value=Testing \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 aws ssm put-parameter --name Alfa-Testing-Directory-DomainJoin-Password \
@@ -618,8 +581,8 @@ aws ssm put-parameter --name Alfa-Testing-Directory-DomainJoin-Password \
                       --tags Key=Name,Value=Alfa-Testing-Directory-DomainJoin-Password \
                              Key=Company,Value=Alfa \
                              Key=Environment,Value=Testing \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 
@@ -633,8 +596,8 @@ aws ssm put-parameter --name Alfa-Development-Administrator-Password \
                       --tags Key=Name,Value=Alfa-Development-Administrator-Password \
                              Key=Company,Value=Alfa \
                              Key=Environment,Value=Development \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 aws ssm put-parameter --name Alfa-Development-Directory-Domain \
@@ -644,8 +607,8 @@ aws ssm put-parameter --name Alfa-Development-Directory-Domain \
                       --tags Key=Name,Value=Alfa-Development-Directory-Domain \
                              Key=Company,Value=Alfa \
                              Key=Environment,Value=Development \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 aws ssm put-parameter --name Alfa-Development-Directory-DomainJoin-User \
@@ -655,8 +618,8 @@ aws ssm put-parameter --name Alfa-Development-Directory-DomainJoin-User \
                       --tags Key=Name,Value=Alfa-Development-Directory-DomainJoin-User \
                              Key=Company,Value=Alfa \
                              Key=Environment,Value=Development \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 aws ssm put-parameter --name Alfa-Development-Directory-DomainJoin-Password \
@@ -666,8 +629,8 @@ aws ssm put-parameter --name Alfa-Development-Directory-DomainJoin-Password \
                       --tags Key=Name,Value=Alfa-Development-Directory-DomainJoin-Password \
                              Key=Company,Value=Alfa \
                              Key=Environment,Value=Development \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 
@@ -681,8 +644,8 @@ aws ssm put-parameter --name Zulu-Production-Administrator-Password \
                       --tags Key=Name,Value=Zulu-Production-Administrator-Password \
                              Key=Company,Value=Zulu \
                              Key=Environment,Value=Production \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 aws ssm put-parameter --name Zulu-Production-Directory-Domain \
@@ -692,8 +655,8 @@ aws ssm put-parameter --name Zulu-Production-Directory-Domain \
                       --tags Key=Name,Value=Zulu-Production-Directory-Domain \
                              Key=Company,Value=Zulu \
                              Key=Environment,Value=Production \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 aws ssm put-parameter --name Zulu-Production-Directory-DomainJoin-User \
@@ -703,8 +666,8 @@ aws ssm put-parameter --name Zulu-Production-Directory-DomainJoin-User \
                       --tags Key=Name,Value=Zulu-Production-Directory-DomainJoin-User \
                              Key=Company,Value=Zulu \
                              Key=Environment,Value=Production \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 aws ssm put-parameter --name Zulu-Production-Directory-DomainJoin-Password \
@@ -714,8 +677,8 @@ aws ssm put-parameter --name Zulu-Production-Directory-DomainJoin-Password \
                       --tags Key=Name,Value=Zulu-Production-Directory-DomainJoin-Password \
                              Key=Company,Value=Zulu \
                              Key=Environment,Value=Production \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 
@@ -729,8 +692,8 @@ aws ssm put-parameter --name Zulu-Development-Administrator-Password \
                       --tags Key=Name,Value=Zulu-Development-Administrator-Password \
                              Key=Company,Value=Zulu \
                              Key=Environment,Value=Development \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 aws ssm put-parameter --name Zulu-Development-Directory-Domain \
@@ -740,8 +703,8 @@ aws ssm put-parameter --name Zulu-Development-Directory-Domain \
                       --tags Key=Name,Value=Zulu-Development-Directory-Domain \
                              Key=Company,Value=Zulu \
                              Key=Environment,Value=Development \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 aws ssm put-parameter --name Zulu-Development-Directory-DomainJoin-User \
@@ -751,8 +714,8 @@ aws ssm put-parameter --name Zulu-Development-Directory-DomainJoin-User \
                       --tags Key=Name,Value=Zulu-Development-Directory-DomainJoin-User \
                              Key=Company,Value=Zulu \
                              Key=Environment,Value=Development \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 aws ssm put-parameter --name Zulu-Development-Directory-DomainJoin-Password \
@@ -762,8 +725,8 @@ aws ssm put-parameter --name Zulu-Development-Directory-DomainJoin-Password \
                       --tags Key=Name,Value=Zulu-Development-Directory-DomainJoin-Password \
                              Key=Company,Value=Zulu \
                              Key=Environment,Value=Development \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 
@@ -775,10 +738,10 @@ aws ssm put-parameter --name Management-Administrator-Password \
                       --value "$CAMELZ_ADMINISTRATOR_PASSWORD" \
                       --type SecureString \
                       --tags Key=Name,Value=Management-Administrator-Password \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Management \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region eu-west-1 --output text
 
 aws ssm put-parameter --name Management-Directory-Domain \
@@ -786,10 +749,10 @@ aws ssm put-parameter --name Management-Directory-Domain \
                       --value "$ireland_management_directory_domain" \
                       --type String \
                       --tags Key=Name,Value=Management-Directory-Domain \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Management \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region eu-west-1 --output text
 
 aws ssm put-parameter --name Management-Directory-DomainJoin-User \
@@ -797,10 +760,10 @@ aws ssm put-parameter --name Management-Directory-DomainJoin-User \
                       --value "$ireland_management_directory_admin_user" \
                       --type String \
                       --tags Key=Name,Value=Management-Directory-DomainJoin-User \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Management \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region eu-west-1 --output text
 
 aws ssm put-parameter --name Management-Directory-DomainJoin-Password \
@@ -808,10 +771,10 @@ aws ssm put-parameter --name Management-Directory-DomainJoin-Password \
                       --value "$ireland_management_directory_admin_password" \
                       --type SecureString \
                       --tags Key=Name,Value=Management-Directory-DomainJoin-Password \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Management \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region eu-west-1 --output text
 
 if [ $perclient_ds = 1 ]; then
@@ -822,8 +785,8 @@ if [ $perclient_ds = 1 ]; then
                         --tags Key=Name,Value=Alfa-Management-Directory-Domain \
                                Key=Company,Value=Alfa \
                                Key=Environment,Value=Management \
-                               Key=Project,Value="CAMELZ3 POC" \
-                               Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                               Key=Project,Value="CaMeLz4 POC" \
+                               Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                         --profile $profile --region eu-west-1 --output text
 
   aws ssm put-parameter --name Alfa-Management-Directory-DomainJoin-User \
@@ -833,8 +796,8 @@ if [ $perclient_ds = 1 ]; then
                         --tags Key=Name,Value=Alfa-Management-Directory-DomainJoin-User \
                                Key=Company,Value=Alfa \
                                Key=Environment,Value=Management \
-                               Key=Project,Value="CAMELZ3 POC" \
-                               Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                               Key=Project,Value="CaMeLz4 POC" \
+                               Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                         --profile $profile --region eu-west-1 --output text
 
   aws ssm put-parameter --name Alfa-Management-Directory-DomainJoin-Password \
@@ -844,8 +807,8 @@ if [ $perclient_ds = 1 ]; then
                         --tags Key=Name,Value=Alfa-Management-Directory-DomainJoin-Password \
                                Key=Company,Value=Alfa \
                                Key=Environment,Value=Management \
-                               Key=Project,Value="CAMELZ3 POC" \
-                               Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                               Key=Project,Value="CaMeLz4 POC" \
+                               Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                         --profile $profile --region eu-west-1 --output text
 fi
 
@@ -857,10 +820,10 @@ aws ssm put-parameter --name Core-Administrator-Password \
                       --value "$CAMELZ_ADMINISTRATOR_PASSWORD" \
                       --type SecureString \
                       --tags Key=Name,Value=Core-Administrator-Password \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Core \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region eu-west-1 --output text
 
 aws ssm put-parameter --name Core-Directory-Domain \
@@ -868,10 +831,10 @@ aws ssm put-parameter --name Core-Directory-Domain \
                       --value "$ireland_core_directory_domain" \
                       --type String \
                       --tags Key=Name,Value=Core-Directory-Domain \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Core \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region eu-west-1 --output text
 
 aws ssm put-parameter --name Core-Directory-DomainJoin-User \
@@ -879,10 +842,10 @@ aws ssm put-parameter --name Core-Directory-DomainJoin-User \
                       --value "$ireland_core_directory_admin_user" \
                       --type String \
                       --tags Key=Name,Value=Core-Directory-DomainJoin-User \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Core \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region eu-west-1 --output text
 
 aws ssm put-parameter --name Core-Directory-DomainJoin-Password \
@@ -890,10 +853,10 @@ aws ssm put-parameter --name Core-Directory-DomainJoin-Password \
                       --value "$ireland_core_directory_admin_password" \
                       --type SecureString \
                       --tags Key=Name,Value=Core-Directory-DomainJoin-Password \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Core \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region eu-west-1 --output text
 
 
@@ -905,10 +868,10 @@ aws ssm put-parameter --name Log-Administrator-Password \
                       --value "$CAMELZ_ADMINISTRATOR_PASSWORD" \
                       --type SecureString \
                       --tags Key=Name,Value=Log-Administrator-Password \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Log \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region eu-west-1 --output text
 
 aws ssm put-parameter --name Log-Directory-Domain \
@@ -916,10 +879,10 @@ aws ssm put-parameter --name Log-Directory-Domain \
                       --value "$ireland_log_directory_domain" \
                       --type String \
                       --tags Key=Name,Value=Log-Directory-Domain \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Log \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region eu-west-1 --output text
 
 aws ssm put-parameter --name Log-Directory-DomainJoin-User \
@@ -927,10 +890,10 @@ aws ssm put-parameter --name Log-Directory-DomainJoin-User \
                       --value "$ireland_log_directory_admin_user" \
                       --type String \
                       --tags Key=Name,Value=Log-Directory-DomainJoin-User \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Log \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region eu-west-1 --output text
 
 aws ssm put-parameter --name Log-Directory-DomainJoin-Password \
@@ -938,10 +901,10 @@ aws ssm put-parameter --name Log-Directory-DomainJoin-Password \
                       --value "$ireland_log_directory_admin_password" \
                       --type SecureString \
                       --tags Key=Name,Value=Log-Directory-DomainJoin-Password \
-                             Key=Company,Value=DXC \
+                             Key=Company,Value=CaMeLz \
                              Key=Environment,Value=Log \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region eu-west-1 --output text
 
 
@@ -955,8 +918,8 @@ aws ssm put-parameter --name Alfa-Recovery-Administrator-Password \
                       --tags Key=Name,Value=Alfa-Recovery-Administrator-Password \
                              Key=Company,Value=Alfa \
                              Key=Environment,Value=Recovery \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region eu-west-1 --output text
 
 aws ssm put-parameter --name Alfa-Recovery-Directory-Domain \
@@ -966,8 +929,8 @@ aws ssm put-parameter --name Alfa-Recovery-Directory-Domain \
                       --tags Key=Name,Value=Alfa-Recovery-Directory-Domain \
                              Key=Company,Value=Alfa \
                              Key=Environment,Value=Recovery \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region eu-west-1 --output text
 
 aws ssm put-parameter --name Alfa-Recovery-Directory-DomainJoin-User \
@@ -977,8 +940,8 @@ aws ssm put-parameter --name Alfa-Recovery-Directory-DomainJoin-User \
                       --tags Key=Name,Value=Alfa-Recovery-Directory-DomainJoin-User \
                              Key=Company,Value=Alfa \
                              Key=Environment,Value=Recovery \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region eu-west-1 --output text
 
 aws ssm put-parameter --name Alfa-Recovery-Directory-DomainJoin-Password \
@@ -988,8 +951,8 @@ aws ssm put-parameter --name Alfa-Recovery-Directory-DomainJoin-Password \
                       --tags Key=Name,Value=Alfa-Recovery-Directory-DomainJoin-Password \
                              Key=Company,Value=Alfa \
                              Key=Environment,Value=Recovery \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region eu-west-1 --output text
 
 
@@ -1003,8 +966,8 @@ aws ssm put-parameter --name Alfa-LosAngeles-Administrator-Password \
                       --tags Key=Name,Value=Alfa-LosAngeles-Administrator-Password \
                              Key=Company,Value=Alfa \
                              Key=Location,Value=LosAngeles \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 
@@ -1018,8 +981,8 @@ aws ssm put-parameter --name Alfa-Miami-Administrator-Password \
                       --tags Key=Name,Value=Alfa-Miami-Administrator-Password \
                              Key=Company,Value=Alfa \
                              Key=Location,Value=Miami \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 
@@ -1033,21 +996,21 @@ aws ssm put-parameter --name Zulu-Dallas-Administrator-Password \
                       --tags Key=Name,Value=Zulu-Dallas-Administrator-Password \
                              Key=Company,Value=Zulu \
                              Key=Location,Value=Dallas \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text
 
 
-## DXC SantaBarbara Parameters ########################################################################################
+## CaMeLz SantaBarbara Parameters ########################################################################################
 profile=$management_profile
 
-aws ssm put-parameter --name DXC-SantaBarbara-Administrator-Password \
+aws ssm put-parameter --name CaMeLz-SantaBarbara-Administrator-Password \
                       --description 'Administrator Password for Windows Instances' \
                       --value "$CAMELZ_ADMINISTRATOR_PASSWORD" \
                       --type SecureString \
-                      --tags Key=Name,Value=DXC-SantaBarbara-Administrator-Password \
-                             Key=Company,Value=DXC \
+                      --tags Key=Name,Value=CaMeLz-SantaBarbara-Administrator-Password \
+                             Key=Company,Value=CaMeLz \
                              Key=Location,Value=SantaBarbara \
-                             Key=Project,Value="CAMELZ3 POC" \
-                             Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                             Key=Project,Value="CaMeLz4 POC" \
+                             Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                       --profile $profile --region us-east-2 --output text

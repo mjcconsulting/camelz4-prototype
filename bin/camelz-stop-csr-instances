@@ -2,19 +2,19 @@
 #
 # This simple script stops all CiscoCSR instances in all accounts, all regions
 # - Uses filters to identify which instances to stop
-#   Name=tag:Project,Values="CAMELZ3 POC"
+#   Name=tag:Project,Values="CaMeLz4 POC"
 #   Name=tag:Utility,Values=CiscoCSR
 #   Name=instance-state-name,Values=running,pending
 #
 
-accounts='dxcapm'
+accounts='camelzm'
 regions='us-east-2'
 
 for a in $accounts; do
   echo "== Account $a ========================"
   for r in $regions; do
     echo "-- Region $r ------------------------"
-    instances=$(aws ec2 describe-instances --filters Name=tag:Project,Values="CAMELZ3 POC" \
+    instances=$(aws ec2 describe-instances --filters Name=tag:Project,Values="CaMeLz4 POC" \
                                                      Name=tag:Utility,Values=CiscoCSR \
                                                      Name=instance-state-name,Values=running,pending \
                                            --query 'Reservations[].Instances[].InstanceId' \

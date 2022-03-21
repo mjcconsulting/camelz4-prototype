@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Output from running commands for DAP Accounts
+# Output from running commands for CaMeLz Accounts for Gen3
 #
 # You can run this script to rebuild your terminal environment variables if you need to restart your terminal session.
 #
@@ -9,45 +9,45 @@
 
 ### Global (Virginia)
 #### Global Public Hosted Zones
-global_management_public_hostedzone_id=Z2EBB33O71Z1GD                  # dxc-ap.com  (This already existed)
-global_core_public_hostedzone_id=Z0505438CUBU40YOQRVK                  # c.dxc-ap.com
-global_log_public_hostedzone_id=Z0491903389ZF61MB9WHJ                  # l.dxc-ap.com
+global_management_public_hostedzone_id=Z2EBB33O71Z1GD                  # camelz.io  (This already existed)
+global_core_public_hostedzone_id=Z0505438CUBU40YOQRVK                  # c.camelz.io
+global_log_public_hostedzone_id=Z0491903389ZF61MB9WHJ                  # l.camelz.io
 
 ### Ohio
 #### Ohio Public Hosted Zones
-ohio_management_public_hostedzone_id=ZQF7G10TI9264                     # us-east-2.dxc-ap.com
-ohio_core_public_hostedzone_id=Z05046582N38N47F2WNPS                   # c.us-east-2.dxc-ap.com
-ohio_log_public_hostedzone_id=Z05052942UDCYO3TSDPEF                    # l.us-east-2.dxc-ap.com
+ohio_management_public_hostedzone_id=ZQF7G10TI9264                     # us-east-2.camelz.io
+ohio_core_public_hostedzone_id=Z05046582N38N47F2WNPS                   # c.us-east-2.camelz.io
+ohio_log_public_hostedzone_id=Z05052942UDCYO3TSDPEF                    # l.us-east-2.camelz.io
 
 #### Alfa Ohio Public Hosted Zones
-alfa_ohio_production_public_hostedzone_id=Z05051092D10DTY5ZMRY8        # us-east-2.alfa.dxc-ap.com
-alfa_ohio_testing_public_hostedzone_id=Z05117432TBOHZ5SBEBQE           # t.us-east-2.alfa.dxc-ap.com
-alfa_ohio_development_public_hostedzone_id=Z05051053KEBH76KJ5ULO       # d.us-east-2.alfa.dxc-ap.com
+alfa_ohio_production_public_hostedzone_id=Z05051092D10DTY5ZMRY8        # us-east-2.alfa.camelz.io
+alfa_ohio_testing_public_hostedzone_id=Z05117432TBOHZ5SBEBQE           # t.us-east-2.alfa.camelz.io
+alfa_ohio_development_public_hostedzone_id=Z05051053KEBH76KJ5ULO       # d.us-east-2.alfa.camelz.io
 
 #### Zulu Ohio Shared Public Hosted Zones
-zulu_ohio_production_public_hostedzone_id=Z05201993HNAJQEZ0YD2I        # us-east-2.zulu.dxc-ap.com
-zulu_ohio_development_public_hostedzone_id=Z052104811G2LP1YGD45        # d.us-east-2.zulu.dxc-ap.com
+zulu_ohio_production_public_hostedzone_id=Z05201993HNAJQEZ0YD2I        # us-east-2.zulu.camelz.io
+zulu_ohio_development_public_hostedzone_id=Z052104811G2LP1YGD45        # d.us-east-2.zulu.camelz.io
 
 ### Ireland
 #### Ireland Public Hosted Zones
-ireland_management_public_hostedzone_id=Z0504077KJ8DK1X0CR3W           # eu-west-1.dxc-ap.com
-ireland_core_public_hostedzone_id=Z04987333D68BSRAXWFUG                # c.eu-west-1.dxc-ap.com
-ireland_log_public_hostedzone_id=Z05236363FEMKYA47ONUC                 # l.eu-west-1.dxc-ap.com
+ireland_management_public_hostedzone_id=Z0504077KJ8DK1X0CR3W           # eu-west-1.camelz.io
+ireland_core_public_hostedzone_id=Z04987333D68BSRAXWFUG                # c.eu-west-1.camelz.io
+ireland_log_public_hostedzone_id=Z05236363FEMKYA47ONUC                 # l.eu-west-1.camelz.io
 
 #### Alfa Ireland Public Hosted Zones
-alfa_ireland_production_public_hostedzone_id=Z05240182KI80DHQY92SC     # eu-west-1.alfa.dxc-ap.com
-alfa_ireland_recovery_public_hostedzone_id=Z05108212AEFOL5FOOJ72       # r.eu-west-1.alfa.dxc-ap.com
+alfa_ireland_production_public_hostedzone_id=Z05240182KI80DHQY92SC     # eu-west-1.alfa.camelz.io
+alfa_ireland_recovery_public_hostedzone_id=Z05108212AEFOL5FOOJ72       # r.eu-west-1.alfa.camelz.io
 
 ### Data Centers
 #### Alfa LosAngeles
-alfa_lax_public_hostedzone_id=Z03214141P6P5P37Q4N7A                    # lax.alfa.dxc-ap.com
-alfa_mia_public_hostedzone_id=Z03543611THKZP7ZV0P38                    # mia.alfa.dxc-ap.com
+alfa_lax_public_hostedzone_id=Z03214141P6P5P37Q4N7A                    # lax.alfa.camelz.io
+alfa_mia_public_hostedzone_id=Z03543611THKZP7ZV0P38                    # mia.alfa.camelz.io
 
 #### Alfa Miami
-zulu_dfw_public_hostedzone_id=Z02664241XIGA5CU92HUH                    # dfw.zulu.dxc-ap.com
+zulu_dfw_public_hostedzone_id=Z02664241XIGA5CU92HUH                    # dfw.zulu.camelz.io
 
-#### DXC SantaBarbara
-dxc_sba_public_hostedzone_id=Z00719561MOU57QNPS3G4                     # sba.dxc-ap.com
+#### CaMeLz SantaBarbara
+cml_sba_public_hostedzone_id=Z00719561MOU57QNPS3G4                     # sba.camelz.io
 
 
 ## VPCs ###############################################################################################################
@@ -725,38 +725,38 @@ zulu_dfw_vpce_sg_id=sg-043380cc22c7d8c3b
 zulu_dfw_ssm_vpce_id=vpce-0e2754ab4c3cf8cb4
 zulu_dfw_ssmm_vpce_id=vpce-0f3db05d038593ec0
 
-#### DXC SantaBarbara VPC
+#### CaMeLz SantaBarbara VPC
 management_account_id=682388979470
-dxc_sba_vpc_id=vpc-08fd7a9a6a7c985b4
-dxc_sba_igw_id=igw-0567658f1022fdf54
-dxc_sba_private_hostedzone_id=Z06772442H1KARSYYSLFT
-dxc_sba_dopt_id=dopt-079d88c8f0efccf90
-dxc_sba_public_subneta_id=subnet-0625adf9bd462c8e6
-dxc_sba_public_subnetb_id=subnet-082f204b65f41b690
-dxc_sba_private_subneta_id=subnet-036c7021b17e7ab17
-dxc_sba_private_subnetb_id=subnet-05e8d0cfcd02804d9
-dxc_sba_management_subneta_id=subnet-03177ca27639ca9d6
-dxc_sba_management_subnetb_id=subnet-00581eecec0b1e96f
-dxc_sba_gateway_subneta_id=subnet-059af3dd8e5f96278
-dxc_sba_gateway_subnetb_id=subnet-0502051fd452f5b63
-dxc_sba_endpoint_subneta_id=subnet-05c104238c3f119aa
-dxc_sba_endpoint_subnetb_id=subnet-080cd014f22b0df13
-dxc_sba_csr_sg_id=sg-0323de3fda90b6a40
-dxc_sba_csr_eipa=eipalloc-083ecfbc012baf8a0
-dxc_sba_csr_instancea_public_ip=3.13.79.87
-dxc_sba_csr_instancea_id=i-0a22cd3b054562c4a
-dxc_sba_csr_instancea_eni_id=eni-073458c12b21dc3c8
-dxc_sba_csr_instancea_private_ip=172.31.255.14
-dxc_sba_public_rtb_id=rtb-05082af915563dbaa
-dxc_sba_nat_sg_id=sg-0fd791dd59323647d
-dxc_sba_nat_instance_id=i-05d224d77db7341cb
-dxc_sba_nat_instance_eni_id=eni-000ef1dfb3954b9db
-dxc_sba_nat_instance_private_ip=172.31.255.27
-dxc_sba_private_rtba_id=rtb-025fa519a4e8943c6
-dxc_sba_private_rtbb_id=rtb-07ea3c59b591296b0
-dxc_sba_vpce_sg_id=sg-07ea78504307adc81
-dxc_sba_ssm_vpce_id=vpce-0e5a06316e5281a23
-dxc_sba_ssmm_vpce_id=vpce-03644fbe753831261
+cml_sba_vpc_id=vpc-08fd7a9a6a7c985b4
+cml_sba_igw_id=igw-0567658f1022fdf54
+cml_sba_private_hostedzone_id=Z06772442H1KARSYYSLFT
+cml_sba_dopt_id=dopt-079d88c8f0efccf90
+cml_sba_public_subneta_id=subnet-0625adf9bd462c8e6
+cml_sba_public_subnetb_id=subnet-082f204b65f41b690
+cml_sba_private_subneta_id=subnet-036c7021b17e7ab17
+cml_sba_private_subnetb_id=subnet-05e8d0cfcd02804d9
+cml_sba_management_subneta_id=subnet-03177ca27639ca9d6
+cml_sba_management_subnetb_id=subnet-00581eecec0b1e96f
+cml_sba_gateway_subneta_id=subnet-059af3dd8e5f96278
+cml_sba_gateway_subnetb_id=subnet-0502051fd452f5b63
+cml_sba_endpoint_subneta_id=subnet-05c104238c3f119aa
+cml_sba_endpoint_subnetb_id=subnet-080cd014f22b0df13
+cml_sba_csr_sg_id=sg-0323de3fda90b6a40
+cml_sba_csr_eipa=eipalloc-083ecfbc012baf8a0
+cml_sba_csr_instancea_public_ip=3.13.79.87
+cml_sba_csr_instancea_id=i-0a22cd3b054562c4a
+cml_sba_csr_instancea_eni_id=eni-073458c12b21dc3c8
+cml_sba_csr_instancea_private_ip=172.31.255.14
+cml_sba_public_rtb_id=rtb-05082af915563dbaa
+cml_sba_nat_sg_id=sg-0fd791dd59323647d
+cml_sba_nat_instance_id=i-05d224d77db7341cb
+cml_sba_nat_instance_eni_id=eni-000ef1dfb3954b9db
+cml_sba_nat_instance_private_ip=172.31.255.27
+cml_sba_private_rtba_id=rtb-025fa519a4e8943c6
+cml_sba_private_rtbb_id=rtb-07ea3c59b591296b0
+cml_sba_vpce_sg_id=sg-07ea78504307adc81
+cml_sba_ssm_vpce_id=vpce-0e5a06316e5281a23
+cml_sba_ssmm_vpce_id=vpce-03644fbe753831261
 
 
 ## Route53 Resolver ###################################################################################################
@@ -789,8 +789,8 @@ ohio_core_alfa_mia_cgw_id=cgw-09b3c7c211741cdb3
 ## Zulu
 ohio_core_zulu_dfw_cgw_id=cgw-0103064e6eaffdf40
 
-## DXC
-ohio_core_dxc_sba_cgw_id=cgw-02dc5bb3b44a3e910
+## CaMeLz
+ohio_core_cml_sba_cgw_id=cgw-02dc5bb3b44a3e910
 
 
 ## Transit Gateways ###################################################################################################
@@ -915,9 +915,9 @@ tunnel2_outside_ip=52.14.220.214
 tunnel2_inside_cidr=169.254.31.0/30
 tunnel2_psk=qnA4VFtx9QpqY2hGTMnJDqu7Q6Kcgm7L
 
-#### Ohio Core DXC SantaBarbara VPN Connection
-ohio_core_dxc_sba_vpn_id=vpn-0c187b7c20c65e56a
-ohio_core_tgw_dxc_sba_vpn_attachment_id=tgw-attach-0ab0cc38ecbc311a0
+#### Ohio Core CaMeLz SantaBarbara VPN Connection
+ohio_core_cml_sba_vpn_id=vpn-0c187b7c20c65e56a
+ohio_core_tgw_cml_sba_vpn_attachment_id=tgw-attach-0ab0cc38ecbc311a0
 tunnel1_outside_ip=3.20.58.41
 tunnel1_inside_cidr=169.254.250.0/30
 tunnel1_psk=EYq7GVPZLeAptYkZvRArx6kjdQGwXvf3
@@ -973,8 +973,8 @@ ireland_core_tgw_alfa_vpc_rtb_id=tgw-rtb-0d127f8ff2be62d17
 
 ### Global (Virginia)
 #### Global Directory Service
-global_management_directory_domain=ad.dxc-ap.com
-global_management_directory_netbios_domain=dxcap
+global_management_directory_domain=ad.camelz.io
+global_management_directory_netbios_domain=camelz
 global_management_directory_admin_password=SomethingHard2Guess
 global_management_directory_id=d-906774c4c9
 global_management_directory_sg_id=sg-057a7843e1cf635db
@@ -991,8 +991,8 @@ global_log_directory_dc_ips=10.15.6.196,10.15.14.94
 
 ### Ohio
 #### Ohio Directory Service
-ohio_management_directory_domain=ad.us-east-2.dxc-ap.com
-ohio_management_directory_netbios_domain=dxcapue2
+ohio_management_directory_domain=ad.us-east-2.camelz.io
+ohio_management_directory_netbios_domain=camelzue2
 ohio_management_directory_admin_password=MaybeNotHard2Guess
 ohio_management_directory_id=d-9a6723e9ce
 ohio_management_directory_sg_id=sg-084f9ee0b4a00df19
@@ -1019,8 +1019,8 @@ ohio_development_directory_dc_ips=10.31.3.53,10.31.7.89
 
 ### Ireland
 #### Ireland Directory Service
-ireland_management_directory_domain=ad.eu-west-1.dxc-ap.com
-ireland_management_directory_netbios_domain=dxcapew1
+ireland_management_directory_domain=ad.eu-west-1.camelz.io
+ireland_management_directory_netbios_domain=camelzew1
 ireland_management_directory_admin_password=CouldBEasy2Guess
 ireland_management_directory_id=d-93671c7d2a
 ireland_management_directory_sg_id=sg-0a1a170fec6623ead
@@ -1110,7 +1110,7 @@ WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP 
 
 ### Global (Virginia)
 #### Alfa Global Directory Service
-alfa_global_management_directory_domain=ad.alfa.dxc-ap.com
+alfa_global_management_directory_domain=ad.alfa.camelz.io
 alfa_global_management_directory_netbios_domain=alfa
 alfa_global_management_directory_admin_password=AlfaUniquePasswordGoesHere
 
@@ -1132,8 +1132,8 @@ global_log_directory_dc_ips=10.15.6.196,10.15.14.94
 
 ### Ohio
 #### Ohio Directory Service
-ohio_management_directory_domain=ad.us-east-2.dxc-ap.com
-ohio_management_directory_netbios_domain=dxcapue2
+ohio_management_directory_domain=ad.us-east-2.camelz.io
+ohio_management_directory_netbios_domain=camelzue2
 ohio_management_directory_admin_password=MaybeNotHard2Guess
 ohio_management_directory_id=d-9a6723e9ce
 ohio_management_directory_sg_id=sg-084f9ee0b4a00df19
@@ -1160,8 +1160,8 @@ ohio_development_directory_dc_ips=10.31.3.53,10.31.7.89
 
 ### Ireland
 #### Ireland Directory Service
-ireland_management_directory_domain=ad.eu-west-1.dxc-ap.com
-ireland_management_directory_netbios_domain=dxcapew1
+ireland_management_directory_domain=ad.eu-west-1.camelz.io
+ireland_management_directory_netbios_domain=camelzew1
 ireland_management_directory_admin_password=CouldBEasy2Guess
 ireland_management_directory_id=d-93671c7d2a
 ireland_management_directory_sg_id=sg-0a1a170fec6623ead
@@ -1254,289 +1254,289 @@ WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP WIP 
 global_management_lws_sg_id=sg-044cfa2d7684cf78d
 global_management_lws_eipa=eipalloc-073fefd5c7d71d64f
 global_management_lws_instancea_public_ip=52.0.251.67
-global_management_lws_instancea_hostname=dxcue1mlws01a.dxc-ap.com
-global_management_lws_instancea_hostname_alias=lwsa.dxc-ap.com
+global_management_lws_instancea_hostname=cmlue1mlws01a.camelz.io
+global_management_lws_instancea_hostname_alias=lwsa.camelz.io
 global_management_lws_instancea_id=i-0920af261e99da60c
 global_management_lws_instancea_private_ip=10.15.1.54
 
 global_management_las_sg_id=sg-0b2afc05944e248d3
 global_management_las_instancea_id=i-088f8cace37cef65f
 global_management_las_instancea_private_ip=10.15.2.119
-global_management_las_instancea_hostname=dxcue1mlas01a.dxc-ap.com
-global_management_las_instancea_hostname_alias=lasa.dxc-ap.com
+global_management_las_instancea_hostname=cmlue1mlas01a.camelz.io
+global_management_las_instancea_hostname_alias=lasa.camelz.io
 
 ### Global Core Test Instances
 global_core_lws_sg_id=sg-01f876139e077ac33
 global_core_lws_eipa=eipalloc-03e52aa56092e2d76
 global_core_lws_instancea_public_ip=3.88.238.55
-global_core_lws_instancea_hostname=dxcue1clws01a.c.dxc-ap.com
-global_core_lws_instancea_hostname_alias=lwsa.c.dxc-ap.com
+global_core_lws_instancea_hostname=cmlue1clws01a.c.camelz.io
+global_core_lws_instancea_hostname_alias=lwsa.c.camelz.io
 global_core_lws_instancea_id=i-0b8c5bcd5a5e57ffb
 global_core_lws_instancea_private_ip=10.15.65.47
 
 global_core_las_sg_id=sg-0ecdc95785013cadc
 global_core_las_instancea_id=i-01e03be98c0251824
 global_core_las_instancea_private_ip=10.15.66.56
-global_core_las_instancea_hostname=dxcue1clas01a.c.dxc-ap.com
-global_core_las_instancea_hostname_alias=lasa.c.dxc-ap.com
+global_core_las_instancea_hostname=cmlue1clas01a.c.camelz.io
+global_core_las_instancea_hostname_alias=lasa.c.camelz.io
 
 ### Global Log Test Instances
 global_log_lws_sg_id=sg-0dc193cd167ae4a63
 global_log_lws_eipa=eipalloc-0da3bda4dfed44a1f
 global_log_lws_instancea_public_ip=52.54.172.203
-global_log_lws_instancea_hostname=dxcue1llws01a.l.dxc-ap.com
-global_log_lws_instancea_hostname_alias=lwsa.l.dxc-ap.com
+global_log_lws_instancea_hostname=cmlue1llws01a.l.camelz.io
+global_log_lws_instancea_hostname_alias=lwsa.l.camelz.io
 global_log_lws_instancea_id=i-06847c97abe919110
 global_log_lws_instancea_private_ip=10.15.129.5
 
 global_log_las_sg_id=sg-03274d94cd8cd0783
 global_log_las_instancea_id=i-0bd7c18a154ce3157
 global_log_las_instancea_private_ip=10.15.130.58
-global_log_las_instancea_hostname=dxcue1llas01a.l.dxc-ap.com
-global_log_las_instancea_hostname_alias=lasa.l.dxc-ap.com
+global_log_las_instancea_hostname=cmlue1llas01a.l.camelz.io
+global_log_las_instancea_hostname_alias=lasa.l.camelz.io
 
 ### Ohio
 #### Ohio Management Test Instances
 ohio_management_lws_sg_id=sg-0505159889a874507
 ohio_management_lws_eipa=eipalloc-0b79b62ff8803e628
 ohio_management_lws_instancea_public_ip=3.22.113.108
-ohio_management_lws_instancea_hostname=dxcue2mlws01a.us-east-2.dxc-ap.com
-ohio_management_lws_instancea_hostname_alias=lwsa.us-east-2.dxc-ap.com
+ohio_management_lws_instancea_hostname=cmlue2mlws01a.us-east-2.camelz.io
+ohio_management_lws_instancea_hostname_alias=lwsa.us-east-2.camelz.io
 ohio_management_lws_instancea_id=i-07b9a78660016233c
 ohio_management_lws_instancea_private_ip=10.31.0.136
 
 ohio_management_las_sg_id=sg-0af5a5515d3712330
 ohio_management_las_instancea_id=i-013eb32e30eda3678
 ohio_management_las_instancea_private_ip=10.31.1.56
-ohio_management_las_instancea_hostname=dxcue2mlas01a.us-east-2.dxc-ap.com
-ohio_management_las_instancea_hostname_alias=lasa.us-east-2.dxc-ap.com
+ohio_management_las_instancea_hostname=cmlue2mlas01a.us-east-2.camelz.io
+ohio_management_las_instancea_hostname_alias=lasa.us-east-2.camelz.io
 
 #### Ohio Core Test Instances
 ohio_core_lws_sg_id=sg-0ed3bf55686ac1c1a
 ohio_core_lws_eipa=eipalloc-0a241d21b4df2ee3c
 ohio_core_lws_instancea_public_ip=3.16.2.240
-ohio_core_lws_instancea_hostname=dxcue2clws01a.c.us-east-2.dxc-ap.com
-ohio_core_lws_instancea_hostname_alias=lwsa.c.us-east-2.dxc-ap.com
+ohio_core_lws_instancea_hostname=cmlue2clws01a.c.us-east-2.camelz.io
+ohio_core_lws_instancea_hostname_alias=lwsa.c.us-east-2.camelz.io
 ohio_core_lws_instancea_id=i-0ed43643c2e2a9571
 ohio_core_lws_instancea_private_ip=10.31.64.151
 
 ohio_core_las_sg_id=sg-064aadf544ed397d3
 ohio_core_las_instancea_id=i-0543caa03cb1a474f
 ohio_core_las_instancea_private_ip=10.31.65.10
-ohio_core_las_instancea_hostname=dxcue2clas01a.c.us-east-2.dxc-ap.com
-ohio_core_las_instancea_hostname_alias=lasa.c.us-east-2.dxc-ap.com
+ohio_core_las_instancea_hostname=cmlue2clas01a.c.us-east-2.camelz.io
+ohio_core_las_instancea_hostname_alias=lasa.c.us-east-2.camelz.io
 
 #### Ohio Log Test Instances
 ohio_log_lws_sg_id=sg-0f274dfc263d24533
 ohio_log_lws_eipa=eipalloc-01f831c9ee16b48a1
 ohio_log_lws_instancea_public_ip=18.190.0.68
-ohio_log_lws_instancea_hostname=dxcue2llws01a.l.us-east-2.dxc-ap.com
-ohio_log_lws_instancea_hostname_alias=lwsa.l.us-east-2.dxc-ap.com
+ohio_log_lws_instancea_hostname=cmlue2llws01a.l.us-east-2.camelz.io
+ohio_log_lws_instancea_hostname_alias=lwsa.l.us-east-2.camelz.io
 ohio_log_lws_instancea_id=i-056e0da247f95c6e1
 ohio_log_lws_instancea_private_ip=10.31.128.163
 
 ohio_log_las_sg_id=sg-099edfc020a70a631
 ohio_log_las_instancea_id=i-09b5519fec44d5df0
 ohio_log_las_instancea_private_ip=10.31.129.23
-ohio_log_las_instancea_hostname=dxcue2llas01a.l.us-east-2.dxc-ap.com
-ohio_log_las_instancea_hostname_alias=lasa.l.us-east-2.dxc-ap.com
+ohio_log_las_instancea_hostname=cmlue2llas01a.l.us-east-2.camelz.io
+ohio_log_las_instancea_hostname_alias=lasa.l.us-east-2.camelz.io
 
 #### Alfa Ohio Production Test Instances
 alfa_ohio_production_lws_sg_id=sg-0dce162fad0075486
 alfa_ohio_production_lws_eipa=eipalloc-0a758ad6ce74ee83b
 alfa_ohio_production_lws_instancea_public_ip=3.13.234.167
-alfa_ohio_production_lws_instancea_hostname=alfue2plws01a.us-east-2.alfa.dxc-ap.com
-alfa_ohio_production_lws_instancea_hostname_alias=lwsa.us-east-2.alfa.dxc-ap.com
+alfa_ohio_production_lws_instancea_hostname=alfue2plws01a.us-east-2.alfa.camelz.io
+alfa_ohio_production_lws_instancea_hostname_alias=lwsa.us-east-2.alfa.camelz.io
 alfa_ohio_production_lws_instancea_id=i-0d142e1b0fe6ebd9b
 alfa_ohio_production_lws_instancea_private_ip=10.16.0.188
 
 alfa_ohio_production_las_sg_id=sg-0f7e2ed9ea705d3be
 alfa_ohio_production_las_instancea_id=i-0121724f2aef7cbcd
 alfa_ohio_production_las_instancea_private_ip=10.16.1.32
-alfa_ohio_production_las_instancea_hostname=alfue2plas01a.us-east-2.alfa.dxc-ap.com
-alfa_ohio_production_las_instancea_hostname_alias=lasa.us-east-2.alfa.dxc-ap.com
+alfa_ohio_production_las_instancea_hostname=alfue2plas01a.us-east-2.alfa.camelz.io
+alfa_ohio_production_las_instancea_hostname_alias=lasa.us-east-2.alfa.camelz.io
 
 #### Alfa Ohio Testing Test Instances
 alfa_ohio_testing_lws_sg_id=sg-0754c1cbbf42b1039
 alfa_ohio_testing_lws_eipa=eipalloc-0a0c8217acfa43d5a
 alfa_ohio_testing_lws_instancea_public_ip=3.22.90.148
-alfa_ohio_testing_lws_instancea_hostname=alfue2tlws01a.t.us-east-2.alfa.dxc-ap.com
-alfa_ohio_testing_lws_instancea_hostname_alias=lwsa.t.us-east-2.alfa.dxc-ap.com
+alfa_ohio_testing_lws_instancea_hostname=alfue2tlws01a.t.us-east-2.alfa.camelz.io
+alfa_ohio_testing_lws_instancea_hostname_alias=lwsa.t.us-east-2.alfa.camelz.io
 alfa_ohio_testing_lws_instancea_id=i-06ab6a978ebc79bc1
 alfa_ohio_testing_lws_instancea_private_ip=10.16.32.179
 
 alfa_ohio_testing_las_sg_id=sg-0690256f70b7147a1
 alfa_ohio_testing_las_instancea_id=i-002658aa0ccb5b230
 alfa_ohio_testing_las_instancea_private_ip=10.16.33.45
-alfa_ohio_testing_las_instancea_hostname=alfue2tlas01a.t.us-east-2.alfa.dxc-ap.com
-alfa_ohio_testing_las_instancea_hostname_alias=lasa.t.us-east-2.alfa.dxc-ap.com
+alfa_ohio_testing_las_instancea_hostname=alfue2tlas01a.t.us-east-2.alfa.camelz.io
+alfa_ohio_testing_las_instancea_hostname_alias=lasa.t.us-east-2.alfa.camelz.io
 
 #### Alfa Ohio Development Test Instances
 alfa_ohio_development_lws_sg_id=sg-0fa080aec89ddb41a
 alfa_ohio_development_lws_eipa=eipalloc-013b52a97595580ad
 alfa_ohio_development_lws_instancea_public_ip=3.22.33.247
-alfa_ohio_development_lws_instancea_hostname=alfue2dlws01a.d.us-east-2.alfa.dxc-ap.com
-alfa_ohio_development_lws_instancea_hostname_alias=lwsa.d.us-east-2.alfa.dxc-ap.com
+alfa_ohio_development_lws_instancea_hostname=alfue2dlws01a.d.us-east-2.alfa.camelz.io
+alfa_ohio_development_lws_instancea_hostname_alias=lwsa.d.us-east-2.alfa.camelz.io
 alfa_ohio_development_lws_instancea_id=i-0518e0ed3b97989f5
 alfa_ohio_development_lws_instancea_private_ip=10.16.48.146
 
 alfa_ohio_development_las_sg_id=sg-0b25c52cd277f277b
 alfa_ohio_development_las_instancea_id=i-0b0c38cad4ed3f116
 alfa_ohio_development_las_instancea_private_ip=10.16.49.17
-alfa_ohio_development_las_instancea_hostname=alfue2dlas01a.d.us-east-2.alfa.dxc-ap.com
-alfa_ohio_development_las_instancea_hostname_alias=lasa.d.us-east-2.alfa.dxc-ap.com
+alfa_ohio_development_las_instancea_hostname=alfue2dlas01a.d.us-east-2.alfa.camelz.io
+alfa_ohio_development_las_instancea_hostname_alias=lasa.d.us-east-2.alfa.camelz.io
 
 #### Zulu Ohio Production Test Instances
 zulu_ohio_production_lws_sg_id=sg-0ac5c88f8eb92dfc8
 zulu_ohio_production_lws_eipa=eipalloc-0ace34e8cf33837a3
 zulu_ohio_production_lws_instancea_public_ip=3.22.109.190
-zulu_ohio_production_lws_instancea_hostname=zulue2plws01a.us-east-2.zulu.dxc-ap.com
-zulu_ohio_production_lws_instancea_hostname_alias=lwsa.us-east-2.zulu.dxc-ap.com
+zulu_ohio_production_lws_instancea_hostname=zulue2plws01a.us-east-2.zulu.camelz.io
+zulu_ohio_production_lws_instancea_hostname_alias=lwsa.us-east-2.zulu.camelz.io
 zulu_ohio_production_lws_instancea_id=i-0be96133dbce37379
 zulu_ohio_production_lws_instancea_private_ip=10.22.65.44
 
 zulu_ohio_production_las_sg_id=sg-0d113bde5717646f9
 zulu_ohio_production_las_instancea_id=i-0a16a114d96b0dcb4
 zulu_ohio_production_las_instancea_private_ip=10.22.66.6
-zulu_ohio_production_las_instancea_hostname=zulue2plas01a.us-east-2.zulu.dxc-ap.com
-zulu_ohio_production_las_instancea_hostname_alias=lasa.us-east-2.zulu.dxc-ap.com
+zulu_ohio_production_las_instancea_hostname=zulue2plas01a.us-east-2.zulu.camelz.io
+zulu_ohio_production_las_instancea_hostname_alias=lasa.us-east-2.zulu.camelz.io
 
 #### Zulu Ohio Development Test Instances
 zulu_ohio_development_lws_sg_id=sg-0a19cef339450ab80
 zulu_ohio_development_lws_eipa=eipalloc-000e9bd9721d60d8f
 zulu_ohio_development_lws_instancea_public_ip=18.189.12.163
-zulu_ohio_development_lws_instancea_hostname=zulue2dlws01a.d.us-east-2.zulu.dxc-ap.com
-zulu_ohio_development_lws_instancea_hostname_alias=lwsa.d.us-east-2.zulu.dxc-ap.com
+zulu_ohio_development_lws_instancea_hostname=zulue2dlws01a.d.us-east-2.zulu.camelz.io
+zulu_ohio_development_lws_instancea_hostname_alias=lwsa.d.us-east-2.zulu.camelz.io
 zulu_ohio_development_lws_instancea_id=i-07a2af50833c9cb9b
 zulu_ohio_development_lws_instancea_private_ip=10.22.112.163
 
 zulu_ohio_development_las_sg_id=sg-09cb1d0029cde12ef
 zulu_ohio_development_las_instancea_id=i-0aec8895c7ba9e6e1
 zulu_ohio_development_las_instancea_private_ip=10.22.113.34
-zulu_ohio_development_las_instancea_hostname=zulue2dlas01a.d.us-east-2.zulu.dxc-ap.com
-zulu_ohio_development_las_instancea_hostname_alias=lasa.d.us-east-2.zulu.dxc-ap.com
+zulu_ohio_development_las_instancea_hostname=zulue2dlas01a.d.us-east-2.zulu.camelz.io
+zulu_ohio_development_las_instancea_hostname_alias=lasa.d.us-east-2.zulu.camelz.io
 
 ### Ireland Region
 #### Ireland Management Test Instances
 ireland_management_lws_sg_id=sg-0b0537410bda4af49
 ireland_management_lws_eipa=eipalloc-00085ed8ab651abf2
 ireland_management_lws_instancea_public_ip=52.49.168.102
-ireland_management_lws_instancea_hostname=dxcew1mlws01a.eu-west-1.dxc-ap.com
-ireland_management_lws_instancea_hostname_alias=lwsa.eu-west-1.dxc-ap.com
+ireland_management_lws_instancea_hostname=cmlew1mlws01a.eu-west-1.camelz.io
+ireland_management_lws_instancea_hostname_alias=lwsa.eu-west-1.camelz.io
 ireland_management_lws_instancea_id=i-0f3e6c4e521bf9820
 ireland_management_lws_instancea_private_ip=10.79.0.135
 
 ireland_management_las_sg_id=sg-037b9a465102a0eba
 ireland_management_las_instancea_id=i-08bc846193e97295b
 ireland_management_las_instancea_private_ip=10.79.1.56
-ireland_management_las_instancea_hostname=dxcew1mlas01a.eu-west-1.dxc-ap.com
-ireland_management_las_instancea_hostname_alias=lasa.eu-west-1.dxc-ap.com
+ireland_management_las_instancea_hostname=cmlew1mlas01a.eu-west-1.camelz.io
+ireland_management_las_instancea_hostname_alias=lasa.eu-west-1.camelz.io
 
 #### Ireland Core Test Instances
 ireland_core_lws_sg_id=sg-0b0abcf77c1f5ff95
 ireland_core_lws_eipa=eipalloc-058fbd900397d1a8d
 ireland_core_lws_instancea_public_ip=52.49.206.1
-ireland_core_lws_instancea_hostname=dxcew1clws01a.c.eu-west-1.dxc-ap.com
-ireland_core_lws_instancea_hostname_alias=lwsa.c.eu-west-1.dxc-ap.com
+ireland_core_lws_instancea_hostname=cmlew1clws01a.c.eu-west-1.camelz.io
+ireland_core_lws_instancea_hostname_alias=lwsa.c.eu-west-1.camelz.io
 ireland_core_lws_instancea_id=i-030eef108161c226c
 ireland_core_lws_instancea_private_ip=10.79.64.180
 
 ireland_core_las_sg_id=sg-0b737f25c3c3f1735
 ireland_core_las_instancea_id=i-081104fe989c0d309
 ireland_core_las_instancea_private_ip=10.79.65.49
-ireland_core_las_instancea_hostname=dxcew1clas01a.c.eu-west-1.dxc-ap.com
-ireland_core_las_instancea_hostname_alias=lasa.c.eu-west-1.dxc-ap.com
+ireland_core_las_instancea_hostname=cmlew1clas01a.c.eu-west-1.camelz.io
+ireland_core_las_instancea_hostname_alias=lasa.c.eu-west-1.camelz.io
 
 #### Ireland Log Test Instances
 ireland_log_lws_sg_id=sg-062b94b448c4bc116
 ireland_log_lws_eipa=eipalloc-0195c540c96608141
 ireland_log_lws_instancea_public_ip=52.31.176.175
-ireland_log_lws_instancea_hostname=dxcew1llws01a.l.eu-west-1.dxc-ap.com
-ireland_log_lws_instancea_hostname_alias=lwsa.l.eu-west-1.dxc-ap.com
+ireland_log_lws_instancea_hostname=cmlew1llws01a.l.eu-west-1.camelz.io
+ireland_log_lws_instancea_hostname_alias=lwsa.l.eu-west-1.camelz.io
 ireland_log_lws_instancea_id=i-0766c2fadd0e328b4
 ireland_log_lws_instancea_private_ip=10.79.128.145
 
 ireland_log_las_sg_id=sg-016cb7f2c467414fe
 ireland_log_las_instancea_id=i-0bca046b6aa0938f9
 ireland_log_las_instancea_private_ip=10.79.129.22
-ireland_log_las_instancea_hostname=dxcew1llas01a.l.eu-west-1.dxc-ap.com
-ireland_log_las_instancea_hostname_alias=lasa.l.eu-west-1.dxc-ap.com
+ireland_log_las_instancea_hostname=cmlew1llas01a.l.eu-west-1.camelz.io
+ireland_log_las_instancea_hostname_alias=lasa.l.eu-west-1.camelz.io
 
 #### Alfa Ireland Recovery Test Instances
 alfa_ireland_recovery_lws_sg_id=sg-0c748a6f9837c9571
 alfa_ireland_recovery_lws_eipa=eipalloc-0d0faaed92557230e
 alfa_ireland_recovery_lws_instancea_public_ip=52.209.57.54
-alfa_ireland_recovery_lws_instancea_hostname=alfew1rlws01a.r.eu-west-1.alfa.dxc-ap.com
-alfa_ireland_recovery_lws_instancea_hostname_alias=lwsa.r.eu-west-1.alfa.dxc-ap.com
+alfa_ireland_recovery_lws_instancea_hostname=alfew1rlws01a.r.eu-west-1.alfa.camelz.io
+alfa_ireland_recovery_lws_instancea_hostname_alias=lwsa.r.eu-west-1.alfa.camelz.io
 alfa_ireland_recovery_lws_instancea_id=i-0af7e43a56ff156f7
 alfa_ireland_recovery_lws_instancea_private_ip=10.64.0.180
 
 alfa_ireland_recovery_las_sg_id=sg-0dbbe0489cee481b1
 alfa_ireland_recovery_las_instancea_id=i-01ce6be1b1df1be28
 alfa_ireland_recovery_las_instancea_private_ip=10.64.1.50
-alfa_ireland_recovery_las_instancea_hostname=alfew1rlas01a.r.eu-west-1.alfa.dxc-ap.com
-alfa_ireland_recovery_las_instancea_hostname_alias=lasa.r.eu-west-1.alfa.dxc-ap.com
+alfa_ireland_recovery_las_instancea_hostname=alfew1rlas01a.r.eu-west-1.alfa.camelz.io
+alfa_ireland_recovery_las_instancea_hostname_alias=lasa.r.eu-west-1.alfa.camelz.io
 
 ### Data Centers
 #### Alfa LosAngeles Test Instances
 alfa_lax_lws_sg_id=sg-0d28a66aa40894e90
 alfa_lax_lws_eipa=eipalloc-00b22cd9c5cee4f25
 alfa_lax_lws_instancea_public_ip=3.22.123.95
-alfa_lax_lws_instancea_hostname=alflaxclws01a.lax.alfa.dxc-ap.com
-alfa_lax_lws_instancea_hostname_alias=lwsa.lax.alfa.dxc-ap.com
+alfa_lax_lws_instancea_hostname=alflaxclws01a.lax.alfa.camelz.io
+alfa_lax_lws_instancea_hostname_alias=lwsa.lax.alfa.camelz.io
 alfa_lax_lws_instancea_id=i-06bb184052e2a1339
 alfa_lax_lws_instancea_private_ip=172.24.0.12
 
 alfa_lax_las_sg_id=sg-0f98015bdbbb8f60b
 alfa_lax_las_instancea_id=i-013a06b4e92d29438
 alfa_lax_las_instancea_private_ip=172.24.0.41
-alfa_lax_las_instancea_hostname=alflaxclas01a.lax.alfa.dxc-ap.com
-alfa_lax_las_instancea_hostname_alias=lasa.lax.alfa.dxc-ap.com
+alfa_lax_las_instancea_hostname=alflaxclas01a.lax.alfa.camelz.io
+alfa_lax_las_instancea_hostname_alias=lasa.lax.alfa.camelz.io
 
 #### Alfa Miami Test Instances
 alfa_mia_lws_sg_id=sg-00828936936a07d1f
 alfa_mia_lws_eipa=eipalloc-02bb71ebd1e581b0a
 alfa_mia_lws_instancea_public_ip=3.22.25.120
-alfa_mia_lws_instancea_hostname=alfmiaclws01a.mia.alfa.dxc-ap.com
-alfa_mia_lws_instancea_hostname_alias=lwsa.mia.alfa.dxc-ap.com
+alfa_mia_lws_instancea_hostname=alfmiaclws01a.mia.alfa.camelz.io
+alfa_mia_lws_instancea_hostname_alias=lwsa.mia.alfa.camelz.io
 alfa_mia_lws_instancea_id=i-0a9f29288367fcc6d
 alfa_mia_lws_instancea_private_ip=172.24.1.13
 
 alfa_mia_las_sg_id=sg-07901e8b7ed92028c
 alfa_mia_las_instancea_id=i-0ec0b260c58177e36
 alfa_mia_las_instancea_private_ip=172.24.1.60
-alfa_mia_las_instancea_hostname=alfmiaclas01a.mia.alfa.dxc-ap.com
-alfa_mia_las_instancea_hostname_alias=lasa.mia.alfa.dxc-ap.com
+alfa_mia_las_instancea_hostname=alfmiaclas01a.mia.alfa.camelz.io
+alfa_mia_las_instancea_hostname_alias=lasa.mia.alfa.camelz.io
 
 #### Zulu Dallas Test Instances
 zulu_dfw_lws_sg_id=sg-092c4e95fe317a3a2
 zulu_dfw_lws_eipa=eipalloc-0efe598e7684b4db2
 zulu_dfw_lws_instancea_public_ip=3.13.68.127
-zulu_dfw_lws_instancea_hostname=zuldfwclws01a.dfw.zulu.dxc-ap.com
-zulu_dfw_lws_instancea_hostname_alias=lwsa.dfw.zulu.dxc-ap.com
+zulu_dfw_lws_instancea_hostname=zuldfwclws01a.dfw.zulu.camelz.io
+zulu_dfw_lws_instancea_hostname_alias=lwsa.dfw.zulu.camelz.io
 zulu_dfw_lws_instancea_id=i-0a8feac5e15387568
 zulu_dfw_lws_instancea_private_ip=172.28.0.14
 
 zulu_dfw_las_sg_id=sg-0e4560e4e831f1cbd
 zulu_dfw_las_instancea_id=i-002b19b83c87b36f2
 zulu_dfw_las_instancea_private_ip=172.28.0.46
-zulu_dfw_las_instancea_hostname=zuldfwclas01a.dfw.zulu.dxc-ap.com
-zulu_dfw_las_instancea_hostname_alias=lasa.dfw.zulu.dxc-ap.com
+zulu_dfw_las_instancea_hostname=zuldfwclas01a.dfw.zulu.camelz.io
+zulu_dfw_las_instancea_hostname_alias=lasa.dfw.zulu.camelz.io
 
-#### DXC SantaBarbara Test Instances
-dxc_sba_lws_sg_id=sg-09e3e40e08abe718b
-dxc_sba_lws_eipa=eipalloc-0e1e99916cacef788
-dxc_sba_lws_instancea_public_ip=52.14.226.102
-dxc_sba_lws_instancea_hostname=dxcsbaclws01a.sba.dxc-ap.com
-dxc_sba_lws_instancea_hostname_alias=lwsa.sba.dxc-ap.com
-dxc_sba_lws_instancea_id=i-0f00c4161a1d89d93
-dxc_sba_lws_instancea_private_ip=172.31.255.18
+#### CaMeLz SantaBarbara Test Instances
+cml_sba_lws_sg_id=sg-09e3e40e08abe718b
+cml_sba_lws_eipa=eipalloc-0e1e99916cacef788
+cml_sba_lws_instancea_public_ip=52.14.226.102
+cml_sba_lws_instancea_hostname=cmlsbaclws01a.sba.camelz.io
+cml_sba_lws_instancea_hostname_alias=lwsa.sba.camelz.io
+cml_sba_lws_instancea_id=i-0f00c4161a1d89d93
+cml_sba_lws_instancea_private_ip=172.31.255.18
 
-dxc_sba_las_sg_id=sg-0a5eacc669d28ba7a
-dxc_sba_las_instancea_id=i-077ae2d8ea69c270d
-dxc_sba_las_instancea_private_ip=172.31.255.47
-dxc_sba_las_instancea_hostname=dxcsbaclas01a.sba.dxc-ap.com
-dxc_sba_las_instancea_hostname_alias=lasa.sba.dxc-ap.com
+cml_sba_las_sg_id=sg-0a5eacc669d28ba7a
+cml_sba_las_instancea_id=i-077ae2d8ea69c270d
+cml_sba_las_instancea_private_ip=172.31.255.47
+cml_sba_las_instancea_hostname=cmlsbaclas01a.sba.camelz.io
+cml_sba_las_instancea_hostname_alias=lasa.sba.camelz.io
 
 
 ## Windows Bastions ###################################################################################################
@@ -1546,8 +1546,8 @@ dxc_sba_las_instancea_hostname_alias=lasa.sba.dxc-ap.com
 global_management_wb_sg_id=sg-06bae70c47655242a
 global_management_wb_eipa=eipalloc-0abfd266c0e79d2ec
 global_management_wb_instancea_public_ip=50.17.79.168
-global_management_wb_instancea_hostname=dxcue1mwb01a.dxc-ap.com
-global_management_wb_instancea_hostname_alias=wba.dxc-ap.com
+global_management_wb_instancea_hostname=cmlue1mwb01a.camelz.io
+global_management_wb_instancea_hostname_alias=wba.camelz.io
 global_management_wb_instancea_id=i-0710479bd35789034
 global_management_wb_instancea_private_ip=10.15.0.98
 
@@ -1555,8 +1555,8 @@ global_management_wb_instancea_private_ip=10.15.0.98
 global_core_wb_sg_id=sg-0cca79372482ad061
 global_core_wb_eipa=eipalloc-0330f251b164ff267
 global_core_wb_instancea_public_ip=52.207.50.90
-global_core_wb_instancea_hostname=dxcue1cwb01a.c.dxc-ap.com
-global_core_wb_instancea_hostname_alias=wba.c.dxc-ap.com
+global_core_wb_instancea_hostname=cmlue1cwb01a.c.camelz.io
+global_core_wb_instancea_hostname_alias=wba.c.camelz.io
 global_core_wb_instancea_id=i-0981063b210bf679f
 global_core_wb_instancea_private_ip=10.15.64.46
 
@@ -1564,8 +1564,8 @@ global_core_wb_instancea_private_ip=10.15.64.46
 global_log_wb_sg_id=sg-0348a7a10d385c626
 global_log_wb_eipa=eipalloc-006f486d8dd0e5a16
 global_log_wb_instancea_public_ip=35.153.45.184
-global_log_wb_instancea_hostname=dxcue1lwb01a.l.dxc-ap.com
-global_log_wb_instancea_hostname_alias=wba.l.dxc-ap.com
+global_log_wb_instancea_hostname=cmlue1lwb01a.l.camelz.io
+global_log_wb_instancea_hostname_alias=wba.l.camelz.io
 global_log_wb_instancea_id=i-06cad78e5d40619f4
 global_log_wb_instancea_private_ip=10.15.128.76
 
@@ -1574,8 +1574,8 @@ global_log_wb_instancea_private_ip=10.15.128.76
 ohio_management_wb_sg_id=sg-02f3f384dd3281637
 ohio_management_wb_eipa=eipalloc-0caf9c02a1bbb086c
 ohio_management_wb_instancea_public_ip=3.15.130.14
-ohio_management_wb_instancea_hostname=dxcue2mwb01a.us-east-2.dxc-ap.com
-ohio_management_wb_instancea_hostname_alias=wba.us-east-2.dxc-ap.com
+ohio_management_wb_instancea_hostname=cmlue2mwb01a.us-east-2.camelz.io
+ohio_management_wb_instancea_hostname_alias=wba.us-east-2.camelz.io
 ohio_management_wb_instancea_id=i-0ecfcafaba3f4a2b9
 ohio_management_wb_instancea_private_ip=10.31.0.20
 
@@ -1583,8 +1583,8 @@ ohio_management_wb_instancea_private_ip=10.31.0.20
 ohio_core_wb_sg_id=sg-0d88e44e9a8da8199
 ohio_core_wb_eipa=eipalloc-0107e889f69789a44
 ohio_core_wb_instancea_public_ip=3.134.201.36
-ohio_core_wb_instancea_hostname=dxcue2cwb01a.c.us-east-2.dxc-ap.com
-ohio_core_wb_instancea_hostname_alias=wba.c.us-east-2.dxc-ap.com
+ohio_core_wb_instancea_hostname=cmlue2cwb01a.c.us-east-2.camelz.io
+ohio_core_wb_instancea_hostname_alias=wba.c.us-east-2.camelz.io
 ohio_core_wb_instancea_id=i-0f43850c8706ba0b8
 ohio_core_wb_instancea_private_ip=10.31.64.50
 
@@ -1592,8 +1592,8 @@ ohio_core_wb_instancea_private_ip=10.31.64.50
 ohio_log_wb_sg_id=sg-0291e6a0800a57868
 ohio_log_wb_eipa=eipalloc-087f1c594e474954e
 ohio_log_wb_instancea_public_ip=3.22.126.102
-ohio_log_wb_instancea_hostname=dxcue2lwb01a.l.us-east-2.dxc-ap.com
-ohio_log_wb_instancea_hostname_alias=wba.l.us-east-2.dxc-ap.com
+ohio_log_wb_instancea_hostname=cmlue2lwb01a.l.us-east-2.camelz.io
+ohio_log_wb_instancea_hostname_alias=wba.l.us-east-2.camelz.io
 ohio_log_wb_instancea_id=i-025b1f3272ff22491
 ohio_log_wb_instancea_private_ip=10.31.128.42
 
@@ -1601,8 +1601,8 @@ ohio_log_wb_instancea_private_ip=10.31.128.42
 alfa_ohio_production_wb_sg_id=sg-058493afd65c297f6
 alfa_ohio_production_wb_eipa=eipalloc-061fb671b298b5070
 alfa_ohio_production_wb_instancea_public_ip=3.22.16.212
-alfa_ohio_production_wb_instancea_hostname=alfue1pwb01a.us-east-2.alfa.dxc-ap.com
-alfa_ohio_production_wb_instancea_hostname_alias=wba.us-east-2.alfa.dxc-ap.com
+alfa_ohio_production_wb_instancea_hostname=alfue1pwb01a.us-east-2.alfa.camelz.io
+alfa_ohio_production_wb_instancea_hostname_alias=wba.us-east-2.alfa.camelz.io
 alfa_ohio_production_wb_instancea_id=i-0ee04e64e3777e3f5
 alfa_ohio_production_wb_instancea_private_ip=10.16.0.30
 
@@ -1610,8 +1610,8 @@ alfa_ohio_production_wb_instancea_private_ip=10.16.0.30
 alfa_ohio_testing_wb_sg_id=sg-05b5d787f772d59b7
 alfa_ohio_testing_wb_eipa=eipalloc-05b4febbdf25fca22
 alfa_ohio_testing_wb_instancea_public_ip=3.14.226.115
-alfa_ohio_testing_wb_instancea_hostname=alfue2twb01a.t.us-east-2.alfa.dxc-ap.com
-alfa_ohio_testing_wb_instancea_hostname_alias=wba.t.us-east-2.alfa.dxc-ap.com
+alfa_ohio_testing_wb_instancea_hostname=alfue2twb01a.t.us-east-2.alfa.camelz.io
+alfa_ohio_testing_wb_instancea_hostname_alias=wba.t.us-east-2.alfa.camelz.io
 alfa_ohio_testing_wb_instancea_id=i-071d0e0919e47a3c4
 alfa_ohio_testing_wb_instancea_private_ip=10.16.32.59
 
@@ -1619,8 +1619,8 @@ alfa_ohio_testing_wb_instancea_private_ip=10.16.32.59
 alfa_ohio_development_wb_sg_id=sg-0ae6019eed7ff9278
 alfa_ohio_development_wb_eipa=eipalloc-08e82042897e32e08
 alfa_ohio_development_wb_instancea_public_ip=3.23.21.10
-alfa_ohio_development_wb_instancea_hostname=alfue2dwb01a.d.us-east-2.alfa.dxc-ap.com
-alfa_ohio_development_wb_instancea_hostname_alias=wba.d.us-east-2.alfa.dxc-ap.com
+alfa_ohio_development_wb_instancea_hostname=alfue2dwb01a.d.us-east-2.alfa.camelz.io
+alfa_ohio_development_wb_instancea_hostname_alias=wba.d.us-east-2.alfa.camelz.io
 alfa_ohio_development_wb_instancea_id=i-0385f9fd2e758b5c5
 alfa_ohio_development_wb_instancea_private_ip=10.16.48.44
 
@@ -1628,8 +1628,8 @@ alfa_ohio_development_wb_instancea_private_ip=10.16.48.44
 zulu_ohio_production_wb_sg_id=sg-0e8cd99ae8b9f831e
 zulu_ohio_production_wb_eipa=eipalloc-0c4657968468bd828
 zulu_ohio_production_wb_instancea_public_ip=3.23.83.116
-zulu_ohio_production_wb_instancea_hostname=zulue2pwb01a.us-east-2.zulu.dxc-ap.com
-zulu_ohio_production_wb_instancea_hostname_alias=wba.us-east-2.zulu.dxc-ap.com
+zulu_ohio_production_wb_instancea_hostname=zulue2pwb01a.us-east-2.zulu.camelz.io
+zulu_ohio_production_wb_instancea_hostname_alias=wba.us-east-2.zulu.camelz.io
 zulu_ohio_production_wb_instancea_id=i-0c466559d62a1dd30
 zulu_ohio_production_wb_instancea_private_ip=10.22.64.69
 
@@ -1637,8 +1637,8 @@ zulu_ohio_production_wb_instancea_private_ip=10.22.64.69
 zulu_ohio_development_wb_sg_id=sg-0502d25d0ad67d6fd
 zulu_ohio_development_wb_eipa=eipalloc-0661c2d47e15c1116
 zulu_ohio_development_wb_instancea_public_ip=3.23.39.79
-zulu_ohio_development_wb_instancea_hostname=zulue2dwb01a.d.us-east-2.zulu.dxc-ap.com
-zulu_ohio_development_wb_instancea_hostname_alias=wba.d.us-east-2.zulu.dxc-ap.com
+zulu_ohio_development_wb_instancea_hostname=zulue2dwb01a.d.us-east-2.zulu.camelz.io
+zulu_ohio_development_wb_instancea_hostname_alias=wba.d.us-east-2.zulu.camelz.io
 zulu_ohio_development_wb_instancea_id=i-0ae82c72a9ada1edd
 zulu_ohio_development_wb_instancea_private_ip=10.22.112.28
 
@@ -1647,8 +1647,8 @@ zulu_ohio_development_wb_instancea_private_ip=10.22.112.28
 ireland_management_wb_sg_id=sg-08a4b4407bd4190eb
 ireland_management_wb_eipa=eipalloc-0442302b83121a69c
 ireland_management_wb_instancea_public_ip=54.154.98.209
-ireland_management_wb_instancea_hostname=dxcew1mwb01a.eu-west-1.dxc-ap.com
-ireland_management_wb_instancea_hostname_alias=wba.eu-west-1.dxc-ap.com
+ireland_management_wb_instancea_hostname=cmlew1mwb01a.eu-west-1.camelz.io
+ireland_management_wb_instancea_hostname_alias=wba.eu-west-1.camelz.io
 ireland_management_wb_instancea_id=i-084ede75722b0f848
 ireland_management_wb_instancea_private_ip=10.79.0.7
 
@@ -1656,8 +1656,8 @@ ireland_management_wb_instancea_private_ip=10.79.0.7
 ireland_core_wb_sg_id=sg-0cb2bfdeda9985a51
 ireland_core_wb_eipa=eipalloc-0b0c407aa5ec5aad7
 ireland_core_wb_instancea_public_ip=54.76.33.199
-ireland_core_wb_instancea_hostname=dxcew1cwb01a.c.eu-west-1.dxc-ap.com
-ireland_core_wb_instancea_hostname_alias=wba.c.eu-west-1.dxc-ap.com
+ireland_core_wb_instancea_hostname=cmlew1cwb01a.c.eu-west-1.camelz.io
+ireland_core_wb_instancea_hostname_alias=wba.c.eu-west-1.camelz.io
 ireland_core_wb_instancea_id=i-0df3c5fd347ef37a2
 ireland_core_wb_instancea_private_ip=10.79.64.18
 
@@ -1665,8 +1665,8 @@ ireland_core_wb_instancea_private_ip=10.79.64.18
 ireland_log_wb_sg_id=sg-03c9d1e9e142f34bf
 ireland_log_wb_eipa=eipalloc-08fed6299fe6ab934
 ireland_log_wb_instancea_public_ip=52.48.173.157
-ireland_log_wb_instancea_hostname=dxcew1lwb01a.l.eu-west-1.dxc-ap.com
-ireland_log_wb_instancea_hostname_alias=wba.l.eu-west-1.dxc-ap.com
+ireland_log_wb_instancea_hostname=cmlew1lwb01a.l.eu-west-1.camelz.io
+ireland_log_wb_instancea_hostname_alias=wba.l.eu-west-1.camelz.io
 ireland_log_wb_instancea_id=i-04737f4599ad63c73
 ireland_log_wb_instancea_private_ip=10.79.128.50
 
@@ -1674,8 +1674,8 @@ ireland_log_wb_instancea_private_ip=10.79.128.50
 alfa_ireland_recovery_wb_sg_id=sg-06928fb386a8fece2
 alfa_ireland_recovery_wb_eipa=eipalloc-0ba60a071ac6fb176
 alfa_ireland_recovery_wb_instancea_public_ip=52.19.140.119
-alfa_ireland_recovery_wb_instancea_hostname=alfew1rwb01a.r.eu-west-1.alfa.dxc-ap.com
-alfa_ireland_recovery_wb_instancea_hostname_alias=wba.r.eu-west-1.alfa.dxc-ap.com
+alfa_ireland_recovery_wb_instancea_hostname=alfew1rwb01a.r.eu-west-1.alfa.camelz.io
+alfa_ireland_recovery_wb_instancea_hostname_alias=wba.r.eu-west-1.alfa.camelz.io
 alfa_ireland_recovery_wb_instancea_id=i-03e0f6561583c236a
 alfa_ireland_recovery_wb_instancea_private_ip=10.64.0.21
 
@@ -1684,8 +1684,8 @@ alfa_ireland_recovery_wb_instancea_private_ip=10.64.0.21
 alfa_lax_wb_sg_id=sg-078e7dd231d08c36e
 alfa_lax_wb_eipa=eipalloc-0ff2b13ab5d4978d4
 alfa_lax_wb_instancea_public_ip=3.12.205.174
-alfa_lax_wb_instancea_hostname=alflaxcwb01a.lax.alfa.dxc-ap.com
-alfa_lax_wb_instancea_hostname_alias=wba.lax.alfa.dxc-ap.com
+alfa_lax_wb_instancea_hostname=alflaxcwb01a.lax.alfa.camelz.io
+alfa_lax_wb_instancea_hostname_alias=wba.lax.alfa.camelz.io
 alfa_lax_wb_instancea_id=i-06dde4189a1aaf509
 alfa_lax_wb_instancea_private_ip=172.24.0.9
 
@@ -1693,8 +1693,8 @@ alfa_lax_wb_instancea_private_ip=172.24.0.9
 alfa_mia_wb_sg_id=sg-0c4225fe509857df5
 alfa_mia_wb_eipa=eipalloc-02a34c5700e2d3bd3
 alfa_mia_wb_instancea_public_ip=3.22.154.79
-alfa_mia_wb_instancea_hostname=alfmiacwb01a.mia.alfa.dxc-ap.com
-alfa_mia_wb_instancea_hostname_alias=wba.mia.alfa.dxc-ap.com
+alfa_mia_wb_instancea_hostname=alfmiacwb01a.mia.alfa.camelz.io
+alfa_mia_wb_instancea_hostname_alias=wba.mia.alfa.camelz.io
 alfa_mia_wb_instancea_id=i-00b20c78c71362f33
 alfa_mia_wb_instancea_private_ip=172.24.1.9
 
@@ -1702,19 +1702,19 @@ alfa_mia_wb_instancea_private_ip=172.24.1.9
 zulu_dfw_wb_sg_id=sg-07b434b970247fbca
 zulu_dfw_wb_eipa=eipalloc-0873b50cdfcd1d52a
 zulu_dfw_wb_instancea_public_ip=52.14.146.4
-zulu_dfw_wb_instancea_hostname=zuldfwcwb01a.dfw.zulu.dxc-ap.com
-zulu_dfw_wb_instancea_hostname_alias=wba.dfw.zulu.dxc-ap.com
+zulu_dfw_wb_instancea_hostname=zuldfwcwb01a.dfw.zulu.camelz.io
+zulu_dfw_wb_instancea_hostname_alias=wba.dfw.zulu.camelz.io
 zulu_dfw_wb_instancea_id=i-0ea952d7dd8168c31
 zulu_dfw_wb_instancea_private_ip=172.28.0.16
 
-#### DXC SantaBarbara Windows Bastions
-dxc_sba_wb_sg_id=sg-02362f1df12f81e6e
-dxc_sba_wb_eipa=eipalloc-0abc0d7c79b01dfdc
-dxc_sba_wb_instancea_public_ip=3.21.119.76
-dxc_sba_wb_instancea_hostname=alflaxcwb01a.sba.dxc-ap.com
-dxc_sba_wb_instancea_hostname_alias=wba.sba.dxc-ap.com
-dxc_sba_wb_instancea_id=i-076e90884536af106
-dxc_sba_wb_instancea_private_ip=172.31.255.25
+#### CaMeLz SantaBarbara Windows Bastions
+cml_sba_wb_sg_id=sg-02362f1df12f81e6e
+cml_sba_wb_eipa=eipalloc-0abc0d7c79b01dfdc
+cml_sba_wb_instancea_public_ip=3.21.119.76
+cml_sba_wb_instancea_hostname=alflaxcwb01a.sba.camelz.io
+cml_sba_wb_instancea_hostname_alias=wba.sba.camelz.io
+cml_sba_wb_instancea_id=i-076e90884536af106
+cml_sba_wb_instancea_private_ip=172.31.255.25
 
 
 ## ActiveDirectoryManagement Instances ################################################################################
@@ -1724,21 +1724,21 @@ dxc_sba_wb_instancea_private_ip=172.31.255.25
 global_management_adm_sg_id=sg-0258191b24c4ba8ba
 global_management_adm_instancea_id=i-04a0c90b87f05ffe9
 global_management_adm_instancea_private_ip=10.15.6.128
-global_management_adm_instancea_hostname=dxcue1madm01a.dxc-ap.com
-global_management_adm_instancea_hostname_alias=adma.dxc-ap.com
+global_management_adm_instancea_hostname=cmlue1madm01a.camelz.io
+global_management_adm_instancea_hostname_alias=adma.camelz.io
 
 ### Ohio
 #### Ohio Management ActiveDirectoryManagement Instances
 ohio_management_adm_sg_id=sg-0e98d8b3f311c4b81
 ohio_management_adm_instancea_id=i-08d4a78a393a684c8
 ohio_management_adm_instancea_private_ip=10.31.3.15
-ohio_management_adm_instancea_hostname=dxcue2madm01a.us-east-2.dxc-ap.com
-ohio_management_adm_instancea_hostname_alias=adma.us-east-2.dxc-ap.com
+ohio_management_adm_instancea_hostname=cmlue2madm01a.us-east-2.camelz.io
+ohio_management_adm_instancea_hostname_alias=adma.us-east-2.camelz.io
 
 ### Ireland
 #### Ireland Management ActiveDirectoryManagement Instances
 ireland_management_adm_sg_id=sg-0ebe0de403bd11ba5
 ireland_management_adm_instancea_id=i-03ded8c186b82450d
 ireland_management_adm_instancea_private_ip=10.79.3.30
-ireland_management_adm_instancea_hostname=dxcew1madm01a.eu-west-1.dxc-ap.com
-ireland_management_adm_instancea_hostname_alias=adma.eu-west-1.dxc-ap.com
+ireland_management_adm_instancea_hostname=cmlew1madm01a.eu-west-1.camelz.io
+ireland_management_adm_instancea_hostname_alias=adma.eu-west-1.camelz.io

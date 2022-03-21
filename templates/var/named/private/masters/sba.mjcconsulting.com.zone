@@ -156,8 +156,8 @@ mjcsbatvs22		A	10.0.1.157
 mjcmcrawford01		A	10.0.1.192
 mjcmcrawford01-w	A	10.0.1.193
 
-dxcmcrawford01		A	10.0.1.196
-dxcmcrawford01-w	A	10.0.1.197
+cmlmcrawford01		A	10.0.1.196
+cmlmcrawford01-w	A	10.0.1.197
 
 mjcsbahappletvlr	A	10.0.1.200
 mjcsbahappletvgbr	A	10.0.1.201
@@ -180,7 +180,7 @@ mjcmcrawford31		A	10.0.1.230
 mjcmcrawford32		A	10.0.1.231
 
 hpemcrawford31		A	10.0.1.238
-dxcmcrawford31		A	10.0.1.239
+cmlmcrawford31		A	10.0.1.239
 
 
 ; Web Zone
@@ -233,8 +233,8 @@ mjcsbapsn11-usr		A	10.0.4.1
 mjcmcrawford01-usr	A	10.0.4.192
 mjcmcrawford01-usr-w	A	10.0.4.193
 
-dxcmcrawford01-usr	A	10.0.4.196
-dxcmcrawford01-usr-w	A	10.0.4.197
+cmlmcrawford01-usr	A	10.0.4.196
+cmlmcrawford01-usr-w	A	10.0.4.197
 
 mjcmcrawford31-usr	A	10.0.4.230
 mjcmcrawford32-usr	A	10.0.4.231
@@ -246,8 +246,8 @@ mjcsbapsn11-adm		A	10.0.5.1
 mjcmcrawford01-adm	A	10.0.5.192
 mjcmcrawford01-adm-w	A	10.0.5.193
 
-dxcmcrawford01-adm	A	10.0.5.196
-dxcmcrawford01-adm-w	A	10.0.5.197
+cmlmcrawford01-adm	A	10.0.5.196
+cmlmcrawford01-adm-w	A	10.0.5.197
 
 mjcmcrawford31-adm	A	10.0.5.230
 mjcmcrawford32-adm	A	10.0.5.231

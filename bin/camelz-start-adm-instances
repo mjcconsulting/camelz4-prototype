@@ -2,19 +2,19 @@
 #
 # This simple script starts all ActiveDirectoryManagement instances in all accounts, all regions
 # - Uses filters to identify which instances to start
-#   Name=tag:Project,Values="CAMELZ3 POC"
+#   Name=tag:Project,Values="CaMeLz4 POC"
 #   Name=tag:Utility,Values=ActiveDirectoryManagement
 #   Name=instance-state-name,Values=stopped
 #
 
-accounts='dxcapm'
+accounts='camelzm'
 regions='us-east-1 us-east-2 eu-west-1'
 
 for a in $accounts; do
   echo "== Account $a ========================"
   for r in $regions; do
     echo "-- Region $r ------------------------"
-    instances=$(aws ec2 describe-instances --filters Name=tag:Project,Values="CAMELZ3 POC" \
+    instances=$(aws ec2 describe-instances --filters Name=tag:Project,Values="CaMeLz4 POC" \
                                                      Name=tag:Utility,Values=ActiveDirectoryManagement \
                                                      Name=instance-state-name,Values=stopped \
                                            --query 'Reservations[].Instances[].InstanceId' \

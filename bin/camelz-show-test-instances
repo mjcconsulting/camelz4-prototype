@@ -2,17 +2,17 @@
 #
 # This simple script shows all test instances in all accounts, all regions
 # - Uses filters to identify which instances to show
-#   Name=tag:Project,Values="CAMELZ3 POC"
+#   Name=tag:Project,Values="CaMeLz4 POC"
 #   Name=tag:Application,Values=LinuxWebServer,LinuxApplicationServer
 #
 
-accounts='dxcapm dxcapc dxcapl dxcapp dxcapr dxcapt dxcapd'
+accounts='camelzm camelzc camelzl camelzp camelzr camelzt camelzd'
 regions='us-east-1 us-east-2 eu-west-1'
 
 header=0
 for a in $accounts; do
   for r in $regions; do
-    tuples=$(aws ec2 describe-instances --filters Name=tag:Project,Values="CAMELZ3 POC" \
+    tuples=$(aws ec2 describe-instances --filters Name=tag:Project,Values="CaMeLz4 POC" \
                                                   Name=tag:Application,Values=LinuxWebServer,LinuxApplicationServer \
                                         --query 'Reservations[].Instances[].[Placement.AvailabilityZone,InstanceId,Tags[?Key==`Hostname`].Value|[0],Tags[?Key==`Name`].Value|[0],State.Name,InstanceType]' \
                                         --profile $a-bootstrapadministrator --region $r --output text)

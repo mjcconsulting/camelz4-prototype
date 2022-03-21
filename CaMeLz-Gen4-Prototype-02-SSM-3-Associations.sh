@@ -1,44 +1,7 @@
 #!/usr/bin/env bash
 #
-# This is part of a set of scripts to setup a realistic DAP Prototype which uses multiple Accounts, VPCs and
+# This is part of a set of scripts to setup a realistic CaMeLz Prototype which uses multiple Accounts, VPCs and
 # Transit Gateway to connect them all
-#
-# There are MANY resources needed to create this prototype, so we are splitting them into these files
-# - CAMELZ-Gen3-Prototype-00-DefineParameters.sh
-# - CAMELZ-Gen3-Prototype-01-Roles.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-03-PublicHostedZones.sh
-# - CAMELZ-Gen3-Prototype-04-VPCs.sh
-# - CAMELZ-Gen3-Prototype-05-Resolvers-1-Outbound.sh
-# - CAMELZ-Gen3-Prototype-05-Resolvers-2-Inbound.sh
-# - CAMELZ-Gen3-Prototype-06-CustomerGateways.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-1-TransitGateways.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-2-VPCAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-3-StaticVPCRoutes.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-4-PeeringAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-5-VPNAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-6A-SimpleRouting.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-6B-ComplexRouting.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-1-DirectoryService.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-2-ResolverRule.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-3-Trust.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-1-DirectoryService.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-2-ResolverRule.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-3-Trust.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-09-LinuxTestInstances.sh
-# - CAMELZ-Gen3-Prototype-10-WindowsBastions.sh
-# - CAMELZ-Gen3-Prototype-11-ActiveDirectoryManagement-1A-Shared.sh
-# - CAMELZ-Gen3-Prototype-11-ActiveDirectoryManagement-1B-PerClient.sh
-# - CAMELZ-Gen3-Prototype-12-ClientVPN.sh
-# - CAMELZ-Gen3-Prototype-20-Remaining.sh
 #
 # You will need to sign up for the "Cisco Cloud Services Router (CSR) 1000V - BYOL for Maximum Performance" Marketplace AMI
 # in the Management Account (or the account where you will run simulated customer on-prem locations).
@@ -83,7 +46,7 @@ if [ -z $(aws ssm list-associations --association-filter-list key=AssociationNam
   echo "Association: SystemAssociationForLinuxProfile does not exist, creating"
   aws ssm create-association --association-name SystemAssociationForLinuxProfile \
                              --name CAMELZ-ConfigureLinuxProfile \
-                             --targets Key=tag:Project,Values="CAMELZ3 POC" \
+                             --targets Key=tag:Project,Values="CaMeLz4 POC" \
                              --schedule-expression "rate(3 days)" \
                              --query 'AssociationDescription.Overview.DetailedStatus' \
                              --profile $profile --region us-east-1 --output text
@@ -98,7 +61,7 @@ if [ -z $(aws ssm list-associations --association-filter-list key=AssociationNam
   aws ssm create-association --association-name SystemAssociationForWindowsGoogleChrome \
                              --name AWS-InstallApplication \
                              --parameters source=$chrome_installer_url,sourceHash=$chrome_installer_sha256 \
-                             --targets Key=tag:Project,Values="CAMELZ3 POC" \
+                             --targets Key=tag:Project,Values="CaMeLz4 POC" \
                              --query 'AssociationDescription.Overview.DetailedStatus' \
                              --profile $profile --region us-east-1 --output text
 else
@@ -112,7 +75,7 @@ if [ -z $(aws ssm list-associations --association-filter-list key=AssociationNam
   aws ssm create-association --association-name WindowsBastionsAssociationForRoyalTS \
                              --name AWS-InstallApplication \
                              --parameters source=$royalts_installer_url,sourceHash=$royalts_installer_sha256 \
-                             --targets Key=tag:Project,Values="CAMELZ3 POC" Key=tag:Utility,Values=WindowsBastion \
+                             --targets Key=tag:Project,Values="CaMeLz4 POC" Key=tag:Utility,Values=WindowsBastion \
                              --query 'AssociationDescription.Overview.DetailedStatus' \
                              --profile $profile --region us-east-1 --output text
 else
@@ -126,7 +89,7 @@ if [ -z $(aws ssm list-associations --association-filter-list key=AssociationNam
   aws ssm create-association --association-name SystemAssociationForWindowsStartMenu \
                              --name CAMELZ-ConfigureWindowsStartMenu \
                              --parameters action=Install,source=$royalts_installer_url,sourceHash=$royalts_installer_sha256,parameters="\quiet" \
-                             --targets Key=tag:Project,Values="CAMELZ3 POC" Key=tag:Utility,Values=WindowsBastion \
+                             --targets Key=tag:Project,Values="CaMeLz4 POC" Key=tag:Utility,Values=WindowsBastion \
                              --query 'AssociationDescription.Overview.DetailedStatus' \
                              --profile $profile --region us-east-1 --output text
 else

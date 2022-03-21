@@ -36,7 +36,7 @@ Certificate:
             X509v3 CRL Distribution Points: 
 
                 Full Name:
-                  URI:http://pki.m1.dxc-ap.com/DXC_Analyticsi_Platformi_Root_CA.crl
+                  URI:http://pki.camelz.io/CaMeLz_Root_CA.crl
 
             X509v3 Basic Constraints: critical
                 CA:TRUE, pathlen:1

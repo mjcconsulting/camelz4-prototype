@@ -125,7 +125,7 @@ $Host.PrivateData.VerboseBackgroundColor = $Host.UI.RawUI.BackgroundColor
 
 Write-Host 'Download Google Chrome Installer'
 $Desktop = "$Env:USERPROFILE\Desktop"
-$Url = 'http://installers-dxcapm.s3-website-us-east-1.amazonaws.com/GoogleChromeStandaloneEnterprise64.msi'
+$Url = 'http://installers-camelzm.s3-website-us-east-1.amazonaws.com/GoogleChromeStandaloneEnterprise64.msi'
 Try {
     $Delay = 5
     $Counter = 60

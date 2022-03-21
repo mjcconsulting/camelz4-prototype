@@ -1,44 +1,7 @@
 #!/usr/bin/env bash
 #
-# This is part of a set of scripts to setup a realistic DAP Prototype which uses multiple Accounts, VPCs and
+# This is part of a set of scripts to setup a realistic CaMeLz Prototype which uses multiple Accounts, VPCs and
 # Transit Gateway to connect them all
-#
-# There are MANY resources needed to create this prototype, so we are splitting them into these files
-# - CAMELZ-Gen3-Prototype-00-DefineParameters.sh
-# - CAMELZ-Gen3-Prototype-01-Roles.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-03-PublicHostedZones.sh
-# - CAMELZ-Gen3-Prototype-04-VPCs.sh
-# - CAMELZ-Gen3-Prototype-05-Resolvers-1-Outbound.sh
-# - CAMELZ-Gen3-Prototype-05-Resolvers-2-Inbound.sh
-# - CAMELZ-Gen3-Prototype-06-CustomerGateways.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-1-TransitGateways.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-2-VPCAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-3-StaticVPCRoutes.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-4-PeeringAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-5-VPNAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-6A-SimpleRouting.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-6B-ComplexRouting.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-1-DirectoryService.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-2-ResolverRule.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-3-Trust.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-1-DirectoryService.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-2-ResolverRule.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-3-Trust.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-09-LinuxTestInstances.sh
-# - CAMELZ-Gen3-Prototype-10-WindowsBastions.sh
-# - CAMELZ-Gen3-Prototype-11-ActiveDirectoryManagement-1A-Shared.sh
-# - CAMELZ-Gen3-Prototype-11-ActiveDirectoryManagement-1B-PerClient.sh
-# - CAMELZ-Gen3-Prototype-12-ClientVPN.sh
-# - CAMELZ-Gen3-Prototype-20-Remaining.sh
 #
 # You will need to sign up for the "Cisco Cloud Services Router (CSR) 1000V - BYOL for Maximum Performance" Marketplace AMI
 # in the Management Account (or the account where you will run simulated customer on-prem locations).
@@ -70,7 +33,7 @@ global_management_outboundresolver_ds_rule_id=$(aws route53resolver create-resol
                                                                                          --domain-name $global_management_directory_domain \
                                                                                          --target-ips $(echo $global_management_directory_dc_ips | sed -e "s/^/Ip=/;s/,/ Ip=/g") \
                                                                                          --creator-request-id $(date +%s) \
-                                                                                         --tags Key=Name,Value=Management-OutboundResolverDirectoryServiceRule Key=Company,Value=DXC Key=Environment,Value=Management \
+                                                                                         --tags Key=Name,Value=Management-OutboundResolverDirectoryServiceRule Key=Company,Value=CaMeLz Key=Environment,Value=Management \
                                                                                          --query 'ResolverRule.Id' \
                                                                                          --profile $profile --region us-east-1 --output text)
 echo "global_management_outboundresolver_ds_rule_id=$global_management_outboundresolver_ds_rule_id"
@@ -87,7 +50,7 @@ if [ ! -z $organization_id ]; then
   echo "Logic not correct!"
   exit 2
 else
-  # Share Global Management Outbound Resolver Directory Service Rule with Specific Accounts (works with DXC)
+  # Share Global Management Outbound Resolver Directory Service Rule with Specific Accounts (works with CaMeLz)
   profile=$management_profile
 
   global_management_outboundresolver_ds_rule_rs_arn=$(aws ram create-resource-share --name Management-OutboundResolverDirectoryServiceRuleResourceShare \
@@ -157,7 +120,7 @@ ohio_management_outboundresolver_ds_rule_id=$(aws route53resolver create-resolve
                                                                                        --domain-name $ohio_management_directory_domain \
                                                                                        --target-ips $(echo $ohio_management_directory_dc_ips | sed -e "s/^/Ip=/;s/,/ Ip=/g") \
                                                                                        --creator-request-id $(date +%s) \
-                                                                                       --tags Key=Name,Value=Management-OutboundResolverDirectoryServiceRule Key=Company,Value=DXC Key=Environment,Value=Management \
+                                                                                       --tags Key=Name,Value=Management-OutboundResolverDirectoryServiceRule Key=Company,Value=CaMeLz Key=Environment,Value=Management \
                                                                                        --query 'ResolverRule.Id' \
                                                                                        --profile $profile --region us-east-2 --output text)
 echo "ohio_management_outboundresolver_ds_rule_id=$ohio_management_outboundresolver_ds_rule_id"
@@ -174,7 +137,7 @@ if [ ! -z $organization_id ]; then
   echo "Logic not correct!"
   exit 2
 else
-  # Share Ohio Management Outbound Resolver Directory Service Rule with Specific Accounts (works with DXC)
+  # Share Ohio Management Outbound Resolver Directory Service Rule with Specific Accounts (works with CaMeLz)
   profile=$management_profile
 
   ohio_management_outboundresolver_ds_rule_rs_arn=$(aws ram create-resource-share --name Management-OutboundResolverDirectoryServiceRuleResourceShare \
@@ -319,7 +282,7 @@ ireland_management_outboundresolver_ds_rule_id=$(aws route53resolver create-reso
                                                                                           --domain-name $ireland_management_directory_domain \
                                                                                           --target-ips $(echo $ireland_management_directory_dc_ips | sed -e "s/^/Ip=/;s/,/ Ip=/g") \
                                                                                           --creator-request-id $(date +%s) \
-                                                                                          --tags Key=Name,Value=Management-OutboundResolverDirectoryServiceRule Key=Company,Value=DXC Key=Environment,Value=Management \
+                                                                                          --tags Key=Name,Value=Management-OutboundResolverDirectoryServiceRule Key=Company,Value=CaMeLz Key=Environment,Value=Management \
                                                                                           --query 'ResolverRule.Id' \
                                                                                           --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_outboundresolver_ds_rule_id=$ireland_management_outboundresolver_ds_rule_id"
@@ -336,7 +299,7 @@ if [ ! -z $organization_id ]; then
   echo "Logic not correct!"
   exit 2
 else
-  # Share Ireland Management Outbound Resolver Directory Service Rule with Specific Accounts (works with DXC)
+  # Share Ireland Management Outbound Resolver Directory Service Rule with Specific Accounts (works with CaMeLz)
   profile=$management_profile
 
   ireland_management_outboundresolver_ds_rule_rs_arn=$(aws ram create-resource-share --name Management-OutboundResolverDirectoryServiceRuleResourceShare \

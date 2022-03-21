@@ -8,7 +8,7 @@ Certificate:
         Validity
             Not Before: Mar  9 19:31:30 2020 GMT
             Not After : Mar  7 19:31:30 2030 GMT
-        Subject: C=US, O=DXC Technology Company, OU=DXC Analytics Platform, CN=vpn.c.us-east-2.m1.dxc-ap.com
+        Subject: C=US, O=DXC Technology Company, OU=DXC Analytics Platform, CN=vpn.c.us-east-2.camelz.io
         Subject Public Key Info:
             Public Key Algorithm: rsaEncryption
                 Public-Key: (2048 bit)
@@ -36,7 +36,7 @@ Certificate:
             X509v3 CRL Distribution Points: 
 
                 Full Name:
-                  URI:http://pki.m1.dxc-ap.com/DXC_Analytics_Platform_Root_CA.crl
+                  URI:http://pki.camelz.io/CaMeLz_Root_CA.crl
 
             X509v3 Basic Constraints: 
                 CA:FALSE
@@ -52,7 +52,7 @@ Certificate:
             X509v3 Key Usage: 
                 Digital Signature, Key Encipherment
             X509v3 Subject Alternative Name: 
-                DNS:vpn.c.us-east-2.m1.dxc-ap.com
+                DNS:vpn.c.us-east-2.camelz.io
     Signature Algorithm: sha256WithRSAEncryption
          53:4f:09:da:87:29:4d:8d:52:f0:62:82:f3:bf:39:55:20:3c:
          54:5a:ff:18:6e:a8:2a:b5:82:ff:88:8f:ff:53:db:88:ad:70:

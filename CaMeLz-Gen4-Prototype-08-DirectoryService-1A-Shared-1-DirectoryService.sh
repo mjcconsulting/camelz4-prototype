@@ -1,44 +1,7 @@
 #!/usr/bin/env bash
 #
-# This is part of a set of scripts to setup a realistic DAP Prototype which uses multiple Accounts, VPCs and
+# This is part of a set of scripts to setup a realistic CaMeLz Prototype which uses multiple Accounts, VPCs and
 # Transit Gateway to connect them all
-#
-# There are MANY resources needed to create this prototype, so we are splitting them into these files
-# - CAMELZ-Gen3-Prototype-00-DefineParameters.sh
-# - CAMELZ-Gen3-Prototype-01-Roles.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-03-PublicHostedZones.sh
-# - CAMELZ-Gen3-Prototype-04-VPCs.sh
-# - CAMELZ-Gen3-Prototype-05-Resolvers-1-Outbound.sh
-# - CAMELZ-Gen3-Prototype-05-Resolvers-2-Inbound.sh
-# - CAMELZ-Gen3-Prototype-06-CustomerGateways.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-1-TransitGateways.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-2-VPCAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-3-StaticVPCRoutes.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-4-PeeringAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-5-VPNAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-6A-SimpleRouting.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-6B-ComplexRouting.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-1-DirectoryService.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-2-ResolverRule.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-3-Trust.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-1-DirectoryService.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-2-ResolverRule.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-3-Trust.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-09-LinuxTestInstances.sh
-# - CAMELZ-Gen3-Prototype-10-WindowsBastions.sh
-# - CAMELZ-Gen3-Prototype-11-ActiveDirectoryManagement-1A-Shared.sh
-# - CAMELZ-Gen3-Prototype-11-ActiveDirectoryManagement-1B-PerClient.sh
-# - CAMELZ-Gen3-Prototype-12-ClientVPN.sh
-# - CAMELZ-Gen3-Prototype-20-Remaining.sh
 #
 # You will need to sign up for the "Cisco Cloud Services Router (CSR) 1000V - BYOL for Maximum Performance" Marketplace AMI
 # in the Management Account (or the account where you will run simulated customer on-prem locations).
@@ -73,7 +36,7 @@ global_management_directory_id=$(aws ds create-microsoft-ad --name $global_manag
                                                             --password $global_management_directory_admin_password \
                                                             --edition Standard \
                                                             --vpc-settings "VpcId=$global_management_vpc_id,SubnetIds=$global_management_directory_subneta_id,$global_management_directory_subnetb_id" \
-                                                            --tags Key=Name,Value=Management-DirectoryService Key=Company,Value=DXC Key=Environment,Value=Management Key=Utility,Value=DirectoryService Key=Project,Value="CAMELZ3 POC" Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                                                            --tags Key=Name,Value=Management-DirectoryService Key=Company,Value=CaMeLz Key=Environment,Value=Management Key=Utility,Value=DirectoryService Key=Project,Value="CaMeLz4 POC" Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                                                             --query 'DirectoryId' \
                                                             --profile $profile --region us-east-1 --output text)
 echo "global_management_directory_id=$global_management_directory_id"
@@ -97,7 +60,7 @@ echo "global_management_directory_dc_ips=$global_management_directory_dc_ips"
 if [ ! -z $organization_id ]; then
   # Share Directory with Organization (works with MJC Consulting)
   # TODO: This is NOT how this would work - The Directory needs to be created in the Organization Account,
-  #       so once we have DXC variant working, I need to go through this again working with the Organization account
+  #       so once we have CaMeLz variant working, I need to go through this again working with the Organization account
   #       to nail down the final logic
   echo "Logic not correct!"
   exit 2
@@ -108,7 +71,7 @@ if [ ! -z $organization_id ]; then
 else
   profile=$management_profile
 
-  # Share Directory with the Core Account (works with DXC)
+  # Share Directory with the Core Account (works with CaMeLz)
   global_core_directory_id=$(aws ds share-directory --directory-id $global_management_directory_id \
                                                     --share-method HANDSHAKE \
                                                     --share-target Id=$core_account_id,Type=ACCOUNT \
@@ -120,7 +83,7 @@ else
   global_core_directory_dc_ips=$global_management_directory_dc_ips
   echo "global_core_directory_dc_ips=$global_core_directory_dc_ips"
 
-  # Share Directory with the Log Account (works with DXC)
+  # Share Directory with the Log Account (works with CaMeLz)
   global_log_directory_id=$(aws ds share-directory --directory-id $global_management_directory_id \
                                                    --share-method HANDSHAKE \
                                                    --share-target Id=$log_account_id,Type=ACCOUNT \
@@ -162,7 +125,7 @@ ohio_management_directory_id=$(aws ds create-microsoft-ad --name $ohio_managemen
                                                           --password $ohio_management_directory_admin_password \
                                                           --edition Standard \
                                                           --vpc-settings "VpcId=$ohio_management_vpc_id,SubnetIds=$ohio_management_directory_subneta_id,$ohio_management_directory_subnetb_id" \
-                                                          --tags Key=Name,Value=Management-DirectoryService Key=Company,Value=DXC Key=Environment,Value=Management Key=Utility,Value=DirectoryService Key=Project,Value="CAMELZ3 POC" Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                                                          --tags Key=Name,Value=Management-DirectoryService Key=Company,Value=CaMeLz Key=Environment,Value=Management Key=Utility,Value=DirectoryService Key=Project,Value="CaMeLz4 POC" Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                                                           --query 'DirectoryId' \
                                                           --profile $profile --region us-east-2 --output text)
 echo "ohio_management_directory_id=$ohio_management_directory_id"
@@ -185,7 +148,7 @@ echo "ohio_management_directory_dc_ips=$ohio_management_directory_dc_ips"
 if [ ! -z $organization_id ]; then
   # Share Directory with Organization (works with MJC Consulting)
   # TODO: This is NOT how this would work - The Directory needs to be created in the Organization Account,
-  #       so once we have DXC variant working, I need to go through this again working with the Organization account
+  #       so once we have CaMeLz variant working, I need to go through this again working with the Organization account
   #       to nail down the final logic
   echo "Logic not correct!"
   exit 2
@@ -196,7 +159,7 @@ if [ ! -z $organization_id ]; then
 else
   profile=$management_profile
 
-  # Share Directory with the Core Account (works with DXC)
+  # Share Directory with the Core Account (works with CaMeLz)
   ohio_core_directory_id=$(aws ds share-directory --directory-id $ohio_management_directory_id \
                                                   --share-method HANDSHAKE \
                                                   --share-target Id=$core_account_id,Type=ACCOUNT \
@@ -208,7 +171,7 @@ else
   ohio_core_directory_dc_ips=$ohio_management_directory_dc_ips
   echo "ohio_core_directory_dc_ips=$ohio_core_directory_dc_ips"
 
-  # Share Directory with the Log Account (works with DXC)
+  # Share Directory with the Log Account (works with CaMeLz)
   ohio_log_directory_id=$(aws ds share-directory --directory-id $ohio_management_directory_id \
                                                  --share-method HANDSHAKE \
                                                  --share-target Id=$log_account_id,Type=ACCOUNT \
@@ -220,7 +183,7 @@ else
   ohio_log_directory_dc_ips=$ohio_management_directory_dc_ips
   echo "ohio_log_directory_dc_ips=$ohio_log_directory_dc_ips"
 
-  # Share Directory with the Production Account (works with DXC)
+  # Share Directory with the Production Account (works with CaMeLz)
   ohio_production_directory_id=$(aws ds share-directory --directory-id $ohio_management_directory_id \
                                                         --share-method HANDSHAKE \
                                                         --share-target Id=$production_account_id,Type=ACCOUNT \
@@ -232,7 +195,7 @@ else
   ohio_production_directory_dc_ips=$ohio_management_directory_dc_ips
   echo "ohio_production_directory_dc_ips=$ohio_production_directory_dc_ips"
 
-  # Share Directory with the Recovery Account (works with DXC)
+  # Share Directory with the Recovery Account (works with CaMeLz)
   # - Note: Hard limit of 5 accounts with Standard Edition
   #ohio_recovery_directory_id=$(aws ds share-directory --directory-id $ohio_management_directory_id \
   #                                                    --share-method HANDSHAKE \
@@ -245,7 +208,7 @@ else
   #ohio_recovery_directory_dc_ips=$ohio_management_directory_dc_ips
   #echo "ohio_recovery_directory_dc_ips=$ohio_recovery_directory_dc_ips"
 
-  # Share Directory with the Testing Account (works with DXC)
+  # Share Directory with the Testing Account (works with CaMeLz)
   ohio_testing_directory_id=$(aws ds share-directory --directory-id $ohio_management_directory_id \
                                                      --share-method HANDSHAKE \
                                                      --share-target Id=$testing_account_id,Type=ACCOUNT \
@@ -257,7 +220,7 @@ else
   ohio_testing_directory_dc_ips=$ohio_management_directory_dc_ips
   echo "ohio_testing_directory_dc_ips=$ohio_testing_directory_dc_ips"
 
-  # Share Directory with the Development Account (works with DXC)
+  # Share Directory with the Development Account (works with CaMeLz)
   ohio_development_directory_id=$(aws ds share-directory --directory-id $ohio_management_directory_id \
                                                          --share-method HANDSHAKE \
                                                          --share-target Id=$development_account_id,Type=ACCOUNT \
@@ -324,7 +287,7 @@ ireland_management_directory_id=$(aws ds create-microsoft-ad --name $ireland_man
                                                              --password $ireland_management_directory_admin_password \
                                                              --edition Standard \
                                                              --vpc-settings "VpcId=$ireland_management_vpc_id,SubnetIds=$ireland_management_directory_subneta_id,$ireland_management_directory_subnetb_id" \
-                                                             --tags Key=Name,Value=Management-DirectoryService Key=Company,Value=DXC Key=Environment,Value=Management Key=Utility,Value=DirectoryService Key=Project,Value="CAMELZ3 POC" Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                                                             --tags Key=Name,Value=Management-DirectoryService Key=Company,Value=CaMeLz Key=Environment,Value=Management Key=Utility,Value=DirectoryService Key=Project,Value="CaMeLz4 POC" Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                                                              --query 'DirectoryId' \
                                                              --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_directory_id=$ireland_management_directory_id"
@@ -347,7 +310,7 @@ echo "ireland_management_directory_dc_ips=$ireland_management_directory_dc_ips"
 if [ ! -z $organization_id ]; then
   # Share Directory with Organization (works with MJC Consulting)
   # TODO: This is NOT how this would work - The Directory needs to be created in the Organization Account,
-  #       so once we have DXC variant working, I need to go through this again working with the Organization account
+  #       so once we have CaMeLz variant working, I need to go through this again working with the Organization account
   #       to nail down the final logic
   echo "Logic not correct!"
   exit 2
@@ -358,7 +321,7 @@ if [ ! -z $organization_id ]; then
 else
   profile=$management_profile
 
-  # Share Directory with the Core Account (works with DXC)
+  # Share Directory with the Core Account (works with CaMeLz)
   ireland_core_directory_id=$(aws ds share-directory --directory-id $ireland_management_directory_id \
                                                      --share-method HANDSHAKE \
                                                      --share-target Id=$core_account_id,Type=ACCOUNT \
@@ -370,7 +333,7 @@ else
   ireland_core_directory_dc_ips=$ireland_management_directory_dc_ips
   echo "ireland_core_directory_dc_ips=$ireland_core_directory_dc_ips"
 
-  # Share Directory with the Log Account (works with DXC)
+  # Share Directory with the Log Account (works with CaMeLz)
   ireland_log_directory_id=$(aws ds share-directory --directory-id $ireland_management_directory_id \
                                                     --share-method HANDSHAKE \
                                                     --share-target Id=$log_account_id,Type=ACCOUNT \
@@ -382,7 +345,7 @@ else
   ireland_log_directory_dc_ips=$ireland_management_directory_dc_ips
   echo "ireland_log_directory_dc_ips=$ireland_log_directory_dc_ips"
 
-  # Share Directory with the Production Account (works with DXC)
+  # Share Directory with the Production Account (works with CaMeLz)
   ireland_production_directory_id=$(aws ds share-directory --directory-id $ireland_management_directory_id \
                                                            --share-method HANDSHAKE \
                                                            --share-target Id=$production_account_id,Type=ACCOUNT \
@@ -394,7 +357,7 @@ else
   ireland_production_directory_dc_ips=$ireland_management_directory_dc_ips
   echo "ireland_production_directory_dc_ips=$ireland_production_directory_dc_ips"
 
-  # Share Directory with the Recovery Account (works with DXC)
+  # Share Directory with the Recovery Account (works with CaMeLz)
   ireland_recovery_directory_id=$(aws ds share-directory --directory-id $ireland_management_directory_id \
                                                          --share-method HANDSHAKE \
                                                          --share-target Id=$recovery_account_id,Type=ACCOUNT \
@@ -406,7 +369,7 @@ else
   ireland_recovery_directory_dc_ips=$ireland_management_directory_dc_ips
   echo "ireland_recovery_directory_dc_ips=$ireland_recovery_directory_dc_ips"
 
-  # Share Directory with the Testing Account (works with DXC)
+  # Share Directory with the Testing Account (works with CaMeLz)
   # - Note: Hard limit of 5 accounts with Standard Edition
   #ireland_testing_directory_id=$(aws ds share-directory --directory-id $ireland_management_directory_id \
   #                                                      --share-method HANDSHAKE \
@@ -419,7 +382,7 @@ else
   #ireland_testing_directory_dc_ips=$ireland_management_directory_dc_ips
   #echo "ireland_testing_directory_dc_ips=$ireland_testing_directory_dc_ips"
 
-  # Share Directory with the Development Account (works with DXC)
+  # Share Directory with the Development Account (works with CaMeLz)
   ireland_development_directory_id=$(aws ds share-directory --directory-id $ireland_management_directory_id \
                                                             --share-method HANDSHAKE \
                                                             --share-target Id=$development_account_id,Type=ACCOUNT \

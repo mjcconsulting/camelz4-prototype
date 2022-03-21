@@ -1,6 +1,6 @@
 ---
 schemaVersion: '2.2'
-description: Install, repair, or uninstall the Google Chrome application using an .msi file.
+description: Install, repair, or uninstall the Royal TS application using an .msi file.
 parameters:
   action:
     type: String
@@ -13,11 +13,11 @@ parameters:
   source:
     type: String
     description: '(Required) The URL or local path on the instance to the application .msi file.'
-    default: http://installers-dxcapm.s3-website-us-east-1.amazonaws.com/GoogleChromeStandaloneEnterprise64.msi
+    default: http://installers-camelzm.s3-website-us-east-1.amazonaws.com/RoyalTSInstaller_5.02.60410.0.msi
   sourceHash:
     type: String
     description: '(Optional) The SHA256 hash of the .msi file.'
-    default: 82bc081286f48148dce2c81f97bdb849b38680b7bb3435221fa470adcf75aa5b
+    default: 699ef4391df99f1864d53baf0ce7c637576e6fec50c5677c64e686f3a2050130
 mainSteps:
 - action: aws:runPowerShellScript
   name: runPowerShellScript
@@ -27,10 +27,10 @@ mainSteps:
     runCommand:
     - |
       $LogDir = 'C:\ProgramData\Amazon\SSM\Logs'
-      Start-Transcript -Path "$LogDir\CAMELZ-InstallGoogleChromeTranscript.log" -Append
+      Start-Transcript -Path "$LogDir\CAMELZ-InstallRoyalTSTranscript.log" -Append
 
       $Temp = "$Env:SystemRoot\Temp"
-      Write-Host 'Download Google Chrome Installer'
+      Write-Host 'Download Royal TS Installer'
       $Url = '{{ source }}'
       Try {
           $Delay = 5
@@ -62,13 +62,16 @@ mainSteps:
           } Until ($StatusCode -eq 200)
           Write-Host '- Download Succeeded'
 
-          Write-Host 'Install Google Chrome'
-          $P = Start-Process -FilePath msiexec.exe -ArgumentList "/I $Temp\$Installer /QN /L*V ""$LogDir\$($Installer.TrimEnd('.msi')).log""" -NoNewWindow -Wait -PassThru
-          If ($P.ExitCode -eq 0) {
+          Write-Host 'Install Royal TS'
+          # We can't wrap in Start-Process, as that runs a very long optimization before it returns. So, instead we wait 30 seconds
+          msiexec.exe /I $Temp\$Installer /QN /L*V "$LogDir\$($Installer.TrimEnd('.msi')).log"
+          If ($?) {
+              Write-Host '- Install Started, Sleeping 30 seconds to wait for it to complete'
+              Start-Sleep 30
               Write-Host '- Install Succeeded'
               Remove-Item "$Temp\$Installer" -ErrorAction SilentlyContinue
           } Else {
-              Write-Error "- Install Failed ($P.ExitCode)"
+              Write-Error "- Install Failed ($?)"
           }
       } Catch {
           $Message = 'Exception on line {0}: {1}' -f $_.InvocationInfo.ScriptLineNumber, $_.Exception.Message

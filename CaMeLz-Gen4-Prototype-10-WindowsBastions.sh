@@ -1,44 +1,7 @@
 #!/usr/bin/env bash
 #
-# This is part of a set of scripts to setup a realistic DAP Prototype which uses multiple Accounts, VPCs and
+# This is part of a set of scripts to setup a realistic CaMeLz Prototype which uses multiple Accounts, VPCs and
 # Transit Gateway to connect them all
-#
-# There are MANY resources needed to create this prototype, so we are splitting them into these files
-# - CAMELZ-Gen3-Prototype-00-DefineParameters.sh
-# - CAMELZ-Gen3-Prototype-01-Roles.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-03-PublicHostedZones.sh
-# - CAMELZ-Gen3-Prototype-04-VPCs.sh
-# - CAMELZ-Gen3-Prototype-05-Resolvers-1-Outbound.sh
-# - CAMELZ-Gen3-Prototype-05-Resolvers-2-Inbound.sh
-# - CAMELZ-Gen3-Prototype-06-CustomerGateways.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-1-TransitGateways.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-2-VPCAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-3-StaticVPCRoutes.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-4-PeeringAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-5-VPNAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-6A-SimpleRouting.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-6B-ComplexRouting.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-1-DirectoryService.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-2-ResolverRule.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-3-Trust.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-1-DirectoryService.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-2-ResolverRule.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-3-Trust.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-09-LinuxTestInstances.sh
-# - CAMELZ-Gen3-Prototype-10-WindowsBastions.sh
-# - CAMELZ-Gen3-Prototype-11-ActiveDirectoryManagement-1A-Shared.sh
-# - CAMELZ-Gen3-Prototype-11-ActiveDirectoryManagement-1B-PerClient.sh
-# - CAMELZ-Gen3-Prototype-12-ClientVPN.sh
-# - CAMELZ-Gen3-Prototype-20-Remaining.sh
 #
 # You will need to sign up for the "Cisco Cloud Services Router (CSR) 1000V - BYOL for Maximum Performance" Marketplace AMI
 # in the Management Account (or the account where you will run simulated customer on-prem locations).
@@ -81,28 +44,28 @@ echo "global_management_wb_sg_id=$global_management_wb_sg_id"
 
 aws ec2 create-tags --resources $global_management_wb_sg_id \
                     --tags Key=Name,Value=Management-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=DXC \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Management \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $global_management_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
                                          --profile $profile --region us-east-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $global_management_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (ICMP)\"}]" \
                                          --profile $profile --region us-east-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $global_management_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (ICMP)\"}]" \
                                          --profile $profile --region us-east-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $global_management_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (RDP)\"}]" \
                                          --profile $profile --region us-east-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $global_management_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (RDP)\"}]" \
                                          --profile $profile --region us-east-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $global_management_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (RDP)\"}]" \
@@ -121,12 +84,12 @@ echo "global_management_wb_instancea_public_ip=$global_management_wb_instancea_p
 
 aws ec2 create-tags --resources $global_management_wb_eipa \
                     --tags Key=Name,Value=Management-WindowsBastion-EIPA \
-                           Key=Hostname,Value=dxcue1mwb01a \
-                           Key=Company,Value=DXC \
+                           Key=Hostname,Value=cmlue1mwb01a \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Management \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-1 --output text
 
 # Create WindowsBastion Public Domain Name
@@ -138,7 +101,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "dxcue1mwb01a.$global_management_public_domain",
+      "Name": "cmlue1mwb01a.$global_management_public_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$global_management_wb_instancea_public_ip"}]
@@ -150,7 +113,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$global_management_public_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "dxcue1mwb01a.$global_management_public_domain"}]
+      "ResourceRecords": [{"Value": "cmlue1mwb01a.$global_management_public_domain"}]
     }
   }]
 }
@@ -159,12 +122,12 @@ EOF
 aws route53 change-resource-record-sets --hosted-zone-id $global_management_public_hostedzone_id \
                                         --change-batch file://$tmpfile \
                                         --profile $profile --region us-east-1 --output text
-echo "global_management_wb_instancea_hostname=dxcue1mwb01a.$global_management_public_domain"
+echo "global_management_wb_instancea_hostname=cmlue1mwb01a.$global_management_public_domain"
 echo "global_management_wb_instancea_hostname_alias=wba.$global_management_public_domain"
 
 # Create WindowsBastion Instance
 tmpfile=$tmpdir/global-management-wba-user-data-$$.ps1
-sed -e "s/@hostname@/dxcue1mwb01a/g" \
+sed -e "s/@hostname@/cmlue1mwb01a/g" \
     -e "s/@administrator_password_parameter@/Management-Administrator-Password/g" \
     -e "s/@directory_domain_parameter@/Management-Directory-Domain/g" \
     -e "s/@directory_domainjoin_user_parameter@/Management-Directory-DomainJoin-User/g" \
@@ -176,7 +139,7 @@ global_management_wb_instancea_id=$(aws ec2 run-instances --image-id $global_win
                                                           --iam-instance-profile Name=ManagedInstance \
                                                           --key-name administrator \
                                                           --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$global_management_wb_sg_id],SubnetId=$global_management_public_subneta_id" \
-                                                          --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Management-WindowsBastion-InstanceA},{Key=Hostname,Value=dxcue1mwb01a},{Key=Company,Value=DXC},{Key=Environment,Value=Management},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                          --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Management-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlue1mwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                           --user-data file://$tmpfile \
                                                           --client-token $(date +%s) \
                                                           --query 'Instances[0].InstanceId' \
@@ -195,7 +158,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "dxcue1mwb01a.$global_management_private_domain",
+      "Name": "cmlue1mwb01a.$global_management_private_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$global_management_wb_instancea_private_ip"}]
@@ -207,7 +170,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$global_management_private_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "dxcue1mwb01a.$global_management_private_domain"}]
+      "ResourceRecords": [{"Value": "cmlue1mwb01a.$global_management_private_domain"}]
     }
   }]
 }
@@ -234,28 +197,28 @@ echo "global_core_wb_sg_id=$global_core_wb_sg_id"
 
 aws ec2 create-tags --resources $global_core_wb_sg_id \
                     --tags Key=Name,Value=Core-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=DXC \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $global_core_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
                                          --profile $profile --region us-east-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $global_core_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (ICMP)\"}]" \
                                          --profile $profile --region us-east-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $global_core_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (ICMP)\"}]" \
                                          --profile $profile --region us-east-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $global_core_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (RDP)\"}]" \
                                          --profile $profile --region us-east-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $global_core_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (RDP)\"}]" \
                                          --profile $profile --region us-east-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $global_core_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (RDP)\"}]" \
@@ -274,12 +237,12 @@ echo "global_core_wb_instancea_public_ip=$global_core_wb_instancea_public_ip"
 
 aws ec2 create-tags --resources $global_core_wb_eipa \
                     --tags Key=Name,Value=Core-WindowsBastion-EIPA \
-                           Key=Hostname,Value=dxcue1cwb01a \
-                           Key=Company,Value=DXC \
+                           Key=Hostname,Value=cmlue1cwb01a \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-1 --output text
 
 # Create WindowsBastion Public Domain Name
@@ -289,7 +252,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "dxcue1cwb01a.$global_core_public_domain",
+      "Name": "cmlue1cwb01a.$global_core_public_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$global_core_wb_instancea_public_ip"}]
@@ -301,7 +264,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$global_core_public_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "dxcue1cwb01a.$global_core_public_domain"}]
+      "ResourceRecords": [{"Value": "cmlue1cwb01a.$global_core_public_domain"}]
     }
   }]
 }
@@ -310,12 +273,12 @@ EOF
 aws route53 change-resource-record-sets --hosted-zone-id $global_core_public_hostedzone_id \
                                         --change-batch file://$tmpfile \
                                         --profile $profile --region us-east-1 --output text
-echo "global_core_wb_instancea_hostname=dxcue1cwb01a.$global_core_public_domain"
+echo "global_core_wb_instancea_hostname=cmlue1cwb01a.$global_core_public_domain"
 echo "global_core_wb_instancea_hostname_alias=wba.$global_core_public_domain"
 
 # Create WindowsBastion Instance
 tmpfile=$tmpdir/global-core-wba-user-data-$$.ps1
-sed -e "s/@hostname@/dxcue1cwb01a/g" \
+sed -e "s/@hostname@/cmlue1cwb01a/g" \
     -e "s/@administrator_password_parameter@/Core-Administrator-Password/g" \
     -e "s/@directory_domain_parameter@/Core-Directory-Domain/g" \
     -e "s/@directory_domainjoin_user_parameter@/Core-Directory-DomainJoin-User/g" \
@@ -327,7 +290,7 @@ global_core_wb_instancea_id=$(aws ec2 run-instances --image-id $global_win2016_a
                                                     --iam-instance-profile Name=ManagedInstance \
                                                     --key-name administrator \
                                                     --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Core-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$global_core_wb_sg_id],SubnetId=$global_core_public_subneta_id" \
-                                                    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Core-WindowsBastion-InstanceA},{Key=Hostname,Value=dxcue1cwb01a},{Key=Company,Value=DXC},{Key=Environment,Value=Core},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Core-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlue1cwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                     --user-data file://$tmpfile \
                                                     --client-token $(date +%s) \
                                                     --query 'Instances[0].InstanceId' \
@@ -346,7 +309,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "dxcue1cwb01a.$global_core_private_domain",
+      "Name": "cmlue1cwb01a.$global_core_private_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$global_core_wb_instancea_private_ip"}]
@@ -358,7 +321,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$global_core_private_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "dxcue1cwb01a.$global_core_private_domain"}]
+      "ResourceRecords": [{"Value": "cmlue1cwb01a.$global_core_private_domain"}]
     }
   }]
 }
@@ -385,28 +348,28 @@ echo "global_log_wb_sg_id=$global_log_wb_sg_id"
 
 aws ec2 create-tags --resources $global_log_wb_sg_id \
                     --tags Key=Name,Value=Log-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=DXC \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Log \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $global_log_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
                                          --profile $profile --region us-east-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $global_log_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (ICMP)\"}]" \
                                          --profile $profile --region us-east-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $global_log_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (ICMP)\"}]" \
                                          --profile $profile --region us-east-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $global_log_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (RDP)\"}]" \
                                          --profile $profile --region us-east-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $global_log_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (RDP)\"}]" \
                                          --profile $profile --region us-east-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $global_log_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (RDP)\"}]" \
@@ -425,12 +388,12 @@ echo "global_log_wb_instancea_public_ip=$global_log_wb_instancea_public_ip"
 
 aws ec2 create-tags --resources $global_log_wb_eipa \
                     --tags Key=Name,Value=Log-WindowsBastion-EIPA \
-                           Key=Hostname,Value=dxcue1lwb01a \
-                           Key=Company,Value=DXC \
+                           Key=Hostname,Value=cmlue1lwb01a \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Log \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-1 --output text
 
 # Create WindowsBastion Public Domain Name
@@ -440,7 +403,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "dxcue1lwb01a.$global_log_public_domain",
+      "Name": "cmlue1lwb01a.$global_log_public_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$global_log_wb_instancea_public_ip"}]
@@ -452,7 +415,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$global_log_public_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "dxcue1lwb01a.$global_log_public_domain"}]
+      "ResourceRecords": [{"Value": "cmlue1lwb01a.$global_log_public_domain"}]
     }
   }]
 }
@@ -461,12 +424,12 @@ EOF
 aws route53 change-resource-record-sets --hosted-zone-id $global_log_public_hostedzone_id \
                                         --change-batch file://$tmpfile \
                                         --profile $profile --region us-east-1 --output text
-echo "global_log_wb_instancea_hostname=dxcue1lwb01a.$global_log_public_domain"
+echo "global_log_wb_instancea_hostname=cmlue1lwb01a.$global_log_public_domain"
 echo "global_log_wb_instancea_hostname_alias=wba.$global_log_public_domain"
 
 # Create WindowsBastion Instance
 tmpfile=$tmpdir/global-log-wba-user-data-$$.ps1
-sed -e "s/@hostname@/dxcue1lwb01a/g" \
+sed -e "s/@hostname@/cmlue1lwb01a/g" \
     -e "s/@administrator_password_parameter@/Log-Administrator-Password/g" \
     -e "s/@directory_domain_parameter@/Log-Directory-Domain/g" \
     -e "s/@directory_domainjoin_user_parameter@/Log-Directory-DomainJoin-User/g" \
@@ -478,7 +441,7 @@ global_log_wb_instancea_id=$(aws ec2 run-instances --image-id $global_win2016_am
                                                    --iam-instance-profile Name=ManagedInstance \
                                                    --key-name administrator \
                                                    --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Log-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$global_log_wb_sg_id],SubnetId=$global_log_public_subneta_id" \
-                                                   --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Log-WindowsBastion-InstanceA},{Key=Hostname,Value=dxcue1lwb01a},{Key=Company,Value=DXC},{Key=Environment,Value=Log},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                   --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Log-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlue1lwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                    --user-data file://$tmpfile \
                                                    --client-token $(date +%s) \
                                                    --query 'Instances[0].InstanceId' \
@@ -497,7 +460,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "dxcue1lwb01a.$global_log_private_domain",
+      "Name": "cmlue1lwb01a.$global_log_private_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$global_log_wb_instancea_private_ip"}]
@@ -509,7 +472,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$global_log_private_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "dxcue1lwb01a.$global_log_private_domain"}]
+      "ResourceRecords": [{"Value": "cmlue1lwb01a.$global_log_private_domain"}]
     }
   }]
 }
@@ -536,28 +499,28 @@ echo "ohio_management_wb_sg_id=$ohio_management_wb_sg_id"
 
 aws ec2 create-tags --resources $ohio_management_wb_sg_id \
                     --tags Key=Name,Value=Management-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=DXC \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Management \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $ohio_management_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $ohio_management_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $ohio_management_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $ohio_management_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $ohio_management_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $ohio_management_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (RDP)\"}]" \
@@ -576,12 +539,12 @@ echo "ohio_management_wb_instancea_public_ip=$ohio_management_wb_instancea_publi
 
 aws ec2 create-tags --resources $ohio_management_wb_eipa \
                     --tags Key=Name,Value=Management-WindowsBastion-EIPA \
-                           Key=Hostname,Value=dxcue2mwb01a \
-                           Key=Company,Value=DXC \
+                           Key=Hostname,Value=cmlue2mwb01a \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Management \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Create WindowsBastion Public Domain Name
@@ -591,7 +554,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "dxcue2mwb01a.$ohio_management_public_domain",
+      "Name": "cmlue2mwb01a.$ohio_management_public_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$ohio_management_wb_instancea_public_ip"}]
@@ -603,7 +566,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$ohio_management_public_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "dxcue2mwb01a.$ohio_management_public_domain"}]
+      "ResourceRecords": [{"Value": "cmlue2mwb01a.$ohio_management_public_domain"}]
     }
   }]
 }
@@ -612,12 +575,12 @@ EOF
 aws route53 change-resource-record-sets --hosted-zone-id $ohio_management_public_hostedzone_id \
                                         --change-batch file://$tmpfile \
                                         --profile $profile --region us-east-2 --output text
-echo "ohio_management_wb_instancea_hostname=dxcue2mwb01a.$ohio_management_public_domain"
+echo "ohio_management_wb_instancea_hostname=cmlue2mwb01a.$ohio_management_public_domain"
 echo "ohio_management_wb_instancea_hostname_alias=wba.$ohio_management_public_domain"
 
 # Create WindowsBastion Instance
 tmpfile=$tmpdir/ohio-management-wba-user-data-$$.ps1
-sed -e "s/@hostname@/dxcue2mwb01a/g" \
+sed -e "s/@hostname@/cmlue2mwb01a/g" \
     -e "s/@administrator_password_parameter@/Management-Administrator-Password/g" \
     -e "s/@directory_domain_parameter@/Management-Directory-Domain/g" \
     -e "s/@directory_domainjoin_user_parameter@/Management-Directory-DomainJoin-User/g" \
@@ -629,7 +592,7 @@ ohio_management_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_win2016
                                                         --iam-instance-profile Name=ManagedInstance \
                                                         --key-name administrator \
                                                         --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$ohio_management_wb_sg_id],SubnetId=$ohio_management_public_subneta_id" \
-                                                        --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Management-WindowsBastion-InstanceA},{Key=Hostname,Value=dxcue2mwb01a},{Key=Company,Value=DXC},{Key=Environment,Value=Management},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                        --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Management-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlue2mwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                         --user-data file://$tmpfile \
                                                         --client-token $(date +%s) \
                                                         --query 'Instances[0].InstanceId' \
@@ -648,7 +611,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "dxcue2mwb01a.$ohio_management_private_domain",
+      "Name": "cmlue2mwb01a.$ohio_management_private_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$ohio_management_wb_instancea_private_ip"}]
@@ -660,7 +623,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$ohio_management_private_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "dxcue2mwb01a.$ohio_management_private_domain"}]
+      "ResourceRecords": [{"Value": "cmlue2mwb01a.$ohio_management_private_domain"}]
     }
   }]
 }
@@ -687,28 +650,28 @@ echo "ohio_core_wb_sg_id=$ohio_core_wb_sg_id"
 
 aws ec2 create-tags --resources $ohio_core_wb_sg_id \
                     --tags Key=Name,Value=Core-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=DXC \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $ohio_core_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $ohio_core_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $ohio_core_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $ohio_core_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $ohio_core_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $ohio_core_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (RDP)\"}]" \
@@ -727,12 +690,12 @@ echo "ohio_core_wb_instancea_public_ip=$ohio_core_wb_instancea_public_ip"
 
 aws ec2 create-tags --resources $ohio_core_wb_eipa \
                     --tags Key=Name,Value=Core-WindowsBastion-EIPA \
-                           Key=Hostname,Value=dxcue2cwb01a \
-                           Key=Company,Value=DXC \
+                           Key=Hostname,Value=cmlue2cwb01a \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Create WindowsBastion Public Domain Name
@@ -742,7 +705,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "dxcue2cwb01a.$ohio_core_public_domain",
+      "Name": "cmlue2cwb01a.$ohio_core_public_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$ohio_core_wb_instancea_public_ip"}]
@@ -754,7 +717,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$ohio_core_public_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "dxcue2cwb01a.$ohio_core_public_domain"}]
+      "ResourceRecords": [{"Value": "cmlue2cwb01a.$ohio_core_public_domain"}]
     }
   }]
 }
@@ -763,12 +726,12 @@ EOF
 aws route53 change-resource-record-sets --hosted-zone-id $ohio_core_public_hostedzone_id \
                                         --change-batch file://$tmpfile \
                                         --profile $profile --region us-east-2 --output text
-echo "ohio_core_wb_instancea_hostname=dxcue2cwb01a.$ohio_core_public_domain"
+echo "ohio_core_wb_instancea_hostname=cmlue2cwb01a.$ohio_core_public_domain"
 echo "ohio_core_wb_instancea_hostname_alias=wba.$ohio_core_public_domain"
 
 # Create WindowsBastion Instance
 tmpfile=$tmpdir/ohio-core-wba-user-data-$$.ps1
-sed -e "s/@hostname@/dxcue2cwb01a/g" \
+sed -e "s/@hostname@/cmlue2cwb01a/g" \
     -e "s/@administrator_password_parameter@/Core-Administrator-Password/g" \
     -e "s/@directory_domain_parameter@/Core-Directory-Domain/g" \
     -e "s/@directory_domainjoin_user_parameter@/Core-Directory-DomainJoin-User/g" \
@@ -780,7 +743,7 @@ ohio_core_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_win2016_ami_i
                                                   --iam-instance-profile Name=ManagedInstance \
                                                   --key-name administrator \
                                                   --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Core-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$ohio_core_wb_sg_id],SubnetId=$ohio_core_public_subneta_id" \
-                                                  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Core-WindowsBastion-InstanceA},{Key=Hostname,Value=dxcue2cwb01a},{Key=Company,Value=DXC},{Key=Environment,Value=Core},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Core-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlue2cwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                   --user-data file://$tmpfile \
                                                   --client-token $(date +%s) \
                                                   --query 'Instances[0].InstanceId' \
@@ -799,7 +762,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "dxcue2cwb01a.$ohio_core_private_domain",
+      "Name": "cmlue2cwb01a.$ohio_core_private_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$ohio_core_wb_instancea_private_ip"}]
@@ -811,7 +774,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$ohio_core_private_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "dxcue2cwb01a.$ohio_core_private_domain"}]
+      "ResourceRecords": [{"Value": "cmlue2cwb01a.$ohio_core_private_domain"}]
     }
   }]
 }
@@ -838,28 +801,28 @@ echo "ohio_log_wb_sg_id=$ohio_log_wb_sg_id"
 
 aws ec2 create-tags --resources $ohio_log_wb_sg_id \
                     --tags Key=Name,Value=Log-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=DXC \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Log \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $ohio_log_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $ohio_log_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $ohio_log_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $ohio_log_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $ohio_log_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $ohio_log_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (RDP)\"}]" \
@@ -878,12 +841,12 @@ echo "ohio_log_wb_instancea_public_ip=$ohio_log_wb_instancea_public_ip"
 
 aws ec2 create-tags --resources $ohio_log_wb_eipa \
                     --tags Key=Name,Value=Log-WindowsBastion-EIPA \
-                           Key=Hostname,Value=dxcue2lwb01a \
-                           Key=Company,Value=DXC \
+                           Key=Hostname,Value=cmlue2lwb01a \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Log \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Create WindowsBastion Public Domain Name
@@ -893,7 +856,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "dxcue2lwb01a.$ohio_log_public_domain",
+      "Name": "cmlue2lwb01a.$ohio_log_public_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$ohio_log_wb_instancea_public_ip"}]
@@ -905,7 +868,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$ohio_log_public_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "dxcue2lwb01a.$ohio_log_public_domain"}]
+      "ResourceRecords": [{"Value": "cmlue2lwb01a.$ohio_log_public_domain"}]
     }
   }]
 }
@@ -914,12 +877,12 @@ EOF
 aws route53 change-resource-record-sets --hosted-zone-id $ohio_log_public_hostedzone_id \
                                         --change-batch file://$tmpfile \
                                         --profile $profile --region us-east-2 --output text
-echo "ohio_log_wb_instancea_hostname=dxcue2lwb01a.$ohio_log_public_domain"
+echo "ohio_log_wb_instancea_hostname=cmlue2lwb01a.$ohio_log_public_domain"
 echo "ohio_log_wb_instancea_hostname_alias=wba.$ohio_log_public_domain"
 
 # Create WindowsBastion Instance
 tmpfile=$tmpdir/ohio-log-wba-user-data-$$.ps1
-sed -e "s/@hostname@/dxcue2lwb01a/g" \
+sed -e "s/@hostname@/cmlue2lwb01a/g" \
     -e "s/@administrator_password_parameter@/Log-Administrator-Password/g" \
     -e "s/@directory_domain_parameter@/Log-Directory-Domain/g" \
     -e "s/@directory_domainjoin_user_parameter@/Log-Directory-DomainJoin-User/g" \
@@ -931,7 +894,7 @@ ohio_log_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_win2016_ami_id
                                                  --iam-instance-profile Name=ManagedInstance \
                                                  --key-name administrator \
                                                  --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Log-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$ohio_log_wb_sg_id],SubnetId=$ohio_log_public_subneta_id" \
-                                                 --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Log-WindowsBastion-InstanceA},{Key=Hostname,Value=dxcue2lwb01a},{Key=Company,Value=DXC},{Key=Environment,Value=Log},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                 --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Log-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlue2lwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                  --user-data file://$tmpfile \
                                                  --client-token $(date +%s) \
                                                  --query 'Instances[0].InstanceId' \
@@ -950,7 +913,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "dxcue2lwb01a.$ohio_log_private_domain",
+      "Name": "cmlue2lwb01a.$ohio_log_private_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$ohio_log_wb_instancea_private_ip"}]
@@ -962,7 +925,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$ohio_log_private_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "dxcue2lwb01a.$ohio_log_private_domain"}]
+      "ResourceRecords": [{"Value": "cmlue2lwb01a.$ohio_log_private_domain"}]
     }
   }]
 }
@@ -992,12 +955,12 @@ aws ec2 create-tags --resources $alfa_ohio_production_wb_sg_id \
                            Key=Company,Value=Alfa \
                            Key=Environment,Value=Production \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_production_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_production_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$alfa_lax_vpc_cidr,Description=\"DataCenter-Alfa-LosAngeles (ICMP)\"}]" \
@@ -1006,14 +969,14 @@ aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_production_wb_sg_
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$alfa_mia_vpc_cidr,Description=\"DataCenter-Alfa-Miami (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_production_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_production_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_production_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_production_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$alfa_lax_vpc_cidr,Description=\"DataCenter-Alfa-LosAngeles (RDP)\"}]" \
@@ -1022,7 +985,7 @@ aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_production_wb_sg_
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$alfa_mia_vpc_cidr,Description=\"DataCenter-Alfa-Miami (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_production_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_production_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (RDP)\"}]" \
@@ -1045,8 +1008,8 @@ aws ec2 create-tags --resources $alfa_ohio_production_wb_eipa \
                            Key=Company,Value=Alfa \
                            Key=Environment,Value=Production \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Create WindowsBastion Public Domain Name
@@ -1094,7 +1057,7 @@ alfa_ohio_production_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_wi
                                                              --iam-instance-profile Name=ManagedInstance \
                                                              --key-name administrator \
                                                              --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-Production-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_ohio_production_wb_sg_id],SubnetId=$alfa_ohio_production_public_subneta_id" \
-                                                             --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Production-WindowsBastion-InstanceA},{Key=Hostname,Value=alfue2pwb01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                             --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Production-WindowsBastion-InstanceA},{Key=Hostname,Value=alfue2pwb01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                              --user-data file://$tmpfile \
                                                              --client-token $(date +%s) \
                                                              --query 'Instances[0].InstanceId' \
@@ -1155,12 +1118,12 @@ aws ec2 create-tags --resources $alfa_ohio_testing_wb_sg_id \
                            Key=Company,Value=Alfa \
                            Key=Environment,Value=Testing \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_testing_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_testing_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$alfa_lax_vpc_cidr,Description=\"DataCenter-Alfa-LosAngeles (ICMP)\"}]" \
@@ -1169,14 +1132,14 @@ aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_testing_wb_sg_id 
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$alfa_mia_vpc_cidr,Description=\"DataCenter-Alfa-Miami (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_testing_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_testing_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_testing_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_testing_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$alfa_lax_vpc_cidr,Description=\"DataCenter-Alfa-LosAngeles (RDP)\"}]" \
@@ -1185,7 +1148,7 @@ aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_testing_wb_sg_id 
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$alfa_mia_vpc_cidr,Description=\"DataCenter-Alfa-Miami (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_testing_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_testing_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (RDP)\"}]" \
@@ -1208,8 +1171,8 @@ aws ec2 create-tags --resources $alfa_ohio_testing_wb_eipa \
                            Key=Company,Value=Alfa \
                            Key=Environment,Value=Testing \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Create WindowsBastion Public Domain Name
@@ -1257,7 +1220,7 @@ alfa_ohio_testing_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_win20
                                                           --iam-instance-profile Name=ManagedInstance \
                                                           --key-name administrator \
                                                           --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-Testing-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_ohio_testing_wb_sg_id],SubnetId=$alfa_ohio_testing_public_subneta_id" \
-                                                          --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Testing-WindowsBastion-InstanceA},{Key=Hostname,Value=alfue2twb01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                          --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Testing-WindowsBastion-InstanceA},{Key=Hostname,Value=alfue2twb01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                           --user-data file://$tmpfile \
                                                           --client-token $(date +%s) \
                                                           --query 'Instances[0].InstanceId' \
@@ -1318,12 +1281,12 @@ aws ec2 create-tags --resources $alfa_ohio_development_wb_sg_id \
                            Key=Company,Value=Alfa \
                            Key=Environment,Value=Development \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_development_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_development_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$alfa_lax_vpc_cidr,Description=\"DataCenter-Alfa-LosAngeles (ICMP)\"}]" \
@@ -1332,14 +1295,14 @@ aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_development_wb_sg
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$alfa_mia_vpc_cidr,Description=\"DataCenter-Alfa-Miami (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_development_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_development_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_development_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_development_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$alfa_lax_vpc_cidr,Description=\"DataCenter-Alfa-LosAngeles (RDP)\"}]" \
@@ -1348,7 +1311,7 @@ aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_development_wb_sg
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$alfa_mia_vpc_cidr,Description=\"DataCenter-Alfa-Miami (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_development_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_development_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (RDP)\"}]" \
@@ -1371,8 +1334,8 @@ aws ec2 create-tags --resources $alfa_ohio_development_wb_eipa \
                            Key=Company,Value=Alfa \
                            Key=Environment,Value=Development \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Create WindowsBastion Public Domain Name
@@ -1420,7 +1383,7 @@ alfa_ohio_development_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_w
                                                               --iam-instance-profile Name=ManagedInstance \
                                                               --key-name administrator \
                                                               --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-Development-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_ohio_development_wb_sg_id],SubnetId=$alfa_ohio_development_public_subneta_id" \
-                                                              --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Development-WindowsBastion-InstanceA},{Key=Hostname,Value=alfue2dwb01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                              --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Development-WindowsBastion-InstanceA},{Key=Hostname,Value=alfue2dwb01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                               --user-data file://$tmpfile \
                                                               --client-token $(date +%s) \
                                                               --query 'Instances[0].InstanceId' \
@@ -1481,31 +1444,31 @@ aws ec2 create-tags --resources $zulu_ohio_production_wb_sg_id \
                            Key=Company,Value=Zulu \
                            Key=Environment,Value=Production \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $zulu_ohio_production_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $zulu_ohio_production_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$zulu_dfw_vpc_cidr,Description=\"DataCenter-Zulu-Dallas (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $zulu_ohio_production_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $zulu_ohio_production_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $zulu_ohio_production_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $zulu_ohio_production_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$zulu_dfw_vpc_cidr,Description=\"DataCenter-Zulu-Dallas (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $zulu_ohio_production_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $zulu_ohio_production_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (RDP)\"}]" \
@@ -1528,8 +1491,8 @@ aws ec2 create-tags --resources $zulu_ohio_production_wb_eipa \
                            Key=Company,Value=Zulu \
                            Key=Environment,Value=Production \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Create WindowsBastion Public Domain Name
@@ -1577,7 +1540,7 @@ zulu_ohio_production_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_wi
                                                              --iam-instance-profile Name=ManagedInstance \
                                                              --key-name administrator \
                                                              --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Zulu-Production-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$zulu_ohio_production_wb_sg_id],SubnetId=$zulu_ohio_production_public_subneta_id" \
-                                                             --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Zulu-Production-WindowsBastion-InstanceA},{Key=Hostname,Value=zulue2pwb01a},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                             --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Zulu-Production-WindowsBastion-InstanceA},{Key=Hostname,Value=zulue2pwb01a},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                              --user-data file://$tmpfile \
                                                              --client-token $(date +%s) \
                                                              --query 'Instances[0].InstanceId' \
@@ -1638,31 +1601,31 @@ aws ec2 create-tags --resources $zulu_ohio_development_wb_sg_id \
                            Key=Company,Value=Zulu \
                            Key=Environment,Value=Development \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $zulu_ohio_development_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $zulu_ohio_development_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$zulu_dfw_vpc_cidr,Description=\"DataCenter-Zulu-Dallas (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $zulu_ohio_development_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $zulu_ohio_development_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $zulu_ohio_development_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $zulu_ohio_development_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$zulu_dfw_vpc_cidr,Description=\"DataCenter-Zulu-Dallas (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $zulu_ohio_development_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $zulu_ohio_development_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (RDP)\"}]" \
@@ -1685,8 +1648,8 @@ aws ec2 create-tags --resources $zulu_ohio_development_wb_eipa \
                            Key=Company,Value=Zulu \
                            Key=Environment,Value=Development \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Create WindowsBastion Public Domain Name
@@ -1734,7 +1697,7 @@ zulu_ohio_development_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_w
                                                               --iam-instance-profile Name=ManagedInstance \
                                                               --key-name administrator \
                                                               --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Zulu-Development-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$zulu_ohio_development_wb_sg_id],SubnetId=$zulu_ohio_development_public_subneta_id" \
-                                                              --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Zulu-Development-WindowsBastion-InstanceA},{Key=Hostname,Value=zulue2dwb01a},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                              --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Zulu-Development-WindowsBastion-InstanceA},{Key=Hostname,Value=zulue2dwb01a},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                               --user-data file://$tmpfile \
                                                               --client-token $(date +%s) \
                                                               --query 'Instances[0].InstanceId' \
@@ -1792,28 +1755,28 @@ echo "ireland_management_wb_sg_id=$ireland_management_wb_sg_id"
 
 aws ec2 create-tags --resources $ireland_management_wb_sg_id \
                     --tags Key=Name,Value=Management-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=DXC \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Management \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region eu-west-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $ireland_management_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
                                          --profile $profile --region eu-west-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $ireland_management_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (ICMP)\"}]" \
                                          --profile $profile --region eu-west-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $ireland_management_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (ICMP)\"}]" \
                                          --profile $profile --region eu-west-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $ireland_management_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (RDP)\"}]" \
                                          --profile $profile --region eu-west-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $ireland_management_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $ireland_management_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (RDP)\"}]" \
@@ -1832,12 +1795,12 @@ echo "ireland_management_wb_instancea_public_ip=$ireland_management_wb_instancea
 
 aws ec2 create-tags --resources $ireland_management_wb_eipa \
                     --tags Key=Name,Value=Management-WindowsBastion-EIPA \
-                           Key=Hostname,Value=dxcew1mwb01a \
-                           Key=Company,Value=DXC \
+                           Key=Hostname,Value=cmlew1mwb01a \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Management \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region eu-west-1 --output text
 
 # Create WindowsBastion Public Domain Name
@@ -1847,7 +1810,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "dxcew1mwb01a.$ireland_management_public_domain",
+      "Name": "cmlew1mwb01a.$ireland_management_public_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$ireland_management_wb_instancea_public_ip"}]
@@ -1859,7 +1822,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$ireland_management_public_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "dxcew1mwb01a.$ireland_management_public_domain"}]
+      "ResourceRecords": [{"Value": "cmlew1mwb01a.$ireland_management_public_domain"}]
     }
   }]
 }
@@ -1868,12 +1831,12 @@ EOF
 aws route53 change-resource-record-sets --hosted-zone-id $ireland_management_public_hostedzone_id \
                                         --change-batch file://$tmpfile \
                                         --profile $profile --region eu-west-1 --output text
-echo "ireland_management_wb_instancea_hostname=dxcew1mwb01a.$ireland_management_public_domain"
+echo "ireland_management_wb_instancea_hostname=cmlew1mwb01a.$ireland_management_public_domain"
 echo "ireland_management_wb_instancea_hostname_alias=wba.$ireland_management_public_domain"
 
 # Create WindowsBastion Instance
 tmpfile=$tmpdir/ireland-management-wba-user-data-$$.ps1
-sed -e "s/@hostname@/dxcew1mwb01a/g" \
+sed -e "s/@hostname@/cmlew1mwb01a/g" \
     -e "s/@administrator_password_parameter@/Management-Administrator-Password/g" \
     -e "s/@directory_domain_parameter@/Management-Directory-Domain/g" \
     -e "s/@directory_domainjoin_user_parameter@/Management-Directory-DomainJoin-User/g" \
@@ -1885,7 +1848,7 @@ ireland_management_wb_instancea_id=$(aws ec2 run-instances --image-id $ireland_w
                                                            --iam-instance-profile Name=ManagedInstance \
                                                            --key-name administrator \
                                                            --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$ireland_management_wb_sg_id],SubnetId=$ireland_management_public_subneta_id" \
-                                                           --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Management-WindowsBastion-InstanceA},{Key=Hostname,Value=dxcew1mwb01a},{Key=Company,Value=DXC},{Key=Environment,Value=Management},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                           --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Management-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlew1mwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                            --user-data file://$tmpfile \
                                                            --client-token $(date +%s) \
                                                            --query 'Instances[0].InstanceId' \
@@ -1904,7 +1867,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "dxcew1mwb01a.$ireland_management_private_domain",
+      "Name": "cmlew1mwb01a.$ireland_management_private_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$ireland_management_wb_instancea_private_ip"}]
@@ -1916,7 +1879,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$ireland_management_private_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "dxcew1mwb01a.$ireland_management_private_domain"}]
+      "ResourceRecords": [{"Value": "cmlew1mwb01a.$ireland_management_private_domain"}]
     }
   }]
 }
@@ -1943,28 +1906,28 @@ echo "ireland_core_wb_sg_id=$ireland_core_wb_sg_id"
 
 aws ec2 create-tags --resources $ireland_core_wb_sg_id \
                     --tags Key=Name,Value=Core-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=DXC \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region eu-west-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $ireland_core_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
                                          --profile $profile --region eu-west-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $ireland_core_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (ICMP)\"}]" \
                                          --profile $profile --region eu-west-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $ireland_core_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (ICMP)\"}]" \
                                          --profile $profile --region eu-west-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $ireland_core_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (RDP)\"}]" \
                                          --profile $profile --region eu-west-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $ireland_core_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (RDP)\"}]" \
                                          --profile $profile --region eu-west-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $ireland_core_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (RDP)\"}]" \
@@ -1983,12 +1946,12 @@ echo "ireland_core_wb_instancea_public_ip=$ireland_core_wb_instancea_public_ip"
 
 aws ec2 create-tags --resources $ireland_core_wb_eipa \
                     --tags Key=Name,Value=Core-WindowsBastion-EIPA \
-                           Key=Hostname,Value=dxcew1cwb01a \
-                           Key=Company,Value=DXC \
+                           Key=Hostname,Value=cmlew1cwb01a \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region eu-west-1 --output text
 
 # Create WindowsBastion Public Domain Name
@@ -1998,7 +1961,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "dxcew1cwb01a.$ireland_core_public_domain",
+      "Name": "cmlew1cwb01a.$ireland_core_public_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$ireland_core_wb_instancea_public_ip"}]
@@ -2010,7 +1973,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$ireland_core_public_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "dxcew1cwb01a.$ireland_core_public_domain"}]
+      "ResourceRecords": [{"Value": "cmlew1cwb01a.$ireland_core_public_domain"}]
     }
   }]
 }
@@ -2019,12 +1982,12 @@ EOF
 aws route53 change-resource-record-sets --hosted-zone-id $ireland_core_public_hostedzone_id \
                                         --change-batch file://$tmpfile \
                                         --profile $profile --region eu-west-1 --output text
-echo "ireland_core_wb_instancea_hostname=dxcew1cwb01a.$ireland_core_public_domain"
+echo "ireland_core_wb_instancea_hostname=cmlew1cwb01a.$ireland_core_public_domain"
 echo "ireland_core_wb_instancea_hostname_alias=wba.$ireland_core_public_domain"
 
 # Create WindowsBastion Instance
 tmpfile=$tmpdir/ireland-core-wba-user-data-$$.ps1
-sed -e "s/@hostname@/dxcew1cwb01a/g" \
+sed -e "s/@hostname@/cmlew1cwb01a/g" \
     -e "s/@administrator_password_parameter@/Core-Administrator-Password/g" \
     -e "s/@directory_domain_parameter@/Core-Directory-Domain/g" \
     -e "s/@directory_domainjoin_user_parameter@/Core-Directory-DomainJoin-User/g" \
@@ -2036,7 +1999,7 @@ ireland_core_wb_instancea_id=$(aws ec2 run-instances --image-id $ireland_win2016
                                                      --iam-instance-profile Name=ManagedInstance \
                                                      --key-name administrator \
                                                      --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Core-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$ireland_core_wb_sg_id],SubnetId=$ireland_core_public_subneta_id" \
-                                                     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Core-WindowsBastion-InstanceA},{Key=Hostname,Value=dxcew1cwb01a},{Key=Company,Value=DXC},{Key=Environment,Value=Core},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Core-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlew1cwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                      --user-data file://$tmpfile \
                                                      --client-token $(date +%s) \
                                                      --query 'Instances[0].InstanceId' \
@@ -2055,7 +2018,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "dxcew1cwb01a.$ireland_core_private_domain",
+      "Name": "cmlew1cwb01a.$ireland_core_private_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$ireland_core_wb_instancea_private_ip"}]
@@ -2067,7 +2030,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$ireland_core_private_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "dxcew1cwb01a.$ireland_core_private_domain"}]
+      "ResourceRecords": [{"Value": "cmlew1cwb01a.$ireland_core_private_domain"}]
     }
   }]
 }
@@ -2094,28 +2057,28 @@ echo "ireland_log_wb_sg_id=$ireland_log_wb_sg_id"
 
 aws ec2 create-tags --resources $ireland_log_wb_sg_id \
                     --tags Key=Name,Value=Log-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=DXC \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Log \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region eu-west-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $ireland_log_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
                                          --profile $profile --region eu-west-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $ireland_log_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (ICMP)\"}]" \
                                          --profile $profile --region eu-west-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $ireland_log_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (ICMP)\"}]" \
                                          --profile $profile --region eu-west-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $ireland_log_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (RDP)\"}]" \
                                          --profile $profile --region eu-west-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $ireland_log_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (RDP)\"}]" \
                                          --profile $profile --region eu-west-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $ireland_log_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (RDP)\"}]" \
@@ -2134,12 +2097,12 @@ echo "ireland_log_wb_instancea_public_ip=$ireland_log_wb_instancea_public_ip"
 
 aws ec2 create-tags --resources $ireland_log_wb_eipa \
                     --tags Key=Name,Value=Log-WindowsBastion-EIPA \
-                           Key=Hostname,Value=dxcew1lwb01a \
-                           Key=Company,Value=DXC \
+                           Key=Hostname,Value=cmlew1lwb01a \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Log \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region eu-west-1 --output text
 
 # Create WindowsBastion Public Domain Name
@@ -2149,7 +2112,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "dxcew1lwb01a.$ireland_log_public_domain",
+      "Name": "cmlew1lwb01a.$ireland_log_public_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$ireland_log_wb_instancea_public_ip"}]
@@ -2161,7 +2124,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$ireland_log_public_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "dxcew1lwb01a.$ireland_log_public_domain"}]
+      "ResourceRecords": [{"Value": "cmlew1lwb01a.$ireland_log_public_domain"}]
     }
   }]
 }
@@ -2170,12 +2133,12 @@ EOF
 aws route53 change-resource-record-sets --hosted-zone-id $ireland_log_public_hostedzone_id \
                                         --change-batch file://$tmpfile \
                                         --profile $profile --region eu-west-1 --output text
-echo "ireland_log_wb_instancea_hostname=dxcew1lwb01a.$ireland_log_public_domain"
+echo "ireland_log_wb_instancea_hostname=cmlew1lwb01a.$ireland_log_public_domain"
 echo "ireland_log_wb_instancea_hostname_alias=wba.$ireland_log_public_domain"
 
 # Create WindowsBastion Instance
 tmpfile=$tmpdir/ireland-log-wba-user-data-$$.ps1
-sed -e "s/@hostname@/dxcew1lwb01a/g" \
+sed -e "s/@hostname@/cmlew1lwb01a/g" \
     -e "s/@administrator_password_parameter@/Log-Administrator-Password/g" \
     -e "s/@directory_domain_parameter@/Log-Directory-Domain/g" \
     -e "s/@directory_domainjoin_user_parameter@/Log-Directory-DomainJoin-User/g" \
@@ -2187,7 +2150,7 @@ ireland_log_wb_instancea_id=$(aws ec2 run-instances --image-id $ireland_win2016_
                                                     --iam-instance-profile Name=ManagedInstance \
                                                     --key-name administrator \
                                                     --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Log-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$ireland_log_wb_sg_id],SubnetId=$ireland_log_public_subneta_id" \
-                                                    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Log-WindowsBastion-InstanceA},{Key=Hostname,Value=dxcew1lwb01a},{Key=Company,Value=DXC},{Key=Environment,Value=Log},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Log-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlew1lwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                     --user-data file://$tmpfile \
                                                     --client-token $(date +%s) \
                                                     --query 'Instances[0].InstanceId' \
@@ -2206,7 +2169,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "dxcew1lwb01a.$ireland_log_private_domain",
+      "Name": "cmlew1lwb01a.$ireland_log_private_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$ireland_log_wb_instancea_private_ip"}]
@@ -2218,7 +2181,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$ireland_log_private_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "dxcew1lwb01a.$ireland_log_private_domain"}]
+      "ResourceRecords": [{"Value": "cmlew1lwb01a.$ireland_log_private_domain"}]
     }
   }]
 }
@@ -2248,12 +2211,12 @@ aws ec2 create-tags --resources $alfa_ireland_recovery_wb_sg_id \
                            Key=Company,Value=Alfa \
                            Key=Environment,Value=Recovery \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region eu-west-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $alfa_ireland_recovery_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
                                          --profile $profile --region eu-west-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ireland_recovery_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$alfa_lax_vpc_cidr,Description=\"DataCenter-Alfa-LosAngeles (ICMP)\"}]" \
@@ -2262,14 +2225,14 @@ aws ec2 authorize-security-group-ingress --group-id $alfa_ireland_recovery_wb_sg
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$alfa_mia_vpc_cidr,Description=\"DataCenter-Alfa-Miami (ICMP)\"}]" \
                                          --profile $profile --region eu-west-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ireland_recovery_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (ICMP)\"}]" \
                                          --profile $profile --region eu-west-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ireland_recovery_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (ICMP)\"}]" \
                                          --profile $profile --region eu-west-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $alfa_ireland_recovery_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_sba_vpc_cidr,Description=\"DataCenter-DXC-SantaBarbara (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (RDP)\"}]" \
                                          --profile $profile --region eu-west-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ireland_recovery_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$alfa_lax_vpc_cidr,Description=\"DataCenter-Alfa-LosAngeles (RDP)\"}]" \
@@ -2278,7 +2241,7 @@ aws ec2 authorize-security-group-ingress --group-id $alfa_ireland_recovery_wb_sg
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$alfa_mia_vpc_cidr,Description=\"DataCenter-Alfa-Miami (RDP)\"}]" \
                                          --profile $profile --region eu-west-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ireland_recovery_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (RDP)\"}]" \
                                          --profile $profile --region eu-west-1 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_ireland_recovery_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (RDP)\"}]" \
@@ -2301,8 +2264,8 @@ aws ec2 create-tags --resources $alfa_ireland_recovery_wb_eipa \
                            Key=Company,Value=Alfa \
                            Key=Environment,Value=Recovery \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region eu-west-1 --output text
 
 # Create WindowsBastion Public Domain Name
@@ -2350,7 +2313,7 @@ alfa_ireland_recovery_wb_instancea_id=$(aws ec2 run-instances --image-id $irelan
                                                               --iam-instance-profile Name=ManagedInstance \
                                                               --key-name administrator \
                                                               --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-Recovery-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_ireland_recovery_wb_sg_id],SubnetId=$alfa_ireland_recovery_public_subneta_id" \
-                                                              --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Recovery-WindowsBastion-InstanceA},{Key=Hostname,Value=alfew1rwb01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                              --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Recovery-WindowsBastion-InstanceA},{Key=Hostname,Value=alfew1rwb01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                               --user-data file://$tmpfile \
                                                               --client-token $(date +%s) \
                                                               --query 'Instances[0].InstanceId' \
@@ -2411,19 +2374,19 @@ aws ec2 create-tags --resources $alfa_lax_wb_sg_id \
                            Key=Company,Value=Alfa \
                            Key=Location,Value=LosAngeles \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $alfa_lax_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_lax_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $alfa_lax_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_lax_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (RDP)\"}]" \
@@ -2446,8 +2409,8 @@ aws ec2 create-tags --resources $alfa_lax_wb_eipa \
                            Key=Company,Value=Alfa \
                            Key=Location,Value=LosAngeles \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Create WindowsBastion Public Domain Name
@@ -2493,7 +2456,7 @@ alfa_lax_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_win2016_ami_id
                                                  --iam-instance-profile Name=ManagedInstance \
                                                  --key-name administrator \
                                                  --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-LosAngeles-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_lax_wb_sg_id],SubnetId=$alfa_lax_public_subneta_id" \
-                                                 --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-LosAngeles-WindowsBastion-InstanceA},{Key=Hostname,Value=alflaxcwb01a},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                 --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-LosAngeles-WindowsBastion-InstanceA},{Key=Hostname,Value=alflaxcwb01a},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                  --user-data file://$tmpfile \
                                                  --client-token $(date +%s) \
                                                  --query 'Instances[0].InstanceId' \
@@ -2554,19 +2517,19 @@ aws ec2 create-tags --resources $alfa_mia_wb_sg_id \
                            Key=Company,Value=Alfa \
                            Key=Location,Value=Miami \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $alfa_mia_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_mia_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $alfa_mia_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $alfa_mia_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (RDP)\"}]" \
@@ -2589,8 +2552,8 @@ aws ec2 create-tags --resources $alfa_mia_wb_eipa \
                            Key=Company,Value=Alfa \
                            Key=Location,Value=Miami \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Create WindowsBastion Public Domain Name
@@ -2636,7 +2599,7 @@ alfa_mia_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_win2016_ami_id
                                                  --iam-instance-profile Name=ManagedInstance \
                                                  --key-name administrator \
                                                  --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-Miami-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_mia_wb_sg_id],SubnetId=$alfa_mia_public_subneta_id" \
-                                                 --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Miami-WindowsBastion-InstanceA},{Key=Hostname,Value=alfmiacwb01a},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                 --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Miami-WindowsBastion-InstanceA},{Key=Hostname,Value=alfmiacwb01a},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                  --user-data file://$tmpfile \
                                                  --client-token $(date +%s) \
                                                  --query 'Instances[0].InstanceId' \
@@ -2697,19 +2660,19 @@ aws ec2 create-tags --resources $zulu_dfw_wb_sg_id \
                            Key=Company,Value=Zulu \
                            Key=Location,Value=Dallas \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $zulu_dfw_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (ICMP)\"}]" \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $zulu_dfw_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $zulu_dfw_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (RDP)\"}]" \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 aws ec2 authorize-security-group-ingress --group-id $zulu_dfw_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (RDP)\"}]" \
@@ -2732,8 +2695,8 @@ aws ec2 create-tags --resources $zulu_dfw_wb_eipa \
                            Key=Company,Value=Zulu \
                            Key=Location,Value=Dallas \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Create WindowsBastion Public Domain Name
@@ -2779,7 +2742,7 @@ zulu_dfw_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_win2016_ami_id
                                                  --iam-instance-profile Name=ManagedInstance \
                                                  --key-name administrator \
                                                  --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Zulu-Dallas-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$zulu_dfw_wb_sg_id],SubnetId=$zulu_dfw_public_subneta_id" \
-                                                 --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Zulu-Dallas-WindowsBastion-InstanceA},{Key=Hostname,Value=zuldfwcwb01a},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                 --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Zulu-Dallas-WindowsBastion-InstanceA},{Key=Hostname,Value=zuldfwcwb01a},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                  --user-data file://$tmpfile \
                                                  --client-token $(date +%s) \
                                                  --query 'Instances[0].InstanceId' \
@@ -2824,144 +2787,144 @@ aws ec2 associate-address --instance-id $zulu_dfw_wb_instancea_id --allocation-i
                           --profile $profile --region us-east-2 --output text
 
 
-## DXC SantaBarbara Windows Bastion ###################################################################################
+## CaMeLz SantaBarbara Windows Bastion ###################################################################################
 profile=$management_profile
 
 # Create WindowsBastion Security Group
-dxc_sba_wb_sg_id=$(aws ec2 create-security-group --group-name DXC-SantaBarbara-WindowsBastion-InstanceSecurityGroup \
-                                                 --description DXC-SantaBarbara-WindowsBastion-InstanceSecurityGroup \
-                                                 --vpc-id $dxc_sba_vpc_id \
+cml_sba_wb_sg_id=$(aws ec2 create-security-group --group-name CaMeLz-SantaBarbara-WindowsBastion-InstanceSecurityGroup \
+                                                 --description CaMeLz-SantaBarbara-WindowsBastion-InstanceSecurityGroup \
+                                                 --vpc-id $cml_sba_vpc_id \
                                                  --query 'GroupId' \
                                                  --profile $profile --region us-east-2 --output text)
-echo "dxc_sba_wb_sg_id=$dxc_sba_wb_sg_id"
+echo "cml_sba_wb_sg_id=$cml_sba_wb_sg_id"
 
-aws ec2 create-tags --resources $dxc_sba_wb_sg_id \
-                    --tags Key=Name,Value=DXC-SantaBarbara-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=DXC \
+aws ec2 create-tags --resources $cml_sba_wb_sg_id \
+                    --tags Key=Name,Value=CaMeLz-SantaBarbara-WindowsBastion-InstanceSecurityGroup \
+                           Key=Company,Value=CaMeLz \
                            Key=Location,Value=SantaBarbara \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
-aws ec2 authorize-security-group-ingress --group-id $dxc_sba_wb_sg_id \
-                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (ICMP)\"}]" \
+aws ec2 authorize-security-group-ingress --group-id $cml_sba_wb_sg_id \
+                                         --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
-aws ec2 authorize-security-group-ingress --group-id $dxc_sba_wb_sg_id \
+aws ec2 authorize-security-group-ingress --group-id $cml_sba_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (ICMP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 
-aws ec2 authorize-security-group-ingress --group-id $dxc_sba_wb_sg_id \
-                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$dxc_msy_public_cidr,Description=\"Office-DXC-NewOrleans (RDP)\"}]" \
+aws ec2 authorize-security-group-ingress --group-id $cml_sba_wb_sg_id \
+                                         --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
-aws ec2 authorize-security-group-ingress --group-id $dxc_sba_wb_sg_id \
+aws ec2 authorize-security-group-ingress --group-id $cml_sba_wb_sg_id \
                                          --ip-permissions "IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=$mcrawford_home_public_cidr,Description=\"Home-MCrawford (RDP)\"}]" \
                                          --profile $profile --region us-east-2 --output text
 
 # Create WindowsBastion EIP
-dxc_sba_wb_eipa=$(aws ec2 allocate-address --domain vpc \
+cml_sba_wb_eipa=$(aws ec2 allocate-address --domain vpc \
                                            --query 'AllocationId' \
                                            --profile $profile --region us-east-2 --output text)
-echo "dxc_sba_wb_eipa=$dxc_sba_wb_eipa"
+echo "cml_sba_wb_eipa=$cml_sba_wb_eipa"
 
-dxc_sba_wb_instancea_public_ip=$(aws ec2 describe-addresses --allocation-ids $dxc_sba_wb_eipa \
+cml_sba_wb_instancea_public_ip=$(aws ec2 describe-addresses --allocation-ids $cml_sba_wb_eipa \
                                                             --query 'Addresses[0].PublicIp' \
                                                             --profile $profile --region us-east-2 --output text)
-echo "dxc_sba_wb_instancea_public_ip=$dxc_sba_wb_instancea_public_ip"
+echo "cml_sba_wb_instancea_public_ip=$cml_sba_wb_instancea_public_ip"
 
-aws ec2 create-tags --resources $dxc_sba_wb_eipa \
-                    --tags Key=Name,Value=DXC-SantaBarbara-WindowsBastion-EIPA \
-                           Key=Hostname,Value=dxcsbacwb01a \
-                           Key=Company,Value=DXC \
+aws ec2 create-tags --resources $cml_sba_wb_eipa \
+                    --tags Key=Name,Value=CaMeLz-SantaBarbara-WindowsBastion-EIPA \
+                           Key=Hostname,Value=cmlsbacwb01a \
+                           Key=Company,Value=CaMeLz \
                            Key=Location,Value=SantaBarbara \
                            Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Create WindowsBastion Public Domain Name
-tmpfile=$tmpdir/dxc-sba-wba-public-$$.json
+tmpfile=$tmpdir/cml-sba-wba-public-$$.json
 cat > $tmpfile << EOF
 {
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "dxcsbacwb01a.$dxc_sba_public_domain",
+      "Name": "cmlsbacwb01a.$cml_sba_public_domain",
       "Type": "A",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "$dxc_sba_wb_instancea_public_ip"}]
+      "ResourceRecords": [{"Value": "$cml_sba_wb_instancea_public_ip"}]
     }
   },
   {
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "wba.$dxc_sba_public_domain",
+      "Name": "wba.$cml_sba_public_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "dxcsbacwb01a.$dxc_sba_public_domain"}]
+      "ResourceRecords": [{"Value": "cmlsbacwb01a.$cml_sba_public_domain"}]
     }
   }]
 }
 EOF
 
-aws route53 change-resource-record-sets --hosted-zone-id $dxc_sba_public_hostedzone_id \
+aws route53 change-resource-record-sets --hosted-zone-id $cml_sba_public_hostedzone_id \
                                         --change-batch file://$tmpfile \
                                         --profile $profile --region us-east-2 --output text
-echo "dxc_sba_wb_instancea_hostname=alflaxcwb01a.$dxc_sba_public_domain"
-echo "dxc_sba_wb_instancea_hostname_alias=wba.$dxc_sba_public_domain"
+echo "cml_sba_wb_instancea_hostname=alflaxcwb01a.$cml_sba_public_domain"
+echo "cml_sba_wb_instancea_hostname_alias=wba.$cml_sba_public_domain"
 
 # Create WindowsBastion Instance
-tmpfile=$tmpdir/dxc-sba-wba-user-data-$$.ps1
-sed -e "s/@hostname@/dxcsbacwb01a/g" \
-    -e "s/@administrator_password_parameter@/DXC-SantaBarbara-Administrator-Password/g" \
+tmpfile=$tmpdir/cml-sba-wba-user-data-$$.ps1
+sed -e "s/@hostname@/cmlsbacwb01a/g" \
+    -e "s/@administrator_password_parameter@/CaMeLz-SantaBarbara-Administrator-Password/g" \
     -e "s/@directory_domain_parameter@//g" \
     $templatesdir/windows-wb-user-data.ps1 > $tmpfile
 
-dxc_sba_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_win2016_ami_id \
+cml_sba_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_win2016_ami_id \
                                                 --instance-type t3a.medium \
                                                 --iam-instance-profile Name=ManagedInstance \
                                                 --key-name administrator \
-                                                --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=DXC-SantaBarbara-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$dxc_sba_wb_sg_id],SubnetId=$dxc_sba_public_subneta_id" \
-                                                --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=DXC-SantaBarbara-WindowsBastion-InstanceA},{Key=Hostname,Value=dxcsbacwb01a},{Key=Company,Value=DXC},{Key=Location,Value=SantaBarbara},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=CaMeLz-SantaBarbara-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$cml_sba_wb_sg_id],SubnetId=$cml_sba_public_subneta_id" \
+                                                --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlsbacwb01a},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                 --user-data file://$tmpfile \
                                                 --client-token $(date +%s) \
                                                 --query 'Instances[0].InstanceId' \
                                                 --profile $profile --region us-east-2 --output text)
-echo "dxc_sba_wb_instancea_id=$dxc_sba_wb_instancea_id"
+echo "cml_sba_wb_instancea_id=$cml_sba_wb_instancea_id"
 
-dxc_sba_wb_instancea_private_ip=$(aws ec2 describe-instances --instance-ids $dxc_sba_wb_instancea_id \
+cml_sba_wb_instancea_private_ip=$(aws ec2 describe-instances --instance-ids $cml_sba_wb_instancea_id \
                                                              --query 'Reservations[0].Instances[0].PrivateIpAddress' \
                                                              --profile $profile --region us-east-2 --output text)
-echo "dxc_sba_wb_instancea_private_ip=$dxc_sba_wb_instancea_private_ip"
+echo "cml_sba_wb_instancea_private_ip=$cml_sba_wb_instancea_private_ip"
 
 # Create WindowsBastion Private Domain Name
-tmpfile=$tmpdir/dxc-sba-wba-private-$$.json
+tmpfile=$tmpdir/cml-sba-wba-private-$$.json
 cat > $tmpfile << EOF
 {
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "dxcsbacwb01a.$dxc_sba_private_domain",
+      "Name": "cmlsbacwb01a.$cml_sba_private_domain",
       "Type": "A",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "$dxc_sba_wb_instancea_private_ip"}]
+      "ResourceRecords": [{"Value": "$cml_sba_wb_instancea_private_ip"}]
     }
   },
   {
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "wba.$dxc_sba_private_domain",
+      "Name": "wba.$cml_sba_private_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "dxcsbacwb01a.$dxc_sba_private_domain"}]
+      "ResourceRecords": [{"Value": "cmlsbacwb01a.$cml_sba_private_domain"}]
     }
   }]
 }
 EOF
 
-aws route53 change-resource-record-sets --hosted-zone-id $dxc_sba_private_hostedzone_id \
+aws route53 change-resource-record-sets --hosted-zone-id $cml_sba_private_hostedzone_id \
                                         --change-batch file://$tmpfile \
                                         --profile $profile --region us-east-2 --output text
 
-aws ec2 associate-address --instance-id $dxc_sba_wb_instancea_id --allocation-id $dxc_sba_wb_eipa \
+aws ec2 associate-address --instance-id $cml_sba_wb_instancea_id --allocation-id $cml_sba_wb_eipa \
                           --profile $profile --region us-east-2 --output text

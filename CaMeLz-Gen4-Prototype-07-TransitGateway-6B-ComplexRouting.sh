@@ -1,44 +1,7 @@
 #!/usr/bin/env bash
 #
-# This is part of a set of scripts to setup a realistic DAP Prototype which uses multiple Accounts, VPCs and
+# This is part of a set of scripts to setup a realistic CaMeLz Prototype which uses multiple Accounts, VPCs and
 # Transit Gateway to connect them all
-#
-# There are MANY resources needed to create this prototype, so we are splitting them into these files
-# - CAMELZ-Gen3-Prototype-00-DefineParameters.sh
-# - CAMELZ-Gen3-Prototype-01-Roles.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-03-PublicHostedZones.sh
-# - CAMELZ-Gen3-Prototype-04-VPCs.sh
-# - CAMELZ-Gen3-Prototype-05-Resolvers-1-Outbound.sh
-# - CAMELZ-Gen3-Prototype-05-Resolvers-2-Inbound.sh
-# - CAMELZ-Gen3-Prototype-06-CustomerGateways.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-1-TransitGateways.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-2-VPCAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-3-StaticVPCRoutes.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-4-PeeringAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-5-VPNAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-6A-SimpleRouting.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-6B-ComplexRouting.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-1-DirectoryService.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-2-ResolverRule.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-3-Trust.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-1-DirectoryService.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-2-ResolverRule.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-3-Trust.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-09-LinuxTestInstances.sh
-# - CAMELZ-Gen3-Prototype-10-WindowsBastions.sh
-# - CAMELZ-Gen3-Prototype-11-ActiveDirectoryManagement-1A-Shared.sh
-# - CAMELZ-Gen3-Prototype-11-ActiveDirectoryManagement-1B-PerClient.sh
-# - CAMELZ-Gen3-Prototype-12-ClientVPN.sh
-# - CAMELZ-Gen3-Prototype-20-Remaining.sh
 #
 # You will need to sign up for the "Cisco Cloud Services Router (CSR) 1000V - BYOL for Maximum Performance" Marketplace AMI
 # in the Management Account (or the account where you will run simulated customer on-prem locations).
@@ -65,14 +28,14 @@ profile=$core_profile
 
 # Create Internal VPC Route Table
 global_core_tgw_internal_vpc_rtb_id=$(aws ec2 create-transit-gateway-route-table --transit-gateway-id $global_core_tgw_id \
-                                                                                 --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayInternalVPCRouteTable},{Key=Company,Value=DXC},{Key=Environment,Value=Core},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                                                 --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayInternalVPCRouteTable},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                                                  --query 'TransitGatewayRouteTable.TransitGatewayRouteTableId' \
                                                                                  --profile $profile --region us-east-1 --output text)
 echo "global_core_tgw_internal_vpc_rtb_id=$global_core_tgw_internal_vpc_rtb_id"
 
 # Create Internal VPN Route Table
 global_core_tgw_internal_vpn_rtb_id=$(aws ec2 create-transit-gateway-route-table --transit-gateway-id $global_core_tgw_id \
-                                                                                 --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayInternalVPNRouteTable},{Key=Company,Value=DXC},{Key=Environment,Value=Core},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                                                 --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayInternalVPNRouteTable},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                                                  --query 'TransitGatewayRouteTable.TransitGatewayRouteTableId' \
                                                                                  --profile $profile --region us-east-1 --output text)
 echo "global_core_tgw_internal_vpn_rtb_id=$global_core_tgw_internal_vpn_rtb_id"
@@ -83,14 +46,14 @@ profile=$core_profile
 
 # Create Internal VPC Route Table
 ohio_core_tgw_internal_vpc_rtb_id=$(aws ec2 create-transit-gateway-route-table --transit-gateway-id $ohio_core_tgw_id \
-                                                                               --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayInternalVPCRouteTable},{Key=Company,Value=DXC},{Key=Environment,Value=Core},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                                               --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayInternalVPCRouteTable},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                                                --query 'TransitGatewayRouteTable.TransitGatewayRouteTableId' \
                                                                                --profile $profile --region us-east-2 --output text)
 echo "ohio_core_tgw_internal_vpc_rtb_id=$ohio_core_tgw_internal_vpc_rtb_id"
 
 # Create Internal VPN Route Table
 ohio_core_tgw_internal_vpn_rtb_id=$(aws ec2 create-transit-gateway-route-table --transit-gateway-id $ohio_core_tgw_id \
-                                                                               --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayInternalVPNRouteTable},{Key=Company,Value=DXC},{Key=Environment,Value=Core},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                                               --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayInternalVPNRouteTable},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                                                --query 'TransitGatewayRouteTable.TransitGatewayRouteTableId' \
                                                                                --profile $profile --region us-east-2 --output text)
 echo "ohio_core_tgw_internal_vpn_rtb_id=$ohio_core_tgw_internal_vpn_rtb_id"
@@ -101,28 +64,28 @@ profile=$core_profile
 
 # Create Alfa VPC Route Table
 ohio_core_tgw_alfa_vpc_rtb_id=$(aws ec2 create-transit-gateway-route-table --transit-gateway-id $ohio_core_tgw_id \
-                                                                           --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayAlfaVPCRouteTable},{Key=Company,Value=Alfa},{Key=Environment,Value=Core},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                                           --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayAlfaVPCRouteTable},{Key=Company,Value=Alfa},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                                            --query 'TransitGatewayRouteTable.TransitGatewayRouteTableId' \
                                                                            --profile $profile --region us-east-2 --output text)
 echo "ohio_core_tgw_alfa_vpc_rtb_id=$ohio_core_tgw_alfa_vpc_rtb_id"
 
 # Create Alfa VPN Route Table
 ohio_core_tgw_alfa_vpn_rtb_id=$(aws ec2 create-transit-gateway-route-table --transit-gateway-id $ohio_core_tgw_id \
-                                                                           --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayAlfaVPNRouteTable},{Key=Company,Value=Alfa},{Key=Environment,Value=Core},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                                           --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayAlfaVPNRouteTable},{Key=Company,Value=Alfa},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                                            --query 'TransitGatewayRouteTable.TransitGatewayRouteTableId' \
                                                                            --profile $profile --region us-east-2 --output text)
 echo "ohio_core_tgw_alfa_vpn_rtb_id=$ohio_core_tgw_alfa_vpn_rtb_id"
 
 # Create Zulu VPC Route Table
 ohio_core_tgw_zulu_vpc_rtb_id=$(aws ec2 create-transit-gateway-route-table --transit-gateway-id $ohio_core_tgw_id \
-                                                                           --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayZuluVPCRouteTable},{Key=Company,Value=Zulu},{Key=Environment,Value=Core},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                                           --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayZuluVPCRouteTable},{Key=Company,Value=Zulu},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                                            --query 'TransitGatewayRouteTable.TransitGatewayRouteTableId' \
                                                                            --profile $profile --region us-east-2 --output text)
 echo "ohio_core_tgw_zulu_vpc_rtb_id=$ohio_core_tgw_zulu_vpc_rtb_id"
 
 # Create Zulu VPN Route Table
 ohio_core_tgw_zulu_vpn_rtb_id=$(aws ec2 create-transit-gateway-route-table --transit-gateway-id $ohio_core_tgw_id \
-                                                                           --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayZuluVPNRouteTable},{Key=Company,Value=Zulu},{Key=Environment,Value=Core},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                                           --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayZuluVPNRouteTable},{Key=Company,Value=Zulu},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                                            --query 'TransitGatewayRouteTable.TransitGatewayRouteTableId' \
                                                                            --profile $profile --region us-east-2 --output text)
 echo "ohio_core_tgw_zulu_vpn_rtb_id=$ohio_core_tgw_zulu_vpn_rtb_id"
@@ -133,14 +96,14 @@ profile=$core_profile
 
 # Create Internal VPC Route Table
 ireland_core_tgw_internal_vpc_rtb_id=$(aws ec2 create-transit-gateway-route-table --transit-gateway-id $ireland_core_tgw_id \
-                                                                                  --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayInternalVPCRouteTable},{Key=Company,Value=DXC},{Key=Environment,Value=Core},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                                                  --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayInternalVPCRouteTable},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                                                   --query 'TransitGatewayRouteTable.TransitGatewayRouteTableId' \
                                                                                   --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_tgw_internal_vpc_rtb_id=$ireland_core_tgw_internal_vpc_rtb_id"
 
 # Create Internal VPN Route Table
 ireland_core_tgw_internal_vpn_rtb_id=$(aws ec2 create-transit-gateway-route-table --transit-gateway-id $ireland_core_tgw_id \
-                                                                                  --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayInternalVPNRouteTable},{Key=Company,Value=DXC},{Key=Environment,Value=Core},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                                                  --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayInternalVPNRouteTable},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                                                   --query 'TransitGatewayRouteTable.TransitGatewayRouteTableId' \
                                                                                   --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_tgw_internal_vpn_rtb_id=$ireland_core_tgw_internal_vpn_rtb_id"
@@ -151,7 +114,7 @@ profile=$core_profile
 
 # Create Alfa VPC Route Table
 ireland_core_tgw_alfa_vpc_rtb_id=$(aws ec2 create-transit-gateway-route-table --transit-gateway-id $ireland_core_tgw_id \
-                                                                              --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayAlfaVPCRouteTable},{Key=Company,Value=Alfa},{Key=Environment,Value=Core},{Key=Project,Value=\"CAMELZ3 POC\"},{Key=Note,Value=\"Associated with the CAMELZ3 POC - do not alter or delete\"}]" \
+                                                                              --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayAlfaVPCRouteTable},{Key=Company,Value=Alfa},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
                                                                               --query 'TransitGatewayRouteTable.TransitGatewayRouteTableId' \
                                                                               --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_tgw_alfa_vpc_rtb_id=$ireland_core_tgw_alfa_vpc_rtb_id"
@@ -163,7 +126,7 @@ echo "ireland_core_tgw_alfa_vpc_rtb_id=$ireland_core_tgw_alfa_vpc_rtb_id"
 ## Note: Once we have the complexity of more Route Tables, it makes the most sense to define Route Propagations &    ##
 ##       Static Routes together for each Route Table.
 ## Note: We must create static routes between Transit Gateways Joined by Peering Connections.                        ##
-##       The DAP-Gen3-SubnetAllocations Spreadsheet contains the completely layout of all CIDRs, so look there for   ##
+##       The CaMeLz-Gen3-SubnetAllocations Spreadsheet contains the completely layout of all CIDRs, so look there for   ##
 ##       any new Regions.                                                                                            ##
 ##                                                                                                                   ##
 ##       Regions currently in use:                                                                                   ##
@@ -273,7 +236,7 @@ aws ec2 enable-transit-gateway-route-table-propagation --transit-gateway-route-t
 
 # Enable Propagations to Local Internal VPNs
 aws ec2 enable-transit-gateway-route-table-propagation --transit-gateway-route-table-id $ohio_core_tgw_internal_vpc_rtb_id \
-                                                       --transit-gateway-attachment-id $ohio_core_tgw_dxc_sba_vpn_attachment_id \
+                                                       --transit-gateway-attachment-id $ohio_core_tgw_cml_sba_vpn_attachment_id \
                                                        --profile $profile --region us-east-2 --output text
 
 # Define Static Routes to Remote VPCs
@@ -363,7 +326,7 @@ fi
 
 # Enable Propagations to Local Internal VPNs
 aws ec2 enable-transit-gateway-route-table-propagation --transit-gateway-route-table-id $ohio_core_tgw_alfa_vpc_rtb_id \
-                                                       --transit-gateway-attachment-id $ohio_core_tgw_dxc_sba_vpn_attachment_id \
+                                                       --transit-gateway-attachment-id $ohio_core_tgw_cml_sba_vpn_attachment_id \
                                                        --profile $profile --region us-east-2 --output text
 
 # Enable Propagations to Local Alfa VPNs
@@ -439,7 +402,7 @@ fi
 
 # Enable Propagations to Local Internal VPNs
 aws ec2 enable-transit-gateway-route-table-propagation --transit-gateway-route-table-id $ohio_core_tgw_zulu_vpc_rtb_id \
-                                                       --transit-gateway-attachment-id $ohio_core_tgw_dxc_sba_vpn_attachment_id \
+                                                       --transit-gateway-attachment-id $ohio_core_tgw_cml_sba_vpn_attachment_id \
                                                        --profile $profile --region us-east-2 --output text
 
 # Enable Propagations to Local Zulu VPNs
@@ -595,7 +558,7 @@ fi
 
 # Define Static Routes to Remote Internal VPNs
 aws ec2 create-transit-gateway-route --transit-gateway-route-table-id $ireland_core_tgw_alfa_vpc_rtb_id \
-                                     --destination-cidr-block $dxc_sba_vpc_cidr \
+                                     --destination-cidr-block $cml_sba_vpc_cidr \
                                      --transit-gateway-attachment-id $ohio_core_tgw_ireland_core_tgw_attachment_id \
                                      --profile $profile --region eu-west-1 --output text
 
@@ -784,17 +747,17 @@ if [ $current_rtb_id != $ohio_core_tgw_internal_vpc_rtb_id ]; then
 fi
 
 # Associate Internal VPN Route Table to Internal VPN Attachments
-current_rtb_id=$(aws ec2 describe-transit-gateway-attachments --transit-gateway-attachment-ids $ohio_core_tgw_dxc_sba_vpn_attachment_id \
+current_rtb_id=$(aws ec2 describe-transit-gateway-attachments --transit-gateway-attachment-ids $ohio_core_tgw_cml_sba_vpn_attachment_id \
                                                               --query 'TransitGatewayAttachments[0].Association.TransitGatewayRouteTableId' \
                                                               --profile $profile --region us-east-2 --output text)
 if [ $current_rtb_id != $ohio_core_tgw_internal_vpn_rtb_id ]; then
   if [ $current_rtb_id != 'None' ]; then
-    aws ec2 disassociate-transit-gateway-route-table --transit-gateway-attachment-id $ohio_core_tgw_dxc_sba_vpn_attachment_id \
+    aws ec2 disassociate-transit-gateway-route-table --transit-gateway-attachment-id $ohio_core_tgw_cml_sba_vpn_attachment_id \
                                                      --transit-gateway-route-table-id $current_rtb_id \
                                                      --profile $profile --region us-east-2 --output text
     sleep 30
   fi
-  aws ec2 associate-transit-gateway-route-table --transit-gateway-attachment-id $ohio_core_tgw_dxc_sba_vpn_attachment_id \
+  aws ec2 associate-transit-gateway-route-table --transit-gateway-attachment-id $ohio_core_tgw_cml_sba_vpn_attachment_id \
                                                 --transit-gateway-route-table-id $ohio_core_tgw_internal_vpn_rtb_id \
                                                 --profile $profile --region us-east-2 --output text
 fi

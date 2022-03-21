@@ -1,44 +1,7 @@
 #!/usr/bin/env bash
 #
-# This is part of a set of scripts to setup a realistic DAP Prototype which uses multiple Accounts, VPCs and
+# This is part of a set of scripts to setup a realistic CaMeLz Prototype which uses multiple Accounts, VPCs and
 # Transit Gateway to connect them all
-#
-# There are MANY resources needed to create this prototype, so we are splitting them into these files
-# - CAMELZ-Gen3-Prototype-00-DefineParameters.sh
-# - CAMELZ-Gen3-Prototype-01-Roles.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-03-PublicHostedZones.sh
-# - CAMELZ-Gen3-Prototype-04-VPCs.sh
-# - CAMELZ-Gen3-Prototype-05-Resolvers-1-Outbound.sh
-# - CAMELZ-Gen3-Prototype-05-Resolvers-2-Inbound.sh
-# - CAMELZ-Gen3-Prototype-06-CustomerGateways.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-1-TransitGateways.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-2-VPCAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-3-StaticVPCRoutes.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-4-PeeringAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-5-VPNAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-6A-SimpleRouting.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-6B-ComplexRouting.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-1-DirectoryService.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-2-ResolverRule.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-3-Trust.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-1-DirectoryService.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-2-ResolverRule.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-3-Trust.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-09-LinuxTestInstances.sh
-# - CAMELZ-Gen3-Prototype-10-WindowsBastions.sh
-# - CAMELZ-Gen3-Prototype-11-ActiveDirectoryManagement-1A-Shared.sh
-# - CAMELZ-Gen3-Prototype-11-ActiveDirectoryManagement-1B-PerClient.sh
-# - CAMELZ-Gen3-Prototype-12-ClientVPN.sh
-# - CAMELZ-Gen3-Prototype-20-Remaining.sh
 #
 # You will need to sign up for the "Cisco Cloud Services Router (CSR) 1000V - BYOL for Maximum Performance" Marketplace AMI
 # in the Management Account (or the account where you will run simulated customer on-prem locations).
@@ -80,10 +43,10 @@ documentsdir=~/Workspaces/mjcconsulting/camelz3-prototype/documents
 certificatesdir=~/Workspaces/mjcconsulting/camelz3-prototype/certificates
 cfgdir=~/Workspaces/mjcconsulting/camelz3-prototype/cfg
 
-chrome_installer_url=http://installers-dxcapm.s3-website-us-east-1.amazonaws.com/GoogleChromeStandaloneEnterprise64.msi
+chrome_installer_url=http://installers-camelzm.s3-website-us-east-1.amazonaws.com/GoogleChromeStandaloneEnterprise64.msi
 chrome_installer_sha256=82bc081286f48148dce2c81f97bdb849b38680b7bb3435221fa470adcf75aa5b
 
-royalts_installer_url=http://installers-dxcapm.s3-website-us-east-1.amazonaws.com/RoyalTSInstaller_5.02.60410.0.msi
+royalts_installer_url=http://installers-camelzm.s3-website-us-east-1.amazonaws.com/RoyalTSInstaller_5.02.60410.0.msi
 royalts_installer_sha256=699ef4391df99f1864d53baf0ce7c637576e6fec50c5677c64e686f3a2050130
 
 user=bootstrapadministrator
@@ -149,10 +112,10 @@ ireland_csr_ami_id=ami-061919bc753fac9f1 # "Cisco Cloud Services Router (CSR) 10
 mcrawford_home_public_cidr=68.108.247.173/32
 mcrawford_home_private_cidr=10.0.1.0/24
 
-dxc_msy_public_cidr=192.46.53.0/24 # New Orleans Office Main
-dxc_msy_public_guest_cidr=192.46.52.0/24 # New Orleans Office Guest
-dxc_waw_public_cidr=192.46.111.0/24 # Warsaw Office
-dxc_maa_public_cidr=192.46.83.0/24 # India Chennai Office (guess)
+cml_msy_public_cidr=192.46.53.0/24 # New Orleans Office Main
+cml_msy_public_guest_cidr=192.46.52.0/24 # New Orleans Office Guest
+cml_waw_public_cidr=192.46.111.0/24 # Warsaw Office
+cml_maa_public_cidr=192.46.83.0/24 # India Chennai Office (guess)
 
 company_name=MJCConsulting
 company_name_lc=mjc
@@ -188,7 +151,7 @@ global_management_public_hostedzone_id=Z2EBB33O71Z1GD # This already exists, so 
 global_management_public_domain=$domain
 global_management_private_domain=$domain
 global_management_directory_domain=ad.$domain
-global_management_directory_netbios_domain=dxcap
+global_management_directory_netbios_domain=camelz
 global_management_directory_admin_user=Admin@$global_management_directory_domain
 global_management_directory_admin_password=SomethingHard2Guess
 global_management_directory_ohio_trust_password=TellM3Wh0AreYou
@@ -312,7 +275,7 @@ global_log_subnet_endpointc_cidr=10.15.151.224/27
 ohio_management_public_domain=us-east-2.$domain
 ohio_management_private_domain=us-east-2.$domain
 ohio_management_directory_domain=ad.us-east-2.$domain
-ohio_management_directory_netbios_domain=dxcapue2
+ohio_management_directory_netbios_domain=camelzue2
 ohio_management_directory_admin_user=Admin@$ohio_management_directory_domain
 ohio_management_directory_admin_password=MaybeNotHard2Guess
 
@@ -427,14 +390,14 @@ ohio_core_zulu_dfw_vpn_tunnel3_psk='6kjVeEYq7GAdQGwPZLptvfArYkZvxX3R'
 ohio_core_zulu_dfw_vpn_tunnel4_cidr='169.254.33.0/30'
 ohio_core_zulu_dfw_vpn_tunnel4_psk='x9A4VFtqYQpqn2hGqu7QgTMnJDm7L6Kc'
 
-ohio_core_dxc_sba_vpn_tunnel1_cidr='169.254.250.0/30'
-ohio_core_dxc_sba_vpn_tunnel1_psk='EYq7GVPZLeAptYkZvRArx6kjdQGwXvf3'
-ohio_core_dxc_sba_vpn_tunnel2_cidr='169.254.251.0/30'
-ohio_core_dxc_sba_vpn_tunnel2_psk='txqnAhGTMnJKcgm7L4VF9QpDqu7Q6qY2'
-ohio_core_dxc_sba_vpn_tunnel3_cidr='169.254.252.0/30'
-ohio_core_dxc_sba_vpn_tunnel3_psk='Yq7EptvfdQGwPZX3RArYkZL6kjVexvGA'
-ohio_core_dxc_sba_vpn_tunnel4_cidr='169.254.253.0/30'
-ohio_core_dxc_sba_vpn_tunnel4_psk='qnMx9A4V2hGqDm7L6KYQcu7QgTFtqpnJ'
+ohio_core_cml_sba_vpn_tunnel1_cidr='169.254.250.0/30'
+ohio_core_cml_sba_vpn_tunnel1_psk='EYq7GVPZLeAptYkZvRArx6kjdQGwXvf3'
+ohio_core_cml_sba_vpn_tunnel2_cidr='169.254.251.0/30'
+ohio_core_cml_sba_vpn_tunnel2_psk='txqnAhGTMnJKcgm7L4VF9QpDqu7Q6qY2'
+ohio_core_cml_sba_vpn_tunnel3_cidr='169.254.252.0/30'
+ohio_core_cml_sba_vpn_tunnel3_psk='Yq7EptvfdQGwPZX3RArYkZL6kjVexvGA'
+ohio_core_cml_sba_vpn_tunnel4_cidr='169.254.253.0/30'
+ohio_core_cml_sba_vpn_tunnel4_psk='qnMx9A4V2hGqDm7L6KYQcu7QgTFtqpnJ'
 
 ohio_core_client_vpn_cidr=172.32.16.0/22
 
@@ -629,7 +592,7 @@ zulu_ohio_development_subnet_endpointc_cidr=10.22.123.224/27
 ireland_management_public_domain=eu-west-1.$domain
 ireland_management_private_domain=eu-west-1.$domain
 ireland_management_directory_domain=ad.eu-west-1.$domain
-ireland_management_directory_netbios_domain=dxcapew1
+ireland_management_directory_netbios_domain=camelzew1
 ireland_management_directory_admin_user=Admin@$ireland_management_directory_domain
 ireland_management_directory_admin_password=CouldBEasy2Guess
 
@@ -852,18 +815,18 @@ zulu_dfw_subnet_endpointa_cidr=172.28.0.96/27
 zulu_dfw_subnet_endpointb_cidr=172.28.0.224/27
 zulu_dfw_cgw_asn=64780
 
-dxc_sba_public_domain=sba.$domain
-dxc_sba_private_domain=sba.$domain
+cml_sba_public_domain=sba.$domain
+cml_sba_private_domain=sba.$domain
 
-dxc_sba_vpc_cidr=172.31.255.0/24
-dxc_sba_subnet_publica_cidr=172.31.255.0/27
-dxc_sba_subnet_publicb_cidr=172.31.255.128/27
-dxc_sba_subnet_privatea_cidr=172.31.255.32/27
-dxc_sba_subnet_privateb_cidr=172.31.255.160/27
-dxc_sba_subnet_managementa_cidr=172.31.255.64/28
-dxc_sba_subnet_managementb_cidr=172.31.255.192/28
-dxc_sba_subnet_gatewaya_cidr=172.31.255.80/28
-dxc_sba_subnet_gatewayb_cidr=172.31.255.208/28
-dxc_sba_subnet_endpointa_cidr=172.31.255.96/27
-dxc_sba_subnet_endpointb_cidr=172.31.255.224/27
-dxc_sba_cgw_asn=65532
+cml_sba_vpc_cidr=172.31.255.0/24
+cml_sba_subnet_publica_cidr=172.31.255.0/27
+cml_sba_subnet_publicb_cidr=172.31.255.128/27
+cml_sba_subnet_privatea_cidr=172.31.255.32/27
+cml_sba_subnet_privateb_cidr=172.31.255.160/27
+cml_sba_subnet_managementa_cidr=172.31.255.64/28
+cml_sba_subnet_managementb_cidr=172.31.255.192/28
+cml_sba_subnet_gatewaya_cidr=172.31.255.80/28
+cml_sba_subnet_gatewayb_cidr=172.31.255.208/28
+cml_sba_subnet_endpointa_cidr=172.31.255.96/27
+cml_sba_subnet_endpointb_cidr=172.31.255.224/27
+cml_sba_cgw_asn=65532

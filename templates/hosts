@@ -1,89 +1,89 @@
 #IP             Hostname  	                                    Nickname
 #-------------- ----------------------------------------------- -----------------------
-10.15.1.54      dxcue1mlws01a.dxc-ap.com                        lwsa.dxc-ap.com
-10.15.2.119     dxcue1mlas01a.dxc-ap.com                        lasa.dxc-ap.com
-10.15.0.98      dxcue1mwb01a.dxc-ap.com                         wba.dxc-ap.com
-10.15.6.128     dxcue1madm01a.dxc-ap.com                        adma.dxc-ap.com
-#               alfue1madm01a.alfa.dxc-ap.com                   adma.alfa.dxc-ap.com
-#               zulue1madm01a.zulu.dxc-ap.com                   adma.zulu.dxc-ap.com
+10.15.1.54      cmlue1mlws01a.camelz.io                        lwsa.camelz.io
+10.15.2.119     cmlue1mlas01a.camelz.io                        lasa.camelz.io
+10.15.0.98      cmlue1mwb01a.camelz.io                         wba.camelz.io
+10.15.6.128     cmlue1madm01a.camelz.io                        adma.camelz.io
+#               alfue1madm01a.alfa.camelz.io                   adma.alfa.camelz.io
+#               zulue1madm01a.zulu.camelz.io                   adma.zulu.camelz.io
 
-10.15.65.47     dxcue1clws01a.c.dxc-ap.com                      lwsa.c.dxc-ap.com
-10.15.66.56     dxcue1clas01a.c.dxc-ap.com                      lasa.c.dxc-ap.com
-10.15.64.46     dxcue1cwb01a.c.dxc-ap.com                       wba.c.dxc-ap.com
+10.15.65.47     cmlue1clws01a.c.camelz.io                      lwsa.c.camelz.io
+10.15.66.56     cmlue1clas01a.c.camelz.io                      lasa.c.camelz.io
+10.15.64.46     cmlue1cwb01a.c.camelz.io                       wba.c.camelz.io
 
-10.15.129.5     dxcue1llws01a.l.dxc-ap.com                      lwsa.l.dxc-ap.com
-10.15.130.58    dxcue1llas01a.l.dxc-ap.com                      lasa.l.dxc-ap.com
-10.15.128.76    dxcue1lwb01a.l.dxc-ap.com                       wba.l.dxc-ap.com
+10.15.129.5     cmlue1llws01a.l.camelz.io                      lwsa.l.camelz.io
+10.15.130.58    cmlue1llas01a.l.camelz.io                      lasa.l.camelz.io
+10.15.128.76    cmlue1lwb01a.l.camelz.io                       wba.l.camelz.io
 
-10.31.0.136     dxcue2mlws01a.us-east-2.dxc-ap.com              lwsa.us-east-2.dxc-ap.com
-10.31.1.56      dxcue2mlas01a.us-east-2.dxc-ap.com              lasa.us-east-2.dxc-ap.com
-10.31.0.20      dxcue2mwb01a.us-east-2.dxc-ap.com               wba.us-east-2.dxc-ap.com
-10.31.3.15      dxcue2madm01a.us-east-2.dxc-ap.com              adma.us-east-2.dxc-ap.com
-#               alfue2madm01a.us-east-2.alfa.dxc-ap.com         adma.us-east-2.alfa.dxc-ap.com
-#               zulue2madm01a.us-east-2.zulu.dxc-ap.com         adma.us-east-2.alfa.dxc-ap.com
+10.31.0.136     cmlue2mlws01a.us-east-2.camelz.io              lwsa.us-east-2.camelz.io
+10.31.1.56      cmlue2mlas01a.us-east-2.camelz.io              lasa.us-east-2.camelz.io
+10.31.0.20      cmlue2mwb01a.us-east-2.camelz.io               wba.us-east-2.camelz.io
+10.31.3.15      cmlue2madm01a.us-east-2.camelz.io              adma.us-east-2.camelz.io
+#               alfue2madm01a.us-east-2.alfa.camelz.io         adma.us-east-2.alfa.camelz.io
+#               zulue2madm01a.us-east-2.zulu.camelz.io         adma.us-east-2.alfa.camelz.io
 
-10.31.64.151    dxcue2clws01a.c.us-east-2.dxc-ap.com            lwsa.c.us-east-2.dxc-ap.com
-10.31.65.10     dxcue2clas01a.c.us-east-2.dxc-ap.com            lasa.c.us-east-2.dxc-ap.com
-10.31.64.50     dxcue2cwb01a.c.us-east-2.dxc-ap.com             wba.c.us-east-2.dxc-ap.com
+10.31.64.151    cmlue2clws01a.c.us-east-2.camelz.io            lwsa.c.us-east-2.camelz.io
+10.31.65.10     cmlue2clas01a.c.us-east-2.camelz.io            lasa.c.us-east-2.camelz.io
+10.31.64.50     cmlue2cwb01a.c.us-east-2.camelz.io             wba.c.us-east-2.camelz.io
 
-10.31.128.163   dxcue2llws01a.l.us-east-2.dxc-ap.com            lwsa.l.us-east-2.dxc-ap.com
-10.31.129.23    dxcue2llas01a.l.us-east-2.dxc-ap.com            lasa.l.us-east-2.dxc-ap.com
-10.31.128.42    dxcue2lwb01a.l.us-east-2.dxc-ap.com             wba.l.us-east-2.dxc-ap.com
+10.31.128.163   cmlue2llws01a.l.us-east-2.camelz.io            lwsa.l.us-east-2.camelz.io
+10.31.129.23    cmlue2llas01a.l.us-east-2.camelz.io            lasa.l.us-east-2.camelz.io
+10.31.128.42    cmlue2lwb01a.l.us-east-2.camelz.io             wba.l.us-east-2.camelz.io
 
-10.16.0.188     alfue2plws01a.us-east-2.alfa.dxc-ap.com         lwsa.us-east-2.alfa.dxc-ap.com
-10.16.1.32      alfue2plas01a.us-east-2.alfa.dxc-ap.com         lasa.us-east-2.alfa.dxc-ap.com
-10.16.0.30      alfue2pwb01a.us-east-2.alfa.dxc-ap.com          wba.us-east-2.alfa.dxc-ap.com
+10.16.0.188     alfue2plws01a.us-east-2.alfa.camelz.io         lwsa.us-east-2.alfa.camelz.io
+10.16.1.32      alfue2plas01a.us-east-2.alfa.camelz.io         lasa.us-east-2.alfa.camelz.io
+10.16.0.30      alfue2pwb01a.us-east-2.alfa.camelz.io          wba.us-east-2.alfa.camelz.io
 
-10.16.32.179    alfue2tlws01a.t.us-east-2.alfa.dxc-ap.com       lwsa.t.us-east-2.alfa.dxc-ap.com
-10.16.33.45     alfue2tlas01a.t.us-east-2.alfa.dxc-ap.com       lasa.t.us-east-2.alfa.dxc-ap.com
-10.16.32.59     alfue2twb01a.t.us-east-2.alfa.dxc-ap.com        wba.t.us-east-2.alfa.dxc-ap.com
+10.16.32.179    alfue2tlws01a.t.us-east-2.alfa.camelz.io       lwsa.t.us-east-2.alfa.camelz.io
+10.16.33.45     alfue2tlas01a.t.us-east-2.alfa.camelz.io       lasa.t.us-east-2.alfa.camelz.io
+10.16.32.59     alfue2twb01a.t.us-east-2.alfa.camelz.io        wba.t.us-east-2.alfa.camelz.io
 
-10.16.48.146    alfue2dlws01a.d.us-east-2.alfa.dxc-ap.com       lwsa.d.us-east-2.alfa.dxc-ap.com
-10.16.49.17     alfue2dlas01a.d.us-east-2.alfa.dxc-ap.com       lasa.d.us-east-2.alfa.dxc-ap.com
-10.16.48.44     alfue2dwb01a.d.us-east-2.alfa.dxc-ap.com        wba.d.us-east-2.alfa.dxc-ap.com
+10.16.48.146    alfue2dlws01a.d.us-east-2.alfa.camelz.io       lwsa.d.us-east-2.alfa.camelz.io
+10.16.49.17     alfue2dlas01a.d.us-east-2.alfa.camelz.io       lasa.d.us-east-2.alfa.camelz.io
+10.16.48.44     alfue2dwb01a.d.us-east-2.alfa.camelz.io        wba.d.us-east-2.alfa.camelz.io
 
-10.22.65.44     zulue2plws01a.us-east-2.zulu.dxc-ap.com         lwsa.us-east-2.zulu.dxc-ap.com
-10.22.66.6      zulue2plas01a.us-east-2.zulu.dxc-ap.com         lasa.us-east-2.zulu.dxc-ap.com
-10.22.64.69     zulue2pwb01a.us-east-2.zulu.dxc-ap.com          wba.us-east-2.zulu.dxc-ap.com
+10.22.65.44     zulue2plws01a.us-east-2.zulu.camelz.io         lwsa.us-east-2.zulu.camelz.io
+10.22.66.6      zulue2plas01a.us-east-2.zulu.camelz.io         lasa.us-east-2.zulu.camelz.io
+10.22.64.69     zulue2pwb01a.us-east-2.zulu.camelz.io          wba.us-east-2.zulu.camelz.io
 
-10.22.112.163   zulue2dlws01a.d.us-east-2.zulu.dxc-ap.com       lwsa.d.us-east-2.zulu.dxc-ap.com
-10.22.113.34    zulue2dlas01a.d.us-east-2.zulu.dxc-ap.com       lasa.d.us-east-2.zulu.dxc-ap.com
-10.22.112.28    zulue2dwb01a.d.us-east-2.zulu.dxc-ap.com        wba.d.us-east-2.zulu.dxc-ap.com
+10.22.112.163   zulue2dlws01a.d.us-east-2.zulu.camelz.io       lwsa.d.us-east-2.zulu.camelz.io
+10.22.113.34    zulue2dlas01a.d.us-east-2.zulu.camelz.io       lasa.d.us-east-2.zulu.camelz.io
+10.22.112.28    zulue2dwb01a.d.us-east-2.zulu.camelz.io        wba.d.us-east-2.zulu.camelz.io
 
-10.79.0.135     dxcew1mlws01a.eu-west-1.dxc-ap.com              lwsa.eu-west-1.dxc-ap.com
-10.79.1.56      dxcew1mlas01a.eu-west-1.dxc-ap.com              lasa.eu-west-1.dxc-ap.com
-10.79.0.7       dxcew1mwb01a.eu-west-1.dxc-ap.com               wba.eu-west-1.dxc-ap.com
-10.79.3.30      dxcew1madm01a.eu-west-1.dxc-ap.com              adma.eu-west-1.dxc-ap.com
-#               alfew1madm01a.eu-west-1.alfa.dxc-ap.com         adma.eu-west-1.alfa.dxc-ap.com
+10.79.0.135     cmlew1mlws01a.eu-west-1.camelz.io              lwsa.eu-west-1.camelz.io
+10.79.1.56      cmlew1mlas01a.eu-west-1.camelz.io              lasa.eu-west-1.camelz.io
+10.79.0.7       cmlew1mwb01a.eu-west-1.camelz.io               wba.eu-west-1.camelz.io
+10.79.3.30      cmlew1madm01a.eu-west-1.camelz.io              adma.eu-west-1.camelz.io
+#               alfew1madm01a.eu-west-1.alfa.camelz.io         adma.eu-west-1.alfa.camelz.io
 
-10.79.64.180    dxcew1clws01a.c.eu-west-1.dxc-ap.com            lwsa.c.eu-west-1.dxc-ap.com
-10.79.65.49     dxcew1clas01a.c.eu-west-1.dxc-ap.com            lasa.c.eu-west-1.dxc-ap.com
-10.79.64.18     dxcew1cwb01a.c.eu-west-1.dxc-ap.com             wba.c.eu-west-1.dxc-ap.com
+10.79.64.180    cmlew1clws01a.c.eu-west-1.camelz.io            lwsa.c.eu-west-1.camelz.io
+10.79.65.49     cmlew1clas01a.c.eu-west-1.camelz.io            lasa.c.eu-west-1.camelz.io
+10.79.64.18     cmlew1cwb01a.c.eu-west-1.camelz.io             wba.c.eu-west-1.camelz.io
 
-10.79.128.145   dxcew1llws01a.l.eu-west-1.dxc-ap.com            lwsa.l.eu-west-1.dxc-ap.com
-10.79.129.22    dxcew1llas01a.l.eu-west-1.dxc-ap.com            lasa.l.eu-west-1.dxc-ap.com
-10.79.128.50    dxcew1lwb01a.l.eu-west-1.dxc-ap.com             wba.l.eu-west-1.dxc-ap.com
+10.79.128.145   cmlew1llws01a.l.eu-west-1.camelz.io            lwsa.l.eu-west-1.camelz.io
+10.79.129.22    cmlew1llas01a.l.eu-west-1.camelz.io            lasa.l.eu-west-1.camelz.io
+10.79.128.50    cmlew1lwb01a.l.eu-west-1.camelz.io             wba.l.eu-west-1.camelz.io
 
-10.64.0.180     alfew1rlws01a.r.eu-west-1.alfa.dxc-ap.com       lwsa.r.eu-west-1.alfa.dxc-ap.com
-10.64.1.50      alfew1rlas01a.r.eu-west-1.alfa.dxc-ap.com       lasa.r.eu-west-1.alfa.dxc-ap.com
-10.64.0.21      alfew1rwb01a.r.eu-west-1.alfa.dxc-ap.com        wba.r.eu-west-1.alfa.dxc-ap.com
+10.64.0.180     alfew1rlws01a.r.eu-west-1.alfa.camelz.io       lwsa.r.eu-west-1.alfa.camelz.io
+10.64.1.50      alfew1rlas01a.r.eu-west-1.alfa.camelz.io       lasa.r.eu-west-1.alfa.camelz.io
+10.64.0.21      alfew1rwb01a.r.eu-west-1.alfa.camelz.io        wba.r.eu-west-1.alfa.camelz.io
 
-172.24.0.15     alflaxccsr01a.lax.alfa.dxc-ap.com               csra.lax.alfa.dxc-ap.com
-172.24.0.12     alflaxclws01a.lax.alfa.dxc-ap.com               lwsa.lax.alfa.dxc-ap.com
-172.24.0.41     alflaxclas01a.lax.alfa.dxc-ap.com               lasa.lax.alfa.dxc-ap.com
-172.24.0.9      alflaxcwb01a.lax.alfa.dxc-ap.com                wba.lax.alfa.dxc-ap.com
+172.24.0.15     alflaxccsr01a.lax.alfa.camelz.io               csra.lax.alfa.camelz.io
+172.24.0.12     alflaxclws01a.lax.alfa.camelz.io               lwsa.lax.alfa.camelz.io
+172.24.0.41     alflaxclas01a.lax.alfa.camelz.io               lasa.lax.alfa.camelz.io
+172.24.0.9      alflaxcwb01a.lax.alfa.camelz.io                wba.lax.alfa.camelz.io
 
-172.24.1.8      alfmiaccsr01a.mia.alfa.dxc-ap.com               csra.mia.alfa.dxc-ap.com
-172.24.1.13     alfmiaclws01a.mia.alfa.dxc-ap.com               lwsa.mia.alfa.dxc-ap.com
-172.24.1.60     alfmiaclas01a.mia.alfa.dxc-ap.com               lasa.mia.alfa.dxc-ap.com
-172.24.1.9      alfmiacwb01a.mia.alfa.dxc-ap.com                wba.mia.alfa.dxc-ap.com
+172.24.1.8      alfmiaccsr01a.mia.alfa.camelz.io               csra.mia.alfa.camelz.io
+172.24.1.13     alfmiaclws01a.mia.alfa.camelz.io               lwsa.mia.alfa.camelz.io
+172.24.1.60     alfmiaclas01a.mia.alfa.camelz.io               lasa.mia.alfa.camelz.io
+172.24.1.9      alfmiacwb01a.mia.alfa.camelz.io                wba.mia.alfa.camelz.io
 
-172.28.0.29     zuldfwccsr01a.dfw.zulu.dxc-ap.com               csra.dfw.zulu.dxc-ap.com
-172.28.0.14     zuldfwclws01a.dfw.zulu.dxc-ap.com               lwsa.dfw.zulu.dxc-ap.com
-172.28.0.46     zuldfwclas01a.dfw.zulu.dxc-ap.com               lasa.dfw.zulu.dxc-ap.com
-172.28.0.16     zuldfwcwb01a.dfw.zulu.dxc-ap.com                wba.dfw.zulu.dxc-ap.com
+172.28.0.29     zuldfwccsr01a.dfw.zulu.camelz.io               csra.dfw.zulu.camelz.io
+172.28.0.14     zuldfwclws01a.dfw.zulu.camelz.io               lwsa.dfw.zulu.camelz.io
+172.28.0.46     zuldfwclas01a.dfw.zulu.camelz.io               lasa.dfw.zulu.camelz.io
+172.28.0.16     zuldfwcwb01a.dfw.zulu.camelz.io                wba.dfw.zulu.camelz.io
 
-172.31.255.14   dxcsbaccsr01a.sba.dxc-ap.com                    csra.sba.dxc-ap.com
-172.31.255.18   dxcsbaclws01a.sba.dxc-ap.com                    lwsa.sba.dxc-ap.com
-172.31.255.47   dxcsbaclas01a.sba.dxc-ap.com                    lasa.sba.dxc-ap.com
-172.31.255.25   dxcsbacwb01a.sba.dxc-ap.com                     wba.sba.dxc-ap.com
+172.31.255.14   cmlsbaccsr01a.sba.camelz.io                    csra.sba.camelz.io
+172.31.255.18   cmlsbaclws01a.sba.camelz.io                    lwsa.sba.camelz.io
+172.31.255.47   cmlsbaclas01a.sba.camelz.io                    lasa.sba.camelz.io
+172.31.255.25   cmlsbacwb01a.sba.camelz.io                     wba.sba.camelz.io

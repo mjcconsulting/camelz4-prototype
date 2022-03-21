@@ -1,44 +1,7 @@
 #!/usr/bin/env bash
 #
-# This is part of a set of scripts to setup a realistic DAP Prototype which uses multiple Accounts, VPCs and
+# This is part of a set of scripts to setup a realistic CaMeLz Prototype which uses multiple Accounts, VPCs and
 # Transit Gateway to connect them all
-#
-# There are MANY resources needed to create this prototype, so we are splitting them into these files
-# - CAMELZ-Gen3-Prototype-00-DefineParameters.sh
-# - CAMELZ-Gen3-Prototype-01-Roles.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-03-PublicHostedZones.sh
-# - CAMELZ-Gen3-Prototype-04-VPCs.sh
-# - CAMELZ-Gen3-Prototype-05-Resolvers-1-Outbound.sh
-# - CAMELZ-Gen3-Prototype-05-Resolvers-2-Inbound.sh
-# - CAMELZ-Gen3-Prototype-06-CustomerGateways.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-1-TransitGateways.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-2-VPCAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-3-StaticVPCRoutes.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-4-PeeringAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-5-VPNAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-6A-SimpleRouting.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-6B-ComplexRouting.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-1-DirectoryService.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-2-ResolverRule.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-3-Trust.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-1-DirectoryService.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-2-ResolverRule.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-3-Trust.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-09-LinuxTestInstances.sh
-# - CAMELZ-Gen3-Prototype-10-WindowsBastions.sh
-# - CAMELZ-Gen3-Prototype-11-ActiveDirectoryManagement-1A-Shared.sh
-# - CAMELZ-Gen3-Prototype-11-ActiveDirectoryManagement-1B-PerClient.sh
-# - CAMELZ-Gen3-Prototype-12-ClientVPN.sh
-# - CAMELZ-Gen3-Prototype-20-Remaining.sh
 #
 # You will need to sign up for the "Cisco Cloud Services Router (CSR) 1000V - BYOL for Maximum Performance" Marketplace AMI
 # in the Management Account (or the account where you will run simulated customer on-prem locations).
@@ -119,8 +82,8 @@ aws ec2 create-tags --resources $ohio_core_alfa_lax_vpn_id \
                            Key=Company,Value=Alfa \
                            Key=Location,Value=LosAngeles \
                            Key=Environment,Value=Core \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 ohio_core_tgw_alfa_lax_vpn_attachment_id=$(aws ec2 describe-transit-gateway-attachments --filters "Name=resource-id,Values=$ohio_core_alfa_lax_vpn_id" \
@@ -133,8 +96,8 @@ aws ec2 create-tags --resources $ohio_core_tgw_alfa_lax_vpn_attachment_id \
                            Key=Company,Value=Alfa \
                            Key=Location,Value=LosAngeles \
                            Key=Environment,Value=Core \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Note: We can't trust the order in which the tunnels are returned - the values have been reversed. So, in order to
@@ -209,33 +172,33 @@ echo "within a custom resource via Node.js. But, for now, paste this manually"
 
 WIP TO DO THIS AUTOMATICALLY
 1. List files in flash: filesystem
-ssh csra.lax.alfa.dxc-ap.com dir flash:
+ssh csra.lax.alfa.camelz.io dir flash:
 
 2. List files in nvram: filesystem
-ssh csra.lax.alfa.dxc-ap.com dir nvram:
+ssh csra.lax.alfa.camelz.io dir nvram:
 
 3. Create a directory to hold uploaded configuration apply files
-ssh csra.lax.alfa.dxc-ap.com mkdir flash:apply-configs
+ssh csra.lax.alfa.camelz.io mkdir flash:apply-configs
 
 4. Upload the generated configuration apply file (A set of commands to run to modify the config, not an actual config)
 srcfile=$tmpfile
 dstfile=${srcfile##*/} && dstfile=${dstfile%-*}-$(date +%Y%m%d)-apply.cfg
-scp $srcfile csra.lax.alfa.dxc-ap.com:flash:/apply-configs/$dstfile
+scp $srcfile csra.lax.alfa.camelz.io:flash:/apply-configs/$dstfile
 
 5. Confirm upload
-ssh csra.lax.alfa.dxc-ap.com dir flash:apply-configs
+ssh csra.lax.alfa.camelz.io dir flash:apply-configs
 
 6. Apply commands
 TBD
 
 7. Show running config
-ssh csra.lax.alfa.dxc-ap.com show run
+ssh csra.lax.alfa.camelz.io show run
 
 8. Write running config to memory
-ssh csra.lax.alfa.dxc-ap.com write mem
+ssh csra.lax.alfa.camelz.io write mem
 
 9. Copy startup config back to laptop
-scp csra.lax.alfa.dxc-ap.com:nvram:startup-config $cfgdir/alfa-lax-csra-startup-config-$(date +%Y%m%d-%H%M).cfg
+scp csra.lax.alfa.camelz.io:nvram:startup-config $cfgdir/alfa-lax-csra-startup-config-$(date +%Y%m%d-%H%M).cfg
 
 # Show Ohio Core Alfa LosAngles VPN Connection XML Configuration
 # - Note: It's possible to run this through an XSLT transformation to actually write the firewall configuration script
@@ -252,7 +215,7 @@ aws ec2 describe-vpn-connections --vpn-connection-ids $ohio_core_alfa_lax_vpn_id
 
 # Show Router Configuraion
 # 1. SSH to the router
-#    # ssh csra.lax.alfa.dxc-ap.com
+#    # ssh csra.lax.alfa.camelz.io
 #
 # 2. Show interfaces
 #    # sh ip int br
@@ -346,12 +309,12 @@ echo "ohio_core_alfa_mia_vpn_id=$ohio_core_alfa_mia_vpn_id"
 
 aws ec2 create-tags --resources $ohio_core_alfa_mia_vpn_id \
                     --tags Key=Name,Value=Core-AlfaMiamiVpnConnection \
-                           Key=Company,Value=DXC \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
                            Key=Company,Value=Alfa \
                            Key=Location,Value=Miami \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 ohio_core_tgw_alfa_mia_vpn_attachment_id=$(aws ec2 describe-transit-gateway-attachments --filters "Name=resource-id,Values=$ohio_core_alfa_mia_vpn_id" \
@@ -361,12 +324,12 @@ echo "ohio_core_tgw_alfa_mia_vpn_attachment_id=$ohio_core_tgw_alfa_mia_vpn_attac
 
 aws ec2 create-tags --resources $ohio_core_tgw_alfa_mia_vpn_attachment_id \
                     --tags Key=Name,Value=Core-AlfaMiamiVpnTransitGatewayAttachment \
-                           Key=Company,Value=DXC \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
                            Key=Company,Value=Alfa \
                            Key=Location,Value=Miami \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Note: We can't trust the order in which the tunnels are returned - the values have been reversed. So, in order to
@@ -488,8 +451,8 @@ aws ec2 create-tags --resources $ohio_core_zulu_dfw_vpn_id \
                            Key=Company,Value=Zulu \
                            Key=Location,Value=Dallas \
                            Key=Environment,Value=Core \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 ohio_core_tgw_zulu_dfw_vpn_attachment_id=$(aws ec2 describe-transit-gateway-attachments --filters "Name=resource-id,Values=$ohio_core_zulu_dfw_vpn_id" \
@@ -502,8 +465,8 @@ aws ec2 create-tags --resources $ohio_core_tgw_zulu_dfw_vpn_attachment_id \
                            Key=Company,Value=Zulu \
                            Key=Location,Value=Dallas \
                            Key=Environment,Value=Core \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Note: We can't trust the order in which the tunnels are returned - the values have been reversed. So, in order to
@@ -591,21 +554,21 @@ aws ec2 describe-vpn-connections --vpn-connection-ids $ohio_core_zulu_dfw_vpn_id
                                  --profile $profile --region us-east-2 --output json
 
 
-## Ohio Core DXC Santa Barbara VPN Connection to Ohio Core Transit Gateway ############################################
+## Ohio Core CaMeLz Santa Barbara VPN Connection to Ohio Core Transit Gateway ############################################
 
 # Create VPN Options
 # - The CLI does not preserve order for the tunnel specifications, unlike the GUI, and sometimes (not always!) switches them.
 #   They were switched here, so I'm reversing the order here so the tunnel options are correct in the result.
 #   They were NOT switched here, so I'm using the normal order.
-read -r -d '' ohio_core_dxc_sba_vpn_options << EOF
+read -r -d '' ohio_core_cml_sba_vpn_options << EOF
 {
   "TunnelOptions": [{
-    "TunnelInsideCidr": "$ohio_core_dxc_sba_vpn_tunnel1_cidr",
-    "PreSharedKey": "$ohio_core_dxc_sba_vpn_tunnel1_psk"
+    "TunnelInsideCidr": "$ohio_core_cml_sba_vpn_tunnel1_cidr",
+    "PreSharedKey": "$ohio_core_cml_sba_vpn_tunnel1_psk"
   },
   {
-    "TunnelInsideCidr": "$ohio_core_dxc_sba_vpn_tunnel2_cidr",
-    "PreSharedKey": "$ohio_core_dxc_sba_vpn_tunnel2_psk"
+    "TunnelInsideCidr": "$ohio_core_cml_sba_vpn_tunnel2_cidr",
+    "PreSharedKey": "$ohio_core_cml_sba_vpn_tunnel2_psk"
   }]
 }
 EOF
@@ -613,70 +576,70 @@ EOF
 # Create VPN Connection
 profile=$core_profile
 
-ohio_core_dxc_sba_vpn_id=$(aws ec2 create-vpn-connection --transit-gateway-id $ohio_core_tgw_id \
-                                                         --customer-gateway-id $ohio_core_dxc_sba_cgw_id \
+ohio_core_cml_sba_vpn_id=$(aws ec2 create-vpn-connection --transit-gateway-id $ohio_core_tgw_id \
+                                                         --customer-gateway-id $ohio_core_cml_sba_cgw_id \
                                                          --type ipsec.1 \
-                                                         --options "$ohio_core_dxc_sba_vpn_options" \
+                                                         --options "$ohio_core_cml_sba_vpn_options" \
                                                          --query 'VpnConnection.VpnConnectionId' \
                                                          --profile $profile --region us-east-2 --output text)
-echo "ohio_core_dxc_sba_vpn_id=$ohio_core_dxc_sba_vpn_id"
+echo "ohio_core_cml_sba_vpn_id=$ohio_core_cml_sba_vpn_id"
 
-aws ec2 create-tags --resources $ohio_core_dxc_sba_vpn_id \
-                    --tags Key=Name,Value=Core-DXCSantaBarbaraVpnConnection \
-                           Key=Company,Value=DXC \
+aws ec2 create-tags --resources $ohio_core_cml_sba_vpn_id \
+                    --tags Key=Name,Value=Core-CaMeLzSantaBarbaraVpnConnection \
+                           Key=Company,Value=CaMeLz \
                            Key=Location,Value=SantaBarbara \
                            Key=Environment,Value=Core \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
-ohio_core_tgw_dxc_sba_vpn_attachment_id=$(aws ec2 describe-transit-gateway-attachments --filters "Name=resource-id,Values=$ohio_core_dxc_sba_vpn_id" \
+ohio_core_tgw_cml_sba_vpn_attachment_id=$(aws ec2 describe-transit-gateway-attachments --filters "Name=resource-id,Values=$ohio_core_cml_sba_vpn_id" \
                                                                                        --query 'TransitGatewayAttachments[0].TransitGatewayAttachmentId' \
                                                                                        --profile $profile --region us-east-2 --output text)
-echo "ohio_core_tgw_dxc_sba_vpn_attachment_id=$ohio_core_tgw_dxc_sba_vpn_attachment_id"
+echo "ohio_core_tgw_cml_sba_vpn_attachment_id=$ohio_core_tgw_cml_sba_vpn_attachment_id"
 
-aws ec2 create-tags --resources $ohio_core_tgw_dxc_sba_vpn_attachment_id \
-                    --tags Key=Name,Value=Core-DXCSantaBarbaraVpnTransitGatewayAttachment \
-                           Key=Company,Value=DXC \
+aws ec2 create-tags --resources $ohio_core_tgw_cml_sba_vpn_attachment_id \
+                    --tags Key=Name,Value=Core-CaMeLzSantaBarbaraVpnTransitGatewayAttachment \
+                           Key=Company,Value=CaMeLz \
                            Key=Location,Value=SantaBarbara \
                            Key=Environment,Value=Core \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Note: We can't trust the order in which the tunnels are returned - the values have been reversed. So, in order to
 #       insure the Tunnel Interfaces created on the CSR match the Tunnels as shown in the Console, we have to use the
 #       tunnels in the order returned, not in the order specified
-tunnel1_outside_ip=$(aws ec2 describe-vpn-connections --vpn-connection-ids $ohio_core_dxc_sba_vpn_id \
+tunnel1_outside_ip=$(aws ec2 describe-vpn-connections --vpn-connection-ids $ohio_core_cml_sba_vpn_id \
                                                       --query 'VpnConnections[0].Options.TunnelOptions[0].OutsideIpAddress' \
                                                       --profile $profile --region us-east-2 --output text)
 echo "tunnel1_outside_ip=$tunnel1_outside_ip"
-tunnel1_inside_cidr=$(aws ec2 describe-vpn-connections --vpn-connection-ids $ohio_core_dxc_sba_vpn_id \
+tunnel1_inside_cidr=$(aws ec2 describe-vpn-connections --vpn-connection-ids $ohio_core_cml_sba_vpn_id \
                                                        --query 'VpnConnections[0].Options.TunnelOptions[0].TunnelInsideCidr' \
                                                        --profile $profile --region us-east-2 --output text)
 echo "tunnel1_inside_cidr=$tunnel1_inside_cidr"
-tunnel1_psk=$(aws ec2 describe-vpn-connections --vpn-connection-ids $ohio_core_dxc_sba_vpn_id \
+tunnel1_psk=$(aws ec2 describe-vpn-connections --vpn-connection-ids $ohio_core_cml_sba_vpn_id \
                                                --query 'VpnConnections[0].Options.TunnelOptions[0].PreSharedKey' \
                                                --profile $profile --region us-east-2 --output text)
 echo "tunnel1_psk=$tunnel1_psk"
 
-tunnel2_outside_ip=$(aws ec2 describe-vpn-connections --vpn-connection-ids $ohio_core_dxc_sba_vpn_id \
+tunnel2_outside_ip=$(aws ec2 describe-vpn-connections --vpn-connection-ids $ohio_core_cml_sba_vpn_id \
                                                       --query 'VpnConnections[0].Options.TunnelOptions[1].OutsideIpAddress' \
                                                       --profile $profile --region us-east-2 --output text)
 echo "tunnel2_outside_ip=$tunnel2_outside_ip"
-tunnel2_inside_cidr=$(aws ec2 describe-vpn-connections --vpn-connection-ids $ohio_core_dxc_sba_vpn_id \
+tunnel2_inside_cidr=$(aws ec2 describe-vpn-connections --vpn-connection-ids $ohio_core_cml_sba_vpn_id \
                                                        --query 'VpnConnections[0].Options.TunnelOptions[1].TunnelInsideCidr' \
                                                        --profile $profile --region us-east-2 --output text)
 echo "tunnel2_inside_cidr=$tunnel2_inside_cidr"
-tunnel2_psk=$(aws ec2 describe-vpn-connections --vpn-connection-ids $ohio_core_dxc_sba_vpn_id \
+tunnel2_psk=$(aws ec2 describe-vpn-connections --vpn-connection-ids $ohio_core_cml_sba_vpn_id \
                                                --query 'VpnConnections[0].Options.TunnelOptions[1].PreSharedKey' \
                                                --profile $profile --region us-east-2 --output text)
 echo "tunnel2_psk=$tunnel2_psk"
 
 
 ## Calculated value, derived from returned values
-inside_network=${dxc_sba_vpc_cidr%/*}
-inside_netmask=${netmask[${dxc_sba_vpc_cidr#*/}]}
+inside_network=${cml_sba_vpc_cidr%/*}
+inside_netmask=${netmask[${cml_sba_vpc_cidr#*/}]}
 inside_gateway=${inside_network%.*}.$((${inside_network##*.} + 1))
 
 tunnel1_inside_network=${tunnel1_inside_cidr%/*}
@@ -688,10 +651,10 @@ tunnel2_inside_netmask=${netmask[${tunnel2_inside_cidr#*/}]}
 tunnel2_inside_tgw_ip=${tunnel2_inside_network%.*}.$((${tunnel2_inside_network##*.} + 1))
 tunnel2_inside_cgw_ip=${tunnel2_inside_network%.*}.$((${tunnel2_inside_network##*.} + 2))
 
-tmpfile=$tmpdir/dxc-sba-csr-config-$$.cfg
-sed -e "s/@hostname@/dxcsbaccsr01a/g" \
+tmpfile=$tmpdir/cml-sba-csr-config-$$.cfg
+sed -e "s/@hostname@/cmlsbaccsr01a/g" \
     -e "s/@tgw_asn@/$ohio_core_tgw_asn/g" \
-    -e "s/@cgw_asn@/$dxc_sba_cgw_asn/g" \
+    -e "s/@cgw_asn@/$cml_sba_cgw_asn/g" \
     -e "s/@inside_network@/$inside_network/g" \
     -e "s/@inside_netmask@/$inside_netmask/g" \
     -e "s/@inside_gateway@/$inside_gateway/g" \
@@ -715,15 +678,15 @@ echo "Not sure how to automate this configuration upload at this time, as it nor
 echo "There may be a way to use a program called expect to automate this eventually, or I'm sure Lambda can do this"
 echo "within a custom resource via Node.js. But, for now, paste this manually"
 
-# Show Ohio Core DXC SantaBarbara VPN Connection XML Configuration
+# Show Ohio Core CaMeLz SantaBarbara VPN Connection XML Configuration
 # - Note: It's possible to run this through an XSLT transformation to actually write the firewall configuration script
 #         allowing for more rapid creation or update of the on-prem firewall. I did play around with this process a
 #         while back, using a Cisco ASA, and managed to confirm this was possible.
-aws ec2 describe-vpn-connections --vpn-connection-ids $ohio_core_dxc_sba_vpn_id \
+aws ec2 describe-vpn-connections --vpn-connection-ids $ohio_core_cml_sba_vpn_id \
                                  --query 'VpnConnections[0].CustomerGatewayConfiguration' \
                                  --profile $profile --region us-east-2 --output text
 
-# Show Ohio Core DXC SantaBarbara VPN Connection Options
-aws ec2 describe-vpn-connections --vpn-connection-ids $ohio_core_dxc_sba_vpn_id \
+# Show Ohio Core CaMeLz SantaBarbara VPN Connection Options
+aws ec2 describe-vpn-connections --vpn-connection-ids $ohio_core_cml_sba_vpn_id \
                                  --query 'VpnConnections[0].Options' \
                                  --profile $profile --region us-east-2 --output json

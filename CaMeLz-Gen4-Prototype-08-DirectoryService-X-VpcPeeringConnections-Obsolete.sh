@@ -1,44 +1,7 @@
 #!/usr/bin/env bash
 #
-# This is part of a set of scripts to setup a realistic DAP Prototype which uses multiple Accounts, VPCs and
+# This is part of a set of scripts to setup a realistic CaMeLz Prototype which uses multiple Accounts, VPCs and
 # Transit Gateway to connect them all
-#
-# There are MANY resources needed to create this prototype, so we are splitting them into these files
-# - CAMELZ-Gen3-Prototype-00-DefineParameters.sh
-# - CAMELZ-Gen3-Prototype-01-Roles.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-02-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-03-PublicHostedZones.sh
-# - CAMELZ-Gen3-Prototype-04-VPCs.sh
-# - CAMELZ-Gen3-Prototype-05-Resolvers-1-Outbound.sh
-# - CAMELZ-Gen3-Prototype-05-Resolvers-2-Inbound.sh
-# - CAMELZ-Gen3-Prototype-06-CustomerGateways.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-1-TransitGateways.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-2-VPCAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-3-StaticVPCRoutes.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-4-PeeringAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-5-VPNAttachments.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-6A-SimpleRouting.sh
-# - CAMELZ-Gen3-Prototype-07-TransitGateway-6B-ComplexRouting.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-1-DirectoryService.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-2-ResolverRule.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-3-Trust.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1A-Shared-4-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-1-DirectoryService.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-2-ResolverRule.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-3-Trust.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-1-Parameters.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-2-Documents.sh
-# - CAMELZ-Gen3-Prototype-08-DirectoryService-1B-PerClient-4-SSM-3-Associations.sh
-# - CAMELZ-Gen3-Prototype-09-LinuxTestInstances.sh
-# - CAMELZ-Gen3-Prototype-10-WindowsBastions.sh
-# - CAMELZ-Gen3-Prototype-11-ActiveDirectoryManagement-1A-Shared.sh
-# - CAMELZ-Gen3-Prototype-11-ActiveDirectoryManagement-1B-PerClient.sh
-# - CAMELZ-Gen3-Prototype-12-ClientVPN.sh
-# - CAMELZ-Gen3-Prototype-20-Remaining.sh
 #
 # You will need to sign up for the "Cisco Cloud Services Router (CSR) 1000V - BYOL for Maximum Performance" Marketplace AMI
 # in the Management Account (or the account where you will run simulated customer on-prem locations).
@@ -82,10 +45,10 @@ echo "production_management_pcx_id=$production_management_pcx_id"
 
 aws ec2 create-tags --resources $production_management_pcx_id \
                     --tags Key=Name,Value=Production-ManagementVPCPeeringConnection \
-                           Key=Company,Value=DXC \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Production \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Production Routing Table Routes
@@ -114,10 +77,10 @@ aws ec2 accept-vpc-peering-connection --vpc-peering-connection-id $production_ma
 
 aws ec2 create-tags --resources $production_management_pcx_id \
                     --tags Key=Name,Value=Management-ProductionVPCPeeringConnection \
-                           Key=Company,Value=DXC \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Management \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Management Routing Table Routes
@@ -151,10 +114,10 @@ echo "alfa_ohio_testing_management_pcx_id=$alfa_ohio_testing_management_pcx_id"
 
 aws ec2 create-tags --resources $alfa_ohio_testing_management_pcx_id \
                     --tags Key=Name,Value=Testing-ManagementVPCPeeringConnection \
-                           Key=Company,Value=DXC \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Testing \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Testing Routing Table Routes
@@ -183,10 +146,10 @@ aws ec2 accept-vpc-peering-connection --vpc-peering-connection-id $alfa_ohio_tes
 
 aws ec2 create-tags --resources $alfa_ohio_testing_management_pcx_id \
                     --tags Key=Name,Value=Management-TestingVPCPeeringConnection \
-                           Key=Company,Value=DXC \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Management \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Management Routing Table Routes
@@ -220,10 +183,10 @@ echo "alfa_ohio_development_management_pcx_id=$alfa_ohio_development_management_
 
 aws ec2 create-tags --resources $alfa_ohio_development_management_pcx_id \
                     --tags Key=Name,Value=Development-ManagementVPCPeeringConnection \
-                           Key=Company,Value=DXC \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Development \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Development Routing Table Routes
@@ -252,10 +215,10 @@ aws ec2 accept-vpc-peering-connection --vpc-peering-connection-id $alfa_ohio_dev
 
 aws ec2 create-tags --resources $alfa_ohio_development_management_pcx_id \
                     --tags Key=Name,Value=Management-DevelopmentVPCPeeringConnection \
-                           Key=Company,Value=DXC \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Management \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Management Routing Table Routes
@@ -289,10 +252,10 @@ echo "core_management_pcx_id=$core_management_pcx_id"
 
 aws ec2 create-tags --resources $core_management_pcx_id \
                     --tags Key=Name,Value=Core-ManagementVPCPeeringConnection \
-                           Key=Company,Value=DXC \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Core Routing Table Routes
@@ -321,10 +284,10 @@ aws ec2 accept-vpc-peering-connection --vpc-peering-connection-id $core_manageme
 
 aws ec2 create-tags --resources $core_management_pcx_id \
                     --tags Key=Name,Value=Management-CoreVPCPeeringConnection \
-                           Key=Company,Value=DXC \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Management \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Management Routing Table Routes
@@ -358,10 +321,10 @@ echo "log_management_pcx_id=$log_management_pcx_id"
 
 aws ec2 create-tags --resources $log_management_pcx_id \
                     --tags Key=Name,Value=Log-ManagementVPCPeeringConnection \
-                           Key=Company,Value=DXC \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Log \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Log Routing Table Routes
@@ -390,10 +353,10 @@ aws ec2 accept-vpc-peering-connection --vpc-peering-connection-id $log_managemen
 
 aws ec2 create-tags --resources $log_management_pcx_id \
                     --tags Key=Name,Value=Management-LogVPCPeeringConnection \
-                           Key=Company,Value=DXC \
+                           Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Management \
-                           Key=Project,Value="CAMELZ3 POC" \
-                           Key=Note,Value="Associated with the CAMELZ3 POC - do not alter or delete" \
+                           Key=Project,Value="CaMeLz4 POC" \
+                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
                     --profile $profile --region us-east-2 --output text
 
 # Management Routing Table Routes
@@ -416,24 +379,24 @@ aws ec2 create-route --route-table-id $management_private_rtbc_id \
 
 # >>>>> STOP HERE - We now need to test that the Shared Directory Service, accessed via the Shared Outbound Resolver
 # >>>>>             Directory Service Rule, Which Directs to the Single Outbound Resolver located in the Management VPC,
-# >>>>>             which then conditionally forwards DNS requests for ad.us-east-2.dxc-ap.com to the Shared Directory
+# >>>>>             which then conditionally forwards DNS requests for ad.us-east-2.camelz.io to the Shared Directory
 # >>>>>             Service ENIs which are also located in the Management VPC, can be used to Join Windows Instances
 # >>>>>             located in the Production, Testing, Development, Core & Log Accounts/VPCs to the shared Domain.
 # >>>>>             (Yes, I know this is complicated, and convoluted, but I didn't design it, and I've confirmed via
 # >>>>>              AWS Support cases this IS the way it's supposed to work!)
-# >>>>>           - Update the Production WindowsBastion HostName to dxcue2pwb01a; Join ad.us-east-2.dxc-ap.com Domain; Reboot
-# >>>>>           - Confirm you can RDP to the Production Bastion with dxcapue2/Admin
+# >>>>>           - Update the Production WindowsBastion HostName to cmlue2pwb01a; Join ad.us-east-2.camelz.io Domain; Reboot
+# >>>>>           - Confirm you can RDP to the Production Bastion with camelzue2/Admin
 # >>>>>           - Disable IE Enhanced Security, then download and install Chrome
 # >>>>>           - Create the Production-WindowsManualServer-InstanceSecurityGroup (used in next step)
 # >>>>>           - Create with seamless domain join the Production-WindowsManualServer-InstanceA, use the SG you just created
 # >>>>>             - Note this will join the computer with a generated hostname, like WIN-XXXXXXXXXX, and we would have
 # >>>>>               to manually change the hostname after the join to fix this, should we want to have a more conventional
 # >>>>>               and purpose-specific hostname matching naming conventions
-# >>>>>           - Confirm you can RDP from the Production Bastion to the WindowsManualServer with dxcapue2/Admin
+# >>>>>           - Confirm you can RDP from the Production Bastion to the WindowsManualServer with camelzue2/Admin
 # >>>>>           - Disable IE Enhanced Security, then download and install Chrome
 # >>>>>           - Repeat the steps to setup the Production Bastion for the Testing, Development, Core and Log Bastions.
 # >>>>>           - Optionally repeat the steps to create the WindowsManualServer in other accounts (This is not really
 # >>>>>             unnecessary, as we will have confirmed what we need with the Bastion Domain Join)
-# >>>>>           - RDP to the Management Bastion as dxcapue2/Admin, then RDP to the Management ActiveDirectoryManagement
+# >>>>>           - RDP to the Management Bastion as camelzue2/Admin, then RDP to the Management ActiveDirectoryManagement
 # >>>>>           - Instance, then use the Users & Computers Application to confirm all Bastions are visible.
 # >>>>>           - Assuming the last check passes, we now have Directory Service working across all Accounts and VPCs!

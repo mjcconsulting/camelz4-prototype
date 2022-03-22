@@ -48,7 +48,7 @@ alfa_global_management_directory_id=$(aws ds create-microsoft-ad --name $alfa_gl
                                                                  --password $alfa_global_management_directory_admin_password \
                                                                  --edition Standard \
                                                                  --vpc-settings "VpcId=$global_management_vpc_id,SubnetIds=$global_management_directory_subneta_id,$global_management_directory_subnetb_id" \
-                                                                 --tags Key=Name,Value=Alfa-Management-DirectoryService Key=Company,Value=Alfa Key=Environment,Value=Management Key=Utility,Value=DirectoryService Key=Project,Value="CaMeLz4 POC" Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                                                                 --tags Key=Name,Value=Alfa-Management-DirectoryService Key=Company,Value=Alfa Key=Environment,Value=Management Key=Utility,Value=DirectoryService Key=Project,Value=CaMeLz-POC-4 \
                                                                  --query 'DirectoryId' \
                                                                  --profile $profile --region us-east-1 --output text)
 echo "alfa_global_management_directory_id=$alfa_global_management_directory_id"
@@ -81,7 +81,7 @@ alfa_ohio_management_directory_id=$(aws ds create-microsoft-ad --name $alfa_ohio
                                                                --password $alfa_ohio_management_directory_admin_password \
                                                                --edition Standard \
                                                                --vpc-settings "VpcId=$ohio_management_vpc_id,SubnetIds=$ohio_management_directory_subneta_id,$ohio_management_directory_subnetb_id" \
-                                                               --tags Key=Name,Value=Alfa-Management-DirectoryService Key=Company,Value=Alfa Key=Environment,Value=Management Key=Utility,Value=DirectoryService Key=Project,Value="CaMeLz4 POC" Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                                                               --tags Key=Name,Value=Alfa-Management-DirectoryService Key=Company,Value=Alfa Key=Environment,Value=Management Key=Utility,Value=DirectoryService Key=Project,Value=CaMeLz-POC-4 \
                                                                --query 'DirectoryId' \
                                                                --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_management_directory_id=$alfa_ohio_management_directory_id"
@@ -187,7 +187,7 @@ zulu_ohio_management_directory_id=$(aws ds create-microsoft-ad --name $zulu_ohio
                                                                --password $zulu_ohio_management_directory_admin_password \
                                                                --edition Standard \
                                                                --vpc-settings "VpcId=$ohio_management_vpc_id,SubnetIds=$ohio_management_directory_subneta_id,$ohio_management_directory_subnetb_id" \
-                                                               --tags Key=Name,Value=Zulu-Management-DirectoryService Key=Company,Value=Zulu Key=Environment,Value=Management Key=Utility,Value=DirectoryService Key=Project,Value="CaMeLz4 POC" Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                                                               --tags Key=Name,Value=Zulu-Management-DirectoryService Key=Company,Value=Zulu Key=Environment,Value=Management Key=Utility,Value=DirectoryService Key=Project,Value=CaMeLz-POC-4 \
                                                                --query 'DirectoryId' \
                                                                --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_management_directory_id=$zulu_ohio_management_directory_id"
@@ -275,7 +275,7 @@ alfa_ireland_management_directory_id=$(aws ds create-microsoft-ad --name $alfa_i
                                                              --password $alfa_ireland_management_directory_admin_password \
                                                              --edition Standard \
                                                              --vpc-settings "VpcId=$ireland_management_vpc_id,SubnetIds=$ireland_management_directory_subneta_id,$ireland_management_directory_subnetb_id" \
-                                                             --tags Key=Name,Value=Alfa-Management-DirectoryService Key=Company,Value=Alfa Key=Environment,Value=Management Key=Utility,Value=DirectoryService Key=Project,Value="CaMeLz4 POC" Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                                                             --tags Key=Name,Value=Alfa-Management-DirectoryService Key=Company,Value=Alfa Key=Environment,Value=Management Key=Utility,Value=DirectoryService Key=Project,Value=CaMeLz-POC-4 \
                                                              --query 'DirectoryId' \
                                                              --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_management_directory_id=$alfa_ireland_management_directory_id"

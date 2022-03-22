@@ -39,17 +39,10 @@ profile=$production_profile
 production_management_pcx_id=$(aws ec2 create-vpc-peering-connection --vpc-id $production_vpc_id \
                                                                      --peer-owner-id $management_account_id \
                                                                      --peer-vpc-id $management_vpc_id \
+                                                                     --tag-specifications ResourceType=vpc-peering-connection,Tags=[{Key=Name,Value=Production-ManagementVPCPeeringConnection},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                      --query 'VpcPeeringConnection.VpcPeeringConnectionId' \
                                                                      --profile $profile --region us-east-2 --output text)
 echo "production_management_pcx_id=$production_management_pcx_id"
-
-aws ec2 create-tags --resources $production_management_pcx_id \
-                    --tags Key=Name,Value=Production-ManagementVPCPeeringConnection \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Production \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Production Routing Table Routes
 aws ec2 create-route --route-table-id $production_public_rtb_id \
@@ -79,8 +72,7 @@ aws ec2 create-tags --resources $production_management_pcx_id \
                     --tags Key=Name,Value=Management-ProductionVPCPeeringConnection \
                            Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region us-east-2 --output text
 
 # Management Routing Table Routes
@@ -108,17 +100,10 @@ profile=$alfa_ohio_testing_profile
 alfa_ohio_testing_management_pcx_id=$(aws ec2 create-vpc-peering-connection --vpc-id $alfa_ohio_testing_vpc_id \
                                                                   --peer-owner-id $management_account_id \
                                                                   --peer-vpc-id $management_vpc_id \
+                                                                  --tag-specifications ResourceType=vpc-peering-connection,Tags=[{Key=Name,Value=Testing-ManagementVPCPeeringConnection},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Testing},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                   --query 'VpcPeeringConnection.VpcPeeringConnectionId' \
                                                                   --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_management_pcx_id=$alfa_ohio_testing_management_pcx_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_management_pcx_id \
-                    --tags Key=Name,Value=Testing-ManagementVPCPeeringConnection \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Testing \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Testing Routing Table Routes
 aws ec2 create-route --route-table-id $alfa_ohio_testing_public_rtb_id \
@@ -148,8 +133,7 @@ aws ec2 create-tags --resources $alfa_ohio_testing_management_pcx_id \
                     --tags Key=Name,Value=Management-TestingVPCPeeringConnection \
                            Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region us-east-2 --output text
 
 # Management Routing Table Routes
@@ -177,17 +161,10 @@ profile=$alfa_ohio_development_profile
 alfa_ohio_development_management_pcx_id=$(aws ec2 create-vpc-peering-connection --vpc-id $alfa_ohio_development_vpc_id \
                                                                       --peer-owner-id $management_account_id \
                                                                       --peer-vpc-id $management_vpc_id \
+                                                                      --tag-specifications ResourceType=vpc-peering-connection,Tags=[{Key=Name,Value=Development-ManagementVPCPeeringConnection},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                       --query 'VpcPeeringConnection.VpcPeeringConnectionId' \
                                                                       --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_management_pcx_id=$alfa_ohio_development_management_pcx_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_management_pcx_id \
-                    --tags Key=Name,Value=Development-ManagementVPCPeeringConnection \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Development \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Development Routing Table Routes
 aws ec2 create-route --route-table-id $alfa_ohio_development_public_rtb_id \
@@ -217,8 +194,7 @@ aws ec2 create-tags --resources $alfa_ohio_development_management_pcx_id \
                     --tags Key=Name,Value=Management-DevelopmentVPCPeeringConnection \
                            Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region us-east-2 --output text
 
 # Management Routing Table Routes
@@ -246,17 +222,10 @@ profile=$core_profile
 core_management_pcx_id=$(aws ec2 create-vpc-peering-connection --vpc-id $core_vpc_id \
                                                                --peer-owner-id $management_account_id \
                                                                --peer-vpc-id $management_vpc_id \
+                                                               --tag-specifications ResourceType=vpc-peering-connection,Tags=[{Key=Name,Value=Core-ManagementVPCPeeringConnection},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                --query 'VpcPeeringConnection.VpcPeeringConnectionId' \
                                                                --profile $profile --region us-east-2 --output text)
 echo "core_management_pcx_id=$core_management_pcx_id"
-
-aws ec2 create-tags --resources $core_management_pcx_id \
-                    --tags Key=Name,Value=Core-ManagementVPCPeeringConnection \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Core Routing Table Routes
 aws ec2 create-route --route-table-id $core_public_rtb_id \
@@ -286,8 +255,7 @@ aws ec2 create-tags --resources $core_management_pcx_id \
                     --tags Key=Name,Value=Management-CoreVPCPeeringConnection \
                            Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region us-east-2 --output text
 
 # Management Routing Table Routes
@@ -315,17 +283,10 @@ profile=$log_profile
 log_management_pcx_id=$(aws ec2 create-vpc-peering-connection --vpc-id $log_vpc_id \
                                                               --peer-owner-id $management_account_id \
                                                               --peer-vpc-id $management_vpc_id \
+                                                              --tag-specifications ResourceType=vpc-peering-connection,Tags=[{Key=Name,Value=Log-ManagementVPCPeeringConnection},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value=CaMeLz-POC-4}] \
                                                               --query 'VpcPeeringConnection.VpcPeeringConnectionId' \
                                                               --profile $profile --region us-east-2 --output text)
 echo "log_management_pcx_id=$log_management_pcx_id"
-
-aws ec2 create-tags --resources $log_management_pcx_id \
-                    --tags Key=Name,Value=Log-ManagementVPCPeeringConnection \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Log Routing Table Routes
 aws ec2 create-route --route-table-id $log_public_rtb_id \
@@ -355,8 +316,7 @@ aws ec2 create-tags --resources $log_management_pcx_id \
                     --tags Key=Name,Value=Management-LogVPCPeeringConnection \
                            Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Management \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region us-east-2 --output text
 
 # Management Routing Table Routes

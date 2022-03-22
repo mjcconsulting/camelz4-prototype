@@ -38,18 +38,10 @@ profile=$management_profile
 alfa_global_management_adm_sg_id=$(aws ec2 create-security-group --group-name Alfa-Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                                  --description Alfa-Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                                  --vpc-id $global_management_vpc_id \
+                                                                 --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Management-ActiveDirectoryManagement-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Management},{Key=Application,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                  --query 'GroupId' \
                                                                  --profile $profile --region us-east-1 --output text)
 echo "alfa_global_management_adm_sg_id=$alfa_global_management_adm_sg_id"
-
-aws ec2 create-tags --resources $alfa_global_management_adm_sg_id \
-                    --tags Key=Name,Value=Alfa-Management-ActiveDirectoryManagement-InstanceSecurityGroup \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Management \
-                           Key=Application,Value=ActiveDirectoryManagement \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $alfa_global_management_adm_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=0.0.0.0/0,Description=\"Global (ICMP)\"}]" \
@@ -76,8 +68,8 @@ alfa_global_management_adm_instancea_id=$(aws ec2 run-instances --image-id $glob
                                                                 --instance-type t3a.medium \
                                                                 --iam-instance-profile Name=ManagedInstance \
                                                                 --key-name administrator \
-                                                                --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-ActiveDirectoryManagement-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_global_management_adm_sg_id],SubnetId=$global_management_directory_subneta_id" \
-                                                                --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Management-ActiveDirectoryManagement-InstanceA},{Key=Hostname,Value=alfue1madm01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                                --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-ActiveDirectoryManagement-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_global_management_adm_sg_id],SubnetId=$global_management_directory_subneta_id \
+                                                                --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Management-ActiveDirectoryManagement-InstanceA},{Key=Hostname,Value=alfue1madm01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                 --user-data file://$tmpfile \
                                                                 --client-token $(date +%s) \
                                                                 --query 'Instances[0].InstanceId' \
@@ -128,18 +120,10 @@ profile=$management_profile
 alfa_ohio_management_adm_sg_id=$(aws ec2 create-security-group --group-name Alfa-Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                                --description Alfa-Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                                --vpc-id $ohio_management_vpc_id \
+                                                               --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Management-ActiveDirectoryManagement-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Management},{Key=Application,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                --query 'GroupId' \
                                                                --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_management_adm_sg_id=$alfa_ohio_management_adm_sg_id"
-
-aws ec2 create-tags --resources $alfa_ohio_management_adm_sg_id \
-                    --tags Key=Name,Value=Alfa-Management-ActiveDirectoryManagement-InstanceSecurityGroup \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Management \
-                           Key=Application,Value=ActiveDirectoryManagement \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_management_adm_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=0.0.0.0/0,Description=\"Global (ICMP)\"}]" \
@@ -166,8 +150,8 @@ alfa_ohio_management_adm_instancea_id=$(aws ec2 run-instances --image-id $ohio_w
                                                               --instance-type t3a.medium \
                                                               --iam-instance-profile Name=ManagedInstance \
                                                               --key-name administrator \
-                                                              --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-ActiveDirectoryManagement-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_ohio_management_adm_sg_id],SubnetId=$ohio_management_directory_subneta_id" \
-                                                              --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Management-ActiveDirectoryManagement-InstanceA},{Key=Hostname,Value=alfue2madm01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                              --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-ActiveDirectoryManagement-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_ohio_management_adm_sg_id],SubnetId=$ohio_management_directory_subneta_id \
+                                                              --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Management-ActiveDirectoryManagement-InstanceA},{Key=Hostname,Value=alfue2madm01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
                                                               --user-data file://$tmpfile \
                                                               --client-token $(date +%s) \
                                                               --query 'Instances[0].InstanceId' \
@@ -218,18 +202,10 @@ profile=$management_profile
 zulu_ohio_management_adm_sg_id=$(aws ec2 create-security-group --group-name Zulu-Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                                --description Zulu-Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                                --vpc-id $ohio_management_vpc_id \
+                                                               --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Zulu-Management-ActiveDirectoryManagement-InstanceSecurityGroup},{Key=Company,Value=Zulu},{Key=Environment,Value=Management},{Key=Application,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                --query 'GroupId' \
                                                                --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_management_adm_sg_id=$zulu_ohio_management_adm_sg_id"
-
-aws ec2 create-tags --resources $zulu_ohio_management_adm_sg_id \
-                    --tags Key=Name,Value=Zulu-Management-ActiveDirectoryManagement-InstanceSecurityGroup \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Management \
-                           Key=Application,Value=ActiveDirectoryManagement \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $zulu_ohio_management_adm_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=0.0.0.0/0,Description=\"Global (ICMP)\"}]" \
@@ -255,8 +231,8 @@ zulu_ohio_management_adm_instancea_id=$(aws ec2 run-instances --image-id $ohio_w
                                                               --instance-type t3a.medium \
                                                               --iam-instance-profile Name=ManagedInstance \
                                                               --key-name administrator \
-                                                              --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-ActiveDirectoryManagement-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$zulu_ohio_management_adm_sg_id],SubnetId=$ohio_management_directory_subneta_id" \
-                                                              --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Zulu-Management-ActiveDirectoryManagement-InstanceA},{Key=Hostname,Value=zulue2madm01a},{Key=Company,Value=Zulu},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                              --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-ActiveDirectoryManagement-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$zulu_ohio_management_adm_sg_id],SubnetId=$ohio_management_directory_subneta_id \
+                                                              --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Zulu-Management-ActiveDirectoryManagement-InstanceA},{Key=Hostname,Value=zulue2madm01a},{Key=Company,Value=Zulu},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
                                                               --user-data file://$tmpfile \
                                                               --client-token $(date +%s) \
                                                               --query 'Instances[0].InstanceId' \
@@ -307,18 +283,10 @@ profile=$management_profile
 alfa_ireland_management_adm_sg_id=$(aws ec2 create-security-group --group-name Alfa-Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                                   --description Alfa-Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                                   --vpc-id $ireland_management_vpc_id \
+                                                                  --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Management-ActiveDirectoryManagement-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Management},{Key=Application,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                   --query 'GroupId' \
                                                                   --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_management_adm_sg_id=$alfa_ireland_management_adm_sg_id"
-
-aws ec2 create-tags --resources $alfa_ireland_management_adm_sg_id \
-                    --tags Key=Name,Value=Alfa-Management-ActiveDirectoryManagement-InstanceSecurityGroup \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Management \
-                           Key=Application,Value=ActiveDirectoryManagement \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $alfa_ireland_management_adm_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=0.0.0.0/0,Description=\"Global (ICMP)\"}]" \
@@ -344,8 +312,8 @@ alfa_ireland_management_adm_instancea_id=$(aws ec2 run-instances --image-id $ire
                                                                  --instance-type t3a.medium \
                                                                  --iam-instance-profile Name=ManagedInstance \
                                                                  --key-name administrator \
-                                                                 --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-ActiveDirectoryManagement-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_ireland_management_adm_sg_id],SubnetId=$ireland_management_directory_subneta_id" \
-                                                                 --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Management-ActiveDirectoryManagement-InstanceA},{Key=Hostname,Value=alfew1madm01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                                 --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-ActiveDirectoryManagement-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_ireland_management_adm_sg_id],SubnetId=$ireland_management_directory_subneta_id \
+                                                                 --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Management-ActiveDirectoryManagement-InstanceA},{Key=Hostname,Value=alfew1madm01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                  --user-data file://$tmpfile \
                                                                  --client-token $(date +%s) \
                                                                  --query 'Instances[0].InstanceId' \

@@ -2,7 +2,7 @@
 #
 # This simple script stops all test instances in all accounts, all regions
 # - Uses filters to identify which instances to stop
-#   Name=tag:Project,Values="CaMeLz4 POC"
+#   Name=tag:Project,Values=CaMeLz-POC-4
 #   Name=tag:Application,Values=LinuxWebServer,LinuxApplicationServer
 #   Name=instance-state-name,Values=running,pending
 #
@@ -14,7 +14,7 @@ for a in $accounts; do
   echo "== Account $a ========================"
   for r in $regions; do
     echo "-- Region $r ------------------------"
-    instances=$(aws ec2 describe-instances --filters Name=tag:Project,Values="CaMeLz4 POC" \
+    instances=$(aws ec2 describe-instances --filters Name=tag:Project,Values=CaMeLz-POC-4 \
                                                      Name=tag:Application,Values=LinuxWebServer,LinuxApplicationServer \
                                                      Name=instance-state-name,Values=running,pending \
                                            --query 'Reservations[].Instances[].InstanceId' \

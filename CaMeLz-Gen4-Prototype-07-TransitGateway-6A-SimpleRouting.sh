@@ -28,7 +28,7 @@ profile=$core_profile
 
 # Create Default Route Table
 global_core_tgw_default_rtb_id=$(aws ec2 create-transit-gateway-route-table --transit-gateway-id $global_core_tgw_id \
-                                                                            --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayDefaultRouteTable},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                                            --tag-specifications ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayDefaultRouteTable},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                             --query 'TransitGatewayRouteTable.TransitGatewayRouteTableId' \
                                                                             --profile $profile --region us-east-1 --output text)
 echo "global_core_tgw_default_rtb_id=$global_core_tgw_default_rtb_id"
@@ -39,7 +39,7 @@ profile=$core_profile
 
 # Create Default Route Table
 ohio_core_tgw_default_rtb_id=$(aws ec2 create-transit-gateway-route-table --transit-gateway-id $ohio_core_tgw_id \
-                                                                          --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayDefaultRouteTable},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                                          --tag-specifications ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayDefaultRouteTable},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                           --query 'TransitGatewayRouteTable.TransitGatewayRouteTableId' \
                                                                           --profile $profile --region us-east-2 --output text)
 echo "ohio_core_tgw_default_rtb_id=$ohio_core_tgw_default_rtb_id"
@@ -50,7 +50,7 @@ profile=$core_profile
 
 # Create Default Route Table
 ireland_core_tgw_default_rtb_id=$(aws ec2 create-transit-gateway-route-table --transit-gateway-id $ireland_core_tgw_id \
-                                                                             --tag-specifications "ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayDefaultRouteTable},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                                             --tag-specifications ResourceType=transit-gateway-route-table,Tags=[{Key=Name,Value=Core-TransitGatewayDefaultRouteTable},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                              --query 'TransitGatewayRouteTable.TransitGatewayRouteTableId' \
                                                                              --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_tgw_default_rtb_id=$ireland_core_tgw_default_rtb_id"

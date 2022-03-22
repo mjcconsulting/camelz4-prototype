@@ -30,7 +30,7 @@ profile=$core_profile
 
 global_core_tgw_id=$(aws ec2 create-transit-gateway --description Core-TransitGateway \
                                                     --options "AmazonSideAsn=$ohio_core_tgw_asn,AutoAcceptSharedAttachments=enable,DefaultRouteTableAssociation=disable,DefaultRouteTablePropagation=disable,VpnEcmpSupport=enable,DnsSupport=enable" \
-                                                    --tag-specifications "ResourceType=transit-gateway,Tags=[{Key=Name,Value=Core-TransitGateway},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                    --tag-specifications ResourceType=transit-gateway,Tags=[{Key=Name,Value=Core-TransitGateway},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'TransitGateway.TransitGatewayId' \
                                                     --profile $profile --region us-east-1 --output text)
 echo "global_core_tgw_id=$global_core_tgw_id"
@@ -43,7 +43,7 @@ profile=$core_profile
 
 ohio_core_tgw_id=$(aws ec2 create-transit-gateway --description Core-TransitGateway \
                                                   --options "AmazonSideAsn=$ohio_core_tgw_asn,AutoAcceptSharedAttachments=enable,DefaultRouteTableAssociation=disable,DefaultRouteTablePropagation=disable,VpnEcmpSupport=enable,DnsSupport=enable" \
-                                                  --tag-specifications "ResourceType=transit-gateway,Tags=[{Key=Name,Value=Core-TransitGateway},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                  --tag-specifications "ResourceType=transit-gateway,Tags=[{Key=Name,Value=Core-TransitGateway},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=CaMeLz-POC-4}] \
                                                   --query 'TransitGateway.TransitGatewayId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "ohio_core_tgw_id=$ohio_core_tgw_id"
@@ -56,7 +56,7 @@ profile=$core_profile
 
 ireland_core_tgw_id=$(aws ec2 create-transit-gateway --description Core-TransitGateway \
                                                      --options "AmazonSideAsn=$ireland_core_tgw_asn,AutoAcceptSharedAttachments=enable,DefaultRouteTableAssociation=disable,DefaultRouteTablePropagation=disable,VpnEcmpSupport=enable,DnsSupport=enable" \
-                                                     --tag-specifications "ResourceType=transit-gateway,Tags=[{Key=Name,Value=Core-TransitGateway},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                     --tag-specifications ResourceType=transit-gateway,Tags=[{Key=Name,Value=Core-TransitGateway},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=CaMeLz-POC-4}] \
                                                      --query 'TransitGateway.TransitGatewayId' \
                                                      --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_tgw_id=$ireland_core_tgw_id"

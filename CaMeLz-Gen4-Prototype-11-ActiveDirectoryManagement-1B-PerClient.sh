@@ -38,7 +38,7 @@ profile=$management_profile
 alfa_global_management_adm_sg_id=$(aws ec2 create-security-group --group-name Alfa-Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                                  --description Alfa-Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                                  --vpc-id $global_management_vpc_id \
-                                                                 --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Management-ActiveDirectoryManagement-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Management},{Key=Application,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                                 --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Management-ActiveDirectoryManagement-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                  --query 'GroupId' \
                                                                  --profile $profile --region us-east-1 --output text)
 echo "alfa_global_management_adm_sg_id=$alfa_global_management_adm_sg_id"
@@ -120,7 +120,7 @@ profile=$management_profile
 alfa_ohio_management_adm_sg_id=$(aws ec2 create-security-group --group-name Alfa-Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                                --description Alfa-Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                                --vpc-id $ohio_management_vpc_id \
-                                                               --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Management-ActiveDirectoryManagement-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Management},{Key=Application,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                               --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Management-ActiveDirectoryManagement-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                --query 'GroupId' \
                                                                --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_management_adm_sg_id=$alfa_ohio_management_adm_sg_id"
@@ -202,7 +202,7 @@ profile=$management_profile
 zulu_ohio_management_adm_sg_id=$(aws ec2 create-security-group --group-name Zulu-Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                                --description Zulu-Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                                --vpc-id $ohio_management_vpc_id \
-                                                               --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Zulu-Management-ActiveDirectoryManagement-InstanceSecurityGroup},{Key=Company,Value=Zulu},{Key=Environment,Value=Management},{Key=Application,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                               --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Zulu-Management-ActiveDirectoryManagement-InstanceSecurityGroup},{Key=Company,Value=Zulu},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                --query 'GroupId' \
                                                                --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_management_adm_sg_id=$zulu_ohio_management_adm_sg_id"
@@ -283,7 +283,7 @@ profile=$management_profile
 alfa_ireland_management_adm_sg_id=$(aws ec2 create-security-group --group-name Alfa-Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                                   --description Alfa-Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                                   --vpc-id $ireland_management_vpc_id \
-                                                                  --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Management-ActiveDirectoryManagement-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Management},{Key=Application,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                                  --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Management-ActiveDirectoryManagement-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                   --query 'GroupId' \
                                                                   --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_management_adm_sg_id=$alfa_ireland_management_adm_sg_id"

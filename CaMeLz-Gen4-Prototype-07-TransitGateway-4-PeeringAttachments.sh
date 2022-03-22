@@ -41,7 +41,7 @@ global_core_tgw_ohio_core_tgw_attachment_id=$(aws ec2 create-transit-gateway-pee
                                                                                                  --peer-transit-gateway-id $ohio_core_tgw_id \
                                                                                                  --peer-account-id $core_account_id \
                                                                                                  --peer-region us-east-2 \
-                                                                                                 --tag-specifications "ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Core-OhioCoreTgwTransitGatewayAttachment},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                                                                 --tag-specifications ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Core-OhioCoreTgwTransitGatewayAttachment},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                                                  --query 'TransitGatewayPeeringAttachment.TransitGatewayAttachmentId' \
                                                                                                  --profile $profile --region us-east-1 --output text)
 echo "global_core_tgw_ohio_core_tgw_attachment_id=$global_core_tgw_ohio_core_tgw_attachment_id"
@@ -54,8 +54,7 @@ aws ec2 create-tags --resources $global_core_tgw_ohio_core_tgw_attachment_id \
                     --tags Key=Name,Value=Core-GlobalCoreTgwTransitGatewayAttachment \
                            Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region us-east-2 --output text
 
 ## Global Core to Ireland Core Transit Gateway Peering Attachment #####################################################
@@ -65,7 +64,7 @@ global_core_tgw_ireland_core_tgw_attachment_id=$(aws ec2 create-transit-gateway-
                                                                                                     --peer-transit-gateway-id $ireland_core_tgw_id \
                                                                                                     --peer-account-id $core_account_id \
                                                                                                     --peer-region eu-west-1 \
-                                                                                                    --tag-specifications "ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Core-IrelandCoreTgwTransitGatewayAttachment},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                                                                    --tag-specifications ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Core-IrelandCoreTgwTransitGatewayAttachment},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                                                     --query 'TransitGatewayPeeringAttachment.TransitGatewayAttachmentId' \
                                                                                                     --profile $profile --region us-east-1 --output text)
 echo "global_core_tgw_ireland_core_tgw_attachment_id=$global_core_tgw_ireland_core_tgw_attachment_id"
@@ -79,8 +78,7 @@ aws ec2 create-tags --resources $global_core_tgw_ireland_core_tgw_attachment_id 
                     --tags Key=Name,Value=Core-GlobalCoreTgwTransitGatewayAttachment \
                            Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region eu-west-1 --output text
 
 
@@ -91,7 +89,7 @@ ohio_core_tgw_ireland_core_tgw_attachment_id=$(aws ec2 create-transit-gateway-pe
                                                                                                   --peer-transit-gateway-id $ireland_core_tgw_id \
                                                                                                   --peer-account-id $core_account_id \
                                                                                                   --peer-region eu-west-1 \
-                                                                                                  --tag-specifications "ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Core-IrelandCoreTgwTransitGatewayAttachment},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                                                                  --tag-specifications ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Core-IrelandCoreTgwTransitGatewayAttachment},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                                                   --query 'TransitGatewayPeeringAttachment.TransitGatewayAttachmentId' \
                                                                                                   --profile $profile --region us-east-2 --output text)
 echo "ohio_core_tgw_ireland_core_tgw_attachment_id=$ohio_core_tgw_ireland_core_tgw_attachment_id"
@@ -104,6 +102,5 @@ aws ec2 create-tags --resources $ohio_core_tgw_ireland_core_tgw_attachment_id \
                     --tags Key=Name,Value=Core-OhioCoreTgwTransitGatewayAttachment \
                            Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region eu-west-1 --output text

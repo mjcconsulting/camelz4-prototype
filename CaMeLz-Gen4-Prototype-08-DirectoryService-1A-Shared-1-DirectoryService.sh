@@ -36,7 +36,7 @@ global_management_directory_id=$(aws ds create-microsoft-ad --name $global_manag
                                                             --password $global_management_directory_admin_password \
                                                             --edition Standard \
                                                             --vpc-settings "VpcId=$global_management_vpc_id,SubnetIds=$global_management_directory_subneta_id,$global_management_directory_subnetb_id" \
-                                                            --tags Key=Name,Value=Management-DirectoryService Key=Company,Value=CaMeLz Key=Environment,Value=Management Key=Utility,Value=DirectoryService Key=Project,Value="CaMeLz4 POC" Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                                                            --tags Key=Name,Value=Management-DirectoryService Key=Company,Value=CaMeLz Key=Environment,Value=Management Key=Utility,Value=DirectoryService Key=Project,Value=CaMeLz-POC-4 \
                                                             --query 'DirectoryId' \
                                                             --profile $profile --region us-east-1 --output text)
 echo "global_management_directory_id=$global_management_directory_id"
@@ -125,7 +125,7 @@ ohio_management_directory_id=$(aws ds create-microsoft-ad --name $ohio_managemen
                                                           --password $ohio_management_directory_admin_password \
                                                           --edition Standard \
                                                           --vpc-settings "VpcId=$ohio_management_vpc_id,SubnetIds=$ohio_management_directory_subneta_id,$ohio_management_directory_subnetb_id" \
-                                                          --tags Key=Name,Value=Management-DirectoryService Key=Company,Value=CaMeLz Key=Environment,Value=Management Key=Utility,Value=DirectoryService Key=Project,Value="CaMeLz4 POC" Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                                                          --tags Key=Name,Value=Management-DirectoryService Key=Company,Value=CaMeLz Key=Environment,Value=Management Key=Utility,Value=DirectoryService Key=Project,Value=CaMeLz-POC-4 \
                                                           --query 'DirectoryId' \
                                                           --profile $profile --region us-east-2 --output text)
 echo "ohio_management_directory_id=$ohio_management_directory_id"
@@ -287,7 +287,7 @@ ireland_management_directory_id=$(aws ds create-microsoft-ad --name $ireland_man
                                                              --password $ireland_management_directory_admin_password \
                                                              --edition Standard \
                                                              --vpc-settings "VpcId=$ireland_management_vpc_id,SubnetIds=$ireland_management_directory_subneta_id,$ireland_management_directory_subnetb_id" \
-                                                             --tags Key=Name,Value=Management-DirectoryService Key=Company,Value=CaMeLz Key=Environment,Value=Management Key=Utility,Value=DirectoryService Key=Project,Value="CaMeLz4 POC" Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                                                             --tags Key=Name,Value=Management-DirectoryService Key=Company,Value=CaMeLz Key=Environment,Value=Management Key=Utility,Value=DirectoryService Key=Project,Value=CaMeLz-POC-4 \
                                                              --query 'DirectoryId' \
                                                              --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_directory_id=$ireland_management_directory_id"

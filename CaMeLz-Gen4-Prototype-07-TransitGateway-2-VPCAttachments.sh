@@ -32,7 +32,7 @@ global_core_tgw_core_vpc_attachment_id=$(aws ec2 create-transit-gateway-vpc-atta
                                                                                        --vpc-id $global_core_vpc_id \
                                                                                        --subnet-ids $global_core_gateway_subneta_id $global_core_gateway_subnetb_id $global_core_gateway_subnetc_id \
                                                                                        --options "DnsSupport=enable,Ipv6Support=disable" \
-                                                                                       --tag-specifications "ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Core-CoreVpcTransitGatewayAttachment},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                                                       --tag-specifications ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Core-CoreVpcTransitGatewayAttachment},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                                        --query 'TransitGatewayVpcAttachment.TransitGatewayAttachmentId' \
                                                                                        --profile $profile --region us-east-1 --output text)
 echo "global_core_tgw_core_vpc_attachment_id=$global_core_tgw_core_vpc_attachment_id"
@@ -45,7 +45,7 @@ global_core_tgw_management_vpc_attachment_id=$(aws ec2 create-transit-gateway-vp
                                                                                              --vpc-id $global_management_vpc_id \
                                                                                              --subnet-ids $global_management_gateway_subneta_id $global_management_gateway_subnetb_id $global_management_gateway_subnetc_id \
                                                                                              --options "DnsSupport=enable,Ipv6Support=disable" \
-                                                                                             --tag-specifications "ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Management-ManagementVpcTransitGatewayAttachment},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                                                             --tag-specifications ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Management-ManagementVpcTransitGatewayAttachment},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                                              --query 'TransitGatewayVpcAttachment.TransitGatewayAttachmentId' \
                                                                                              --profile $profile --region us-east-1 --output text)
 echo "global_core_tgw_management_vpc_attachment_id=$global_core_tgw_management_vpc_attachment_id"
@@ -69,7 +69,7 @@ global_core_tgw_log_vpc_attachment_id=$(aws ec2 create-transit-gateway-vpc-attac
                                                                                       --vpc-id $global_log_vpc_id \
                                                                                       --subnet-ids $global_log_gateway_subneta_id $global_log_gateway_subnetb_id $global_log_gateway_subnetc_id \
                                                                                       --options "DnsSupport=enable,Ipv6Support=disable" \
-                                                                                      --tag-specifications "ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Log-LogVpcTransitGatewayAttachment},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                                                      --tag-specifications ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Log-LogVpcTransitGatewayAttachment},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                                       --query 'TransitGatewayVpcAttachment.TransitGatewayAttachmentId' \
                                                                                       --profile $profile --region us-east-1 --output text)
 echo "global_core_tgw_log_vpc_attachment_id=$global_core_tgw_log_vpc_attachment_id"
@@ -81,8 +81,7 @@ aws ec2 create-tags --resources $global_core_tgw_log_vpc_attachment_id \
                     --tags Key=Name,Value=Core-LogVpcTransitGatewayAttachment \
                            Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region us-east-1 --output text
 
 
@@ -95,7 +94,7 @@ ohio_core_tgw_core_vpc_attachment_id=$(aws ec2 create-transit-gateway-vpc-attach
                                                                                      --vpc-id $ohio_core_vpc_id \
                                                                                      --subnet-ids $ohio_core_gateway_subneta_id $ohio_core_gateway_subnetb_id $ohio_core_gateway_subnetc_id \
                                                                                      --options "DnsSupport=enable,Ipv6Support=disable" \
-                                                                                     --tag-specifications "ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Core-CoreVpcTransitGatewayAttachment},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                                                     --tag-specifications ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Core-CoreVpcTransitGatewayAttachment},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                                      --query 'TransitGatewayVpcAttachment.TransitGatewayAttachmentId' \
                                                                                      --profile $profile --region us-east-2 --output text)
 echo "ohio_core_tgw_core_vpc_attachment_id=$ohio_core_tgw_core_vpc_attachment_id"
@@ -108,7 +107,7 @@ ohio_core_tgw_management_vpc_attachment_id=$(aws ec2 create-transit-gateway-vpc-
                                                                                            --vpc-id $ohio_management_vpc_id \
                                                                                            --subnet-ids $ohio_management_gateway_subneta_id $ohio_management_gateway_subnetb_id $ohio_management_gateway_subnetc_id \
                                                                                            --options "DnsSupport=enable,Ipv6Support=disable" \
-                                                                                           --tag-specifications "ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Management-ManagementVpcTransitGatewayAttachment},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                                                           --tag-specifications ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Management-ManagementVpcTransitGatewayAttachment},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                                            --query 'TransitGatewayVpcAttachment.TransitGatewayAttachmentId' \
                                                                                            --profile $profile --region us-east-2 --output text)
 echo "ohio_core_tgw_management_vpc_attachment_id=$ohio_core_tgw_management_vpc_attachment_id"
@@ -120,8 +119,7 @@ aws ec2 create-tags --resources $ohio_core_tgw_management_vpc_attachment_id \
                     --tags Key=Name,Value=Core-ManagementVpcTransitGatewayAttachment \
                            Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region us-east-2 --output text
 
 
@@ -132,7 +130,7 @@ ohio_core_tgw_log_vpc_attachment_id=$(aws ec2 create-transit-gateway-vpc-attachm
                                                                                     --vpc-id $ohio_log_vpc_id \
                                                                                     --subnet-ids $ohio_log_gateway_subneta_id $ohio_log_gateway_subnetb_id $ohio_log_gateway_subnetc_id \
                                                                                     --options "DnsSupport=enable,Ipv6Support=disable" \
-                                                                                    --tag-specifications "ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Log-LogVpcTransitGatewayAttachment},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                                                    --tag-specifications ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Log-LogVpcTransitGatewayAttachment},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                                     --query 'TransitGatewayVpcAttachment.TransitGatewayAttachmentId' \
                                                                                     --profile $profile --region us-east-2 --output text)
 echo "ohio_core_tgw_log_vpc_attachment_id=$ohio_core_tgw_log_vpc_attachment_id"
@@ -144,8 +142,7 @@ aws ec2 create-tags --resources $ohio_core_tgw_log_vpc_attachment_id \
                     --tags Key=Name,Value=Core-LogVpcTransitGatewayAttachment \
                            Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region us-east-2 --output text
 
 
@@ -156,7 +153,7 @@ ohio_core_tgw_alfa_production_vpc_attachment_id=$(aws ec2 create-transit-gateway
                                                                                                 --vpc-id $alfa_ohio_production_vpc_id \
                                                                                                 --subnet-ids $alfa_ohio_production_gateway_subneta_id $alfa_ohio_production_gateway_subnetb_id $alfa_ohio_production_gateway_subnetc_id \
                                                                                                 --options "DnsSupport=enable,Ipv6Support=disable" \
-                                                                                                --tag-specifications "ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Alfa-Production-AlfaProductionVpcTransitGatewayAttachment},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                                                                --tag-specifications ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Alfa-Production-AlfaProductionVpcTransitGatewayAttachment},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                                                 --query 'TransitGatewayVpcAttachment.TransitGatewayAttachmentId' \
                                                                                                 --profile $profile --region us-east-2 --output text)
 echo "ohio_core_tgw_alfa_production_vpc_attachment_id=$ohio_core_tgw_alfa_production_vpc_attachment_id"
@@ -168,8 +165,7 @@ aws ec2 create-tags --resources $ohio_core_tgw_alfa_production_vpc_attachment_id
                     --tags Key=Name,Value=Core-AlfaProductionVpcTransitGatewayAttachment \
                            Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region us-east-2 --output text
 
 
@@ -180,7 +176,7 @@ ohio_core_tgw_alfa_testing_vpc_attachment_id=$(aws ec2 create-transit-gateway-vp
                                                                                              --vpc-id $alfa_ohio_testing_vpc_id \
                                                                                              --subnet-ids $alfa_ohio_testing_gateway_subneta_id $alfa_ohio_testing_gateway_subnetb_id $alfa_ohio_testing_gateway_subnetc_id \
                                                                                              --options "DnsSupport=enable,Ipv6Support=disable" \
-                                                                                             --tag-specifications "ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Alfa-Testing-AlfaTestingVpcTransitGatewayAttachment},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                                                             --tag-specifications ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Alfa-Testing-AlfaTestingVpcTransitGatewayAttachment},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                                              --query 'TransitGatewayVpcAttachment.TransitGatewayAttachmentId' \
                                                                                              --profile $profile --region us-east-2 --output text)
 echo "ohio_core_tgw_alfa_testing_vpc_attachment_id=$ohio_core_tgw_alfa_testing_vpc_attachment_id"
@@ -192,8 +188,7 @@ aws ec2 create-tags --resources $ohio_core_tgw_alfa_testing_vpc_attachment_id \
                     --tags Key=Name,Value=Core-AlfaTestingVpcTransitGatewayAttachment \
                            Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region us-east-2 --output text
 
 
@@ -204,7 +199,7 @@ ohio_core_tgw_alfa_development_vpc_attachment_id=$(aws ec2 create-transit-gatewa
                                                                                                  --vpc-id $alfa_ohio_development_vpc_id \
                                                                                                  --subnet-ids $alfa_ohio_development_gateway_subneta_id $alfa_ohio_development_gateway_subnetb_id $alfa_ohio_development_gateway_subnetc_id \
                                                                                                  --options "DnsSupport=enable,Ipv6Support=disable" \
-                                                                                                 --tag-specifications "ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Alfa-Development-AlfaDevelopmentVpcTransitGatewayAttachment},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                                                                 --tag-specifications ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Alfa-Development-AlfaDevelopmentVpcTransitGatewayAttachment},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                                                  --query 'TransitGatewayVpcAttachment.TransitGatewayAttachmentId' \
                                                                                                  --profile $profile --region us-east-2 --output text)
 echo "ohio_core_tgw_alfa_development_vpc_attachment_id=$ohio_core_tgw_alfa_development_vpc_attachment_id"
@@ -216,8 +211,7 @@ aws ec2 create-tags --resources $ohio_core_tgw_alfa_development_vpc_attachment_i
                     --tags Key=Name,Value=Core-AlfaDevelopmentVpcTransitGatewayAttachment \
                            Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region us-east-2 --output text
 
 
@@ -228,7 +222,7 @@ ohio_core_tgw_zulu_production_vpc_attachment_id=$(aws ec2 create-transit-gateway
                                                                                                 --vpc-id $zulu_ohio_production_vpc_id \
                                                                                                 --subnet-ids $zulu_ohio_production_gateway_subneta_id $zulu_ohio_production_gateway_subnetb_id $zulu_ohio_production_gateway_subnetc_id \
                                                                                                 --options "DnsSupport=enable,Ipv6Support=disable" \
-                                                                                                --tag-specifications "ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Zulu-Production-ZuluProductionVpcTransitGatewayAttachment},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                                                                --tag-specifications ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Zulu-Production-ZuluProductionVpcTransitGatewayAttachment},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                                                 --query 'TransitGatewayVpcAttachment.TransitGatewayAttachmentId' \
                                                                                                 --profile $profile --region us-east-2 --output text)
 echo "ohio_core_tgw_zulu_production_vpc_attachment_id=$ohio_core_tgw_zulu_production_vpc_attachment_id"
@@ -240,8 +234,7 @@ aws ec2 create-tags --resources $ohio_core_tgw_zulu_production_vpc_attachment_id
                     --tags Key=Name,Value=Core-ZuluProductionVpcTransitGatewayAttachment \
                            Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region us-east-2 --output text
 
 
@@ -252,7 +245,7 @@ ohio_core_tgw_zulu_development_vpc_attachment_id=$(aws ec2 create-transit-gatewa
                                                                                                  --vpc-id $zulu_ohio_development_vpc_id \
                                                                                                  --subnet-ids $zulu_ohio_development_gateway_subneta_id $zulu_ohio_development_gateway_subnetb_id $zulu_ohio_development_gateway_subnetc_id \
                                                                                                  --options "DnsSupport=enable,Ipv6Support=disable" \
-                                                                                                 --tag-specifications "ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Zulu-Development-ZuluDevelopmentVpcTransitGatewayAttachment},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                                                                 --tag-specifications ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Zulu-Development-ZuluDevelopmentVpcTransitGatewayAttachment},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                                                  --query 'TransitGatewayVpcAttachment.TransitGatewayAttachmentId' \
                                                                                                  --profile $profile --region us-east-2 --output text)
 echo "ohio_core_tgw_zulu_development_vpc_attachment_id=$ohio_core_tgw_zulu_development_vpc_attachment_id"
@@ -264,8 +257,7 @@ aws ec2 create-tags --resources $ohio_core_tgw_zulu_development_vpc_attachment_i
                     --tags Key=Name,Value=Core-ZuluDevelopmentVpcTransitGatewayAttachment \
                            Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region us-east-2 --output text
 
 
@@ -278,7 +270,7 @@ ireland_core_tgw_core_vpc_attachment_id=$(aws ec2 create-transit-gateway-vpc-att
                                                                                         --vpc-id $ireland_core_vpc_id \
                                                                                         --subnet-ids $ireland_core_gateway_subneta_id $ireland_core_gateway_subnetb_id $ireland_core_gateway_subnetc_id \
                                                                                         --options "DnsSupport=enable,Ipv6Support=disable" \
-                                                                                        --tag-specifications "ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Core-CoreVpcTransitGatewayAttachment},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                                                        --tag-specifications ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Core-CoreVpcTransitGatewayAttachment},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                                         --query 'TransitGatewayVpcAttachment.TransitGatewayAttachmentId' \
                                                                                         --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_tgw_core_vpc_attachment_id=$ireland_core_tgw_core_vpc_attachment_id"
@@ -291,7 +283,7 @@ ireland_core_tgw_management_vpc_attachment_id=$(aws ec2 create-transit-gateway-v
                                                                                               --vpc-id $ireland_management_vpc_id \
                                                                                               --subnet-ids $ireland_management_gateway_subneta_id $ireland_management_gateway_subnetb_id $ireland_management_gateway_subnetc_id \
                                                                                               --options "DnsSupport=enable,Ipv6Support=disable" \
-                                                                                              --tag-specifications "ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Management-ManagementVpcTransitGatewayAttachment},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                                                              --tag-specifications ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Management-ManagementVpcTransitGatewayAttachment},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                                               --query 'TransitGatewayVpcAttachment.TransitGatewayAttachmentId' \
                                                                                               --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_tgw_management_vpc_attachment_id=$ireland_core_tgw_management_vpc_attachment_id"
@@ -303,8 +295,7 @@ aws ec2 create-tags --resources $ireland_core_tgw_management_vpc_attachment_id \
                     --tags Key=Name,Value=Core-ManagementVpcTransitGatewayAttachment \
                            Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region eu-west-1 --output text
 
 
@@ -315,7 +306,7 @@ ireland_core_tgw_log_vpc_attachment_id=$(aws ec2 create-transit-gateway-vpc-atta
                                                                                        --vpc-id $ireland_log_vpc_id \
                                                                                        --subnet-ids $ireland_log_gateway_subneta_id $ireland_log_gateway_subnetb_id $ireland_log_gateway_subnetc_id \
                                                                                        --options "DnsSupport=enable,Ipv6Support=disable" \
-                                                                                       --tag-specifications "ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Log-LogVpcTransitGatewayAttachment},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                                                       --tag-specifications ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Log-LogVpcTransitGatewayAttachment},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                                        --query 'TransitGatewayVpcAttachment.TransitGatewayAttachmentId' \
                                                                                        --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_tgw_log_vpc_attachment_id=$ireland_core_tgw_log_vpc_attachment_id"
@@ -327,8 +318,7 @@ aws ec2 create-tags --resources $ireland_core_tgw_log_vpc_attachment_id \
                     --tags Key=Name,Value=Core-LogVpcTransitGatewayAttachment \
                            Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region eu-west-1 --output text
 
 
@@ -339,7 +329,7 @@ ireland_core_tgw_alfa_recovery_vpc_attachment_id=$(aws ec2 create-transit-gatewa
                                                                                                  --vpc-id $alfa_ireland_recovery_vpc_id \
                                                                                                  --subnet-ids $alfa_ireland_recovery_gateway_subneta_id $alfa_ireland_recovery_gateway_subnetb_id $alfa_ireland_recovery_gateway_subnetc_id \
                                                                                                  --options "DnsSupport=enable,Ipv6Support=disable" \
-                                                                                                 --tag-specifications "ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Alfa-Recovery-AlfaRecoveryVpcTransitGatewayAttachment},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                                                                 --tag-specifications ResourceType=transit-gateway-attachment,Tags=[{Key=Name,Value=Alfa-Recovery-AlfaRecoveryVpcTransitGatewayAttachment},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                                                  --query 'TransitGatewayVpcAttachment.TransitGatewayAttachmentId' \
                                                                                                  --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_tgw_alfa_recovery_vpc_attachment_id=$ireland_core_tgw_alfa_recovery_vpc_attachment_id"
@@ -351,6 +341,5 @@ aws ec2 create-tags --resources $ireland_core_tgw_alfa_recovery_vpc_attachment_i
                     --tags Key=Name,Value=Core-AlfaRecoveryVpcTransitGatewayAttachment \
                            Key=Company,Value=Alfa \
                            Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region eu-west-1 --output text

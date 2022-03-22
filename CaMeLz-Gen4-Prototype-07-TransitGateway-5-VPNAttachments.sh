@@ -73,18 +73,10 @@ ohio_core_alfa_lax_vpn_id=$(aws ec2 create-vpn-connection --transit-gateway-id $
                                                           --customer-gateway-id $ohio_core_alfa_lax_cgw_id \
                                                           --type ipsec.1 \
                                                           --options "$ohio_core_alfa_lax_vpn_options" \
+                                                          --tag-specifications ResourceType=vpn-connection,Tags=[{Key=Name,Value=Core-AlfaLosAngelesVpnConnection},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Project,Value=CaMeLz-POC-4}] \
                                                           --query 'VpnConnection.VpnConnectionId' \
                                                           --profile $profile --region us-east-2 --output text)
 echo "ohio_core_alfa_lax_vpn_id=$ohio_core_alfa_lax_vpn_id"
-
-aws ec2 create-tags --resources $ohio_core_alfa_lax_vpn_id \
-                    --tags Key=Name,Value=Core-AlfaLosAngelesVpnConnection \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=LosAngeles \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 ohio_core_tgw_alfa_lax_vpn_attachment_id=$(aws ec2 describe-transit-gateway-attachments --filters "Name=resource-id,Values=$ohio_core_alfa_lax_vpn_id" \
                                                                                         --query 'TransitGatewayAttachments[0].TransitGatewayAttachmentId' \
@@ -94,10 +86,9 @@ echo "ohio_core_tgw_alfa_lax_vpn_attachment_id=$ohio_core_tgw_alfa_lax_vpn_attac
 aws ec2 create-tags --resources $ohio_core_tgw_alfa_lax_vpn_attachment_id \
                     --tags Key=Name,Value=Core-AlfaLosAngelesVpnTransitGatewayAttachment \
                            Key=Company,Value=Alfa \
+                           Key=Environment,Value=Network \
                            Key=Location,Value=LosAngeles \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region us-east-2 --output text
 
 # Note: We can't trust the order in which the tunnels are returned - the values have been reversed. So, in order to
@@ -303,19 +294,10 @@ ohio_core_alfa_mia_vpn_id=$(aws ec2 create-vpn-connection --transit-gateway-id $
                                                           --customer-gateway-id $ohio_core_alfa_mia_cgw_id \
                                                           --type ipsec.1 \
                                                           --options "$ohio_core_alfa_mia_vpn_options" \
+                                                          --tag-specifications ResourceType=vpn-connection,Tags=[{Key=Name,Value=Core-AlfaMiamiVpnConnection},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Project,Value=CaMeLz-POC-4}] \
                                                           --query 'VpnConnection.VpnConnectionId' \
                                                           --profile $profile --region us-east-2 --output text)
 echo "ohio_core_alfa_mia_vpn_id=$ohio_core_alfa_mia_vpn_id"
-
-aws ec2 create-tags --resources $ohio_core_alfa_mia_vpn_id \
-                    --tags Key=Name,Value=Core-AlfaMiamiVpnConnection \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=Miami \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 ohio_core_tgw_alfa_mia_vpn_attachment_id=$(aws ec2 describe-transit-gateway-attachments --filters "Name=resource-id,Values=$ohio_core_alfa_mia_vpn_id" \
                                                                                         --query 'TransitGatewayAttachments[0].TransitGatewayAttachmentId' \
@@ -324,12 +306,10 @@ echo "ohio_core_tgw_alfa_mia_vpn_attachment_id=$ohio_core_tgw_alfa_mia_vpn_attac
 
 aws ec2 create-tags --resources $ohio_core_tgw_alfa_mia_vpn_attachment_id \
                     --tags Key=Name,Value=Core-AlfaMiamiVpnTransitGatewayAttachment \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
                            Key=Company,Value=Alfa \
+                           Key=Environment,Value=Network \
                            Key=Location,Value=Miami \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region us-east-2 --output text
 
 # Note: We can't trust the order in which the tunnels are returned - the values have been reversed. So, in order to
@@ -442,18 +422,10 @@ ohio_core_zulu_dfw_vpn_id=$(aws ec2 create-vpn-connection --transit-gateway-id $
                                                           --customer-gateway-id $ohio_core_zulu_dfw_cgw_id \
                                                           --type ipsec.1 \
                                                           --options "$ohio_core_zulu_dfw_vpn_options" \
+                                                          --tag-specifications ResourceType=vpn-connection,Tags=[{Key=Name,Value=Core-ZuluDallasVpnConnection},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Project,Value=CaMeLz-POC-4}] \
                                                           --query 'VpnConnection.VpnConnectionId' \
                                                           --profile $profile --region us-east-2 --output text)
 echo "ohio_core_zulu_dfw_vpn_id=$ohio_core_zulu_dfw_vpn_id"
-
-aws ec2 create-tags --resources $ohio_core_zulu_dfw_vpn_id \
-                    --tags Key=Name,Value=Core-ZuluDallasVpnConnection \
-                           Key=Company,Value=Zulu \
-                           Key=Location,Value=Dallas \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 ohio_core_tgw_zulu_dfw_vpn_attachment_id=$(aws ec2 describe-transit-gateway-attachments --filters "Name=resource-id,Values=$ohio_core_zulu_dfw_vpn_id" \
                                                                                         --query 'TransitGatewayAttachments[0].TransitGatewayAttachmentId' \
@@ -463,10 +435,9 @@ echo "ohio_core_tgw_zulu_dfw_vpn_attachment_id=$ohio_core_tgw_zulu_dfw_vpn_attac
 aws ec2 create-tags --resources $ohio_core_tgw_zulu_dfw_vpn_attachment_id \
                     --tags Key=Name,Value=Core-ZuluDallasVpnTransitGatewayAttachment \
                            Key=Company,Value=Zulu \
+                           Key=Environment,Value=Network \
                            Key=Location,Value=Dallas \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region us-east-2 --output text
 
 # Note: We can't trust the order in which the tunnels are returned - the values have been reversed. So, in order to
@@ -580,18 +551,10 @@ ohio_core_cml_sba_vpn_id=$(aws ec2 create-vpn-connection --transit-gateway-id $o
                                                          --customer-gateway-id $ohio_core_cml_sba_cgw_id \
                                                          --type ipsec.1 \
                                                          --options "$ohio_core_cml_sba_vpn_options" \
+                                                         --tag-specifications ResourceType=vpn-connection,Tags=[{Key=Name,Value=Core-CaMeLzSantaBarbaraVpnConnection},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Project,Value=CaMeLz-POC-4}] \
                                                          --query 'VpnConnection.VpnConnectionId' \
                                                          --profile $profile --region us-east-2 --output text)
 echo "ohio_core_cml_sba_vpn_id=$ohio_core_cml_sba_vpn_id"
-
-aws ec2 create-tags --resources $ohio_core_cml_sba_vpn_id \
-                    --tags Key=Name,Value=Core-CaMeLzSantaBarbaraVpnConnection \
-                           Key=Company,Value=CaMeLz \
-                           Key=Location,Value=SantaBarbara \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 ohio_core_tgw_cml_sba_vpn_attachment_id=$(aws ec2 describe-transit-gateway-attachments --filters "Name=resource-id,Values=$ohio_core_cml_sba_vpn_id" \
                                                                                        --query 'TransitGatewayAttachments[0].TransitGatewayAttachmentId' \
@@ -601,10 +564,9 @@ echo "ohio_core_tgw_cml_sba_vpn_attachment_id=$ohio_core_tgw_cml_sba_vpn_attachm
 aws ec2 create-tags --resources $ohio_core_tgw_cml_sba_vpn_attachment_id \
                     --tags Key=Name,Value=Core-CaMeLzSantaBarbaraVpnTransitGatewayAttachment \
                            Key=Company,Value=CaMeLz \
+                           Key=Environment,Value=Network \
                            Key=Location,Value=SantaBarbara \
-                           Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region us-east-2 --output text
 
 # Note: We can't trust the order in which the tunnels are returned - the values have been reversed. So, in order to

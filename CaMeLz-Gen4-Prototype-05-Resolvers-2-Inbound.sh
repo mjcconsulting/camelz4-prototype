@@ -29,18 +29,10 @@ echo "##########################################################################
 #alfa_ohio_production_inboundresolver_sg_id=$(aws ec2 create-security-group --group-name Alfa-Production-InboundResolverSecurityGroup \
 #                                                                           --description Alfa-Production-InboundResolverSecurityGroup \
 #                                                                           --vpc-id $alfa_ohio_production_vpc_id \
+#                                                                           --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Production-Resolver-InboundSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Utility,Value=Resolver},{Key=Project,Value=CaMeLz-POC-4}] \
 #                                                                           --query 'GroupId' \
 #                                                                           --profile $profile --region us-east-2 --output text)
 #echo "alfa_ohio_production_inboundresolver_sg_id=$alfa_ohio_production_resolver_endpoint_sg_id"
-#
-#aws ec2 create-tags --resources $alfa_ohio_production_inboundresolver_sg_id \
-#                    --tags Key=Name,Value=Alfa-Production-Resolver-InboundSecurityGroup \
-#                           Key=Company,Value=Alfa \
-#                           Key=Environment,Value=Production \
-#                           Key=Utility,Value=Resolver \
-#                           Key=Project,Value="CaMeLz4 POC" \
-#                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-#                    --profile $profile --region us-east-2 --output text
 #
 #aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_production_inboundresolver_sg_id \
 #                                         --ip-permissions "IpProtocol=udp,FromPort=53,ToPort=53,IpRanges=[{CidrIp=0.0.0.0/0,Description=\"Global (DNS)\"}]" \

@@ -38,18 +38,10 @@ profile=$management_profile
 global_management_wb_sg_id=$(aws ec2 create-security-group --group-name Management-WindowsBastion-InstanceSecurityGroup \
                                                            --description Management-WindowsBastion-InstanceSecurityGroup \
                                                            --vpc-id $global_management_vpc_id \
+                                                           --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Management-WindowsBastion-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                            --query 'GroupId' \
                                                            --profile $profile --region us-east-1 --output text)
 echo "global_management_wb_sg_id=$global_management_wb_sg_id"
-
-aws ec2 create-tags --resources $global_management_wb_sg_id \
-                    --tags Key=Name,Value=Management-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $global_management_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
@@ -73,6 +65,7 @@ aws ec2 authorize-security-group-ingress --group-id $global_management_wb_sg_id 
 
 # Create WindowsBastion EIP
 global_management_wb_eipa=$(aws ec2 allocate-address --domain vpc \
+                                                     --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Management-WindowsBastion-EIPA},{Key=Hostname,Value=cmlue1mwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                      --query 'AllocationId' \
                                                      --profile $profile --region us-east-1 --output text)
 echo "global_management_wb_eipa=$global_management_wb_eipa"
@@ -82,19 +75,7 @@ global_management_wb_instancea_public_ip=$(aws ec2 describe-addresses --allocati
                                                                       --profile $profile --region us-east-1 --output text)
 echo "global_management_wb_instancea_public_ip=$global_management_wb_instancea_public_ip"
 
-aws ec2 create-tags --resources $global_management_wb_eipa \
-                    --tags Key=Name,Value=Management-WindowsBastion-EIPA \
-                           Key=Hostname,Value=cmlue1mwb01a \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
-
 # Create WindowsBastion Public Domain Name
-# - Note: Records created in this zone are not visible, as this is the domain which has to run at CloudFlare
-#         So, all records created programatically here, must be manually transferred to CloudFlare to be visible
 tmpfile=$tmpdir/global-management-wba-public-$$.json
 cat > $tmpfile << EOF
 {
@@ -138,8 +119,8 @@ global_management_wb_instancea_id=$(aws ec2 run-instances --image-id $global_win
                                                           --instance-type t3a.medium \
                                                           --iam-instance-profile Name=ManagedInstance \
                                                           --key-name administrator \
-                                                          --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$global_management_wb_sg_id],SubnetId=$global_management_public_subneta_id" \
-                                                          --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Management-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlue1mwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                          --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$global_management_wb_sg_id],SubnetId=$global_management_public_subneta_id \
+                                                          --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Management-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlue1mwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                           --user-data file://$tmpfile \
                                                           --client-token $(date +%s) \
                                                           --query 'Instances[0].InstanceId' \
@@ -191,18 +172,10 @@ profile=$core_profile
 global_core_wb_sg_id=$(aws ec2 create-security-group --group-name Core-WindowsBastion-InstanceSecurityGroup \
                                                      --description Core-WindowsBastion-InstanceSecurityGroup \
                                                      --vpc-id $global_core_vpc_id \
+                                                     --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Core-WindowsBastion-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                      --query 'GroupId' \
                                                      --profile $profile --region us-east-1 --output text)
 echo "global_core_wb_sg_id=$global_core_wb_sg_id"
-
-aws ec2 create-tags --resources $global_core_wb_sg_id \
-                    --tags Key=Name,Value=Core-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $global_core_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
@@ -226,6 +199,7 @@ aws ec2 authorize-security-group-ingress --group-id $global_core_wb_sg_id \
 
 # Create WindowsBastion EIP
 global_core_wb_eipa=$(aws ec2 allocate-address --domain vpc \
+                                               --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Core-WindowsBastion-EIPA},{Key=Hostname,Value=cmlue1cwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                --query 'AllocationId' \
                                                --profile $profile --region us-east-1 --output text)
 echo "global_core_wb_eipa=$global_core_wb_eipa"
@@ -234,16 +208,6 @@ global_core_wb_instancea_public_ip=$(aws ec2 describe-addresses --allocation-ids
                                                                 --query 'Addresses[0].PublicIp' \
                                                                 --profile $profile --region us-east-1 --output text)
 echo "global_core_wb_instancea_public_ip=$global_core_wb_instancea_public_ip"
-
-aws ec2 create-tags --resources $global_core_wb_eipa \
-                    --tags Key=Name,Value=Core-WindowsBastion-EIPA \
-                           Key=Hostname,Value=cmlue1cwb01a \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create WindowsBastion Public Domain Name
 tmpfile=$tmpdir/global-core-wba-public-$$.json
@@ -289,8 +253,8 @@ global_core_wb_instancea_id=$(aws ec2 run-instances --image-id $global_win2016_a
                                                     --instance-type t3a.medium \
                                                     --iam-instance-profile Name=ManagedInstance \
                                                     --key-name administrator \
-                                                    --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Core-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$global_core_wb_sg_id],SubnetId=$global_core_public_subneta_id" \
-                                                    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Core-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlue1cwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                    --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Core-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$global_core_wb_sg_id],SubnetId=$global_core_public_subneta_id \
+                                                    --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Core-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlue1cwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --user-data file://$tmpfile \
                                                     --client-token $(date +%s) \
                                                     --query 'Instances[0].InstanceId' \
@@ -342,18 +306,10 @@ profile=$log_profile
 global_log_wb_sg_id=$(aws ec2 create-security-group --group-name Log-WindowsBastion-InstanceSecurityGroup \
                                                     --description Log-WindowsBastion-InstanceSecurityGroup \
                                                     --vpc-id $global_log_vpc_id \
+                                                    --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Log-WindowsBastion-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'GroupId' \
                                                     --profile $profile --region us-east-1 --output text)
 echo "global_log_wb_sg_id=$global_log_wb_sg_id"
-
-aws ec2 create-tags --resources $global_log_wb_sg_id \
-                    --tags Key=Name,Value=Log-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $global_log_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
@@ -377,6 +333,7 @@ aws ec2 authorize-security-group-ingress --group-id $global_log_wb_sg_id \
 
 # Create WindowsBastion EIP
 global_log_wb_eipa=$(aws ec2 allocate-address --domain vpc \
+                                              --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Log-WindowsBastion-EIPA},{Key=Hostname,Value=cmlue1lwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                               --query 'AllocationId' \
                                               --profile $profile --region us-east-1 --output text)
 echo "global_log_wb_eipa=$global_log_wb_eipa"
@@ -385,16 +342,6 @@ global_log_wb_instancea_public_ip=$(aws ec2 describe-addresses --allocation-ids 
                                                                --query 'Addresses[0].PublicIp' \
                                                                --profile $profile --region us-east-1 --output text)
 echo "global_log_wb_instancea_public_ip=$global_log_wb_instancea_public_ip"
-
-aws ec2 create-tags --resources $global_log_wb_eipa \
-                    --tags Key=Name,Value=Log-WindowsBastion-EIPA \
-                           Key=Hostname,Value=cmlue1lwb01a \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 # Create WindowsBastion Public Domain Name
 tmpfile=$tmpdir/global-log-wba-public-$$.json
@@ -440,8 +387,8 @@ global_log_wb_instancea_id=$(aws ec2 run-instances --image-id $global_win2016_am
                                                    --instance-type t3a.medium \
                                                    --iam-instance-profile Name=ManagedInstance \
                                                    --key-name administrator \
-                                                   --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Log-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$global_log_wb_sg_id],SubnetId=$global_log_public_subneta_id" \
-                                                   --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Log-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlue1lwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                   --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Log-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$global_log_wb_sg_id],SubnetId=$global_log_public_subneta_id \
+                                                   --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Log-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlue1lwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --user-data file://$tmpfile \
                                                    --client-token $(date +%s) \
                                                    --query 'Instances[0].InstanceId' \
@@ -493,18 +440,10 @@ profile=$management_profile
 ohio_management_wb_sg_id=$(aws ec2 create-security-group --group-name Management-WindowsBastion-InstanceSecurityGroup \
                                                          --description Management-WindowsBastion-InstanceSecurityGroup \
                                                          --vpc-id $ohio_management_vpc_id \
+                                                         --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Management-WindowsBastion-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                          --query 'GroupId' \
                                                          --profile $profile --region us-east-2 --output text)
 echo "ohio_management_wb_sg_id=$ohio_management_wb_sg_id"
-
-aws ec2 create-tags --resources $ohio_management_wb_sg_id \
-                    --tags Key=Name,Value=Management-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $ohio_management_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
@@ -528,6 +467,7 @@ aws ec2 authorize-security-group-ingress --group-id $ohio_management_wb_sg_id \
 
 # Create WindowsBastion EIP
 ohio_management_wb_eipa=$(aws ec2 allocate-address --domain vpc \
+                                                   --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Management-WindowsBastion-EIPA},{Key=Hostname,Value=cmlue2mwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'AllocationId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "ohio_management_wb_eipa=$ohio_management_wb_eipa"
@@ -536,16 +476,6 @@ ohio_management_wb_instancea_public_ip=$(aws ec2 describe-addresses --allocation
                                                                     --query 'Addresses[0].PublicIp' \
                                                                     --profile $profile --region us-east-2 --output text)
 echo "ohio_management_wb_instancea_public_ip=$ohio_management_wb_instancea_public_ip"
-
-aws ec2 create-tags --resources $ohio_management_wb_eipa \
-                    --tags Key=Name,Value=Management-WindowsBastion-EIPA \
-                           Key=Hostname,Value=cmlue2mwb01a \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create WindowsBastion Public Domain Name
 tmpfile=$tmpdir/ohio-management-wba-public-$$.json
@@ -591,8 +521,8 @@ ohio_management_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_win2016
                                                         --instance-type t3a.medium \
                                                         --iam-instance-profile Name=ManagedInstance \
                                                         --key-name administrator \
-                                                        --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$ohio_management_wb_sg_id],SubnetId=$ohio_management_public_subneta_id" \
-                                                        --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Management-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlue2mwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                        --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$ohio_management_wb_sg_id],SubnetId=$ohio_management_public_subneta_id \
+                                                        --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Management-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlue2mwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                         --user-data file://$tmpfile \
                                                         --client-token $(date +%s) \
                                                         --query 'Instances[0].InstanceId' \
@@ -644,18 +574,10 @@ profile=$core_profile
 ohio_core_wb_sg_id=$(aws ec2 create-security-group --group-name Core-WindowsBastion-InstanceSecurityGroup \
                                                    --description Core-WindowsBastion-InstanceSecurityGroup \
                                                    --vpc-id $ohio_core_vpc_id \
+                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Core-WindowsBastion-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'GroupId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "ohio_core_wb_sg_id=$ohio_core_wb_sg_id"
-
-aws ec2 create-tags --resources $ohio_core_wb_sg_id \
-                    --tags Key=Name,Value=Core-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $ohio_core_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
@@ -679,6 +601,7 @@ aws ec2 authorize-security-group-ingress --group-id $ohio_core_wb_sg_id \
 
 # Create WindowsBastion EIP
 ohio_core_wb_eipa=$(aws ec2 allocate-address --domain vpc \
+                                             --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Core-WindowsBastion-EIPA},{Key=Hostname,Value=cmlue2cwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                              --query 'AllocationId' \
                                              --profile $profile --region us-east-2 --output text)
 echo "ohio_core_wb_eipa=$ohio_core_wb_eipa"
@@ -687,16 +610,6 @@ ohio_core_wb_instancea_public_ip=$(aws ec2 describe-addresses --allocation-ids $
                                                               --query 'Addresses[0].PublicIp' \
                                                               --profile $profile --region us-east-2 --output text)
 echo "ohio_core_wb_instancea_public_ip=$ohio_core_wb_instancea_public_ip"
-
-aws ec2 create-tags --resources $ohio_core_wb_eipa \
-                    --tags Key=Name,Value=Core-WindowsBastion-EIPA \
-                           Key=Hostname,Value=cmlue2cwb01a \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create WindowsBastion Public Domain Name
 tmpfile=$tmpdir/ohio-core-wba-public-$$.json
@@ -742,8 +655,8 @@ ohio_core_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_win2016_ami_i
                                                   --instance-type t3a.medium \
                                                   --iam-instance-profile Name=ManagedInstance \
                                                   --key-name administrator \
-                                                  --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Core-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$ohio_core_wb_sg_id],SubnetId=$ohio_core_public_subneta_id" \
-                                                  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Core-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlue2cwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                  --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Core-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$ohio_core_wb_sg_id],SubnetId=$ohio_core_public_subneta_id \
+                                                  --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Core-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlue2cwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                   --user-data file://$tmpfile \
                                                   --client-token $(date +%s) \
                                                   --query 'Instances[0].InstanceId' \
@@ -795,18 +708,10 @@ profile=$log_profile
 ohio_log_wb_sg_id=$(aws ec2 create-security-group --group-name Log-WindowsBastion-InstanceSecurityGroup \
                                                   --description Log-WindowsBastion-InstanceSecurityGroup \
                                                   --vpc-id $ohio_log_vpc_id \
+                                                  --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Log-WindowsBastion-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                   --query 'GroupId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "ohio_log_wb_sg_id=$ohio_log_wb_sg_id"
-
-aws ec2 create-tags --resources $ohio_log_wb_sg_id \
-                    --tags Key=Name,Value=Log-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $ohio_log_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
@@ -830,6 +735,7 @@ aws ec2 authorize-security-group-ingress --group-id $ohio_log_wb_sg_id \
 
 # Create WindowsBastion EIP
 ohio_log_wb_eipa=$(aws ec2 allocate-address --domain vpc \
+                                            --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Log-WindowsBastion-EIPA},{Key=Hostname,Value=cmlue2lwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                             --query 'AllocationId' \
                                             --profile $profile --region us-east-2 --output text)
 echo "ohio_log_wb_eipa=$ohio_log_wb_eipa"
@@ -838,16 +744,6 @@ ohio_log_wb_instancea_public_ip=$(aws ec2 describe-addresses --allocation-ids $o
                                                              --query 'Addresses[0].PublicIp' \
                                                              --profile $profile --region us-east-2 --output text)
 echo "ohio_log_wb_instancea_public_ip=$ohio_log_wb_instancea_public_ip"
-
-aws ec2 create-tags --resources $ohio_log_wb_eipa \
-                    --tags Key=Name,Value=Log-WindowsBastion-EIPA \
-                           Key=Hostname,Value=cmlue2lwb01a \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create WindowsBastion Public Domain Name
 tmpfile=$tmpdir/ohio-log-wba-public-$$.json
@@ -893,8 +789,8 @@ ohio_log_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_win2016_ami_id
                                                  --instance-type t3a.medium \
                                                  --iam-instance-profile Name=ManagedInstance \
                                                  --key-name administrator \
-                                                 --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Log-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$ohio_log_wb_sg_id],SubnetId=$ohio_log_public_subneta_id" \
-                                                 --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Log-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlue2lwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                 --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Log-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$ohio_log_wb_sg_id],SubnetId=$ohio_log_public_subneta_id \
+                                                 --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Log-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlue2lwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                  --user-data file://$tmpfile \
                                                  --client-token $(date +%s) \
                                                  --query 'Instances[0].InstanceId' \
@@ -946,18 +842,10 @@ profile=$production_profile
 alfa_ohio_production_wb_sg_id=$(aws ec2 create-security-group --group-name Alfa-Production-WindowsBastion-InstanceSecurityGroup \
                                                               --description Alfa-Production-WindowsBastion-InstanceSecurityGroup \
                                                               --vpc-id $alfa_ohio_production_vpc_id \
+                                                              --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Production-WindowsBastion-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                               --query 'GroupId' \
                                                               --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_wb_sg_id=$alfa_ohio_production_wb_sg_id"
-
-aws ec2 create-tags --resources $alfa_ohio_production_wb_sg_id \
-                    --tags Key=Name,Value=Alfa-Production-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_production_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
@@ -993,6 +881,7 @@ aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_production_wb_sg_
 
 # Create WindowsBastion EIP
 alfa_ohio_production_wb_eipa=$(aws ec2 allocate-address --domain vpc \
+                                                        --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Alfa-Production-WindowsBastion-EIPA},{Key=Hostname,Value=alfue2pwb01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                         --query 'AllocationId' \
                                                         --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_wb_eipa=$alfa_ohio_production_wb_eipa"
@@ -1001,16 +890,6 @@ alfa_ohio_production_wb_instancea_public_ip=$(aws ec2 describe-addresses --alloc
                                                                          --query 'Addresses[0].PublicIp' \
                                                                          --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_production_wb_instancea_public_ip=$alfa_ohio_production_wb_instancea_public_ip"
-
-aws ec2 create-tags --resources $alfa_ohio_production_wb_eipa \
-                    --tags Key=Name,Value=Alfa-Production-WindowsBastion-EIPA \
-                           Key=Hostname,Value=alfue2pwb01a \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Production \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create WindowsBastion Public Domain Name
 tmpfile=$tmpdir/alfa-ohio-production-wba-public-$$.json
@@ -1056,8 +935,8 @@ alfa_ohio_production_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_wi
                                                              --instance-type t3a.medium \
                                                              --iam-instance-profile Name=ManagedInstance \
                                                              --key-name administrator \
-                                                             --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-Production-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_ohio_production_wb_sg_id],SubnetId=$alfa_ohio_production_public_subneta_id" \
-                                                             --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Production-WindowsBastion-InstanceA},{Key=Hostname,Value=alfue2pwb01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                             --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-Production-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_ohio_production_wb_sg_id],SubnetId=$alfa_ohio_production_public_subneta_id \
+                                                             --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Production-WindowsBastion-InstanceA},{Key=Hostname,Value=alfue2pwb01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                              --user-data file://$tmpfile \
                                                              --client-token $(date +%s) \
                                                              --query 'Instances[0].InstanceId' \
@@ -1109,18 +988,10 @@ profile=$testing_profile
 alfa_ohio_testing_wb_sg_id=$(aws ec2 create-security-group --group-name Alfa-Testing-WindowsBastion-InstanceSecurityGroup \
                                                            --description Alfa-Testing-WindowsBastion-InstanceSecurityGroup \
                                                            --vpc-id $alfa_ohio_testing_vpc_id \
+                                                           --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Testing-WindowsBastion-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                            --query 'GroupId' \
                                                            --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_wb_sg_id=$alfa_ohio_testing_wb_sg_id"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_wb_sg_id \
-                    --tags Key=Name,Value=Alfa-Testing-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_testing_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
@@ -1156,6 +1027,7 @@ aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_testing_wb_sg_id 
 
 # Create WindowsBastion EIP
 alfa_ohio_testing_wb_eipa=$(aws ec2 allocate-address --domain vpc \
+                                                     --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Alfa-Testing-WindowsBastion-EIPA},{Key=Hostname,Value=alfue2twb01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                      --query 'AllocationId' \
                                                      --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_wb_eipa=$alfa_ohio_testing_wb_eipa"
@@ -1164,16 +1036,6 @@ alfa_ohio_testing_wb_instancea_public_ip=$(aws ec2 describe-addresses --allocati
                                                                       --query 'Addresses[0].PublicIp' \
                                                                       --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_testing_wb_instancea_public_ip=$alfa_ohio_testing_wb_instancea_public_ip"
-
-aws ec2 create-tags --resources $alfa_ohio_testing_wb_eipa \
-                    --tags Key=Name,Value=Alfa-Testing-WindowsBastion-EIPA \
-                           Key=Hostname,Value=alfue2twb01a \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Testing \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create WindowsBastion Public Domain Name
 tmpfile=$tmpdir/alfa-ohio-testing-wba-public-$$.json
@@ -1219,8 +1081,8 @@ alfa_ohio_testing_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_win20
                                                           --instance-type t3a.medium \
                                                           --iam-instance-profile Name=ManagedInstance \
                                                           --key-name administrator \
-                                                          --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-Testing-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_ohio_testing_wb_sg_id],SubnetId=$alfa_ohio_testing_public_subneta_id" \
-                                                          --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Testing-WindowsBastion-InstanceA},{Key=Hostname,Value=alfue2twb01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                          --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-Testing-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_ohio_testing_wb_sg_id],SubnetId=$alfa_ohio_testing_public_subneta_id \
+                                                          --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Testing-WindowsBastion-InstanceA},{Key=Hostname,Value=alfue2twb01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                           --user-data file://$tmpfile \
                                                           --client-token $(date +%s) \
                                                           --query 'Instances[0].InstanceId' \
@@ -1272,18 +1134,10 @@ profile=$development_profile
 alfa_ohio_development_wb_sg_id=$(aws ec2 create-security-group --group-name Alfa-Development-WindowsBastion-InstanceSecurityGroup \
                                                                --description Alfa-Development-WindowsBastion-InstanceSecurityGroup \
                                                                --vpc-id $alfa_ohio_development_vpc_id \
+                                                               --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Development-WindowsBastion-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                --query 'GroupId' \
                                                                --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_wb_sg_id=$alfa_ohio_development_wb_sg_id"
-
-aws ec2 create-tags --resources $alfa_ohio_development_wb_sg_id \
-                    --tags Key=Name,Value=Alfa-Development-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_development_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
@@ -1319,6 +1173,7 @@ aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_development_wb_sg
 
 # Create WindowsBastion EIP
 alfa_ohio_development_wb_eipa=$(aws ec2 allocate-address --domain vpc \
+                                                         --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Alfa-Development-WindowsBastion-EIPA},{Key=Hostname,Value=alfue2dwb01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                          --query 'AllocationId' \
                                                          --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_wb_eipa=$alfa_ohio_development_wb_eipa"
@@ -1327,16 +1182,6 @@ alfa_ohio_development_wb_instancea_public_ip=$(aws ec2 describe-addresses --allo
                                                                           --query 'Addresses[0].PublicIp' \
                                                                           --profile $profile --region us-east-2 --output text)
 echo "alfa_ohio_development_wb_instancea_public_ip=$alfa_ohio_development_wb_instancea_public_ip"
-
-aws ec2 create-tags --resources $alfa_ohio_development_wb_eipa \
-                    --tags Key=Name,Value=Alfa-Development-WindowsBastion-EIPA \
-                           Key=Hostname,Value=alfue2dwb01a \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Development \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create WindowsBastion Public Domain Name
 tmpfile=$tmpdir/alfa-ohio-development-wba-public-$$.json
@@ -1382,8 +1227,8 @@ alfa_ohio_development_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_w
                                                               --instance-type t3a.medium \
                                                               --iam-instance-profile Name=ManagedInstance \
                                                               --key-name administrator \
-                                                              --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-Development-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_ohio_development_wb_sg_id],SubnetId=$alfa_ohio_development_public_subneta_id" \
-                                                              --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Development-WindowsBastion-InstanceA},{Key=Hostname,Value=alfue2dwb01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                              --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-Development-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_ohio_development_wb_sg_id],SubnetId=$alfa_ohio_development_public_subneta_id \
+                                                              --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Development-WindowsBastion-InstanceA},{Key=Hostname,Value=alfue2dwb01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                               --user-data file://$tmpfile \
                                                               --client-token $(date +%s) \
                                                               --query 'Instances[0].InstanceId' \
@@ -1435,18 +1280,10 @@ profile=$production_profile
 zulu_ohio_production_wb_sg_id=$(aws ec2 create-security-group --group-name Zulu-Production-WindowsBastion-InstanceSecurityGroup \
                                                               --description Zulu-Production-WindowsBastion-InstanceSecurityGroup \
                                                               --vpc-id $zulu_ohio_production_vpc_id \
+                                                              --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Zulu-Production-WindowsBastion-InstanceSecurityGroup},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                               --query 'GroupId' \
                                                               --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_wb_sg_id=$zulu_ohio_production_wb_sg_id"
-
-aws ec2 create-tags --resources $zulu_ohio_production_wb_sg_id \
-                    --tags Key=Name,Value=Zulu-Production-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $zulu_ohio_production_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
@@ -1476,6 +1313,7 @@ aws ec2 authorize-security-group-ingress --group-id $zulu_ohio_production_wb_sg_
 
 # Create WindowsBastion EIP
 zulu_ohio_production_wb_eipa=$(aws ec2 allocate-address --domain vpc \
+                                                        --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Zulu-Production-WindowsBastion-EIPA},{Key=Hostname,Value=zulue2pwb01a},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                         --query 'AllocationId' \
                                                         --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_wb_eipa=$zulu_ohio_production_wb_eipa"
@@ -1484,16 +1322,6 @@ zulu_ohio_production_wb_instancea_public_ip=$(aws ec2 describe-addresses --alloc
                                                                          --query 'Addresses[0].PublicIp' \
                                                                          --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_production_wb_instancea_public_ip=$zulu_ohio_production_wb_instancea_public_ip"
-
-aws ec2 create-tags --resources $zulu_ohio_production_wb_eipa \
-                    --tags Key=Name,Value=Zulu-Production-WindowsBastion-EIPA \
-                           Key=Hostname,Value=zulue2pwb01a \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Production \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create WindowsBastion Public Domain Name
 tmpfile=$tmpdir/zulu-ohio-production-wba-public-$$.json
@@ -1539,8 +1367,8 @@ zulu_ohio_production_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_wi
                                                              --instance-type t3a.medium \
                                                              --iam-instance-profile Name=ManagedInstance \
                                                              --key-name administrator \
-                                                             --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Zulu-Production-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$zulu_ohio_production_wb_sg_id],SubnetId=$zulu_ohio_production_public_subneta_id" \
-                                                             --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Zulu-Production-WindowsBastion-InstanceA},{Key=Hostname,Value=zulue2pwb01a},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                             --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Zulu-Production-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$zulu_ohio_production_wb_sg_id],SubnetId=$zulu_ohio_production_public_subneta_id \
+                                                             --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Zulu-Production-WindowsBastion-InstanceA},{Key=Hostname,Value=zulue2pwb01a},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                              --user-data file://$tmpfile \
                                                              --client-token $(date +%s) \
                                                              --query 'Instances[0].InstanceId' \
@@ -1592,18 +1420,10 @@ profile=$development_profile
 zulu_ohio_development_wb_sg_id=$(aws ec2 create-security-group --group-name Zulu-Development-WindowsBastion-InstanceSecurityGroup \
                                                                --description Zulu-Development-WindowsBastion-InstanceSecurityGroup \
                                                                --vpc-id $zulu_ohio_development_vpc_id \
+                                                               --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Zulu-Development-WindowsBastion-InstanceSecurityGroup},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                --query 'GroupId' \
                                                                --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_wb_sg_id=$zulu_ohio_development_wb_sg_id"
-
-aws ec2 create-tags --resources $zulu_ohio_development_wb_sg_id \
-                    --tags Key=Name,Value=Zulu-Development-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $zulu_ohio_development_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
@@ -1633,6 +1453,7 @@ aws ec2 authorize-security-group-ingress --group-id $zulu_ohio_development_wb_sg
 
 # Create WindowsBastion EIP
 zulu_ohio_development_wb_eipa=$(aws ec2 allocate-address --domain vpc \
+                                                         --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Zulu-Development-WindowsBastion-EIPA},{Key=Hostname,Value=zulue2dwb01a},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                          --query 'AllocationId' \
                                                          --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_wb_eipa=$zulu_ohio_development_wb_eipa"
@@ -1641,16 +1462,6 @@ zulu_ohio_development_wb_instancea_public_ip=$(aws ec2 describe-addresses --allo
                                                                           --query 'Addresses[0].PublicIp' \
                                                                           --profile $profile --region us-east-2 --output text)
 echo "zulu_ohio_development_wb_instancea_public_ip=$zulu_ohio_development_wb_instancea_public_ip"
-
-aws ec2 create-tags --resources $zulu_ohio_development_wb_eipa \
-                    --tags Key=Name,Value=Zulu-Development-WindowsBastion-EIPA \
-                           Key=Hostname,Value=zulue2dwb01a \
-                           Key=Company,Value=Zulu \
-                           Key=Environment,Value=Development \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 # Create WindowsBastion Public Domain Name
 tmpfile=$tmpdir/alfa-ohio-development-wba-public-$$.json
@@ -1696,8 +1507,8 @@ zulu_ohio_development_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_w
                                                               --instance-type t3a.medium \
                                                               --iam-instance-profile Name=ManagedInstance \
                                                               --key-name administrator \
-                                                              --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Zulu-Development-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$zulu_ohio_development_wb_sg_id],SubnetId=$zulu_ohio_development_public_subneta_id" \
-                                                              --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Zulu-Development-WindowsBastion-InstanceA},{Key=Hostname,Value=zulue2dwb01a},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                              --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Zulu-Development-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$zulu_ohio_development_wb_sg_id],SubnetId=$zulu_ohio_development_public_subneta_id \
+                                                              --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Zulu-Development-WindowsBastion-InstanceA},{Key=Hostname,Value=zulue2dwb01a},{Key=Company,Value=Zulu},{Key=Environment,Value=Development},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                               --user-data file://$tmpfile \
                                                               --client-token $(date +%s) \
                                                               --query 'Instances[0].InstanceId' \
@@ -1749,18 +1560,10 @@ profile=$management_profile
 ireland_management_wb_sg_id=$(aws ec2 create-security-group --group-name Management-WindowsBastion-InstanceSecurityGroup \
                                                             --description Management-WindowsBastion-InstanceSecurityGroup \
                                                             --vpc-id $ireland_management_vpc_id \
+                                                            --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Management-WindowsBastion-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                             --query 'GroupId' \
                                                             --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_wb_sg_id=$ireland_management_wb_sg_id"
-
-aws ec2 create-tags --resources $ireland_management_wb_sg_id \
-                    --tags Key=Name,Value=Management-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $ireland_management_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
@@ -1784,6 +1587,7 @@ aws ec2 authorize-security-group-ingress --group-id $ireland_management_wb_sg_id
 
 # Create WindowsBastion EIP
 ireland_management_wb_eipa=$(aws ec2 allocate-address --domain vpc \
+                                                      --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Management-WindowsBastion-EIPA},{Key=Hostname,Value=cmlew1mwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                       --query 'AllocationId' \
                                                       --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_wb_eipa=$ireland_management_wb_eipa"
@@ -1792,16 +1596,6 @@ ireland_management_wb_instancea_public_ip=$(aws ec2 describe-addresses --allocat
                                                                        --query 'Addresses[0].PublicIp' \
                                                                        --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_wb_instancea_public_ip=$ireland_management_wb_instancea_public_ip"
-
-aws ec2 create-tags --resources $ireland_management_wb_eipa \
-                    --tags Key=Name,Value=Management-WindowsBastion-EIPA \
-                           Key=Hostname,Value=cmlew1mwb01a \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create WindowsBastion Public Domain Name
 tmpfile=$tmpdir/ireland-management-wba-public-$$.json
@@ -1847,8 +1641,8 @@ ireland_management_wb_instancea_id=$(aws ec2 run-instances --image-id $ireland_w
                                                            --instance-type t3a.medium \
                                                            --iam-instance-profile Name=ManagedInstance \
                                                            --key-name administrator \
-                                                           --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$ireland_management_wb_sg_id],SubnetId=$ireland_management_public_subneta_id" \
-                                                           --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Management-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlew1mwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                           --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$ireland_management_wb_sg_id],SubnetId=$ireland_management_public_subneta_id \
+                                                           --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Management-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlew1mwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                            --user-data file://$tmpfile \
                                                            --client-token $(date +%s) \
                                                            --query 'Instances[0].InstanceId' \
@@ -1900,18 +1694,10 @@ profile=$core_profile
 ireland_core_wb_sg_id=$(aws ec2 create-security-group --group-name Core-WindowsBastion-InstanceSecurityGroup \
                                                       --description Core-WindowsBastion-InstanceSecurityGroup \
                                                       --vpc-id $ireland_core_vpc_id \
+                                                      --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Core-WindowsBastion-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                       --query 'GroupId' \
                                                       --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_wb_sg_id=$ireland_core_wb_sg_id"
-
-aws ec2 create-tags --resources $ireland_core_wb_sg_id \
-                    --tags Key=Name,Value=Core-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $ireland_core_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
@@ -1935,6 +1721,7 @@ aws ec2 authorize-security-group-ingress --group-id $ireland_core_wb_sg_id \
 
 # Create WindowsBastion EIP
 ireland_core_wb_eipa=$(aws ec2 allocate-address --domain vpc \
+                                                --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Core-WindowsBastion-EIPA},{Key=Hostname,Value=cmlew1cwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                 --query 'AllocationId' \
                                                 --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_wb_eipa=$ireland_core_wb_eipa"
@@ -1943,16 +1730,6 @@ ireland_core_wb_instancea_public_ip=$(aws ec2 describe-addresses --allocation-id
                                                                  --query 'Addresses[0].PublicIp' \
                                                                  --profile $profile --region eu-west-1 --output text)
 echo "ireland_core_wb_instancea_public_ip=$ireland_core_wb_instancea_public_ip"
-
-aws ec2 create-tags --resources $ireland_core_wb_eipa \
-                    --tags Key=Name,Value=Core-WindowsBastion-EIPA \
-                           Key=Hostname,Value=cmlew1cwb01a \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Core \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create WindowsBastion Public Domain Name
 tmpfile=$tmpdir/ireland-core-wba-public-$$.json
@@ -1998,8 +1775,8 @@ ireland_core_wb_instancea_id=$(aws ec2 run-instances --image-id $ireland_win2016
                                                      --instance-type t3a.medium \
                                                      --iam-instance-profile Name=ManagedInstance \
                                                      --key-name administrator \
-                                                     --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Core-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$ireland_core_wb_sg_id],SubnetId=$ireland_core_public_subneta_id" \
-                                                     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Core-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlew1cwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                     --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Core-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$ireland_core_wb_sg_id],SubnetId=$ireland_core_public_subneta_id \
+                                                     --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Core-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlew1cwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                      --user-data file://$tmpfile \
                                                      --client-token $(date +%s) \
                                                      --query 'Instances[0].InstanceId' \
@@ -2051,18 +1828,10 @@ profile=$log_profile
 ireland_log_wb_sg_id=$(aws ec2 create-security-group --group-name Log-WindowsBastion-InstanceSecurityGroup \
                                                      --description Log-WindowsBastion-InstanceSecurityGroup \
                                                      --vpc-id $ireland_log_vpc_id \
+                                                     --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Log-WindowsBastion-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                      --query 'GroupId' \
                                                      --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_wb_sg_id=$ireland_log_wb_sg_id"
-
-aws ec2 create-tags --resources $ireland_log_wb_sg_id \
-                    --tags Key=Name,Value=Log-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $ireland_log_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
@@ -2086,6 +1855,7 @@ aws ec2 authorize-security-group-ingress --group-id $ireland_log_wb_sg_id \
 
 # Create WindowsBastion EIP
 ireland_log_wb_eipa=$(aws ec2 allocate-address --domain vpc \
+                                               --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Log-WindowsBastion-EIPA},{Key=Hostname,Value=cmlew1lwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                --query 'AllocationId' \
                                                --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_wb_eipa=$ireland_log_wb_eipa"
@@ -2094,16 +1864,6 @@ ireland_log_wb_instancea_public_ip=$(aws ec2 describe-addresses --allocation-ids
                                                                 --query 'Addresses[0].PublicIp' \
                                                                 --profile $profile --region eu-west-1 --output text)
 echo "ireland_log_wb_instancea_public_ip=$ireland_log_wb_instancea_public_ip"
-
-aws ec2 create-tags --resources $ireland_log_wb_eipa \
-                    --tags Key=Name,Value=Log-WindowsBastion-EIPA \
-                           Key=Hostname,Value=cmlew1lwb01a \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Log \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create WindowsBastion Public Domain Name
 tmpfile=$tmpdir/ireland-log-wba-public-$$.json
@@ -2149,8 +1909,8 @@ ireland_log_wb_instancea_id=$(aws ec2 run-instances --image-id $ireland_win2016_
                                                     --instance-type t3a.medium \
                                                     --iam-instance-profile Name=ManagedInstance \
                                                     --key-name administrator \
-                                                    --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Log-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$ireland_log_wb_sg_id],SubnetId=$ireland_log_public_subneta_id" \
-                                                    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Log-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlew1lwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                    --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Log-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$ireland_log_wb_sg_id],SubnetId=$ireland_log_public_subneta_id \
+                                                    --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Log-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlew1lwb01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Log},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --user-data file://$tmpfile \
                                                     --client-token $(date +%s) \
                                                     --query 'Instances[0].InstanceId' \
@@ -2202,18 +1962,10 @@ profile=$recovery_profile
 alfa_ireland_recovery_wb_sg_id=$(aws ec2 create-security-group --group-name Alfa-Recovery-WindowsBastion-InstanceSecurityGroup \
                                                                --description Alfa-Recovery-WindowsBastion-InstanceSecurityGroup \
                                                                --vpc-id $alfa_ireland_recovery_vpc_id \
+                                                               --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Recovery-WindowsBastion-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                --query 'GroupId' \
                                                                --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_wb_sg_id=$alfa_ireland_recovery_wb_sg_id"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_wb_sg_id \
-                    --tags Key=Name,Value=Alfa-Recovery-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $alfa_ireland_recovery_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_sba_vpc_cidr,Description=\"DataCenter-CaMeLz-SantaBarbara (ICMP)\"}]" \
@@ -2249,6 +2001,7 @@ aws ec2 authorize-security-group-ingress --group-id $alfa_ireland_recovery_wb_sg
 
 # Create WindowsBastion EIP
 alfa_ireland_recovery_wb_eipa=$(aws ec2 allocate-address --domain vpc \
+                                                         --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Alfa-Recovery-WindowsBastion-EIPA},{Key=Hostname,Value=alfew1rwb01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                          --query 'AllocationId' \
                                                          --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_wb_eipa=$alfa_ireland_recovery_wb_eipa"
@@ -2257,16 +2010,6 @@ alfa_ireland_recovery_wb_instancea_public_ip=$(aws ec2 describe-addresses --allo
                                                                           --query 'Addresses[0].PublicIp' \
                                                                           --profile $profile --region eu-west-1 --output text)
 echo "alfa_ireland_recovery_wb_instancea_public_ip=$alfa_ireland_recovery_wb_instancea_public_ip"
-
-aws ec2 create-tags --resources $alfa_ireland_recovery_wb_eipa \
-                    --tags Key=Name,Value=Alfa-Recovery-WindowsBastion-EIPA \
-                           Key=Hostname,Value=alfew1rwb01a \
-                           Key=Company,Value=Alfa \
-                           Key=Environment,Value=Recovery \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 # Create WindowsBastion Public Domain Name
 tmpfile=$tmpdir/alfa-ireland-recovery-wba-public-$$.json
@@ -2312,8 +2055,8 @@ alfa_ireland_recovery_wb_instancea_id=$(aws ec2 run-instances --image-id $irelan
                                                               --instance-type t3a.medium \
                                                               --iam-instance-profile Name=ManagedInstance \
                                                               --key-name administrator \
-                                                              --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-Recovery-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_ireland_recovery_wb_sg_id],SubnetId=$alfa_ireland_recovery_public_subneta_id" \
-                                                              --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Recovery-WindowsBastion-InstanceA},{Key=Hostname,Value=alfew1rwb01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                              --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-Recovery-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_ireland_recovery_wb_sg_id],SubnetId=$alfa_ireland_recovery_public_subneta_id \
+                                                              --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Recovery-WindowsBastion-InstanceA},{Key=Hostname,Value=alfew1rwb01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                               --user-data file://$tmpfile \
                                                               --client-token $(date +%s) \
                                                               --query 'Instances[0].InstanceId' \
@@ -2365,18 +2108,10 @@ profile=$management_profile
 alfa_lax_wb_sg_id=$(aws ec2 create-security-group --group-name Alfa-LosAngeles-WindowsBastion-InstanceSecurityGroup \
                                                   --description Alfa-LosAngeles-WindowsBastion-InstanceSecurityGroup \
                                                   --vpc-id $alfa_lax_vpc_id \
+                                                  --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-LosAngeles-WindowsBastion-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                   --query 'GroupId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_wb_sg_id=$alfa_lax_wb_sg_id"
-
-aws ec2 create-tags --resources $alfa_lax_wb_sg_id \
-                    --tags Key=Name,Value=Alfa-LosAngeles-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=LosAngeles \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $alfa_lax_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (ICMP)\"}]" \
@@ -2394,6 +2129,7 @@ aws ec2 authorize-security-group-ingress --group-id $alfa_lax_wb_sg_id \
 
 # Create WindowsBastion EIP
 alfa_lax_wb_eipa=$(aws ec2 allocate-address --domain vpc \
+                                            --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Alfa-LosAngeles-WindowsBastion-EIPA},{Key=Hostname,Value=alflaxnwb01a},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                             --query 'AllocationId' \
                                             --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_wb_eipa=$alfa_lax_wb_eipa"
@@ -2403,16 +2139,6 @@ alfa_lax_wb_instancea_public_ip=$(aws ec2 describe-addresses --allocation-ids $a
                                                              --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_wb_instancea_public_ip=$alfa_lax_wb_instancea_public_ip"
 
-aws ec2 create-tags --resources $alfa_lax_wb_eipa \
-                    --tags Key=Name,Value=Alfa-LosAngeles-WindowsBastion-EIPA \
-                           Key=Hostname,Value=alflaxcwb01a \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=LosAngeles \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
-
 # Create WindowsBastion Public Domain Name
 tmpfile=$tmpdir/alfa-lax-wba-public-$$.json
 cat > $tmpfile << EOF
@@ -2420,7 +2146,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "alflaxcwb01a.$alfa_lax_public_domain",
+      "Name": "alflaxnwb01a.$alfa_lax_public_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$alfa_lax_wb_instancea_public_ip"}]
@@ -2432,7 +2158,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$alfa_lax_public_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "alflaxcwb01a.$alfa_lax_public_domain"}]
+      "ResourceRecords": [{"Value": "alflaxnwb01a.$alfa_lax_public_domain"}]
     }
   }]
 }
@@ -2441,12 +2167,12 @@ EOF
 aws route53 change-resource-record-sets --hosted-zone-id $alfa_lax_public_hostedzone_id \
                                         --change-batch file://$tmpfile \
                                         --profile $profile --region us-east-2 --output text
-echo "alfa_lax_wb_instancea_hostname=alflaxcwb01a.$alfa_lax_public_domain"
+echo "alfa_lax_wb_instancea_hostname=alflaxnwb01a.$alfa_lax_public_domain"
 echo "alfa_lax_wb_instancea_hostname_alias=wba.$alfa_lax_public_domain"
 
 # Create WindowsBastion Instance
 tmpfile=$tmpdir/alfa-lax-wba-user-data-$$.ps1
-sed -e "s/@hostname@/alflaxcwb01a/g" \
+sed -e "s/@hostname@/alflaxnwb01a/g" \
     -e "s/@administrator_password_parameter@/Alfa-LosAngeles-Administrator-Password/g" \
     -e "s/@directory_domain_parameter@//g" \
     $templatesdir/windows-wb-user-data.ps1 > $tmpfile
@@ -2455,8 +2181,8 @@ alfa_lax_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_win2016_ami_id
                                                  --instance-type t3a.medium \
                                                  --iam-instance-profile Name=ManagedInstance \
                                                  --key-name administrator \
-                                                 --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-LosAngeles-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_lax_wb_sg_id],SubnetId=$alfa_lax_public_subneta_id" \
-                                                 --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-LosAngeles-WindowsBastion-InstanceA},{Key=Hostname,Value=alflaxcwb01a},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                 --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-LosAngeles-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_lax_wb_sg_id],SubnetId=$alfa_lax_public_subneta_id \
+                                                 --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-LosAngeles-WindowsBastion-InstanceA},{Key=Hostname,Value=alflaxnwb01a},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                  --user-data file://$tmpfile \
                                                  --client-token $(date +%s) \
                                                  --query 'Instances[0].InstanceId' \
@@ -2475,7 +2201,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "alflaxcwb01a.$alfa_lax_private_domain",
+      "Name": "alflaxnwb01a.$alfa_lax_private_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$alfa_lax_wb_instancea_private_ip"}]
@@ -2487,7 +2213,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$alfa_lax_private_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "alflaxcwb01a.$alfa_lax_private_domain"}]
+      "ResourceRecords": [{"Value": "alflaxnwb01a.$alfa_lax_private_domain"}]
     }
   }]
 }
@@ -2508,18 +2234,10 @@ profile=$management_profile
 alfa_mia_wb_sg_id=$(aws ec2 create-security-group --group-name Alfa-Miami-WindowsBastion-InstanceSecurityGroup \
                                                   --description Alfa-Miami-WindowsBastion-InstanceSecurityGroup \
                                                   --vpc-id $alfa_mia_vpc_id \
+                                                  --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Miami-WindowsBastion-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                   --query 'GroupId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_wb_sg_id=$alfa_mia_wb_sg_id"
-
-aws ec2 create-tags --resources $alfa_mia_wb_sg_id \
-                    --tags Key=Name,Value=Alfa-Miami-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=Miami \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $alfa_mia_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (ICMP)\"}]" \
@@ -2537,6 +2255,7 @@ aws ec2 authorize-security-group-ingress --group-id $alfa_mia_wb_sg_id \
 
 # Create WindowsBastion EIP
 alfa_mia_wb_eipa=$(aws ec2 allocate-address --domain vpc \
+                                            --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Alfa-Miami-WindowsBastion-EIPA},{Key=Hostname,Value=alfmianwb01a},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                             --query 'AllocationId' \
                                             --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_wb_eipa=$alfa_mia_wb_eipa"
@@ -2546,16 +2265,6 @@ alfa_mia_wb_instancea_public_ip=$(aws ec2 describe-addresses --allocation-ids $a
                                                              --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_wb_instancea_public_ip=$alfa_mia_wb_instancea_public_ip"
 
-aws ec2 create-tags --resources $alfa_mia_wb_eipa \
-                    --tags Key=Name,Value=Alfa-Miami-WindowsBastion-EIPA \
-                           Key=Hostname,Value=alfmiacwb01a \
-                           Key=Company,Value=Alfa \
-                           Key=Location,Value=Miami \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
-
 # Create WindowsBastion Public Domain Name
 tmpfile=$tmpdir/alfa-mia-wba-public-$$.json
 cat > $tmpfile << EOF
@@ -2563,7 +2272,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "alfmiacwb01a.$alfa_mia_public_domain",
+      "Name": "alfmianwb01a.$alfa_mia_public_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$alfa_mia_wb_instancea_public_ip"}]
@@ -2575,7 +2284,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$alfa_mia_public_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "alfmiacwb01a.$alfa_mia_public_domain"}]
+      "ResourceRecords": [{"Value": "alfmianwb01a.$alfa_mia_public_domain"}]
     }
   }]
 }
@@ -2584,12 +2293,12 @@ EOF
 aws route53 change-resource-record-sets --hosted-zone-id $alfa_mia_public_hostedzone_id \
                                         --change-batch file://$tmpfile \
                                         --profile $profile --region us-east-2 --output text
-echo "alfa_mia_wb_instancea_hostname=alfmiacwb01a.$alfa_mia_public_domain"
+echo "alfa_mia_wb_instancea_hostname=alfmianwb01a.$alfa_mia_public_domain"
 echo "alfa_mia_wb_instancea_hostname_alias=wba.$alfa_mia_public_domain"
 
 # Create WindowsBastion Instance
 tmpfile=$tmpdir/alfa-mia-wba-user-data-$$.ps1
-sed -e "s/@hostname@/alfmiacwb01a/g" \
+sed -e "s/@hostname@/alfmianwb01a/g" \
     -e "s/@administrator_password_parameter@/Alfa-Miami-Administrator-Password/g" \
     -e "s/@directory_domain_parameter@//g" \
     $templatesdir/windows-wb-user-data.ps1 > $tmpfile
@@ -2598,8 +2307,8 @@ alfa_mia_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_win2016_ami_id
                                                  --instance-type t3a.medium \
                                                  --iam-instance-profile Name=ManagedInstance \
                                                  --key-name administrator \
-                                                 --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-Miami-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_mia_wb_sg_id],SubnetId=$alfa_mia_public_subneta_id" \
-                                                 --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Miami-WindowsBastion-InstanceA},{Key=Hostname,Value=alfmiacwb01a},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                 --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-Miami-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_mia_wb_sg_id],SubnetId=$alfa_mia_public_subneta_id \
+                                                 --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Miami-WindowsBastion-InstanceA},{Key=Hostname,Value=alfmianwb01a},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                  --user-data file://$tmpfile \
                                                  --client-token $(date +%s) \
                                                  --query 'Instances[0].InstanceId' \
@@ -2618,7 +2327,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "alfmiacwb01a.$alfa_mia_private_domain",
+      "Name": "alfmianwb01a.$alfa_mia_private_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$alfa_mia_wb_instancea_private_ip"}]
@@ -2630,7 +2339,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$alfa_mia_private_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "alfmiacwb01a.$alfa_mia_private_domain"}]
+      "ResourceRecords": [{"Value": "alfmianwb01a.$alfa_mia_private_domain"}]
     }
   }]
 }
@@ -2651,18 +2360,10 @@ profile=$management_profile
 zulu_dfw_wb_sg_id=$(aws ec2 create-security-group --group-name Zulu-Dallas-WindowsBastion-InstanceSecurityGroup \
                                                   --description Zulu-Dallas-WindowsBastion-InstanceSecurityGroup \
                                                   --vpc-id $zulu_dfw_vpc_id \
+                                                  --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Zulu-Dallas-WindowsBastion-InstanceSecurityGroup},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                   --query 'GroupId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_wb_sg_id=$zulu_dfw_wb_sg_id"
-
-aws ec2 create-tags --resources $zulu_dfw_wb_sg_id \
-                    --tags Key=Name,Value=Zulu-Dallas-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=Zulu \
-                           Key=Location,Value=Dallas \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $zulu_dfw_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (ICMP)\"}]" \
@@ -2680,6 +2381,7 @@ aws ec2 authorize-security-group-ingress --group-id $zulu_dfw_wb_sg_id \
 
 # Create WindowsBastion EIP
 zulu_dfw_wb_eipa=$(aws ec2 allocate-address --domain vpc \
+                                            --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Zulu-Dallas-WindowsBastion-EIPA},{Key=Hostname,Value=zuldfwnwb01a},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                             --query 'AllocationId' \
                                             --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_wb_eipa=$zulu_dfw_wb_eipa"
@@ -2689,16 +2391,6 @@ zulu_dfw_wb_instancea_public_ip=$(aws ec2 describe-addresses --allocation-ids $z
                                                              --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_wb_instancea_public_ip=$zulu_dfw_wb_instancea_public_ip"
 
-aws ec2 create-tags --resources $zulu_dfw_wb_eipa \
-                    --tags Key=Name,Value=Zulu-Dallas-WindowsBastion-EIPA \
-                           Key=Hostname,Value=zuldfwcwb01a \
-                           Key=Company,Value=Zulu \
-                           Key=Location,Value=Dallas \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
-
 # Create WindowsBastion Public Domain Name
 tmpfile=$tmpdir/zulu-dfw-wba-public-$$.json
 cat > $tmpfile << EOF
@@ -2706,7 +2398,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "zuldfwcwb01a.$zulu_dfw_public_domain",
+      "Name": "zuldfwnwb01a.$zulu_dfw_public_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$zulu_dfw_wb_instancea_public_ip"}]
@@ -2718,7 +2410,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$zulu_dfw_public_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "zuldfwcwb01a.$zulu_dfw_public_domain"}]
+      "ResourceRecords": [{"Value": "zuldfwnwb01a.$zulu_dfw_public_domain"}]
     }
   }]
 }
@@ -2727,12 +2419,12 @@ EOF
 aws route53 change-resource-record-sets --hosted-zone-id $zulu_dfw_public_hostedzone_id \
                                         --change-batch file://$tmpfile \
                                         --profile $profile --region us-east-2 --output text
-echo "zulu_dfw_wb_instancea_hostname=zuldfwcwb01a.$zulu_dfw_public_domain"
+echo "zulu_dfw_wb_instancea_hostname=zuldfwnwb01a.$zulu_dfw_public_domain"
 echo "zulu_dfw_wb_instancea_hostname_alias=wba.$zulu_dfw_public_domain"
 
 # Create WindowsBastion Instance
 tmpfile=$tmpdir/zulu-dfw-wba-user-data-$$.ps1
-sed -e "s/@hostname@/zuldfwcwb01a/g" \
+sed -e "s/@hostname@/zuldfwnwb01a/g" \
     -e "s/@administrator_password_parameter@/Zulu-Dallas-Administrator-Password/g" \
     -e "s/@directory_domain_parameter@//g" \
     $templatesdir/windows-wb-user-data.ps1 > $tmpfile
@@ -2741,8 +2433,8 @@ zulu_dfw_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_win2016_ami_id
                                                  --instance-type t3a.medium \
                                                  --iam-instance-profile Name=ManagedInstance \
                                                  --key-name administrator \
-                                                 --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Zulu-Dallas-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$zulu_dfw_wb_sg_id],SubnetId=$zulu_dfw_public_subneta_id" \
-                                                 --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Zulu-Dallas-WindowsBastion-InstanceA},{Key=Hostname,Value=zuldfwcwb01a},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                 --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Zulu-Dallas-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$zulu_dfw_wb_sg_id],SubnetId=$zulu_dfw_public_subneta_id \
+                                                 --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Zulu-Dallas-WindowsBastion-InstanceA},{Key=Hostname,Value=zuldfwnwb01a},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                  --user-data file://$tmpfile \
                                                  --client-token $(date +%s) \
                                                  --query 'Instances[0].InstanceId' \
@@ -2761,7 +2453,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "zuldfwcwb01a.$zulu_dfw_private_domain",
+      "Name": "zuldfwnwb01a.$zulu_dfw_private_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$zulu_dfw_wb_instancea_private_ip"}]
@@ -2773,7 +2465,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$zulu_dfw_private_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "zuldfwcwb01a.$zulu_dfw_private_domain"}]
+      "ResourceRecords": [{"Value": "zuldfwnwb01a.$zulu_dfw_private_domain"}]
     }
   }]
 }
@@ -2794,18 +2486,10 @@ profile=$management_profile
 cml_sba_wb_sg_id=$(aws ec2 create-security-group --group-name CaMeLz-SantaBarbara-WindowsBastion-InstanceSecurityGroup \
                                                  --description CaMeLz-SantaBarbara-WindowsBastion-InstanceSecurityGroup \
                                                  --vpc-id $cml_sba_vpc_id \
+                                                 --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-WindowsBastion-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                  --query 'GroupId' \
                                                  --profile $profile --region us-east-2 --output text)
 echo "cml_sba_wb_sg_id=$cml_sba_wb_sg_id"
-
-aws ec2 create-tags --resources $cml_sba_wb_sg_id \
-                    --tags Key=Name,Value=CaMeLz-SantaBarbara-WindowsBastion-InstanceSecurityGroup \
-                           Key=Company,Value=CaMeLz \
-                           Key=Location,Value=SantaBarbara \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $cml_sba_wb_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=$cml_msy_public_cidr,Description=\"Office-CaMeLz-NewOrleans (ICMP)\"}]" \
@@ -2823,6 +2507,7 @@ aws ec2 authorize-security-group-ingress --group-id $cml_sba_wb_sg_id \
 
 # Create WindowsBastion EIP
 cml_sba_wb_eipa=$(aws ec2 allocate-address --domain vpc \
+                                           --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-WindowsBastion-EIPA},{Key=Hostname,Value=cmlsbanwb01a},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                            --query 'AllocationId' \
                                            --profile $profile --region us-east-2 --output text)
 echo "cml_sba_wb_eipa=$cml_sba_wb_eipa"
@@ -2832,16 +2517,6 @@ cml_sba_wb_instancea_public_ip=$(aws ec2 describe-addresses --allocation-ids $cm
                                                             --profile $profile --region us-east-2 --output text)
 echo "cml_sba_wb_instancea_public_ip=$cml_sba_wb_instancea_public_ip"
 
-aws ec2 create-tags --resources $cml_sba_wb_eipa \
-                    --tags Key=Name,Value=CaMeLz-SantaBarbara-WindowsBastion-EIPA \
-                           Key=Hostname,Value=cmlsbacwb01a \
-                           Key=Company,Value=CaMeLz \
-                           Key=Location,Value=SantaBarbara \
-                           Key=Application,Value=WindowsBastion \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
-
 # Create WindowsBastion Public Domain Name
 tmpfile=$tmpdir/cml-sba-wba-public-$$.json
 cat > $tmpfile << EOF
@@ -2849,7 +2524,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "cmlsbacwb01a.$cml_sba_public_domain",
+      "Name": "cmlsbanwb01a.$cml_sba_public_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$cml_sba_wb_instancea_public_ip"}]
@@ -2861,7 +2536,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$cml_sba_public_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "cmlsbacwb01a.$cml_sba_public_domain"}]
+      "ResourceRecords": [{"Value": "cmlsbanwb01a.$cml_sba_public_domain"}]
     }
   }]
 }
@@ -2870,12 +2545,12 @@ EOF
 aws route53 change-resource-record-sets --hosted-zone-id $cml_sba_public_hostedzone_id \
                                         --change-batch file://$tmpfile \
                                         --profile $profile --region us-east-2 --output text
-echo "cml_sba_wb_instancea_hostname=alflaxcwb01a.$cml_sba_public_domain"
+echo "cml_sba_wb_instancea_hostname=cmlsbanwb01a.$cml_sba_public_domain"
 echo "cml_sba_wb_instancea_hostname_alias=wba.$cml_sba_public_domain"
 
 # Create WindowsBastion Instance
 tmpfile=$tmpdir/cml-sba-wba-user-data-$$.ps1
-sed -e "s/@hostname@/cmlsbacwb01a/g" \
+sed -e "s/@hostname@/cmlsbanwb01a/g" \
     -e "s/@administrator_password_parameter@/CaMeLz-SantaBarbara-Administrator-Password/g" \
     -e "s/@directory_domain_parameter@//g" \
     $templatesdir/windows-wb-user-data.ps1 > $tmpfile
@@ -2884,8 +2559,8 @@ cml_sba_wb_instancea_id=$(aws ec2 run-instances --image-id $ohio_win2016_ami_id 
                                                 --instance-type t3a.medium \
                                                 --iam-instance-profile Name=ManagedInstance \
                                                 --key-name administrator \
-                                                --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=CaMeLz-SantaBarbara-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$cml_sba_wb_sg_id],SubnetId=$cml_sba_public_subneta_id" \
-                                                --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlsbacwb01a},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=CaMeLz-SantaBarbara-WindowsBastion-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$cml_sba_wb_sg_id],SubnetId=$cml_sba_public_subneta_id \
+                                                --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-WindowsBastion-InstanceA},{Key=Hostname,Value=cmlsbanwb01a},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Utility,Value=WindowsBastion},{Key=Project,Value=CaMeLz-POC-4}] \
                                                 --user-data file://$tmpfile \
                                                 --client-token $(date +%s) \
                                                 --query 'Instances[0].InstanceId' \
@@ -2904,7 +2579,7 @@ cat > $tmpfile << EOF
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "cmlsbacwb01a.$cml_sba_private_domain",
+      "Name": "cmlsbanwb01a.$cml_sba_private_domain",
       "Type": "A",
       "TTL": 300,
       "ResourceRecords": [{"Value": "$cml_sba_wb_instancea_private_ip"}]
@@ -2916,7 +2591,7 @@ cat > $tmpfile << EOF
       "Name": "wba.$cml_sba_private_domain",
       "Type": "CNAME",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "cmlsbacwb01a.$cml_sba_private_domain"}]
+      "ResourceRecords": [{"Value": "cmlsbanwb01a.$cml_sba_private_domain"}]
     }
   }]
 }

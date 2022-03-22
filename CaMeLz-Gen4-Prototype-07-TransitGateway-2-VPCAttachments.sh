@@ -57,8 +57,7 @@ aws ec2 create-tags --resources $global_core_tgw_management_vpc_attachment_id \
                     --tags Key=Name,Value=Core-ManagementVpcTransitGatewayAttachment \
                            Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region us-east-1 --output text
 
 

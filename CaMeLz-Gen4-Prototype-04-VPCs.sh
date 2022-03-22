@@ -7372,7 +7372,7 @@ profile=$management_profile
 
 # Create VPC
 alfa_lax_vpc_id=$(aws ec2 create-vpc --cidr-block $alfa_lax_vpc_cidr \
-                                     --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=Alfa-LosAngeles-VPC},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Project,Value=CaMeLz-POC-4}] \
+                                     --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=Alfa-LosAngeles-VPC},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                      --query 'Vpc.VpcId' \
                                      --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_vpc_id=$alfa_lax_vpc_id"
@@ -7397,7 +7397,7 @@ aws ec2 create-flow-logs --resource-type VPC --resource-ids $alfa_lax_vpc_id \
                          --profile $profile --region us-east-2 --output text
 
 # Create Internet Gateway & Attach
-alfa_lax_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=Alfa-LosAngeles-InternetGateway},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Project,Value=CaMeLz-POC-4}] \
+alfa_lax_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=Alfa-LosAngeles-InternetGateway},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                   --query 'InternetGateway.InternetGatewayId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_igw_id=$alfa_lax_igw_id"
@@ -7418,7 +7418,7 @@ echo "alfa_lax_private_hostedzone_id=$alfa_lax_private_hostedzone_id"
 # Create DHCP Options Set
 alfa_lax_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$alfa_lax_private_domain]" \
                                                                      "Key=domain-name-servers,Values=[AmazonProvidedDNS]" \
-                                               --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=Alfa-LosAngeles-DHCPOptions},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Project,Value=CaMeLz-POC-4}] \
+                                               --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=Alfa-LosAngeles-DHCPOptions},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                --query 'DhcpOptions.DhcpOptionsId' \
                                                --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_dopt_id=$alfa_lax_dopt_id"
@@ -7431,7 +7431,7 @@ aws ec2 associate-dhcp-options --vpc-id $alfa_lax_vpc_id \
 alfa_lax_public_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_lax_vpc_id \
                                                    --cidr-block $alfa_lax_subnet_publica_cidr \
                                                    --availability-zone us-east-2a \
-                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-PublicSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-PublicSubnetA},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_public_subneta_id=$alfa_lax_public_subneta_id"
@@ -7440,7 +7440,7 @@ echo "alfa_lax_public_subneta_id=$alfa_lax_public_subneta_id"
 alfa_lax_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_lax_vpc_id \
                                                    --cidr-block $alfa_lax_subnet_publicb_cidr \
                                                    --availability-zone us-east-2b \
-                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-PublicSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-PublicSubnetB},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_public_subnetb_id=$alfa_lax_public_subnetb_id"
@@ -7449,7 +7449,7 @@ echo "alfa_lax_public_subnetb_id=$alfa_lax_public_subnetb_id"
 alfa_lax_private_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_lax_vpc_id \
                                                     --cidr-block $alfa_lax_subnet_privatea_cidr \
                                                     --availability-zone us-east-2a \
-                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-PrivateSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-PrivateSubnetA},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_private_subneta_id=$alfa_lax_private_subneta_id"
@@ -7458,7 +7458,7 @@ echo "alfa_lax_private_subneta_id=$alfa_lax_private_subneta_id"
 alfa_lax_private_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_lax_vpc_id \
                                                     --cidr-block $alfa_lax_subnet_privateb_cidr \
                                                     --availability-zone us-east-2b \
-                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-PrivateSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-PrivateSubnetB},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_private_subnetb_id=$alfa_lax_private_subnetb_id"
@@ -7467,7 +7467,7 @@ echo "alfa_lax_private_subnetb_id=$alfa_lax_private_subnetb_id"
 alfa_lax_management_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_lax_vpc_id \
                                                        --cidr-block $alfa_lax_subnet_managementa_cidr \
                                                        --availability-zone us-east-2a \
-                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-ManagementSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-ManagementSubnetA},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_management_subneta_id=$alfa_lax_management_subneta_id"
@@ -7476,7 +7476,7 @@ echo "alfa_lax_management_subneta_id=$alfa_lax_management_subneta_id"
 alfa_lax_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_lax_vpc_id \
                                                        --cidr-block $alfa_lax_subnet_managementb_cidr \
                                                        --availability-zone us-east-2b \
-                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-ManagementSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-ManagementSubnetB},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_management_subnetb_id=$alfa_lax_management_subnetb_id"
@@ -7485,7 +7485,7 @@ echo "alfa_lax_management_subnetb_id=$alfa_lax_management_subnetb_id"
 alfa_lax_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_lax_vpc_id \
                                                     --cidr-block $alfa_lax_subnet_gatewaya_cidr \
                                                     --availability-zone us-east-2a \
-                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-GatewaySubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-GatewaySubnetA},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_gateway_subneta_id=$alfa_lax_gateway_subneta_id"
@@ -7494,7 +7494,7 @@ echo "alfa_lax_gateway_subneta_id=$alfa_lax_gateway_subneta_id"
 alfa_lax_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_lax_vpc_id \
                                                     --cidr-block $alfa_lax_subnet_gatewayb_cidr \
                                                     --availability-zone us-east-2b \
-                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-GatewaySubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-GatewaySubnetB},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_gateway_subnetb_id=$alfa_lax_gateway_subnetb_id"
@@ -7503,7 +7503,7 @@ echo "alfa_lax_gateway_subnetb_id=$alfa_lax_gateway_subnetb_id"
 alfa_lax_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_lax_vpc_id \
                                                      --cidr-block $alfa_lax_subnet_endpointa_cidr \
                                                      --availability-zone us-east-2a \
-                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-EndpointSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-EndpointSubnetA},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                      --query 'Subnet.SubnetId' \
                                                      --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_endpoint_subneta_id=$alfa_lax_endpoint_subneta_id"
@@ -7512,7 +7512,7 @@ echo "alfa_lax_endpoint_subneta_id=$alfa_lax_endpoint_subneta_id"
 alfa_lax_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_lax_vpc_id \
                                                      --cidr-block $alfa_lax_subnet_endpointb_cidr \
                                                      --availability-zone us-east-2b \
-                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-EndpointSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-LosAngeles-EndpointSubnetB},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                      --query 'Subnet.SubnetId' \
                                                      --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_endpoint_subnetb_id=$alfa_lax_endpoint_subnetb_id"
@@ -7521,7 +7521,7 @@ echo "alfa_lax_endpoint_subnetb_id=$alfa_lax_endpoint_subnetb_id"
 alfa_lax_csr_sg_id=$(aws ec2 create-security-group --group-name Alfa-LosAngeles-CiscoCSR-InstanceSecurityGroup \
                                                    --description Alfa-LosAngeles-CiscoCSR-InstanceSecurityGroup \
                                                    --vpc-id $alfa_lax_vpc_id \
-                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-LosAngeles-CiscoCSR-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Utility,Value=CiscoCSR},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-LosAngeles-CiscoCSR-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Utility,Value=CiscoCSR},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'GroupId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_csr_sg_id=$alfa_lax_csr_sg_id"
@@ -7540,7 +7540,7 @@ aws ec2 authorize-security-group-ingress --group-id $alfa_lax_csr_sg_id \
 
 # Create CiscoCSR EIP
 alfa_lax_csr_eipa=$(aws ec2 allocate-address --domain vpc \
-                                             --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Alfa-LosAngeles-CiscoCSR-EIPA},{Key=Hostname,Value=alflaxccsr01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Utility,Value=CiscoCSR},{Key=Project,Value=CaMeLz-POC-4}] \
+                                             --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Alfa-LosAngeles-CiscoCSR-EIPA},{Key=Hostname,Value=alflaxccsr01a},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Utility,Value=CiscoCSR},{Key=Project,Value=CaMeLz-POC-4}] \
                                              --query 'AllocationId' \
                                              --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_csr_eipa=$alfa_lax_csr_eipa"
@@ -7585,7 +7585,7 @@ alfa_lax_csr_instancea_id=$(aws ec2 run-instances --image-id $ohio_csr_ami_id \
                                                   --iam-instance-profile Name=ManagedInstance \
                                                   --key-name administrator \
                                                   --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-LosAngeles-CiscoCSR-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_lax_csr_sg_id],SubnetId=$alfa_lax_public_subneta_id \
-                                                  --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-LosAngeles-CiscoCSR-InstanceA},{Key=Hostname,Value=alflaxccsr01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Utility,Value=CiscoCSR},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                  --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-LosAngeles-CiscoCSR-InstanceA},{Key=Hostname,Value=alflaxccsr01a},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Utility,Value=CiscoCSR},{Key=Project,Value=CaMeLz-POC-4}] \
                                                   --query 'Instances[0].InstanceId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_csr_instancea_id=$alfa_lax_csr_instancea_id"
@@ -7638,7 +7638,7 @@ aws ec2 associate-address --instance-id $alfa_lax_csr_instancea_id --allocation-
 
 # Create Public Route Table, Default Route and Associate with Public Subnets
 alfa_lax_public_rtb_id=$(aws ec2 create-route-table --vpc-id $alfa_lax_vpc_id \
-                                                    --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=Alfa-LosAngeles-PublicRouteTable},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                    --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=Alfa-LosAngeles-PublicRouteTable},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'RouteTable.RouteTableId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_public_rtb_id=$alfa_lax_public_rtb_id"
@@ -7662,7 +7662,7 @@ aws ec2 associate-route-table --route-table-id $alfa_lax_public_rtb_id --subnet-
 alfa_lax_nat_sg_id=$(aws ec2 create-security-group --group-name Alfa-LosAngeles-NAT-InstanceSecurityGroup \
                                                    --description Alfa-LosAngeles-NAT-InstanceSecurityGroup \
                                                    --vpc-id $alfa_lax_vpc_id \
-                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-LosAngeles-NAT-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-LosAngeles-NAT-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'GroupId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_nat_sg_id=$alfa_lax_nat_sg_id"
@@ -7677,7 +7677,7 @@ alfa_lax_nat_instance_id=$(aws ec2 run-instances --image-id $ohio_nat_ami_id \
                                                  --iam-instance-profile Name=ManagedInstance \
                                                  --key-name administrator \
                                                  --network-interfaces AssociatePublicIpAddress=true,DeleteOnTermination=true,Description=Alfa-LosAngeles-NAT-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_lax_nat_sg_id],SubnetId=$alfa_lax_public_subneta_id \
-                                                 --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-LosAngeles-NAT-Instance},{Key=Hostname,Value=alflaxcnat01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                 --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-LosAngeles-NAT-Instance},{Key=Hostname,Value=alflaxcnat01a},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}] \
                                                  --query 'Instances[0].InstanceId' \
                                                  --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_nat_instance_id=$alfa_lax_nat_instance_id"
@@ -7698,7 +7698,7 @@ echo "alfa_lax_nat_instance_private_ip=$alfa_lax_nat_instance_private_ip"
 
 # Create Private Route Table for Availability Zone A, Default Route and Associate with Private Subnets
 alfa_lax_private_rtba_id=$(aws ec2 create-route-table --vpc-id $alfa_lax_vpc_id \
-                                                      --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=Alfa-LosAngeles-PrivateRouteTableA},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                      --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=Alfa-LosAngeles-PrivateRouteTableA},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                       --query 'RouteTable.RouteTableId' \
                                                       --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_private_rtba_id=$alfa_lax_private_rtba_id"
@@ -7723,7 +7723,7 @@ aws ec2 associate-route-table --route-table-id $alfa_lax_private_rtba_id --subne
                               --profile $profile --region us-east-2 --output text
 
 alfa_lax_private_rtbb_id=$(aws ec2 create-route-table --vpc-id $alfa_lax_vpc_id \
-                                                      --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=Alfa-LosAngeles-PrivateRouteTableB},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                      --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=Alfa-LosAngeles-PrivateRouteTableB},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                       --query 'RouteTable.RouteTableId' \
                                                       --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_private_rtbb_id=$alfa_lax_private_rtbb_id"
@@ -7751,7 +7751,7 @@ aws ec2 associate-route-table --route-table-id $alfa_lax_private_rtbb_id --subne
 alfa_lax_vpce_sg_id=$(aws ec2 create-security-group --group-name Alfa-LosAngeles-VPCEndpointSecurityGroup \
                                                     --description Alfa-LosAngeles-VPCEndpointSecurityGroup \
                                                     --vpc-id $alfa_lax_vpc_id \
-                                                    --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-LosAngeles-VPCEndpointSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                    --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-LosAngeles-VPCEndpointSecurityGroup},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'GroupId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_vpce_sg_id=$alfa_lax_vpce_sg_id"
@@ -7772,7 +7772,7 @@ alfa_lax_ssm_vpce_id=$(aws ec2 create-vpc-endpoint --vpc-id $alfa_lax_vpc_id \
                                                    --security-group-ids $alfa_lax_vpce_sg_id \
                                                    --subnet-ids $alfa_lax_endpoint_subneta_id $alfa_lax_endpoint_subnetb_id \
                                                    --client-token $(date +%s) \
-                                                   --tag-specifications ResourceType=vpc-endpoint,Tags=[{Key=Name,Value=Alfa-LosAngeles-SSMVpcEndpoint},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=vpc-endpoint,Tags=[{Key=Name,Value=Alfa-LosAngeles-SSMVpcEndpoint},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'VpcEndpoint.VpcEndpointId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_ssm_vpce_id=$alfa_lax_ssm_vpce_id"
@@ -7784,7 +7784,7 @@ alfa_lax_ssmm_vpce_id=$(aws ec2 create-vpc-endpoint --vpc-id $alfa_lax_vpc_id \
                                                     --security-group-ids $alfa_lax_vpce_sg_id \
                                                     --subnet-ids $alfa_lax_endpoint_subneta_id $alfa_lax_endpoint_subnetb_id \
                                                     --client-token $(date +%s) \
-                                                    --tag-specifications ResourceType=vpc-endpoint,Tags=[{Key=Name,Value=Alfa-LosAngeles-SSMMessagesVpcEndpoint},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                    --tag-specifications ResourceType=vpc-endpoint,Tags=[{Key=Name,Value=Alfa-LosAngeles-SSMMessagesVpcEndpoint},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'VpcEndpoint.VpcEndpointId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_ssmm_vpce_id=$alfa_lax_ssmm_vpce_id"
@@ -7797,7 +7797,7 @@ profile=$management_profile
 
 # Create VPC
 alfa_mia_vpc_id=$(aws ec2 create-vpc --cidr-block $alfa_mia_vpc_cidr \
-                                     --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=Alfa-Miami-VPC},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Project,Value=CaMeLz-POC-4}] \
+                                     --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=Alfa-Miami-VPC},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                      --query 'Vpc.VpcId' \
                                      --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_vpc_id=$alfa_mia_vpc_id"
@@ -7822,7 +7822,7 @@ aws ec2 create-flow-logs --resource-type VPC --resource-ids $alfa_mia_vpc_id \
                          --profile $profile --region us-east-2 --output text
 
 # Create Internet Gateway & Attach
-alfa_mia_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=Alfa-Miami-InternetGateway},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Project,Value=CaMeLz-POC-4}] \
+alfa_mia_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=Alfa-Miami-InternetGateway},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                   --query 'InternetGateway.InternetGatewayId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_igw_id=$alfa_mia_igw_id"
@@ -7843,7 +7843,7 @@ echo "alfa_mia_private_hostedzone_id=$alfa_mia_private_hostedzone_id"
 # Create DHCP Options Set
 alfa_mia_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$alfa_mia_private_domain]" \
                                                                      "Key=domain-name-servers,Values=[AmazonProvidedDNS]" \
-                                               --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=Alfa-Miami-DHCPOptions},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Project,Value=CaMeLz-POC-4}] \
+                                               --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=Alfa-Miami-DHCPOptions},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                --query 'DhcpOptions.DhcpOptionsId' \
                                                --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_dopt_id=$alfa_mia_dopt_id"
@@ -7856,7 +7856,7 @@ aws ec2 associate-dhcp-options --vpc-id $alfa_mia_vpc_id \
 alfa_mia_public_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_mia_vpc_id \
                                                    --cidr-block $alfa_mia_subnet_publica_cidr \
                                                    --availability-zone us-east-2a \
-                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-PublicSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-PublicSubnetA},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_public_subneta_id=$alfa_mia_public_subneta_id"
@@ -7865,7 +7865,7 @@ echo "alfa_mia_public_subneta_id=$alfa_mia_public_subneta_id"
 alfa_mia_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_mia_vpc_id \
                                                    --cidr-block $alfa_mia_subnet_publicb_cidr \
                                                    --availability-zone us-east-2b \
-                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-PublicSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-PublicSubnetB},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_public_subnetb_id=$alfa_mia_public_subnetb_id"
@@ -7874,7 +7874,7 @@ echo "alfa_mia_public_subnetb_id=$alfa_mia_public_subnetb_id"
 alfa_mia_private_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_mia_vpc_id \
                                                     --cidr-block $alfa_mia_subnet_privatea_cidr \
                                                     --availability-zone us-east-2a \
-                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-PrivateSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-PrivateSubnetA},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_private_subneta_id=$alfa_mia_private_subneta_id"
@@ -7883,7 +7883,7 @@ echo "alfa_mia_private_subneta_id=$alfa_mia_private_subneta_id"
 alfa_mia_private_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_mia_vpc_id \
                                                     --cidr-block $alfa_mia_subnet_privateb_cidr \
                                                     --availability-zone us-east-2b \
-                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-PrivateSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-PrivateSubnetB},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_private_subnetb_id=$alfa_mia_private_subnetb_id"
@@ -7892,7 +7892,7 @@ echo "alfa_mia_private_subnetb_id=$alfa_mia_private_subnetb_id"
 alfa_mia_management_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_mia_vpc_id \
                                                        --cidr-block $alfa_mia_subnet_managementa_cidr \
                                                        --availability-zone us-east-2a \
-                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-ManagementSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-ManagementSubnetA},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_management_subneta_id=$alfa_mia_management_subneta_id"
@@ -7901,7 +7901,7 @@ echo "alfa_mia_management_subneta_id=$alfa_mia_management_subneta_id"
 alfa_mia_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_mia_vpc_id \
                                                        --cidr-block $alfa_mia_subnet_managementb_cidr \
                                                        --availability-zone us-east-2b \
-                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-ManagementSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-ManagementSubnetB},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_management_subnetb_id=$alfa_mia_management_subnetb_id"
@@ -7910,7 +7910,7 @@ echo "alfa_mia_management_subnetb_id=$alfa_mia_management_subnetb_id"
 alfa_mia_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_mia_vpc_id \
                                                     --cidr-block $alfa_mia_subnet_gatewaya_cidr \
                                                     --availability-zone us-east-2a \
-                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-GatewaySubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-GatewaySubnetA},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_gateway_subneta_id=$alfa_mia_gateway_subneta_id"
@@ -7919,7 +7919,7 @@ echo "alfa_mia_gateway_subneta_id=$alfa_mia_gateway_subneta_id"
 alfa_mia_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_mia_vpc_id \
                                                     --cidr-block $alfa_mia_subnet_gatewayb_cidr \
                                                     --availability-zone us-east-2b \
-                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-GatewaySubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-GatewaySubnetB},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_gateway_subnetb_id=$alfa_mia_gateway_subnetb_id"
@@ -7928,7 +7928,7 @@ echo "alfa_mia_gateway_subnetb_id=$alfa_mia_gateway_subnetb_id"
 alfa_mia_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_mia_vpc_id \
                                                      --cidr-block $alfa_mia_subnet_endpointa_cidr \
                                                      --availability-zone us-east-2a \
-                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-EndpointSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-EndpointSubnetA},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                      --query 'Subnet.SubnetId' \
                                                      --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_endpoint_subneta_id=$alfa_mia_endpoint_subneta_id"
@@ -7937,7 +7937,7 @@ echo "alfa_mia_endpoint_subneta_id=$alfa_mia_endpoint_subneta_id"
 alfa_mia_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_mia_vpc_id \
                                                      --cidr-block $alfa_mia_subnet_endpointb_cidr \
                                                      --availability-zone us-east-2b \
-                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-EndpointSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Miami-EndpointSubnetB},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                      --query 'Subnet.SubnetId' \
                                                      --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_endpoint_subnetb_id=$alfa_mia_endpoint_subnetb_id"
@@ -7946,7 +7946,7 @@ echo "alfa_mia_endpoint_subnetb_id=$alfa_mia_endpoint_subnetb_id"
 alfa_mia_csr_sg_id=$(aws ec2 create-security-group --group-name Alfa-Miami-CiscoCSR-InstanceSecurityGroup \
                                                    --description Alfa-Miami-CiscoCSR-InstanceSecurityGroup \
                                                    --vpc-id $alfa_mia_vpc_id \
-                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Miami-CiscoCSR-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Utility,Value=CiscoCSR},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Miami-CiscoCSR-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Utility,Value=CiscoCSR},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'GroupId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_csr_sg_id=$alfa_mia_csr_sg_id"
@@ -7965,7 +7965,7 @@ aws ec2 authorize-security-group-ingress --group-id $alfa_mia_csr_sg_id \
 
 # Create CiscoCSR EIP
 alfa_mia_csr_eipa=$(aws ec2 allocate-address --domain vpc \
-                                             --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Alfa-Miami-CiscoCSR-EIPA},{Key=Hostname,Value=alfmiaccsr01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Utility,Value=CiscoCSR},{Key=Project,Value=CaMeLz-POC-4}] \
+                                             --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Alfa-Miami-CiscoCSR-EIPA},{Key=Hostname,Value=alfmiaccsr01a},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Utility,Value=CiscoCSR},{Key=Project,Value=CaMeLz-POC-4}] \
                                              --query 'AllocationId' \
                                              --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_csr_eipa=$alfa_mia_csr_eipa"
@@ -8010,7 +8010,7 @@ alfa_mia_csr_instancea_id=$(aws ec2 run-instances --image-id $ohio_csr_ami_id \
                                                   --iam-instance-profile Name=ManagedInstance \
                                                   --key-name administrator \
                                                   --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-Miami-CiscoCSR-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_mia_csr_sg_id],SubnetId=$alfa_mia_public_subneta_id \
-                                                  --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Miami-CiscoCSR-InstanceA},{Key=Hostname,Value=alfmiaccsr01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Utility,Value=CiscoCSR},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                  --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Miami-CiscoCSR-InstanceA},{Key=Hostname,Value=alfmiaccsr01a},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Utility,Value=CiscoCSR},{Key=Project,Value=CaMeLz-POC-4}] \
                                                   --query 'Instances[0].InstanceId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_csr_instancea_id=$alfa_mia_csr_instancea_id"
@@ -8063,7 +8063,7 @@ aws ec2 associate-address --instance-id $alfa_mia_csr_instancea_id --allocation-
 
 # Create Public Route Table, Default Route and Associate with Public Subnets
 alfa_mia_public_rtb_id=$(aws ec2 create-route-table --vpc-id $alfa_mia_vpc_id \
-                                                    --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=Alfa-Miami-PublicRouteTable},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                    --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=Alfa-Miami-PublicRouteTable},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'RouteTable.RouteTableId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_public_rtb_id=$alfa_mia_public_rtb_id"
@@ -8087,7 +8087,7 @@ aws ec2 associate-route-table --route-table-id $alfa_mia_public_rtb_id --subnet-
 alfa_mia_nat_sg_id=$(aws ec2 create-security-group --group-name Alfa-Miami-NAT-InstanceSecurityGroup \
                                                    --description Alfa-Miami-NAT-InstanceSecurityGroup \
                                                    --vpc-id $alfa_mia_vpc_id \
-                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Miami-NAT-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Miami-NAT-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'GroupId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_nat_sg_id=$alfa_mia_nat_sg_id"
@@ -8102,7 +8102,7 @@ alfa_mia_nat_instance_id=$(aws ec2 run-instances --image-id $ohio_nat_ami_id \
                                                  --iam-instance-profile Name=ManagedInstance \
                                                  --key-name administrator \
                                                  --network-interfaces AssociatePublicIpAddress=true,DeleteOnTermination=true,Description=Alfa-Miami-NAT-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_mia_nat_sg_id],SubnetId=$alfa_mia_public_subneta_id \
-                                                 --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Miami-NAT-Instance},{Key=Hostname,Value=alfmiacnat01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                 --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Miami-NAT-Instance},{Key=Hostname,Value=alfmiacnat01a},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}] \
                                                  --query 'Instances[0].InstanceId' \
                                                  --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_nat_instance_id=$alfa_mia_nat_instance_id"
@@ -8123,7 +8123,7 @@ echo "alfa_mia_nat_instance_private_ip=$alfa_mia_nat_instance_private_ip"
 
 # Create Private Route Table for Availability Zone A, Default Route and Associate with Private Subnets
 alfa_mia_private_rtba_id=$(aws ec2 create-route-table --vpc-id $alfa_mia_vpc_id \
-                                                      --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=Alfa-Miami-PrivateRouteTableA},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                      --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=Alfa-Miami-PrivateRouteTableA},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                       --query 'RouteTable.RouteTableId' \
                                                       --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_private_rtba_id=$alfa_mia_private_rtba_id"
@@ -8148,7 +8148,7 @@ aws ec2 associate-route-table --route-table-id $alfa_mia_private_rtba_id --subne
                               --profile $profile --region us-east-2 --output text
 
 alfa_mia_private_rtbb_id=$(aws ec2 create-route-table --vpc-id $alfa_mia_vpc_id \
-                                                      --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=Alfa-Miami-PrivateRouteTableB},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                      --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=Alfa-Miami-PrivateRouteTableB},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                       --query 'RouteTable.RouteTableId' \
                                                       --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_private_rtbb_id=$alfa_mia_private_rtbb_id"
@@ -8176,7 +8176,7 @@ aws ec2 associate-route-table --route-table-id $alfa_mia_private_rtbb_id --subne
 alfa_mia_vpce_sg_id=$(aws ec2 create-security-group --group-name Alfa-Miami-VPCEndpointSecurityGroup \
                                                     --description Alfa-Miami-VPCEndpointSecurityGroup \
                                                     --vpc-id $alfa_mia_vpc_id \
-                                                    --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Miami-VPCEndpointSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                    --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Miami-VPCEndpointSecurityGroup},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'GroupId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_vpce_sg_id=$alfa_mia_vpce_sg_id"
@@ -8197,7 +8197,7 @@ alfa_mia_ssm_vpce_id=$(aws ec2 create-vpc-endpoint --vpc-id $alfa_mia_vpc_id \
                                                    --security-group-ids $alfa_mia_vpce_sg_id \
                                                    --subnet-ids $alfa_mia_endpoint_subneta_id $alfa_mia_endpoint_subnetb_id \
                                                    --client-token $(date +%s) \
-                                                   --tag-specifications ResourceType=vpc-endpoint,Tags=[{Key=Name,Value=Alfa-Miami-SSMVpcEndpoint},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=vpc-endpoint,Tags=[{Key=Name,Value=Alfa-Miami-SSMVpcEndpoint},{Key=Company,Value=CaMeLz},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'VpcEndpoint.VpcEndpointId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_ssm_vpce_id=$alfa_mia_ssm_vpce_id"
@@ -8209,7 +8209,7 @@ alfa_mia_ssmm_vpce_id=$(aws ec2 create-vpc-endpoint --vpc-id $alfa_mia_vpc_id \
                                                     --security-group-ids $alfa_mia_vpce_sg_id \
                                                     --subnet-ids $alfa_mia_endpoint_subneta_id $alfa_mia_endpoint_subnetb_id \
                                                     --client-token $(date +%s) \
-                                                    --tag-specifications ResourceType=vpc-endpoint,Tags=[{Key=Name,Value=Alfa-Miami-SSMMessagesVpcEndpoint},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                    --tag-specifications ResourceType=vpc-endpoint,Tags=[{Key=Name,Value=Alfa-Miami-SSMMessagesVpcEndpoint},{Key=Company,Value=CaMeLz},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'VpcEndpoint.VpcEndpointId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_ssmm_vpce_id=$alfa_mia_ssmm_vpce_id"
@@ -8222,7 +8222,7 @@ profile=$management_profile
 
 # Create VPC
 zulu_dfw_vpc_id=$(aws ec2 create-vpc --cidr-block $zulu_dfw_vpc_cidr \
-                                     --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=Zulu-Dallas-VPC},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Project,Value=CaMeLz-POC-4}] \
+                                     --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=Zulu-Dallas-VPC},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                      --query 'Vpc.VpcId' \
                                      --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_vpc_id=$zulu_dfw_vpc_id"
@@ -8247,7 +8247,7 @@ aws ec2 create-flow-logs --resource-type VPC --resource-ids $zulu_dfw_vpc_id \
                          --profile $profile --region us-east-2 --output text
 
 # Create Internet Gateway & Attach
-zulu_dfw_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=Zulu-Dallas-InternetGateway},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Project,Value=CaMeLz-POC-4}] \
+zulu_dfw_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=Zulu-Dallas-InternetGateway},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                   --query 'InternetGateway.InternetGatewayId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_igw_id=$zulu_dfw_igw_id"
@@ -8268,7 +8268,7 @@ echo "zulu_dfw_private_hostedzone_id=$zulu_dfw_private_hostedzone_id"
 # Create DHCP Options Set
 zulu_dfw_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$zulu_dfw_private_domain]" \
                                                                      "Key=domain-name-servers,Values=[AmazonProvidedDNS]" \
-                                               --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=Zulu-Dallas-DHCPOptions},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Project,Value=CaMeLz-POC-4}] \
+                                               --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=Zulu-Dallas-DHCPOptions},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                --query 'DhcpOptions.DhcpOptionsId' \
                                                --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_dopt_id=$zulu_dfw_dopt_id"
@@ -8281,7 +8281,7 @@ aws ec2 associate-dhcp-options --vpc-id $zulu_dfw_vpc_id \
 zulu_dfw_public_subneta_id=$(aws ec2 create-subnet --vpc-id $zulu_dfw_vpc_id \
                                                    --cidr-block $zulu_dfw_subnet_publica_cidr \
                                                    --availability-zone us-east-2a \
-                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-PublicSubnetA},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-PublicSubnetA},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_public_subneta_id=$zulu_dfw_public_subneta_id"
@@ -8290,7 +8290,7 @@ echo "zulu_dfw_public_subneta_id=$zulu_dfw_public_subneta_id"
 zulu_dfw_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $zulu_dfw_vpc_id \
                                                    --cidr-block $zulu_dfw_subnet_publicb_cidr \
                                                    --availability-zone us-east-2b \
-                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-PublicSubnetB},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-PublicSubnetB},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_public_subnetb_id=$zulu_dfw_public_subnetb_id"
@@ -8299,7 +8299,7 @@ echo "zulu_dfw_public_subnetb_id=$zulu_dfw_public_subnetb_id"
 zulu_dfw_private_subneta_id=$(aws ec2 create-subnet --vpc-id $zulu_dfw_vpc_id \
                                                     --cidr-block $zulu_dfw_subnet_privatea_cidr \
                                                     --availability-zone us-east-2a \
-                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-PrivateSubnetA},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-PrivateSubnetA},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_private_subneta_id=$zulu_dfw_private_subneta_id"
@@ -8308,7 +8308,7 @@ echo "zulu_dfw_private_subneta_id=$zulu_dfw_private_subneta_id"
 zulu_dfw_private_subnetb_id=$(aws ec2 create-subnet --vpc-id $zulu_dfw_vpc_id \
                                                     --cidr-block $zulu_dfw_subnet_privateb_cidr \
                                                     --availability-zone us-east-2b \
-                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-PrivateSubnetB},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-PrivateSubnetB},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_private_subnetb_id=$zulu_dfw_private_subnetb_id"
@@ -8317,7 +8317,7 @@ echo "zulu_dfw_private_subnetb_id=$zulu_dfw_private_subnetb_id"
 zulu_dfw_management_subneta_id=$(aws ec2 create-subnet --vpc-id $zulu_dfw_vpc_id \
                                                        --cidr-block $zulu_dfw_subnet_managementa_cidr \
                                                        --availability-zone us-east-2a \
-                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-ManagementSubnetA},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-ManagementSubnetA},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_management_subneta_id=$zulu_dfw_management_subneta_id"
@@ -8326,7 +8326,7 @@ echo "zulu_dfw_management_subneta_id=$zulu_dfw_management_subneta_id"
 zulu_dfw_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $zulu_dfw_vpc_id \
                                                        --cidr-block $zulu_dfw_subnet_managementb_cidr \
                                                        --availability-zone us-east-2b \
-                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-ManagementSubnetB},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                       --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-ManagementSubnetB},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                        --query 'Subnet.SubnetId' \
                                                        --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_management_subnetb_id=$zulu_dfw_management_subnetb_id"
@@ -8335,7 +8335,7 @@ echo "zulu_dfw_management_subnetb_id=$zulu_dfw_management_subnetb_id"
 zulu_dfw_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $zulu_dfw_vpc_id \
                                                     --cidr-block $zulu_dfw_subnet_gatewaya_cidr \
                                                     --availability-zone us-east-2a \
-                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-GatewaySubnetA},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-GatewaySubnetA},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_gateway_subneta_id=$zulu_dfw_gateway_subneta_id"
@@ -8344,7 +8344,7 @@ echo "zulu_dfw_gateway_subneta_id=$zulu_dfw_gateway_subneta_id"
 zulu_dfw_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $zulu_dfw_vpc_id \
                                                     --cidr-block $zulu_dfw_subnet_gatewayb_cidr \
                                                     --availability-zone us-east-2b \
-                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-GatewaySubnetB},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-GatewaySubnetB},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_gateway_subnetb_id=$zulu_dfw_gateway_subnetb_id"
@@ -8353,7 +8353,7 @@ echo "zulu_dfw_gateway_subnetb_id=$zulu_dfw_gateway_subnetb_id"
 zulu_dfw_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $zulu_dfw_vpc_id \
                                                      --cidr-block $zulu_dfw_subnet_endpointa_cidr \
                                                      --availability-zone us-east-2a \
-                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-EndpointSubnetA},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-EndpointSubnetA},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                      --query 'Subnet.SubnetId' \
                                                      --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_endpoint_subneta_id=$zulu_dfw_endpoint_subneta_id"
@@ -8362,7 +8362,7 @@ echo "zulu_dfw_endpoint_subneta_id=$zulu_dfw_endpoint_subneta_id"
 zulu_dfw_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $zulu_dfw_vpc_id \
                                                      --cidr-block $zulu_dfw_subnet_endpointb_cidr \
                                                      --availability-zone us-east-2b \
-                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-EndpointSubnetB},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                     --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=Zulu-Dallas-EndpointSubnetB},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                      --query 'Subnet.SubnetId' \
                                                      --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_endpoint_subnetb_id=$zulu_dfw_endpoint_subnetb_id"
@@ -8371,7 +8371,7 @@ echo "zulu_dfw_endpoint_subnetb_id=$zulu_dfw_endpoint_subnetb_id"
 zulu_dfw_csr_sg_id=$(aws ec2 create-security-group --group-name Zulu-Dallas-CiscoCSR-InstanceSecurityGroup \
                                                    --description Zulu-Dallas-CiscoCSR-InstanceSecurityGroup \
                                                    --vpc-id $zulu_dfw_vpc_id \
-                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Zulu-Dallas-CiscoCSR-InstanceSecurityGroup},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Utility,Value=CiscoCSR},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Zulu-Dallas-CiscoCSR-InstanceSecurityGroup},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Utility,Value=CiscoCSR},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'GroupId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_csr_sg_id=$zulu_dfw_csr_sg_id"
@@ -8390,7 +8390,7 @@ aws ec2 authorize-security-group-ingress --group-id $zulu_dfw_csr_sg_id \
 
 # Create CiscoCSR EIP
 zulu_dfw_csr_eipa=$(aws ec2 allocate-address --domain vpc \
-                                             --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Zulu-Dallas-CiscoCSR-EIPA},{Key=Hostname,Value=zuldfwccsr01a},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Utility,Value=CiscoCSR},{Key=Project,Value=CaMeLz-POC-4}] \
+                                             --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Zulu-Dallas-CiscoCSR-EIPA},{Key=Hostname,Value=zuldfwccsr01a},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Utility,Value=CiscoCSR},{Key=Project,Value=CaMeLz-POC-4}] \
                                              --query 'AllocationId' \
                                              --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_csr_eipa=$zulu_dfw_csr_eipa"
@@ -8435,7 +8435,7 @@ zulu_dfw_csr_instancea_id=$(aws ec2 run-instances --image-id $ohio_csr_ami_id \
                                                   --iam-instance-profile Name=ManagedInstance \
                                                   --key-name administrator \
                                                   --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Zulu-Dallas-CiscoCSR-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$zulu_dfw_csr_sg_id],SubnetId=$zulu_dfw_public_subneta_id \
-                                                  --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Zulu-Dallas-CiscoCSR-InstanceA},{Key=Hostname,Value=zuldfwccsr01a},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Utility,Value=CiscoCSR},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                  --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Zulu-Dallas-CiscoCSR-InstanceA},{Key=Hostname,Value=zuldfwccsr01a},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Utility,Value=CiscoCSR},{Key=Project,Value=CaMeLz-POC-4}] \
                                                   --query 'Instances[0].InstanceId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_csr_instancea_id=$zulu_dfw_csr_instancea_id"
@@ -8488,7 +8488,7 @@ aws ec2 associate-address --instance-id $zulu_dfw_csr_instancea_id --allocation-
 
 # Create Public Route Table, Default Route and Associate with Public Subnets
 zulu_dfw_public_rtb_id=$(aws ec2 create-route-table --vpc-id $zulu_dfw_vpc_id \
-                                                    --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=Zulu-Dallas-PublicRouteTable},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                    --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=Zulu-Dallas-PublicRouteTable},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'RouteTable.RouteTableId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_public_rtb_id=$zulu_dfw_public_rtb_id"
@@ -8512,7 +8512,7 @@ aws ec2 associate-route-table --route-table-id $zulu_dfw_public_rtb_id --subnet-
 zulu_dfw_nat_sg_id=$(aws ec2 create-security-group --group-name Zulu-Dallas-NAT-InstanceSecurityGroup \
                                                    --description Zulu-Dallas-NAT-InstanceSecurityGroup \
                                                    --vpc-id $zulu_dfw_vpc_id \
-                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Zulu-Dallas-NAT-InstanceSecurityGroup},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Zulu-Dallas-NAT-InstanceSecurityGroup},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'GroupId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_nat_sg_id=$zulu_dfw_nat_sg_id"
@@ -8527,7 +8527,7 @@ zulu_dfw_nat_instance_id=$(aws ec2 run-instances --image-id $ohio_nat_ami_id \
                                                  --iam-instance-profile Name=ManagedInstance \
                                                  --key-name administrator \
                                                  --network-interfaces AssociatePublicIpAddress=true,DeleteOnTermination=true,Description=Zulu-Dallas-NAT-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$zulu_dfw_nat_sg_id],SubnetId=$zulu_dfw_public_subneta_id \
-                                                 --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Zulu-Dallas-NAT-Instance},{Key=Hostname,Value=zuldfwcnat01a},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                 --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Zulu-Dallas-NAT-Instance},{Key=Hostname,Value=zuldfwcnat01a},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}] \
                                                  --query 'Instances[0].InstanceId' \
                                                  --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_nat_instance_id=$zulu_dfw_nat_instance_id"
@@ -8548,7 +8548,7 @@ echo "zulu_dfw_nat_instance_private_ip=$zulu_dfw_nat_instance_private_ip"
 
 # Create Private Route Table for Availability Zone A, Default Route and Associate with Private Subnets
 zulu_dfw_private_rtba_id=$(aws ec2 create-route-table --vpc-id $zulu_dfw_vpc_id \
-                                                      --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=Zulu-Dallas-PrivateRouteTableA},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                      --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=Zulu-Dallas-PrivateRouteTableA},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                       --query 'RouteTable.RouteTableId' \
                                                       --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_private_rtba_id=$zulu_dfw_private_rtba_id"
@@ -8573,7 +8573,7 @@ aws ec2 associate-route-table --route-table-id $zulu_dfw_private_rtba_id --subne
                               --profile $profile --region us-east-2 --output text
 
 zulu_dfw_private_rtbb_id=$(aws ec2 create-route-table --vpc-id $zulu_dfw_vpc_id \
-                                                      --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=Zulu-Dallas-PrivateRouteTableB},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                      --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=Zulu-Dallas-PrivateRouteTableB},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                       --query 'RouteTable.RouteTableId' \
                                                       --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_private_rtbb_id=$zulu_dfw_private_rtbb_id"
@@ -8601,7 +8601,7 @@ aws ec2 associate-route-table --route-table-id $zulu_dfw_private_rtbb_id --subne
 zulu_dfw_vpce_sg_id=$(aws ec2 create-security-group --group-name Zulu-Dallas-VPCEndpointSecurityGroup \
                                                     --description Zulu-Dallas-VPCEndpointSecurityGroup \
                                                     --vpc-id $zulu_dfw_vpc_id \
-                                                    --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Zulu-Dallas-VPCEndpointSecurityGroup},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                    --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Zulu-Dallas-VPCEndpointSecurityGroup},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'GroupId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_vpce_sg_id=$zulu_dfw_vpce_sg_id"
@@ -8622,7 +8622,7 @@ zulu_dfw_ssm_vpce_id=$(aws ec2 create-vpc-endpoint --vpc-id $zulu_dfw_vpc_id \
                                                    --security-group-ids $zulu_dfw_vpce_sg_id \
                                                    --subnet-ids $zulu_dfw_endpoint_subneta_id $zulu_dfw_endpoint_subnetb_id \
                                                    --client-token $(date +%s) \
-                                                   --tag-specifications ResourceType=vpc-endpoint,Tags=[{Key=Name,Value=Zulu-Dallas-SSMVpcEndpoint},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=vpc-endpoint,Tags=[{Key=Name,Value=Zulu-Dallas-SSMVpcEndpoint},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'VpcEndpoint.VpcEndpointId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_ssm_vpce_id=$zulu_dfw_ssm_vpce_id"
@@ -8634,7 +8634,7 @@ zulu_dfw_ssmm_vpce_id=$(aws ec2 create-vpc-endpoint --vpc-id $zulu_dfw_vpc_id \
                                                     --security-group-ids $zulu_dfw_vpce_sg_id \
                                                     --subnet-ids $zulu_dfw_endpoint_subneta_id $zulu_dfw_endpoint_subnetb_id \
                                                     --client-token $(date +%s) \
-                                                    --tag-specifications ResourceType=vpc-endpoint,Tags=[{Key=Name,Value=Zulu-Dallas-SSMMessagesVpcEndpoint},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                    --tag-specifications ResourceType=vpc-endpoint,Tags=[{Key=Name,Value=Zulu-Dallas-SSMMessagesVpcEndpoint},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'VpcEndpoint.VpcEndpointId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_ssmm_vpce_id=$zulu_dfw_ssmm_vpce_id"
@@ -8647,7 +8647,7 @@ profile=$management_profile
 
 # Create VPC
 cml_sba_vpc_id=$(aws ec2 create-vpc --cidr-block $cml_sba_vpc_cidr \
-                                    --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-VPC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Project,Value=CaMeLz-POC-4}] \
+                                    --tag-specifications ResourceType=vpc,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-VPC},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                     --query 'Vpc.VpcId' \
                                     --profile $profile --region us-east-2 --output text)
 echo "cml_sba_vpc_id=$cml_sba_vpc_id"
@@ -8672,7 +8672,7 @@ aws ec2 create-flow-logs --resource-type VPC --resource-ids $cml_sba_vpc_id \
                          --profile $profile --region us-east-2 --output text
 
 # Create Internet Gateway & Attach
-cml_sba_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-InternetGateway},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Project,Value=CaMeLz-POC-4}] \
+cml_sba_igw_id=$(aws ec2 create-internet-gateway --tag-specifications ResourceType=internet-gateway,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-InternetGateway},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                  --query 'InternetGateway.InternetGatewayId' \
                                                  --profile $profile --region us-east-2 --output text)
 echo "cml_sba_igw_id=$cml_sba_igw_id"
@@ -8693,7 +8693,7 @@ echo "cml_sba_private_hostedzone_id=$cml_sba_private_hostedzone_id"
 # Create DHCP Options Set
 cml_sba_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$cml_sba_private_domain]" \
                                                                     "Key=domain-name-servers,Values=[AmazonProvidedDNS]" \
-                                              --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-DHCPOptions},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Project,Value=CaMeLz-POC-4}] \
+                                              --tag-specifications ResourceType=dhcp-options,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-DHCPOptions},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                               --query 'DhcpOptions.DhcpOptionsId' \
                                               --profile $profile --region us-east-2 --output text)
 echo "cml_sba_dopt_id=$cml_sba_dopt_id"
@@ -8706,7 +8706,7 @@ aws ec2 associate-dhcp-options --vpc-id $cml_sba_vpc_id \
 cml_sba_public_subneta_id=$(aws ec2 create-subnet --vpc-id $cml_sba_vpc_id \
                                                   --cidr-block $cml_sba_subnet_publica_cidr \
                                                   --availability-zone us-east-2a \
-                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-PublicSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-PublicSubnetA},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                   --query 'Subnet.SubnetId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "cml_sba_public_subneta_id=$cml_sba_public_subneta_id"
@@ -8715,7 +8715,7 @@ echo "cml_sba_public_subneta_id=$cml_sba_public_subneta_id"
 cml_sba_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $cml_sba_vpc_id \
                                                   --cidr-block $cml_sba_subnet_publicb_cidr \
                                                   --availability-zone us-east-2b \
-                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-PublicSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                  --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-PublicSubnetB},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                   --query 'Subnet.SubnetId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "cml_sba_public_subnetb_id=$cml_sba_public_subnetb_id"
@@ -8724,7 +8724,7 @@ echo "cml_sba_public_subnetb_id=$cml_sba_public_subnetb_id"
 cml_sba_private_subneta_id=$(aws ec2 create-subnet --vpc-id $cml_sba_vpc_id \
                                                    --cidr-block $cml_sba_subnet_privatea_cidr \
                                                    --availability-zone us-east-2a \
-                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-PrivateSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-PrivateSubnetA},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "cml_sba_private_subneta_id=$cml_sba_private_subneta_id"
@@ -8733,7 +8733,7 @@ echo "cml_sba_private_subneta_id=$cml_sba_private_subneta_id"
 cml_sba_private_subnetb_id=$(aws ec2 create-subnet --vpc-id $cml_sba_vpc_id \
                                                    --cidr-block $cml_sba_subnet_privateb_cidr \
                                                    --availability-zone us-east-2b \
-                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-PrivateSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-PrivateSubnetB},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "cml_sba_private_subnetb_id=$cml_sba_private_subnetb_id"
@@ -8742,7 +8742,7 @@ echo "cml_sba_private_subnetb_id=$cml_sba_private_subnetb_id"
 cml_sba_management_subneta_id=$(aws ec2 create-subnet --vpc-id $cml_sba_vpc_id \
                                                       --cidr-block $cml_sba_subnet_managementa_cidr \
                                                       --availability-zone us-east-2a \
-                                                      --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-ManagementSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                      --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-ManagementSubnetA},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                       --query 'Subnet.SubnetId' \
                                                       --profile $profile --region us-east-2 --output text)
 echo "cml_sba_management_subneta_id=$cml_sba_management_subneta_id"
@@ -8751,7 +8751,7 @@ echo "cml_sba_management_subneta_id=$cml_sba_management_subneta_id"
 cml_sba_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $cml_sba_vpc_id \
                                                       --cidr-block $cml_sba_subnet_managementb_cidr \
                                                       --availability-zone us-east-2b \
-                                                      --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-ManagementSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                      --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-ManagementSubnetB},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                       --query 'Subnet.SubnetId' \
                                                       --profile $profile --region us-east-2 --output text)
 echo "cml_sba_management_subnetb_id=$cml_sba_management_subnetb_id"
@@ -8760,7 +8760,7 @@ echo "cml_sba_management_subnetb_id=$cml_sba_management_subnetb_id"
 cml_sba_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $cml_sba_vpc_id \
                                                    --cidr-block $cml_sba_subnet_gatewaya_cidr \
                                                    --availability-zone us-east-2a \
-                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-GatewaySubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-GatewaySubnetA},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "cml_sba_gateway_subneta_id=$cml_sba_gateway_subneta_id"
@@ -8769,7 +8769,7 @@ echo "cml_sba_gateway_subneta_id=$cml_sba_gateway_subneta_id"
 cml_sba_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $cml_sba_vpc_id \
                                                    --cidr-block $cml_sba_subnet_gatewayb_cidr \
                                                    --availability-zone us-east-2b \
-                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-GatewaySubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-GatewaySubnetB},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'Subnet.SubnetId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "cml_sba_gateway_subnetb_id=$cml_sba_gateway_subnetb_id"
@@ -8778,7 +8778,7 @@ echo "cml_sba_gateway_subnetb_id=$cml_sba_gateway_subnetb_id"
 cml_sba_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $cml_sba_vpc_id \
                                                     --cidr-block $cml_sba_subnet_endpointa_cidr \
                                                     --availability-zone us-east-2a \
-                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-EndpointSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-EndpointSubnetA},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "cml_sba_endpoint_subneta_id=$cml_sba_endpoint_subneta_id"
@@ -8787,7 +8787,7 @@ echo "cml_sba_endpoint_subneta_id=$cml_sba_endpoint_subneta_id"
 cml_sba_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $cml_sba_vpc_id \
                                                     --cidr-block $cml_sba_subnet_endpointb_cidr \
                                                     --availability-zone us-east-2b \
-                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-EndpointSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                    --tag-specifications ResourceType=subnet,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-EndpointSubnetB},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                     --query 'Subnet.SubnetId' \
                                                     --profile $profile --region us-east-2 --output text)
 echo "cml_sba_endpoint_subnetb_id=$cml_sba_endpoint_subnetb_id"
@@ -8796,7 +8796,7 @@ echo "cml_sba_endpoint_subnetb_id=$cml_sba_endpoint_subnetb_id"
 cml_sba_csr_sg_id=$(aws ec2 create-security-group --group-name CaMeLz-SantaBarbara-CiscoCSR-InstanceSecurityGroup \
                                                   --description CaMeLz-SantaBarbara-CiscoCSR-InstanceSecurityGroup \
                                                   --vpc-id $cml_sba_vpc_id \
-                                                  --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-CiscoCSR-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Utility,Value=CiscoCSR},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                  --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-CiscoCSR-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Utility,Value=CiscoCSR},{Key=Project,Value=CaMeLz-POC-4}] \
                                                   --query 'GroupId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "cml_sba_csr_sg_id=$cml_sba_csr_sg_id"
@@ -8815,7 +8815,7 @@ aws ec2 authorize-security-group-ingress --group-id $cml_sba_csr_sg_id \
 
 # Create CiscoCSR EIP
 cml_sba_csr_eipa=$(aws ec2 allocate-address --domain vpc \
-                                            --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-CiscoCSR-EIPA},{Key=Hostname,Value=cmlsbaccsr01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Utility,Value=CiscoCSR},{Key=Project,Value=CaMeLz-POC-4}] \
+                                            --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-CiscoCSR-EIPA},{Key=Hostname,Value=cmlsbaccsr01a},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Utility,Value=CiscoCSR},{Key=Project,Value=CaMeLz-POC-4}] \
                                             --query 'AllocationId' \
                                             --profile $profile --region us-east-2 --output text)
 echo "cml_sba_csr_eipa=$cml_sba_csr_eipa"
@@ -8860,7 +8860,7 @@ cml_sba_csr_instancea_id=$(aws ec2 run-instances --image-id $ohio_csr_ami_id \
                                                  --iam-instance-profile Name=ManagedInstance \
                                                  --key-name administrator \
                                                  --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=CaMeLz-SantaBarbara-CiscoCSR-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$cml_sba_csr_sg_id],SubnetId=$cml_sba_public_subneta_id \
-                                                 --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-CiscoCSR-InstanceA},{Key=Hostname,Value=cmlsbaccsr01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Utility,Value=CiscoCSR},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                 --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-CiscoCSR-InstanceA},{Key=Hostname,Value=cmlsbaccsr01a},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Utility,Value=CiscoCSR},{Key=Project,Value=CaMeLz-POC-4}] \
                                                  --query 'Instances[0].InstanceId' \
                                                  --profile $profile --region us-east-2 --output text)
 echo "cml_sba_csr_instancea_id=$cml_sba_csr_instancea_id"
@@ -8913,7 +8913,7 @@ aws ec2 associate-address --instance-id $cml_sba_csr_instancea_id --allocation-i
 
 # Create Public Route Table, Default Route and Associate with Public Subnets
 cml_sba_public_rtb_id=$(aws ec2 create-route-table --vpc-id $cml_sba_vpc_id \
-                                                   --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-PublicRouteTable},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-PublicRouteTable},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'RouteTable.RouteTableId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "cml_sba_public_rtb_id=$cml_sba_public_rtb_id"
@@ -8937,7 +8937,7 @@ aws ec2 associate-route-table --route-table-id $cml_sba_public_rtb_id --subnet-i
 cml_sba_nat_sg_id=$(aws ec2 create-security-group --group-name CaMeLz-SantaBarbara-NAT-InstanceSecurityGroup \
                                                   --description CaMeLz-SantaBarbara-NAT-InstanceSecurityGroup \
                                                   --vpc-id $cml_sba_vpc_id \
-                                                  --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-NAT-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                  --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-NAT-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}] \
                                                   --query 'GroupId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "cml_sba_nat_sg_id=$cml_sba_nat_sg_id"
@@ -8952,7 +8952,7 @@ cml_sba_nat_instance_id=$(aws ec2 run-instances --image-id $ohio_nat_ami_id \
                                                 --iam-instance-profile Name=ManagedInstance \
                                                 --key-name administrator \
                                                 --network-interfaces AssociatePublicIpAddress=true,DeleteOnTermination=true,Description=CaMeLz-SantaBarbara-NAT-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$cml_sba_nat_sg_id],SubnetId=$cml_sba_public_subneta_id \
-                                                --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-NAT-Instance},{Key=Hostname,Value=cmlsbacnat01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-NAT-Instance},{Key=Hostname,Value=cmlsbacnat01a},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}] \
                                                 --query 'Instances[0].InstanceId' \
                                                 --profile $profile --region us-east-2 --output text)
 echo "cml_sba_nat_instance_id=$cml_sba_nat_instance_id"
@@ -8973,7 +8973,7 @@ echo "cml_sba_nat_instance_private_ip=$cml_sba_nat_instance_private_ip"
 
 # Create Private Route Table for Availability Zone A, Default Route and Associate with Private Subnets
 cml_sba_private_rtba_id=$(aws ec2 create-route-table --vpc-id $cml_sba_vpc_id \
-                                                     --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-PrivateRouteTableA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                     --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-PrivateRouteTableA},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                      --query 'RouteTable.RouteTableId' \
                                                      --profile $profile --region us-east-2 --output text)
 echo "cml_sba_private_rtba_id=$cml_sba_private_rtba_id"
@@ -8998,7 +8998,7 @@ aws ec2 associate-route-table --route-table-id $cml_sba_private_rtba_id --subnet
                               --profile $profile --region us-east-2 --output text
 
 cml_sba_private_rtbb_id=$(aws ec2 create-route-table --vpc-id $cml_sba_vpc_id \
-                                                     --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-PrivateRouteTableB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                     --tag-specifications ResourceType=route-table,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-PrivateRouteTableB},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                      --query 'RouteTable.RouteTableId' \
                                                      --profile $profile --region us-east-2 --output text)
 echo "cml_sba_private_rtbb_id=$cml_sba_private_rtbb_id"
@@ -9026,7 +9026,7 @@ aws ec2 associate-route-table --route-table-id $cml_sba_private_rtbb_id --subnet
 cml_sba_vpce_sg_id=$(aws ec2 create-security-group --group-name CaMeLz-SantaBarbara-VPCEndpointSecurityGroup \
                                                    --description CaMeLz-SantaBarbara-VPCEndpointSecurityGroup \
                                                    --vpc-id $cml_sba_vpc_id \
-                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-VPCEndpointSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-VPCEndpointSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'GroupId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "cml_sba_vpce_sg_id=$cml_sba_vpce_sg_id"
@@ -9047,7 +9047,7 @@ cml_sba_ssm_vpce_id=$(aws ec2 create-vpc-endpoint --vpc-id $cml_sba_vpc_id \
                                                   --security-group-ids $cml_sba_vpce_sg_id \
                                                   --subnet-ids $cml_sba_endpoint_subneta_id $cml_sba_endpoint_subnetb_id \
                                                   --client-token $(date +%s) \
-                                                  --tag-specifications ResourceType=vpc-endpoint,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-SSMVpcEndpoint},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                  --tag-specifications ResourceType=vpc-endpoint,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-SSMVpcEndpoint},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                   --query 'VpcEndpoint.VpcEndpointId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "cml_sba_ssm_vpce_id=$cml_sba_ssm_vpce_id"
@@ -9059,7 +9059,7 @@ cml_sba_ssmm_vpce_id=$(aws ec2 create-vpc-endpoint --vpc-id $cml_sba_vpc_id \
                                                    --security-group-ids $cml_sba_vpce_sg_id \
                                                    --subnet-ids $cml_sba_endpoint_subneta_id $cml_sba_endpoint_subnetb_id \
                                                    --client-token $(date +%s) \
-                                                   --tag-specifications ResourceType=vpc-endpoint,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-SSMMessagesVpcEndpoint},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=vpc-endpoint,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-SSMMessagesVpcEndpoint},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'VpcEndpoint.VpcEndpointId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "cml_sba_ssmm_vpce_id=$cml_sba_ssmm_vpce_id"

@@ -3198,7 +3198,7 @@ profile=$management_profile
 alfa_lax_lws_sg_id=$(aws ec2 create-security-group --group-name Alfa-LosAngeles-LinuxWebServer-InstanceSecurityGroup \
                                                    --description Alfa-LosAngeles-LinuxWebServer-InstanceSecurityGroup \
                                                    --vpc-id $alfa_lax_vpc_id \
-                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-LosAngeles-LinuxWebServer-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-LosAngeles-LinuxWebServer-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'GroupId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_lws_sg_id=$alfa_lax_lws_sg_id"
@@ -3219,7 +3219,7 @@ aws ec2 authorize-security-group-ingress --group-id $alfa_lax_lws_sg_id \
 
 # Create LinuxWebServer EIP
 alfa_lax_lws_eipa=$(aws ec2 allocate-address --domain vpc \
-                                             --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Alfa-LosAngeles-LinuxWebServer-EIPA},{Key=Hostname,Value=alflaxnlws01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
+                                             --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Alfa-LosAngeles-LinuxWebServer-EIPA},{Key=Hostname,Value=alflaxnlws01a},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
                                              --query 'AllocationId' \
                                              --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_lws_eipa=$alfa_lax_lws_eipa"
@@ -3271,7 +3271,7 @@ alfa_lax_lws_instancea_id=$(aws ec2 run-instances --image-id $ohio_amzn2_ami_id 
                                                   --iam-instance-profile Name=ManagedInstance \
                                                   --key-name administrator \
                                                   --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-LosAngeles-LinuxWebServer-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_lax_lws_sg_id],SubnetId=$alfa_lax_public_subneta_id \
-                                                  --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-LosAngeles-LinuxWebServer-InstanceA},{Key=Hostname,Value=alflaxnlws01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                  --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-LosAngeles-LinuxWebServer-InstanceA},{Key=Hostname,Value=alflaxnlws01a},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
                                                   --user-data file://$tmpfile \
                                                   --client-token $(date +%s) \
                                                   --query 'Instances[0].InstanceId' \
@@ -3319,7 +3319,7 @@ aws ec2 associate-address --instance-id $alfa_lax_lws_instancea_id --allocation-
 alfa_lax_las_sg_id=$(aws ec2 create-security-group --group-name Alfa-LosAngeles-LinuxApplicationServer-InstanceSecurityGroup \
                                                    --description Alfa-LosAngeles-LinuxApplicationServer-InstanceSecurityGroup \
                                                    --vpc-id $alfa_lax_vpc_id \
-                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-LosAngeles-LinuxApplicationServer-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Application,Value=LinuxApplicationServer},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-LosAngeles-LinuxApplicationServer-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Application,Value=LinuxApplicationServer},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'GroupId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "alfa_lax_las_sg_id=$alfa_lax_las_sg_id"
@@ -3346,7 +3346,7 @@ alfa_lax_las_instancea_id=$(aws ec2 run-instances --image-id $ohio_amzn2_ami_id 
                                                   --iam-instance-profile Name=ManagedInstance \
                                                   --key-name administrator \
                                                   --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-LosAngeles-LinuxApplicationServer-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_lax_las_sg_id],SubnetId=$alfa_lax_private_subneta_id \
-                                                  --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-LosAngeles-LinuxApplicationServer-InstanceA},{Key=Hostname,Value=alflaxnlas01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Application,Value=LinuxApplicationServer},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                  --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-LosAngeles-LinuxApplicationServer-InstanceA},{Key=Hostname,Value=alflaxnlas01a},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Application,Value=LinuxApplicationServer},{Key=Project,Value=CaMeLz-POC-4}] \
                                                   --user-data file://$tmpfile \
                                                   --client-token $(date +%s) \
                                                   --query 'Instances[0].InstanceId' \
@@ -3397,7 +3397,7 @@ profile=$management_profile
 alfa_mia_lws_sg_id=$(aws ec2 create-security-group --group-name Alfa-Miami-LinuxWebServer-InstanceSecurityGroup \
                                                    --description Alfa-Miami-LinuxWebServer-InstanceSecurityGroup \
                                                    --vpc-id $alfa_mia_vpc_id \
-                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Miami-LinuxWebServer-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Miami-LinuxWebServer-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'GroupId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_lws_sg_id=$alfa_mia_lws_sg_id"
@@ -3418,7 +3418,7 @@ aws ec2 authorize-security-group-ingress --group-id $alfa_mia_lws_sg_id \
 
 # Create LinuxWebServer EIP
 alfa_mia_lws_eipa=$(aws ec2 allocate-address --domain vpc \
-                                             --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Alfa-Miami-LinuxWebServer-EIPA},{Key=Hostname,Value=alfmianlws01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
+                                             --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Alfa-Miami-LinuxWebServer-EIPA},{Key=Hostname,Value=alfmianlws01a},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
                                              --query 'AllocationId' \
                                              --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_lws_eipa=$alfa_mia_lws_eipa"
@@ -3470,7 +3470,7 @@ alfa_mia_lws_instancea_id=$(aws ec2 run-instances --image-id $ohio_amzn2_ami_id 
                                                   --iam-instance-profile Name=ManagedInstance \
                                                   --key-name administrator \
                                                   --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-Miami-LinuxWebServer-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_mia_lws_sg_id],SubnetId=$alfa_mia_public_subneta_id \
-                                                  --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Miami-LinuxWebServer-InstanceA},{Key=Hostname,Value=alfmianlws01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                  --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Miami-LinuxWebServer-InstanceA},{Key=Hostname,Value=alfmianlws01a},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
                                                   --user-data file://$tmpfile \
                                                   --client-token $(date +%s) \
                                                   --query 'Instances[0].InstanceId' \
@@ -3518,7 +3518,7 @@ aws ec2 associate-address --instance-id $alfa_mia_lws_instancea_id --allocation-
 alfa_mia_las_sg_id=$(aws ec2 create-security-group --group-name Alfa-Miami-LinuxApplicationServer-InstanceSecurityGroup \
                                                    --description Alfa-Miami-LinuxApplicationServer-InstanceSecurityGroup \
                                                    --vpc-id $alfa_mia_vpc_id \
-                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Miami-LinuxApplicationServer-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Application,Value=LinuxApplicationServer},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Miami-LinuxApplicationServer-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Application,Value=LinuxApplicationServer},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'GroupId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "alfa_mia_las_sg_id=$alfa_mia_las_sg_id"
@@ -3545,7 +3545,7 @@ alfa_mia_las_instancea_id=$(aws ec2 run-instances --image-id $ohio_amzn2_ami_id 
                                                   --iam-instance-profile Name=ManagedInstance \
                                                   --key-name administrator \
                                                   --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-Miami-LinuxApplicationServer-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_mia_las_sg_id],SubnetId=$alfa_mia_private_subneta_id \
-                                                  --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Miami-LinuxApplicationServer-InstanceA},{Key=Hostname,Value=alfmianlas01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Application,Value=LinuxApplicationServer},{Key=Project,Value=CaMeLz-POC-n}] \
+                                                  --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Miami-LinuxApplicationServer-InstanceA},{Key=Hostname,Value=alfmianlas01a},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Application,Value=LinuxApplicationServer},{Key=Project,Value=CaMeLz-POC-n}] \
                                                   --user-data file://$tmpfile \
                                                   --client-token $(date +%s) \
                                                   --query 'Instances[0].InstanceId' \
@@ -3596,7 +3596,7 @@ profile=$management_profile
 zulu_dfw_lws_sg_id=$(aws ec2 create-security-group --group-name Zulu-Dallas-LinuxWebServer-InstanceSecurityGroup \
                                                    --description Zulu-Dallas-LinuxWebServer-InstanceSecurityGroup \
                                                    --vpc-id $zulu_dfw_vpc_id \
-                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Zulu-Dallas-LinuxWebServer-InstanceSecurityGroup},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Zulu-Dallas-LinuxWebServer-InstanceSecurityGroup},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'GroupId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_lws_sg_id=$zulu_dfw_lws_sg_id"
@@ -3617,7 +3617,7 @@ aws ec2 authorize-security-group-ingress --group-id $zulu_dfw_lws_sg_id \
 
 # Create LinuxWebServer EIP
 zulu_dfw_lws_eipa=$(aws ec2 allocate-address --domain vpc \
-                                             --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Zulu-Dallas-LinuxWebServer-EIPA},{Key=Hostname,Value=zuldfwnlws01a},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
+                                             --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=Zulu-Dallas-LinuxWebServer-EIPA},{Key=Hostname,Value=zuldfwnlws01a},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
                                              --query 'AllocationId' \
                                              --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_lws_eipa=$zulu_dfw_lws_eipa"
@@ -3669,7 +3669,7 @@ zulu_dfw_lws_instancea_id=$(aws ec2 run-instances --image-id $ohio_amzn2_ami_id 
                                                   --iam-instance-profile Name=ManagedInstance \
                                                   --key-name administrator \
                                                   --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Zulu-Dallas-LinuxWebServer-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$zulu_dfw_lws_sg_id],SubnetId=$zulu_dfw_public_subneta_id \
-                                                  --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Zulu-Dallas-LinuxWebServer-InstanceA},{Key=Hostname,Value=zuldfwnlws01a},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                  --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Zulu-Dallas-LinuxWebServer-InstanceA},{Key=Hostname,Value=zuldfwnlws01a},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
                                                   --user-data file://$tmpfile \
                                                   --client-token $(date +%s) \
                                                   --query 'Instances[0].InstanceId' \
@@ -3717,7 +3717,7 @@ aws ec2 associate-address --instance-id $zulu_dfw_lws_instancea_id --allocation-
 zulu_dfw_las_sg_id=$(aws ec2 create-security-group --group-name Zulu-Dallas-LinuxApplicationServer-InstanceSecurityGroup \
                                                    --description Zulu-Dallas-LinuxApplicationServer-InstanceSecurityGroup \
                                                    --vpc-id $zulu_dfw_vpc_id \
-                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Zulu-Dallas-LinuxApplicationServer-InstanceSecurityGroup},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Application,Value=LinuxApplicationServer},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                   --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Zulu-Dallas-LinuxApplicationServer-InstanceSecurityGroup},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Application,Value=LinuxApplicationServer},{Key=Project,Value=CaMeLz-POC-4}] \
                                                    --query 'GroupId' \
                                                    --profile $profile --region us-east-2 --output text)
 echo "zulu_dfw_las_sg_id=$zulu_dfw_las_sg_id"
@@ -3744,7 +3744,7 @@ zulu_dfw_las_instancea_id=$(aws ec2 run-instances --image-id $ohio_amzn2_ami_id 
                                                   --iam-instance-profile Name=ManagedInstance \
                                                   --key-name administrator \
                                                   --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Zulu-Dallas-LinuxApplicationServer-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$zulu_dfw_las_sg_id],SubnetId=$zulu_dfw_private_subneta_id \
-                                                  --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Zulu-Dallas-LinuxApplicationServer-InstanceA},{Key=Hostname,Value=zuldfwnlas01a},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Application,Value=LinuxApplicationServer},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                  --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Zulu-Dallas-LinuxApplicationServer-InstanceA},{Key=Hostname,Value=zuldfwnlas01a},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Application,Value=LinuxApplicationServer},{Key=Project,Value=CaMeLz-POC-4}] \
                                                   --user-data file://$tmpfile \
                                                   --client-token $(date +%s) \
                                                   --query 'Instances[0].InstanceId' \
@@ -3795,7 +3795,7 @@ profile=$management_profile
 cml_sba_lws_sg_id=$(aws ec2 create-security-group --group-name CaMeLz-SantaBarbara-LinuxWebServer-InstanceSecurityGroup \
                                                   --description CaMeLz-SantaBarbara-LinuxWebServer-InstanceSecurityGroup \
                                                   --vpc-id $cml_sba_vpc_id \
-                                                  --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-LinuxWebServer-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                  --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-LinuxWebServer-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
                                                   --query 'GroupId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "cml_sba_lws_sg_id=$cml_sba_lws_sg_id"
@@ -3816,7 +3816,7 @@ aws ec2 authorize-security-group-ingress --group-id $cml_sba_lws_sg_id \
 
 # Create LinuxWebServer EIP
 cml_sba_lws_eipa=$(aws ec2 allocate-address --domain vpc \
-                                            --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-LinuxWebServer-EIPA},{Key=Hostname,Value=cmlsbanlws01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
+                                            --tag-specifications ResourceType=elastic-ip,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-LinuxWebServer-EIPA},{Key=Hostname,Value=cmlsbanlws01a},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
                                              --query 'AllocationId' \
                                             --profile $profile --region us-east-2 --output text)
 echo "cml_sba_lws_eipa=$cml_sba_lws_eipa"
@@ -3868,7 +3868,7 @@ cml_sba_lws_instancea_id=$(aws ec2 run-instances --image-id $ohio_amzn2_ami_id \
                                                  --iam-instance-profile Name=ManagedInstance \
                                                  --key-name administrator \
                                                  --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=CaMeLz-SantaBarbara-LinuxWebServer-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$cml_sba_lws_sg_id],SubnetId=$cml_sba_public_subneta_id \
-                                                 --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-LinuxWebServer-InstanceA},{Key=Hostname,Value=cmlnclws01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                 --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-LinuxWebServer-InstanceA},{Key=Hostname,Value=cmlnclws01a},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
                                                  --user-data file://$tmpfile \
                                                  --client-token $(date +%s) \
                                                  --query 'Instances[0].InstanceId' \
@@ -3916,7 +3916,7 @@ aws ec2 associate-address --instance-id $cml_sba_lws_instancea_id --allocation-i
 cml_sba_las_sg_id=$(aws ec2 create-security-group --group-name CaMeLz-SantaBarbara-LinuxApplicationServer-InstanceSecurityGroup \
                                                   --description CaMeLz-SantaBarbara-LinuxApplicationServer-InstanceSecurityGroup \
                                                   --vpc-id $cml_sba_vpc_id \
-                                                  --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-LinuxApplicationServer-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Application,Value=LinuxApplicationServer},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                  --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-LinuxApplicationServer-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Application,Value=LinuxApplicationServer},{Key=Project,Value=CaMeLz-POC-4}] \
                                                   --query 'GroupId' \
                                                   --profile $profile --region us-east-2 --output text)
 echo "cml_sba_las_sg_id=$cml_sba_las_sg_id"
@@ -3943,7 +3943,7 @@ cml_sba_las_instancea_id=$(aws ec2 run-instances --image-id $ohio_amzn2_ami_id \
                                                  --iam-instance-profile Name=ManagedInstance \
                                                  --key-name administrator \
                                                  --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=CaMeLz-SantaBarbara-LinuxApplicationServer-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$cml_sba_las_sg_id],SubnetId=$cml_sba_private_subneta_id \
-                                                 --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-LinuxApplicationServer-InstanceA},{Key=Hostname,Value=cmlsbanlas01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Application,Value=LinuxApplicationServer},{Key=Project,Value=CaMeLz-POC}] \
+                                                 --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=CaMeLz-SantaBarbara-LinuxApplicationServer-InstanceA},{Key=Hostname,Value=cmlsbanlas01a},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Application,Value=LinuxApplicationServer},{Key=Project,Value=CaMeLz-POC}] \
                                                  --user-data file://$tmpfile \
                                                  --client-token $(date +%s) \
                                                  --query 'Instances[0].InstanceId' \

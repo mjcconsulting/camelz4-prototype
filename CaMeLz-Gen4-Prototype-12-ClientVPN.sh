@@ -59,8 +59,7 @@ aws ec2 create-tags --resources $core_client_vpn_sg_id \
                            Key=Company,Value=CaMeLz \
                            Key=Environment,Value=Core \
                            Key=Utility,Value=ClientVpn \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
+                           Key=Project,Value=CaMeLz-POC-4 \
                     --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $core_client_vpn_sg_id \
@@ -86,7 +85,7 @@ core_client_vpn_endpoint_id=$(aws ec2 create-client-vpn-endpoint --description C
                                                                  --vpn-port 1194 \
                                                                  --split-tunnel \
                                                                  --client-token $(date +%s) \
-                                                                 --tag-specifications "ResourceType=client-vpn-endpoint,Tags=[{Key=Name,Value=Core-ClientVpnEndpoint},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                                 --tag-specifications ResourceType=client-vpn-endpoint,Tags=[{Key=Name,Value=Core-ClientVpnEndpoint},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Core},{Key=Project,Value=CaMeLz-POC-4}] \
                                                                  --query 'ClientVpnEndpointId' \
                                                                  --profile $profile --region us-east-2 --output text)
 echo "core_client_vpn_endpoint_id=$core_client_vpn_endpoint_id"

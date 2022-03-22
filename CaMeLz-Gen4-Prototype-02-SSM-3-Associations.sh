@@ -46,7 +46,7 @@ if [ -z $(aws ssm list-associations --association-filter-list key=AssociationNam
   echo "Association: SystemAssociationForLinuxProfile does not exist, creating"
   aws ssm create-association --association-name SystemAssociationForLinuxProfile \
                              --name CAMELZ-ConfigureLinuxProfile \
-                             --targets Key=tag:Project,Values="CaMeLz4 POC" \
+                             --targets Key=tag:Project,Values=CaMeLz-POC-4 \
                              --schedule-expression "rate(3 days)" \
                              --query 'AssociationDescription.Overview.DetailedStatus' \
                              --profile $profile --region us-east-1 --output text
@@ -61,7 +61,7 @@ if [ -z $(aws ssm list-associations --association-filter-list key=AssociationNam
   aws ssm create-association --association-name SystemAssociationForWindowsGoogleChrome \
                              --name AWS-InstallApplication \
                              --parameters source=$chrome_installer_url,sourceHash=$chrome_installer_sha256 \
-                             --targets Key=tag:Project,Values="CaMeLz4 POC" \
+                             --targets Key=tag:Project,Values=CaMeLz-POC-4 \
                              --query 'AssociationDescription.Overview.DetailedStatus' \
                              --profile $profile --region us-east-1 --output text
 else
@@ -75,7 +75,7 @@ if [ -z $(aws ssm list-associations --association-filter-list key=AssociationNam
   aws ssm create-association --association-name WindowsBastionsAssociationForRoyalTS \
                              --name AWS-InstallApplication \
                              --parameters source=$royalts_installer_url,sourceHash=$royalts_installer_sha256 \
-                             --targets Key=tag:Project,Values="CaMeLz4 POC" Key=tag:Utility,Values=WindowsBastion \
+                             --targets Key=tag:Project,Values=CaMeLz-POC-4 Key=tag:Utility,Values=WindowsBastion \
                              --query 'AssociationDescription.Overview.DetailedStatus' \
                              --profile $profile --region us-east-1 --output text
 else
@@ -89,7 +89,7 @@ if [ -z $(aws ssm list-associations --association-filter-list key=AssociationNam
   aws ssm create-association --association-name SystemAssociationForWindowsStartMenu \
                              --name CAMELZ-ConfigureWindowsStartMenu \
                              --parameters action=Install,source=$royalts_installer_url,sourceHash=$royalts_installer_sha256,parameters="\quiet" \
-                             --targets Key=tag:Project,Values="CaMeLz4 POC" Key=tag:Utility,Values=WindowsBastion \
+                             --targets Key=tag:Project,Values=CaMeLz-POC-4 Key=tag:Utility,Values=WindowsBastion \
                              --query 'AssociationDescription.Overview.DetailedStatus' \
                              --profile $profile --region us-east-1 --output text
 else

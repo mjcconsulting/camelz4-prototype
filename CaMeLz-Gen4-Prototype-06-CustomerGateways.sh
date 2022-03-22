@@ -29,7 +29,7 @@ profile=$core_profile
 ohio_core_alfa_lax_cgw_id=$(aws ec2 create-customer-gateway --type ipsec.1 \
                                                             --bgp-asn $alfa_lax_cgw_asn \
                                                             --public-ip $alfa_lax_csr_instancea_public_ip \
-                                                            --tag-specifications ResourceType=customer-gateway,Tags=[{Key=Name,Value=Core-AlfaLosAngelesCustomerGateway},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                            --tag-specifications ResourceType=customer-gateway,Tags=[{Key=Name,Value=Core-AlfaLosAngelesCustomerGateway},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                             --query 'CustomerGateway.CustomerGatewayId' \
                                                             --profile $profile --region us-east-2 --output text)
 echo "ohio_core_alfa_lax_cgw_id=$ohio_core_alfa_lax_cgw_id"
@@ -39,7 +39,7 @@ echo "ohio_core_alfa_lax_cgw_id=$ohio_core_alfa_lax_cgw_id"
 ohio_core_alfa_mia_cgw_id=$(aws ec2 create-customer-gateway --type ipsec.1 \
                                                             --bgp-asn $alfa_mia_cgw_asn \
                                                             --public-ip $alfa_mia_csr_instancea_public_ip \
-                                                            --tag-specifications ResourceType=customer-gateway,Tags=[{Key=Name,Value=Core-AlfaMiamiCustomerGateway},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                            --tag-specifications ResourceType=customer-gateway,Tags=[{Key=Name,Value=Core-AlfaMiamiCustomerGateway},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                             --query 'CustomerGateway.CustomerGatewayId' \
                                                             --profile $profile --region us-east-2 --output text)
 echo "ohio_core_alfa_mia_cgw_id=$ohio_core_alfa_mia_cgw_id"
@@ -49,7 +49,7 @@ echo "ohio_core_alfa_mia_cgw_id=$ohio_core_alfa_mia_cgw_id"
 ohio_core_zulu_dfw_cgw_id=$(aws ec2 create-customer-gateway --type ipsec.1 \
                                                             --bgp-asn $zulu_dfw_cgw_asn \
                                                             --public-ip $zulu_dfw_csr_instancea_public_ip \
-                                                            --tag-specifications ResourceType=customer-gateway,Tags=[{Key=Name,Value=Core-ZuluDallasCustomerGateway},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                            --tag-specifications ResourceType=customer-gateway,Tags=[{Key=Name,Value=Core-ZuluDallasCustomerGateway},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                             --query 'CustomerGateway.CustomerGatewayId' \
                                                             --profile $profile --region us-east-2 --output text)
 echo "ohio_core_zulu_dfw_cgw_id=$ohio_core_zulu_dfw_cgw_id"
@@ -59,7 +59,7 @@ echo "ohio_core_zulu_dfw_cgw_id=$ohio_core_zulu_dfw_cgw_id"
 ohio_core_cml_sba_cgw_id=$(aws ec2 create-customer-gateway --type ipsec.1 \
                                                            --bgp-asn $cml_sba_cgw_asn \
                                                            --public-ip $cml_sba_csr_instancea_public_ip \
-                                                           --tag-specifications ResourceType=customer-gateway,Tags=[{Key=Name,Value=Core-CaMeLzSantaBarbaraCustomerGateway},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                           --tag-specifications ResourceType=customer-gateway,Tags=[{Key=Name,Value=Core-CaMeLzSantaBarbaraCustomerGateway},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                            --query 'CustomerGateway.CustomerGatewayId' \
                                                            --profile $profile --region us-east-2 --output text)
 echo "ohio_core_cml_sba_cgw_id=$ohio_core_cml_sba_cgw_id"

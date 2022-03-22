@@ -38,18 +38,10 @@ profile=$management_profile
 global_management_adm_sg_id=$(aws ec2 create-security-group --group-name Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                             --description Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                             --vpc-id $global_management_vpc_id \
+                                                            --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Management-ActiveDirectoryManagement-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Application,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
                                                             --query 'GroupId' \
                                                             --profile $profile --region us-east-1 --output text)
 echo "global_management_adm_sg_id=$global_management_adm_sg_id"
-
-aws ec2 create-tags --resources $global_management_adm_sg_id \
-                    --tags Key=Name,Value=Management-ActiveDirectoryManagement-InstanceSecurityGroup \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Application,Value=ActiveDirectoryManagement \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $global_management_adm_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=0.0.0.0/0,Description=\"Global (ICMP)\"}]" \
@@ -75,8 +67,8 @@ global_management_adm_instancea_id=$(aws ec2 run-instances --image-id $global_wi
                                                            --instance-type t3a.medium \
                                                            --iam-instance-profile Name=ManagedInstance \
                                                            --key-name administrator \
-                                                           --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-ActiveDirectoryManagement-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$global_management_adm_sg_id],SubnetId=$global_management_directory_subneta_id" \
-                                                           --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Management-ActiveDirectoryManagement-InstanceA},{Key=Hostname,Value=cmlue1madm01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                           --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-ActiveDirectoryManagement-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$global_management_adm_sg_id],SubnetId=$global_management_directory_subneta_id \
+                                                           --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Management-ActiveDirectoryManagement-InstanceA},{Key=Hostname,Value=cmlue1madm01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
                                                            --user-data file://$tmpfile \
                                                            --client-token $(date +%s) \
                                                            --query 'Instances[0].InstanceId' \
@@ -127,18 +119,10 @@ profile=$management_profile
 ohio_management_adm_sg_id=$(aws ec2 create-security-group --group-name Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                           --description Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                           --vpc-id $ohio_management_vpc_id \
+                                                          --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Management-ActiveDirectoryManagement-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Application,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
                                                           --query 'GroupId' \
                                                           --profile $profile --region us-east-2 --output text)
 echo "ohio_management_adm_sg_id=$ohio_management_adm_sg_id"
-
-aws ec2 create-tags --resources $ohio_management_adm_sg_id \
-                    --tags Key=Name,Value=Management-ActiveDirectoryManagement-InstanceSecurityGroup \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Application,Value=ActiveDirectoryManagement \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region us-east-2 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $ohio_management_adm_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=0.0.0.0/0,Description=\"Global (ICMP)\"}]" \
@@ -164,8 +148,8 @@ ohio_management_adm_instancea_id=$(aws ec2 run-instances --image-id $ohio_win201
                                                          --instance-type t3a.medium \
                                                          --iam-instance-profile Name=ManagedInstance \
                                                          --key-name administrator \
-                                                         --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-ActiveDirectoryManagement-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$ohio_management_adm_sg_id],SubnetId=$ohio_management_directory_subneta_id" \
-                                                         --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Management-ActiveDirectoryManagement-InstanceA},{Key=Hostname,Value=cmlue2madm01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                         --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-ActiveDirectoryManagement-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$ohio_management_adm_sg_id],SubnetId=$ohio_management_directory_subneta_id \
+                                                         --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Management-ActiveDirectoryManagement-InstanceA},{Key=Hostname,Value=cmlue2madm01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
                                                          --user-data file://$tmpfile \
                                                          --client-token $(date +%s) \
                                                          --query 'Instances[0].InstanceId' \
@@ -216,18 +200,10 @@ profile=$management_profile
 ireland_management_adm_sg_id=$(aws ec2 create-security-group --group-name Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                              --description Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                              --vpc-id $ireland_management_vpc_id \
+                                                             --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Management-ActiveDirectoryManagement-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Application,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
                                                              --query 'GroupId' \
                                                              --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_adm_sg_id=$ireland_management_adm_sg_id"
-
-aws ec2 create-tags --resources $ireland_management_adm_sg_id \
-                    --tags Key=Name,Value=Management-ActiveDirectoryManagement-InstanceSecurityGroup \
-                           Key=Company,Value=CaMeLz \
-                           Key=Environment,Value=Management \
-                           Key=Application,Value=ActiveDirectoryManagement \
-                           Key=Project,Value="CaMeLz4 POC" \
-                           Key=Note,Value="Associated with the CaMeLz4 POC - do not alter or delete" \
-                    --profile $profile --region eu-west-1 --output text
 
 aws ec2 authorize-security-group-ingress --group-id $ireland_management_adm_sg_id \
                                          --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=0.0.0.0/0,Description=\"Global (ICMP)\"}]" \
@@ -253,8 +229,8 @@ ireland_management_adm_instancea_id=$(aws ec2 run-instances --image-id $ireland_
                                                             --instance-type t3a.medium \
                                                             --iam-instance-profile Name=ManagedInstance \
                                                             --key-name administrator \
-                                                            --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-ActiveDirectoryManagement-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$ireland_management_adm_sg_id],SubnetId=$ireland_management_directory_subneta_id" \
-                                                            --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Management-ActiveDirectoryManagement-InstanceA},{Key=Hostname,Value=cmlew1madm01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=\"CaMeLz4 POC\"},{Key=Note,Value=\"Associated with the CaMeLz4 POC - do not alter or delete\"}]" \
+                                                            --network-interfaces AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Management-ActiveDirectoryManagement-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$ireland_management_adm_sg_id],SubnetId=$ireland_management_directory_subneta_id \
+                                                            --tag-specifications ResourceType=instance,Tags=[{Key=Name,Value=Management-ActiveDirectoryManagement-InstanceA},{Key=Hostname,Value=cmlew1madm01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
                                                             --user-data file://$tmpfile \
                                                             --client-token $(date +%s) \
                                                             --query 'Instances[0].InstanceId' \

@@ -73,7 +73,7 @@ ohio_core_alfa_lax_vpn_id=$(aws ec2 create-vpn-connection --transit-gateway-id $
                                                           --customer-gateway-id $ohio_core_alfa_lax_cgw_id \
                                                           --type ipsec.1 \
                                                           --options "$ohio_core_alfa_lax_vpn_options" \
-                                                          --tag-specifications ResourceType=vpn-connection,Tags=[{Key=Name,Value=Core-AlfaLosAngelesVpnConnection},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=LosAngeles},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                          --tag-specifications ResourceType=vpn-connection,Tags=[{Key=Name,Value=Core-AlfaLosAngelesVpnConnection},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                           --query 'VpnConnection.VpnConnectionId' \
                                                           --profile $profile --region us-east-2 --output text)
 echo "ohio_core_alfa_lax_vpn_id=$ohio_core_alfa_lax_vpn_id"
@@ -294,7 +294,7 @@ ohio_core_alfa_mia_vpn_id=$(aws ec2 create-vpn-connection --transit-gateway-id $
                                                           --customer-gateway-id $ohio_core_alfa_mia_cgw_id \
                                                           --type ipsec.1 \
                                                           --options "$ohio_core_alfa_mia_vpn_options" \
-                                                          --tag-specifications ResourceType=vpn-connection,Tags=[{Key=Name,Value=Core-AlfaMiamiVpnConnection},{Key=Company,Value=Alfa},{Key=Environment,Value=Network},{Key=Location,Value=Miami},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                          --tag-specifications ResourceType=vpn-connection,Tags=[{Key=Name,Value=Core-AlfaMiamiVpnConnection},{Key=Company,Value=Alfa},{Key=Location,Value=Miami},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                           --query 'VpnConnection.VpnConnectionId' \
                                                           --profile $profile --region us-east-2 --output text)
 echo "ohio_core_alfa_mia_vpn_id=$ohio_core_alfa_mia_vpn_id"
@@ -422,7 +422,7 @@ ohio_core_zulu_dfw_vpn_id=$(aws ec2 create-vpn-connection --transit-gateway-id $
                                                           --customer-gateway-id $ohio_core_zulu_dfw_cgw_id \
                                                           --type ipsec.1 \
                                                           --options "$ohio_core_zulu_dfw_vpn_options" \
-                                                          --tag-specifications ResourceType=vpn-connection,Tags=[{Key=Name,Value=Core-ZuluDallasVpnConnection},{Key=Company,Value=Zulu},{Key=Environment,Value=Network},{Key=Location,Value=Dallas},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                          --tag-specifications ResourceType=vpn-connection,Tags=[{Key=Name,Value=Core-ZuluDallasVpnConnection},{Key=Company,Value=Zulu},{Key=Location,Value=Dallas},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                           --query 'VpnConnection.VpnConnectionId' \
                                                           --profile $profile --region us-east-2 --output text)
 echo "ohio_core_zulu_dfw_vpn_id=$ohio_core_zulu_dfw_vpn_id"
@@ -551,7 +551,7 @@ ohio_core_cml_sba_vpn_id=$(aws ec2 create-vpn-connection --transit-gateway-id $o
                                                          --customer-gateway-id $ohio_core_cml_sba_cgw_id \
                                                          --type ipsec.1 \
                                                          --options "$ohio_core_cml_sba_vpn_options" \
-                                                         --tag-specifications ResourceType=vpn-connection,Tags=[{Key=Name,Value=Core-CaMeLzSantaBarbaraVpnConnection},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Location,Value=SantaBarbara},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                         --tag-specifications ResourceType=vpn-connection,Tags=[{Key=Name,Value=Core-CaMeLzSantaBarbaraVpnConnection},{Key=Company,Value=CaMeLz},{Key=Location,Value=SantaBarbara},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}] \
                                                          --query 'VpnConnection.VpnConnectionId' \
                                                          --profile $profile --region us-east-2 --output text)
 echo "ohio_core_cml_sba_vpn_id=$ohio_core_cml_sba_vpn_id"

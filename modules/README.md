@@ -9,10 +9,10 @@ WIP: Converting the code from the prior script-based sequence of Modules to some
 AWS structures it's on-line workshops and training (See links below).
 
 1.  **[Manual: Initialization](./initialization/)**
-1.  **[Organization](./organization/)**
-1.  **[Accounts](./accounts/)**
+1.  **[Manual: Organization](./organization/)**
+1.  **[Manual: Accounts](./accounts/)**
 1.  **[Skip: ManagedPolicies](./managed-policies/)**
 1.  **[Skip: Roles](./roles/)**
-1.  **[Public Hosted Zones](./public-hosted-zones/)**
-1.  **[VPCs](./vpcs/)**
-1.  **[Instances](./instances/)**
+1.  **[Partial: Public Hosted Zones](./public-hosted-zones/)**
+1.  **[Skip: VPCs](./vpcs/)**
+1.  **[Skip: Instances](./instances/)**

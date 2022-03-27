@@ -70,24 +70,24 @@ development_profile=$development_account_alias-$user
 ## - Alfa Client
 alfa_production_account_name=Alfa-CaMeLz-Production
 alfa_production_account_alias=alfa-camelzp
-alfa_production_profile=$production_account_alias-$user
+alfa_production_profile=$alfa_production_account_alias-$user
 
 alfa_recovery_account_name=Alfa-CaMeLz-Recovery
 alfa_recovery_account_alias=alfa-camelzr
-alfa_recovery_profile=$recovery_account_alias-$user
+alfa_recovery_profile=$alfa_recovery_account_alias-$user
 
 alfa_development_account_name=Alfa-CaMeLz-Development
 alfa_development_account_alias=alfa-camelzd
-alfa_development_profile=$development_account_alias-$user
+alfa_development_profile=$alfa_development_account_alias-$user
 
 ## - Zulu Client
 zulu_production_account_name=Zulu-CaMeLz-Production
 zulu_production_account_alias=zulu-camelzp
-zulu_production_profile=$production_account_alias-$user
+zulu_production_profile=$zulu_production_account_alias-$user
 
 zulu_development_account_name=Zulu-CaMeLz-Development
 zulu_development_account_alias=zulu-camelzd
-zulu_development_profile=$development_account_alias-$user
+zulu_development_profile=$zulu_development_account_alias-$user
 
 
 ## Hosted Zones #######################################################################################################

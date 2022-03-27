@@ -1,0 +1,11 @@
+{
+  "Changes": [{
+    "Action": "UPSERT",
+    "ResourceRecordSet": {
+      "Name": "@subdomain@",
+      "Type": "NS",
+      "TTL": 3600,
+      "ResourceRecords": [{"Value": "@ns1@"},{"Value": "@ns2@"},{"Value": "@ns3@"},{"Value": "@ns4@"}]
+    }
+  }]
+}

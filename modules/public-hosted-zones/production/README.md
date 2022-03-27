@@ -1,7 +1,8 @@
-# Modules:Public-Hosted-Zones:Core
-This Module builds Public Hosted Zones within the CaMeLz-Core Account.
+# Modules:Public-Hosted-Zones:Production
+This Module builds Public Hosted Zones within the CaMeLz-Production, Alfa-CaMeLz-Production & Zulu-CaMeLz-Production
+Accounts.
 
-TODO: More description
+**TODO**: More description
 
 ## Sub-Modules
 

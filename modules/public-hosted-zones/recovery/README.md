@@ -1,7 +1,7 @@
-# Modules:Public-Hosted-Zones:Core
-This Module builds Public Hosted Zones within the CaMeLz-Core Account.
+# Modules:Public-Hosted-Zones:Recovery
+This Module builds Public Hosted Zones within the CaMeLz-Recovery & Alfa-CaMeLz-Recovery Accounts.
 
-TODO: More description
+**TODO**: More description
 
 ## Sub-Modules
 

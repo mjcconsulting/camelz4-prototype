@@ -1,18 +1,35 @@
 # CaMeLz Gen4 Prototype
 This contains the scripts used to prototype Cross-Account Multi-Environment Landing Zone Gen IV
 
+WIP: In the middle of restructuring this...
 
-# Links
+## Modules
+The CaMeLz POC 4 System is build in a modular design.
+
+WIP: Converting the code from the prior script-based sequence of Modules to something closer to how
+AWS structures it's on-line workshops and training (See links below).
+
+1.  **[DNS](./modules/dns/)**
+1.  **[VPC](./modules/vpc/)**
+1.  **[Instances](./modules/instances/)**
+
+
+## Links
 Collecting here some links for how we might want to restructure this, based on the techniques
 used in AWS Workshops and Labs
 
-## [AWS Workshops](https://workshops.aws)
-### Best Examples
+### [AWS Workshops](https://workshops.aws)
+#### Best Examples
 - [WELCOME TO INNOVATOR ISLAND!](https://www.eventbox.dev/published/lesson/innovator-island/)
   - [GitHub: aws-samples/aws-serverless-workshop-innovator-island](https://github.com/aws-samples/aws-serverless-workshop-innovator-island)
   - This is the best example, probably, showing what's possible when you use both GitHub for most code, but then have this separate
     website AWS uses for workshops (they use a few) which has a navigation sidebar in addition to the main pane. We'll start out with
     using just Github to come close to the Main Pane format.
+- [Wild Rydes Serverless Workshops](https://github.com/aws-samples/aws-serverless-workshops/tree/master)
+  - This appears to be an older version of Innovator Island, and contains some interesting
+    structure within a GitHub project. Lots to reference here.
+- [Serverless Security Workshop](https://github.com/aws-samples/aws-serverless-security-workshop)
+  - This is referenced within Wild Rydes, good internal structure within GitHub.
 - [Multi-Account Security Governance Workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/d3f60827-89f2-46a8-9be7-6e7185bd7665/en-US)
   - Great example of the format we want to use, except this pre-dates Control Tower and replicates much of it's work.
   - But, how this shows steps mostly based on use of CLI commands and scripts from a cloned GitHub repo is exactly what we want.
@@ -28,7 +45,7 @@ used in AWS Workshops and Labs
   - Well-structured walkthrough with next buttons. Wish I knew how they built this.
 - [AWS Serverless Airline Booking](https://github.com/aws-samples/aws-serverless-airline-booking)
   - AWS GitHub Example
-### Other Examples
+#### Other Examples
 - [SIEM ON AMAZON OPENSEARCH SERVICE WORKSHOP](https://security-log-analysis-platform.workshop.aws/en/)
 - [ETL ON AMAZON EMR WORKSHOP](https://emr-etl.workshop.aws)
 - [SCALING YOUR ENCRYPTION AT REST CAPABILITIES WITH AWS KMS](https://kms-encryption-at-rest.workshop.aws)

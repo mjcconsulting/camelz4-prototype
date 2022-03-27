@@ -1,5 +1,5 @@
 # Modules:Public-Hosted-Zones
-This Module builds Roles
+This Module builds Public HostedZones
 
 TODO: More description coming
 
@@ -9,6 +9,7 @@ TODO: More description coming
 1.  **[Audit](./audit/)**
 1.  **[Network](./network/)**
 1.  **[Core Services](./core/)**
-1.  **[Production](./production/)**
-1.  **[Development](./development/)**
 1.  **[Build](./build/)**
+1.  **[Production](./production/)**
+1.  **[Recovery](./recovery/)**
+1.  **[Development](./development/)**

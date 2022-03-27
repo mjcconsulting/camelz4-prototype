@@ -17,7 +17,7 @@ This module builds IAM Roles in the AWS Virginia (us-east-1) Region within the C
     ```bash
     aws iam create-role --role-name ManagedInstance \
                         --description 'Role which allows an Instance to be managed by SSM, join a Domain, and write to CloudWatch' \
-                        --assume-role-policy-document file://$profilesdir/Ec2AssumeRole.json \
+                        --assume-role-policy-document file://$CAMELZ_HOME/policies/Ec2AssumeRole.json \
                         --profile $profile --region us-east-1 --output text
 
     aws iam attach-role-policy --role-name ManagedInstance \

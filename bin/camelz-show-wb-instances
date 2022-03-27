@@ -6,8 +6,12 @@
 #   Name=tag:Utility,Values=WindowsBastion
 #
 
-accounts='camelzm camelzc camelzl camelzp camelzr camelzt camelzd'
-regions='us-east-1 us-east-2 eu-west-1'
+camelz_accounts='camelzm camelzl camelza camelzn camelzc camelzb camelzp camelzr camelzd'
+alfa_accounts='alfa-camelzp alfa-camelzr alfa-camelzd'
+zulu_accounts='zulu-camelzp zulu-camelzd'
+accounts="$camelz_accounts $alfa_accounts $zulu_accounts"
+regions='us-east-1 us-east-2 us-west-2'
+user=administrator
 
 header=0
 for a in $accounts; do
@@ -15,7 +19,7 @@ for a in $accounts; do
     tuples=$(aws ec2 describe-instances --filters Name=tag:Project,Values=CaMeLz-POC-4 \
                                                   Name=tag:Utility,Values=WindowsBastion \
                                         --query 'Reservations[].Instances[].[Placement.AvailabilityZone,InstanceId,Tags[?Key==`Hostname`].Value|[0],Tags[?Key==`Name`].Value|[0],State.Name,InstanceType]' \
-                                        --profile $a-bootstrapadministrator --region $r --output text)
+                                        --profile $a-$user --region $r --output text)
     if [ ${#tuples} -gt 0 ]; then
       if [ $header = 0 ]; then
         echo

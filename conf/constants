@@ -1,0 +1,1082 @@
+#!/usr/bin/env bash
+#
+# CaMeLz Constants
+#
+# The default live location of this file is ~/.camelz/constants. This is the version of this file which wil be used
+# during the build process.
+#
+# Defaults and Examples of this script can be found in $CAMELZ_HOME/conf/:
+# - constants.default - a default version of this file, containing the recommended set of constants. (Copy and adjust!)
+# - constants.example - an example version of this file, containing all constants to build the demo system.
+#
+# Source this script to rebuild your terminal environment constants if you need to restart your terminal session.
+#
+# The camelz-load shell function will source this constants script and the variables script
+
+
+## Identifiers ########################################################################################################
+
+## - Company Identifiers
+company_name=CaMeLz
+company_name_lc=cml
+
+## - System Identifiers
+system_name=Demo
+system_name_lc=dem
+
+## - User Identifiers
+user=administrator
+
+
+## Accounts & Profiles ################################################################################################
+
+## - CaMeLz Organization
+management_account_name=CaMeLz-Management
+management_account_alias=camelzm
+management_profile=$management_account_alias-$user
+
+log_account_name=CaMeLz-Log-Archive
+log_account_alias=camelzl
+log_profile=$log_account_alias-$user
+
+audit_account_name=CaMeLz-Audit
+audit_account_alias=camelza
+audit_profile=$audit_account_alias-$user
+
+network_account_name=CaMeLz-Network
+network_account_alias=camelzn
+network_profile=$network_account_alias-$user
+
+core_account_name=CaMeLz-Core
+core_account_alias=camelzc
+core_profile=$core_account_alias-$user
+
+build_account_name=CaMeLz-Build
+build_account_alias=camelzb
+build_profile=$build_account_alias-$user
+
+production_account_name=CaMeLz-Production
+production_account_alias=camelzp
+production_profile=$production_account_alias-$user
+
+recovery_account_name=CaMeLz-Recovery
+recovery_account_alias=camelzr
+recovery_profile=$recovery_account_alias-$user
+
+development_account_name=CaMeLz-Development
+development_account_alias=camelzd
+development_profile=$development_account_alias-$user
+
+## - Alfa Client
+alfa_production_account_name=Alfa-CaMeLz-Production
+alfa_production_account_alias=alfa-camelzp
+alfa_production_profile=$production_account_alias-$user
+
+alfa_recovery_account_name=Alfa-CaMeLz-Recovery
+alfa_recovery_account_alias=alfa-camelzr
+alfa_recovery_profile=$recovery_account_alias-$user
+
+alfa_development_account_name=Alfa-CaMeLz-Development
+alfa_development_account_alias=alfa-camelzd
+alfa_development_profile=$development_account_alias-$user
+
+## - Zulu Client
+zulu_production_account_name=Zulu-CaMeLz-Production
+zulu_production_account_alias=zulu-camelzp
+zulu_production_profile=$production_account_alias-$user
+
+zulu_development_account_name=Zulu-CaMeLz-Development
+zulu_development_account_alias=zulu-camelzd
+zulu_development_profile=$development_account_alias-$user
+
+
+## Hosted Zones #######################################################################################################
+## - Defining all possible domain variants, but not all of these will need to exist
+
+## - Top-Level Domain
+domain=camelz.io
+
+## - CaMeLz Organization: Global: Management Environment
+global_management_public_domain=$domain
+global_management_private_domain=$domain
+global_management_public_hostedzone_id=Z077196726TXJ6PQL7R3V # This already exists, so we just reference it
+
+## - CaMeLz Organization: Global: Log Environment
+global_log_public_domain=l.$domain
+global_log_private_domain=l.$domain
+
+## - CaMeLz Organization: Global: Audit Environment
+global_audit_public_domain=a.$domain
+global_audit_private_domain=a.$domain
+
+## - CaMeLz Organization: Global: Network Environment
+global_network_public_domain=n.$domain
+global_network_private_domain=n.$domain
+
+## - CaMeLz Organization: Global: Core Environment
+global_core_public_domain=c.$domain
+global_core_private_domain=c.$domain
+
+## - CaMeLz Organization: Global: Build Environment
+global_build_public_domain=b.$domain
+global_build_private_domain=b.$domain
+
+## - CaMeLz Organization: Global: Production Environment
+global_production_public_domain=p.$domain
+global_production_private_domain=p.$domain
+
+## - CaMeLz Organization: Global: Recovery Environment
+global_recovery_public_domain=r.$domain
+global_recovery_private_domain=r.$domain
+
+## - CaMeLz Organization: Global: Staging Environment
+global_staging_public_domain=s.$domain
+global_staging_private_domain=s.$domain
+
+## - CaMeLz Organization: Global: Testing Environment
+global_testing_public_domain=t.$domain
+global_testing_private_domain=t.$domain
+
+## - CaMeLz Organization: Global: Development Environment
+global_development_public_domain=d.$domain
+global_development_private_domain=d.$domain
+
+## - CaMeLz Organization: Ohio Region: Management Environment
+ohio_management_public_domain=us-east-2.$domain
+ohio_management_private_domain=us-east-2.$domain
+
+## - CaMeLz Organization: Ohio Region: Log Environment
+ohio_log_public_domain=l.us-east-2.$domain
+ohio_log_private_domain=l.us-east-2.$domain
+
+## - CaMeLz Organization: Ohio Region: Audit Environment
+ohio_audit_public_domain=a.us-east-2.$domain
+ohio_audit_private_domain=a.us-east-2.$domain
+
+## - CaMeLz Organization: Ohio Region: Network Environment
+ohio_network_public_domain=n.us-east-2.$domain
+ohio_network_private_domain=n.us-east-2.$domain
+
+## - CaMeLz Organization: Ohio Region: Core Environment
+ohio_core_public_domain=c.us-east-2.$domain
+ohio_core_private_domain=c.us-east-2.$domain
+
+## - CaMeLz Organization: Ohio Region: Production Environment
+ohio_production_public_domain=p.us-east-2.$domain
+ohio_production_private_domain=p.us-east-2.$domain
+
+## - CaMeLz Organization: Ohio Region: Recovery Environment
+ohio_recovery_public_domain=r.us-east-2.$domain
+ohio_recovery_private_domain=r.us-east-2.$domain
+
+## - CaMeLz Organization: Ohio Region: Staging Environment
+ohio_staging_public_domain=s.us-east-2.$domain
+ohio_staging_private_domain=s.us-east-2.$domain
+
+## - CaMeLz Organization: Ohio Region: Testing Environment
+ohio_testing_public_domain=t.us-east-2.$domain
+ohio_testing_private_domain=t.us-east-2.$domain
+
+## - CaMeLz Organization: Ohio Region: Development Environment
+ohio_development_public_domain=d.us-east-2.$domain
+ohio_development_private_domain=d.us-east-2.$domain
+
+## - Alfa Client: Ohio Region: Production Environment
+alfa_ohio_production_public_domain=p.us-east-2.alfa.$domain
+alfa_ohio_production_private_domain=p.us-east-2.alfa.$domain
+
+## - Alfa Client: Ohio Region: Testing Environment
+alfa_ohio_testing_public_domain=t.us-east-2.alfa.$domain
+alfa_ohio_testing_private_domain=t.us-east-2.alfa.$domain
+
+## - Alfa Client: Ohio Region: Development Environment
+alfa_ohio_development_public_domain=d.us-east-2.alfa.$domain
+alfa_ohio_development_private_domain=d.us-east-2.alfa.$domain
+
+## - Zulu Client: Ohio Region: Production Environment
+zulu_ohio_production_public_domain=p.us-east-2.zulu.$domain
+zulu_ohio_production_private_domain=p.us-east-2.zulu.$domain
+
+## - Zulu Client: Ohio Region: Development Environment
+zulu_ohio_development_public_domain=d.us-east-2.zulu.$domain
+zulu_ohio_development_private_domain=d.us-east-2.zulu.$domain
+
+## - CaMeLz Organization: Oregon Region: Management Environment
+oregon_management_public_domain=us-west-2.$domain
+oregon_management_private_domain=us-west-2.$domain
+
+## - CaMeLz Organization: Oregon Region: Log Environment
+oregon_log_public_domain=l.us-west-2.$domain
+oregon_log_private_domain=l.us-west-2.$domain
+
+## - CaMeLz Organization: Oregon Region: Audit Environment
+oregon_audit_public_domain=a.us-west-2.$domain
+oregon_audit_private_domain=a.us-west-2.$domain
+
+## - CaMeLz Organization: Oregon Region: Network Environment
+oregon_network_public_domain=n.us-west-2.$domain
+oregon_network_private_domain=n.us-west-2.$domain
+
+## - CaMeLz Organization: Oregon Region: Core Environment
+oregon_core_public_domain=c.us-west-2.$domain
+oregon_core_private_domain=c.us-west-2.$domain
+
+## - CaMeLz Organization: Oregon Region: Production Environment
+oregon_production_public_domain=p.us-west-2.$domain
+oregon_production_private_domain=p.us-west-2.$domain
+
+## - CaMeLz Organization: Oregon Region: Recovery Environment
+oregon_recovery_public_domain=r.us-west-2.$domain
+oregon_recovery_private_domain=r.us-west-2.$domain
+
+## - CaMeLz Organization: Oregon Region: Staging Environment
+oregon_staging_public_domain=s.us-west-2.$domain
+oregon_staging_private_domain=s.us-west-2.$domain
+
+## - CaMeLz Organization: Oregon Region: Testing Environment
+oregon_testing_public_domain=t.us-west-2.$domain
+oregon_testing_private_domain=t.us-west-2.$domain
+
+## - CaMeLz Organization: Oregon Region: Development Environment
+oregon_development_public_domain=d.us-west-2.$domain
+oregon_development_private_domain=d.us-west-2.$domain
+
+## - Alfa Client: Oregon Region: Management Environment
+alfa_oregon_management_public_domain=us-west-2.alfa.$domain
+
+## - Alfa Client: Oregon Region: Recovery Environment
+alfa_oregon_recovery_public_domain=r.us-west-2.alfa.$domain
+alfa_oregon_recovery_private_domain=r.us-west-2.alfa.$domain
+
+## - CaMeLz Organization: Santa Barbara Location: Data Center Simulation
+cml_sba_public_domain=sba.$domain
+cml_sba_private_domain=sba.$domain
+
+## - Alfa Client: Los Angeles Location: Data Center Simulation
+alfa_lax_public_domain=lax.alfa.$domain
+alfa_lax_private_domain=lax.alfa.$domain
+
+## - Alfa Client: Miami Location: Data Center Simulation
+alfa_mia_public_domain=mia.alfa.$domain
+alfa_mia_private_domain=mia.alfa.$domain
+
+## - Dallas Location: Zulu Client: Data Center Simulation
+zulu_dfw_public_domain=dfw.zulu.$domain
+zulu_dfw_private_domain=dfw.zulu.$domain
+
+
+## AMIs ###############################################################################################################
+## - AMIs as of 3/24/22
+
+global_amzn2_ami_id=ami-03e0b06f01d45a4eb   # amzn2-ami-hvm-2.0.20220316.0-x86_64-gp2
+global_win2016_ami_id=ami-0d938d1fe8ad66899 # Windows_Server-2016-English-Full-Base-2022.03.09
+global_win2019_ami_id=ami-0f9a92942448ac56f # Windows_Server-2019-English-Full-Base-2022.03.09
+global_win2022_ami_id=ami-09a4a092e0d0ed511 # Windows_Server-2022-English-Full-Base-2022.03.09
+global_csr_ami_id=ami-0d18f295f92eaca4c     # cisco_CSR-17.03.05-BYOL-624f5bb1-7f8e-4f7c-ad2c-03ae1cd1c2d3
+
+ohio_amzn2_ami_id=ami-09662e4f2b2fb67f9     # amzn2-ami-hvm-2.0.20220316.0-x86_64-gp2
+ohio_win2016_ami_id=ami-04344d607c1a9d591   # Windows_Server-2016-English-Full-Base-2022.03.09
+ohio_win2019_ami_id=ami-0c4a11a8d0e503812   # Windows_Server-2019-English-Full-Base-2022.03.09
+ohio_win2022_ami_id=ami-0be5d9fcfaceb294c   # Windows_Server-2022-English-Full-Base-2022.03.09
+ohio_csr_ami_id=ami-00b5209416a980405       # cisco_CSR-17.03.05-BYOL-624f5bb1-7f8e-4f7c-ad2c-03ae1cd1c2d3
+
+oregon_amzn2_ami_id=ami-0eb324d928acca58a   # amzn2-ami-hvm-2.0.20220316.0-x86_64-gp2
+oregon_win2016_ami_id=ami-0c662df97f9b04f24 # Windows_Server-2016-English-Full-Base-2022.03.09
+oregon_win2019_ami_id=ami-000b6e3a1a8493a2f # Windows_Server-2019-English-Full-Base-2022.03.09
+oregon_win2022_ami_id=ami-0f7c4b9d2d4291ca9 # Windows_Server-2022-English-Full-Base-2022.03.09
+oregon_csr_ami_id=ami-05354acc93a52d6e8     # cisco_CSR-17.03.05-BYOL-624f5bb1-7f8e-4f7c-ad2c-03ae1cd1c2d3
+
+
+## CIDRs ##############################################################################################################
+
+## - Ranges for VPCs or Clients
+aws_cidr=10.0.0.0/8        # We will send this whole CIDR into Transit Gateway, most is used by other AWS VPCs
+global_cidr=10.0.0.0/12
+ohio_cidr=10.16.0.0/12
+oregon_cidr=10.32.0.0/12
+ireland_cidr=10.64.0.0/12
+client_cidr=172.16.0.0/12  # Currently allocating Clients from only 172.16.0.0/12, but want to route this CIDR from VPC Route Tables
+partner_cidr=100.64.0.0/10 # We may want to use this for future partners or some other use, so adding to VPC Route Tables
+
+## - Data Centers, Offices and Homes from which we will configure remote administrator access
+cml_lax_public_cidr=208.49.145.162/32 # Los Angeles Area Data Center
+cml_sna_public_cidr=136.44.0.94/32 # Irvine Office
+
+mcrawford_home_public_cidr=184.189.244.109/32
+mcrawford_home_private_cidr=10.0.1.0/24
+
+## VPCs & Subnets #####################################################################################################
+
+## - CaMeLz Organization: Global: Management Environment
+global_management_vpc_cidr=10.15.0.0/19
+global_management_subnet_publica_cidr=10.15.0.0/25
+global_management_subnet_publicb_cidr=10.15.8.0/25
+global_management_subnet_publicc_cidr=10.15.16.0/25
+global_management_subnet_weba_cidr=10.15.1.0/25
+global_management_subnet_webb_cidr=10.15.9.0/25
+global_management_subnet_webc_cidr=10.15.17.0/25
+global_management_subnet_applicationa_cidr=10.15.2.0/25
+global_management_subnet_applicationb_cidr=10.15.10.0/25
+global_management_subnet_applicationc_cidr=10.15.18.0/25
+global_management_subnet_databasea_cidr=10.15.4.0/25
+global_management_subnet_databaseb_cidr=10.15.12.0/25
+global_management_subnet_databasec_cidr=10.15.20.0/25
+global_management_subnet_directorya_cidr=10.15.6.0/24
+global_management_subnet_directoryb_cidr=10.15.14.0/24
+global_management_subnet_directoryc_cidr=10.15.22.0/24
+global_management_subnet_managementa_cidr=10.15.7.192/28
+global_management_subnet_managementb_cidr=10.15.15.192/28
+global_management_subnet_managementc_cidr=10.15.23.192/28
+global_management_subnet_gatewaya_cidr=10.15.7.208/28
+global_management_subnet_gatewayb_cidr=10.15.15.208/28
+global_management_subnet_gatewayc_cidr=10.15.23.208/28
+global_management_subnet_endpointa_cidr=10.15.7.224/27
+global_management_subnet_endpointb_cidr=10.15.15.224/27
+global_management_subnet_endpointc_cidr=10.15.23.224/27
+
+## - CaMeLz Organization: Global: Log Environment (CIDRs Incorrect - Adjust)
+global_log_vpc_cidr=10.15.128.0/19
+global_log_subnet_publica_cidr=10.15.128.0/25
+global_log_subnet_publicb_cidr=10.15.136.0/25
+global_log_subnet_publicc_cidr=10.15.144.0/25
+global_log_subnet_weba_cidr=10.15.129.0/25
+global_log_subnet_webb_cidr=10.15.137.0/25
+global_log_subnet_webc_cidr=10.15.145.0/25
+global_log_subnet_applicationa_cidr=10.15.130.0/25
+global_log_subnet_applicationb_cidr=10.15.138.0/25
+global_log_subnet_applicationc_cidr=10.15.146.0/25
+global_log_subnet_databasea_cidr=10.15.132.0/25
+global_log_subnet_databaseb_cidr=10.15.140.0/25
+global_log_subnet_databasec_cidr=10.15.148.0/25
+global_log_subnet_managementa_cidr=10.15.135.192/28
+global_log_subnet_managementb_cidr=10.15.143.192/28
+global_log_subnet_managementc_cidr=10.15.151.192/28
+global_log_subnet_gatewaya_cidr=10.15.135.208/28
+global_log_subnet_gatewayb_cidr=10.15.143.208/28
+global_log_subnet_gatewayc_cidr=10.15.151.208/28
+global_log_subnet_endpointa_cidr=10.15.135.224/27
+global_log_subnet_endpointb_cidr=10.15.143.224/27
+global_log_subnet_endpointc_cidr=10.15.151.224/27
+
+## - CaMeLz Organization: Global: Audit Environment
+global_audit_vpc_cidr=
+global_audit_subnet_publica_cidr=
+global_audit_subnet_publicb_cidr=
+global_audit_subnet_publicc_cidr=
+global_audit_subnet_weba_cidr=
+global_audit_subnet_webb_cidr=
+global_audit_subnet_webc_cidr=
+global_audit_subnet_applicationa_cidr=
+global_audit_subnet_applicationb_cidr=
+global_audit_subnet_applicationc_cidr=
+global_audit_subnet_databasea_cidr=
+global_audit_subnet_databaseb_cidr=
+global_audit_subnet_databasec_cidr=
+global_audit_subnet_managementa_cidr=
+global_audit_subnet_managementb_cidr=
+global_audit_subnet_managementc_cidr=
+global_audit_subnet_gatewaya_cidr=
+global_audit_subnet_gatewayb_cidr=
+global_audit_subnet_gatewayc_cidr=
+global_audit_subnet_endpointa_cidr=
+global_audit_subnet_endpointb_cidr=
+global_audit_subnet_endpointc_cidr=
+
+## - CaMeLz Organization: Global: Network Environment
+global_network_vpc_cidr=
+global_network_subnet_publica_cidr=
+global_network_subnet_publicb_cidr=
+global_network_subnet_publicc_cidr=
+global_network_subnet_weba_cidr=
+global_network_subnet_webb_cidr=
+global_network_subnet_webc_cidr=
+global_network_subnet_applicationa_cidr=
+global_network_subnet_applicationb_cidr=
+global_network_subnet_applicationc_cidr=
+global_network_subnet_databasea_cidr=
+global_network_subnet_databaseb_cidr=
+global_network_subnet_databasec_cidr=
+global_network_subnet_managementa_cidr=
+global_network_subnet_managementb_cidr=
+global_network_subnet_managementc_cidr=
+global_network_subnet_gatewaya_cidr=
+global_network_subnet_gatewayb_cidr=
+global_network_subnet_gatewayc_cidr=
+global_network_subnet_endpointa_cidr=
+global_network_subnet_endpointb_cidr=
+global_network_subnet_endpointc_cidr=
+
+## - CaMeLz Organization: Global: Core Environment (CIDRs Incorrect - Adjust)
+global_core_vpc_cidr=10.15.64.0/19
+global_core_subnet_publica_cidr=10.15.64.0/25
+global_core_subnet_publicb_cidr=10.15.72.0/25
+global_core_subnet_publicc_cidr=10.15.80.0/25
+global_core_subnet_weba_cidr=10.15.65.0/25
+global_core_subnet_webb_cidr=10.15.73.0/25
+global_core_subnet_webc_cidr=10.15.81.0/25
+global_core_subnet_applicationa_cidr=10.15.66.0/25
+global_core_subnet_applicationb_cidr=10.15.74.0/25
+global_core_subnet_applicationc_cidr=10.15.82.0/25
+global_core_subnet_databasea_cidr=10.15.68.0/25
+global_core_subnet_databaseb_cidr=10.15.76.0/25
+global_core_subnet_databasec_cidr=10.15.84.0/25
+global_core_subnet_managementa_cidr=10.15.71.192/28
+global_core_subnet_managementb_cidr=10.15.79.192/28
+global_core_subnet_managementc_cidr=10.15.87.192/28
+global_core_subnet_gatewaya_cidr=10.15.71.208/28
+global_core_subnet_gatewayb_cidr=10.15.79.208/28
+global_core_subnet_gatewayc_cidr=10.15.87.208/28
+global_core_subnet_endpointa_cidr=10.15.71.224/27
+global_core_subnet_endpointb_cidr=10.15.79.224/27
+global_core_subnet_endpointc_cidr=10.15.87.224/27
+
+## - CaMeLz Organization: Global: Production Environment
+global_audit_vpc_cidr=
+global_audit_subnet_publica_cidr=
+global_audit_subnet_publicb_cidr=
+global_audit_subnet_publicc_cidr=
+global_audit_subnet_weba_cidr=
+global_audit_subnet_webb_cidr=
+global_audit_subnet_webc_cidr=
+global_audit_subnet_applicationa_cidr=
+global_audit_subnet_applicationb_cidr=
+global_audit_subnet_applicationc_cidr=
+global_audit_subnet_databasea_cidr=
+global_audit_subnet_databaseb_cidr=
+global_audit_subnet_databasec_cidr=
+global_audit_subnet_managementa_cidr=
+global_audit_subnet_managementb_cidr=
+global_audit_subnet_managementc_cidr=
+global_audit_subnet_gatewaya_cidr=
+global_audit_subnet_gatewayb_cidr=
+global_audit_subnet_gatewayc_cidr=
+global_audit_subnet_endpointa_cidr=
+global_audit_subnet_endpointb_cidr=
+global_audit_subnet_endpointc_cidr=
+
+## - CaMeLz Organization: Global: Staging Environment
+global_audit_vpc_cidr=
+global_audit_subnet_publica_cidr=
+global_audit_subnet_publicb_cidr=
+global_audit_subnet_publicc_cidr=
+global_audit_subnet_weba_cidr=
+global_audit_subnet_webb_cidr=
+global_audit_subnet_webc_cidr=
+global_audit_subnet_applicationa_cidr=
+global_audit_subnet_applicationb_cidr=
+global_audit_subnet_applicationc_cidr=
+global_audit_subnet_databasea_cidr=
+global_audit_subnet_databaseb_cidr=
+global_audit_subnet_databasec_cidr=
+global_audit_subnet_managementa_cidr=
+global_audit_subnet_managementb_cidr=
+global_audit_subnet_managementc_cidr=
+global_audit_subnet_gatewaya_cidr=
+global_audit_subnet_gatewayb_cidr=
+global_audit_subnet_gatewayc_cidr=
+global_audit_subnet_endpointa_cidr=
+global_audit_subnet_endpointb_cidr=
+global_audit_subnet_endpointc_cidr=
+
+## - CaMeLz Organization: Ohio Region: Management Environment
+ohio_management_vpc_cidr=10.31.0.0/20
+ohio_management_subnet_publica_cidr=10.31.0.0/26
+ohio_management_subnet_publicb_cidr=10.31.4.0/26
+ohio_management_subnet_publicc_cidr=10.31.8.0/26
+ohio_management_subnet_weba_cidr=10.31.0.128/26
+ohio_management_subnet_webb_cidr=10.31.4.128/26
+ohio_management_subnet_webc_cidr=10.31.8.128/26
+ohio_management_subnet_applicationa_cidr=10.31.1.0/26
+ohio_management_subnet_applicationb_cidr=10.31.5.0/26
+ohio_management_subnet_applicationc_cidr=10.31.9.0/26
+ohio_management_subnet_databasea_cidr=10.31.2.0/26
+ohio_management_subnet_databaseb_cidr=10.31.6.0/26
+ohio_management_subnet_databasec_cidr=10.31.10.0/26
+ohio_management_subnet_directorya_cidr=10.31.3.0/25
+ohio_management_subnet_directoryb_cidr=10.31.7.0/25
+ohio_management_subnet_directoryc_cidr=10.31.11.0/25
+ohio_management_subnet_managementa_cidr=10.31.3.192/28
+ohio_management_subnet_managementb_cidr=10.31.7.192/28
+ohio_management_subnet_managementc_cidr=10.31.11.192/28
+ohio_management_subnet_gatewaya_cidr=10.31.3.208/28
+ohio_management_subnet_gatewayb_cidr=10.31.7.208/28
+ohio_management_subnet_gatewayc_cidr=10.31.11.208/28
+ohio_management_subnet_endpointa_cidr=10.31.3.224/27
+ohio_management_subnet_endpointb_cidr=10.31.7.224/27
+ohio_management_subnet_endpointc_cidr=10.31.11.224/27
+
+## - CaMeLz Organization: Ohio Region: Core Environment
+ohio_core_vpc_cidr=10.31.64.0/20
+ohio_core_subnet_publica_cidr=10.31.64.0/26
+ohio_core_subnet_publicb_cidr=10.31.68.0/26
+ohio_core_subnet_publicc_cidr=10.31.72.0/26
+ohio_core_subnet_weba_cidr=10.31.64.128/26
+ohio_core_subnet_webb_cidr=10.31.68.128/26
+ohio_core_subnet_webc_cidr=10.31.72.128/26
+ohio_core_subnet_applicationa_cidr=10.31.65.0/26
+ohio_core_subnet_applicationb_cidr=10.31.69.0/26
+ohio_core_subnet_applicationc_cidr=10.31.73.0/26
+ohio_core_subnet_databasea_cidr=10.31.66.0/26
+ohio_core_subnet_databaseb_cidr=10.31.70.0/26
+ohio_core_subnet_databasec_cidr=10.31.74.0/26
+ohio_core_subnet_managementa_cidr=10.31.67.192/28
+ohio_core_subnet_managementb_cidr=10.31.71.192/28
+ohio_core_subnet_managementc_cidr=10.31.75.192/28
+ohio_core_subnet_gatewaya_cidr=10.31.67.208/28
+ohio_core_subnet_gatewayb_cidr=10.31.71.208/28
+ohio_core_subnet_gatewayc_cidr=10.31.75.208/28
+ohio_core_subnet_endpointa_cidr=10.31.67.224/27
+ohio_core_subnet_endpointb_cidr=10.31.71.224/27
+ohio_core_subnet_endpointc_cidr=10.31.75.224/27
+
+## - CaMeLz Organization: Ohio Region: Log Environment
+ohio_log_vpc_cidr=10.31.128.0/20
+ohio_log_subnet_publica_cidr=10.31.128.0/26
+ohio_log_subnet_publicb_cidr=10.31.132.0/26
+ohio_log_subnet_publicc_cidr=10.31.136.0/26
+ohio_log_subnet_weba_cidr=10.31.128.128/26
+ohio_log_subnet_webb_cidr=10.31.132.128/26
+ohio_log_subnet_webc_cidr=10.31.136.128/26
+ohio_log_subnet_applicationa_cidr=10.31.129.0/26
+ohio_log_subnet_applicationb_cidr=10.31.133.0/26
+ohio_log_subnet_applicationc_cidr=10.31.137.0/26
+ohio_log_subnet_databasea_cidr=10.31.130.0/26
+ohio_log_subnet_databaseb_cidr=10.31.134.0/26
+ohio_log_subnet_databasec_cidr=10.31.138.0/26
+ohio_log_subnet_managementa_cidr=10.31.131.192/28
+ohio_log_subnet_managementb_cidr=10.31.135.192/28
+ohio_log_subnet_managementc_cidr=10.31.139.192/28
+ohio_log_subnet_gatewaya_cidr=10.31.131.208/28
+ohio_log_subnet_gatewayb_cidr=10.31.135.208/28
+ohio_log_subnet_gatewayc_cidr=10.31.139.208/28
+ohio_log_subnet_endpointa_cidr=10.31.131.224/27
+ohio_log_subnet_endpointb_cidr=10.31.135.224/27
+ohio_log_subnet_endpointc_cidr=10.31.139.224/27
+
+## - Alfa Client: Ohio Region: Production Environment
+alfa_ohio_production_vpc_cidr=10.16.0.0/20
+alfa_ohio_production_subnet_publica_cidr=10.16.0.0/26
+alfa_ohio_production_subnet_publicb_cidr=10.16.4.0/26
+alfa_ohio_production_subnet_publicc_cidr=10.16.8.0/26
+alfa_ohio_production_subnet_weba_cidr=10.16.0.128/26
+alfa_ohio_production_subnet_webb_cidr=10.16.4.128/26
+alfa_ohio_production_subnet_webc_cidr=10.16.8.128/26
+alfa_ohio_production_subnet_applicationa_cidr=10.16.1.0/26
+alfa_ohio_production_subnet_applicationb_cidr=10.16.5.0/26
+alfa_ohio_production_subnet_applicationc_cidr=10.16.9.0/26
+alfa_ohio_production_subnet_databasea_cidr=10.16.2.0/26
+alfa_ohio_production_subnet_databaseb_cidr=10.16.6.0/26
+alfa_ohio_production_subnet_databasec_cidr=10.16.10.0/26
+alfa_ohio_production_subnet_managementa_cidr=10.16.3.192/28
+alfa_ohio_production_subnet_managementb_cidr=10.16.7.192/28
+alfa_ohio_production_subnet_managementc_cidr=10.16.11.192/28
+alfa_ohio_production_subnet_gatewaya_cidr=10.16.3.208/28
+alfa_ohio_production_subnet_gatewayb_cidr=10.16.7.208/28
+alfa_ohio_production_subnet_gatewayc_cidr=10.16.11.208/28
+alfa_ohio_production_subnet_endpointa_cidr=10.16.3.224/27
+alfa_ohio_production_subnet_endpointb_cidr=10.16.7.224/27
+alfa_ohio_production_subnet_endpointc_cidr=10.16.11.224/27
+
+## - Alfa Client: Ohio Region: Testing Environment
+alfa_ohio_testing_vpc_cidr=10.16.32.0/20
+alfa_ohio_testing_subnet_publica_cidr=10.16.32.0/26
+alfa_ohio_testing_subnet_publicb_cidr=10.16.36.0/26
+alfa_ohio_testing_subnet_publicc_cidr=10.16.40.0/26
+alfa_ohio_testing_subnet_weba_cidr=10.16.32.128/26
+alfa_ohio_testing_subnet_webb_cidr=10.16.36.128/26
+alfa_ohio_testing_subnet_webc_cidr=10.16.40.128/26
+alfa_ohio_testing_subnet_applicationa_cidr=10.16.33.0/26
+alfa_ohio_testing_subnet_applicationb_cidr=10.16.37.0/26
+alfa_ohio_testing_subnet_applicationc_cidr=10.16.41.0/26
+alfa_ohio_testing_subnet_databasea_cidr=10.16.34.0/26
+alfa_ohio_testing_subnet_databaseb_cidr=10.16.38.0/26
+alfa_ohio_testing_subnet_databasec_cidr=10.16.42.0/26
+alfa_ohio_testing_subnet_managementa_cidr=10.16.35.192/28
+alfa_ohio_testing_subnet_managementb_cidr=10.16.39.192/28
+alfa_ohio_testing_subnet_managementc_cidr=10.16.43.192/28
+alfa_ohio_testing_subnet_gatewaya_cidr=10.16.35.208/28
+alfa_ohio_testing_subnet_gatewayb_cidr=10.16.39.208/28
+alfa_ohio_testing_subnet_gatewayc_cidr=10.16.43.208/28
+alfa_ohio_testing_subnet_endpointa_cidr=10.16.35.224/27
+alfa_ohio_testing_subnet_endpointb_cidr=10.16.39.224/27
+alfa_ohio_testing_subnet_endpointc_cidr=10.16.43.224/27
+
+## - Alfa Client: Ohio Region: Development Environment
+alfa_ohio_development_vpc_cidr=10.16.48.0/20
+alfa_ohio_development_subnet_publica_cidr=10.16.48.0/26
+alfa_ohio_development_subnet_publicb_cidr=10.16.52.0/26
+alfa_ohio_development_subnet_publicc_cidr=10.16.56.0/26
+alfa_ohio_development_subnet_weba_cidr=10.16.48.128/26
+alfa_ohio_development_subnet_webb_cidr=10.16.52.128/26
+alfa_ohio_development_subnet_webc_cidr=10.16.56.128/26
+alfa_ohio_development_subnet_applicationa_cidr=10.16.49.0/26
+alfa_ohio_development_subnet_applicationb_cidr=10.16.53.0/26
+alfa_ohio_development_subnet_applicationc_cidr=10.16.57.0/26
+alfa_ohio_development_subnet_databasea_cidr=10.16.50.0/26
+alfa_ohio_development_subnet_databaseb_cidr=10.16.54.0/26
+alfa_ohio_development_subnet_databasec_cidr=10.16.58.0/26
+alfa_ohio_development_subnet_managementa_cidr=10.16.51.192/28
+alfa_ohio_development_subnet_managementb_cidr=10.16.55.192/28
+alfa_ohio_development_subnet_managementc_cidr=10.16.59.192/28
+alfa_ohio_development_subnet_gatewaya_cidr=10.16.51.208/28
+alfa_ohio_development_subnet_gatewayb_cidr=10.16.55.208/28
+alfa_ohio_development_subnet_gatewayc_cidr=10.16.59.208/28
+alfa_ohio_development_subnet_endpointa_cidr=10.16.51.224/27
+alfa_ohio_development_subnet_endpointb_cidr=10.16.55.224/27
+alfa_ohio_development_subnet_endpointc_cidr=10.16.59.224/27
+
+## - Zulu Client: Ohio Region: Production Environment
+zulu_ohio_production_vpc_cidr=10.22.64.0/19
+zulu_ohio_production_subnet_publica_cidr=10.22.64.0/25
+zulu_ohio_production_subnet_publicb_cidr=10.22.72.0/25
+zulu_ohio_production_subnet_publicc_cidr=10.22.80.0/25
+zulu_ohio_production_subnet_weba_cidr=10.22.65.0/25
+zulu_ohio_production_subnet_webb_cidr=10.22.73.0/25
+zulu_ohio_production_subnet_webc_cidr=10.22.81.0/25
+zulu_ohio_production_subnet_applicationa_cidr=10.22.66.0/25
+zulu_ohio_production_subnet_applicationb_cidr=10.22.74.0/25
+zulu_ohio_production_subnet_applicationc_cidr=10.22.82.0/25
+zulu_ohio_production_subnet_databasea_cidr=10.22.68.0/25
+zulu_ohio_production_subnet_databaseb_cidr=10.22.76.0/25
+zulu_ohio_production_subnet_databasec_cidr=10.22.84.0/25
+zulu_ohio_production_subnet_managementa_cidr=10.22.71.192/28
+zulu_ohio_production_subnet_managementb_cidr=10.22.79.192/28
+zulu_ohio_production_subnet_managementc_cidr=10.22.87.192/28
+zulu_ohio_production_subnet_gatewaya_cidr=10.22.71.208/28
+zulu_ohio_production_subnet_gatewayb_cidr=10.22.79.208/28
+zulu_ohio_production_subnet_gatewayc_cidr=10.22.87.208/28
+zulu_ohio_production_subnet_endpointa_cidr=10.22.71.224/27
+zulu_ohio_production_subnet_endpointb_cidr=10.22.79.224/27
+zulu_ohio_production_subnet_endpointc_cidr=10.22.87.224/27
+
+## - Zulu Client: Ohio Region: Development Environment
+zulu_ohio_development_vpc_cidr=10.22.112.0/20
+zulu_ohio_development_subnet_publica_cidr=10.22.112.0/26
+zulu_ohio_development_subnet_publicb_cidr=10.22.116.0/26
+zulu_ohio_development_subnet_publicc_cidr=10.22.120.0/26
+zulu_ohio_development_subnet_weba_cidr=10.22.112.128/26
+zulu_ohio_development_subnet_webb_cidr=10.22.116.128/26
+zulu_ohio_development_subnet_webc_cidr=10.22.120.128/26
+zulu_ohio_development_subnet_applicationa_cidr=10.22.113.0/26
+zulu_ohio_development_subnet_applicationb_cidr=10.22.117.0/26
+zulu_ohio_development_subnet_applicationc_cidr=10.22.121.0/26
+zulu_ohio_development_subnet_databasea_cidr=10.22.114.0/26
+zulu_ohio_development_subnet_databaseb_cidr=10.22.118.0/26
+zulu_ohio_development_subnet_databasec_cidr=10.22.122.0/26
+zulu_ohio_development_subnet_managementa_cidr=10.22.115.192/28
+zulu_ohio_development_subnet_managementb_cidr=10.22.119.192/28
+zulu_ohio_development_subnet_managementc_cidr=10.22.123.192/28
+zulu_ohio_development_subnet_gatewaya_cidr=10.22.115.208/28
+zulu_ohio_development_subnet_gatewayb_cidr=10.22.119.208/28
+zulu_ohio_development_subnet_gatewayc_cidr=10.22.123.208/28
+zulu_ohio_development_subnet_endpointa_cidr=10.22.115.224/27
+zulu_ohio_development_subnet_endpointb_cidr=10.22.119.224/27
+zulu_ohio_development_subnet_endpointc_cidr=10.22.123.224/27
+
+## - CaMeLz Organization: Oregon Region: Management Environment (CIDRs Incorrect - Adjust)
+oregon_management_vpc_cidr=10.79.0.0/20
+oregon_management_subnet_publica_cidr=10.79.0.0/26
+oregon_management_subnet_publicb_cidr=10.79.4.0/26
+oregon_management_subnet_publicc_cidr=10.79.8.0/26
+oregon_management_subnet_weba_cidr=10.79.0.128/26
+oregon_management_subnet_webb_cidr=10.79.4.128/26
+oregon_management_subnet_webc_cidr=10.79.8.128/26
+oregon_management_subnet_applicationa_cidr=10.79.1.0/26
+oregon_management_subnet_applicationb_cidr=10.79.5.0/26
+oregon_management_subnet_applicationc_cidr=10.79.9.0/26
+oregon_management_subnet_databasea_cidr=10.79.2.0/26
+oregon_management_subnet_databaseb_cidr=10.79.6.0/26
+oregon_management_subnet_databasec_cidr=10.79.10.0/26
+oregon_management_subnet_directorya_cidr=10.79.3.0/25
+oregon_management_subnet_directoryb_cidr=10.79.7.0/25
+oregon_management_subnet_directoryc_cidr=10.79.11.0/25
+oregon_management_subnet_managementa_cidr=10.79.3.192/28
+oregon_management_subnet_managementb_cidr=10.79.7.192/28
+oregon_management_subnet_managementc_cidr=10.79.11.192/28
+oregon_management_subnet_gatewaya_cidr=10.79.3.208/28
+oregon_management_subnet_gatewayb_cidr=10.79.7.208/28
+oregon_management_subnet_gatewayc_cidr=10.79.11.208/28
+oregon_management_subnet_endpointa_cidr=10.79.3.224/27
+oregon_management_subnet_endpointb_cidr=10.79.7.224/27
+oregon_management_subnet_endpointc_cidr=10.79.11.224/27
+
+## - CaMeLz Organization: Oregon Region: Core Environment (CIDRs Incorrect - Adjust)
+oregon_core_vpc_cidr=10.79.64.0/20
+oregon_core_subnet_publica_cidr=10.79.64.0/26
+oregon_core_subnet_publicb_cidr=10.79.68.0/26
+oregon_core_subnet_publicc_cidr=10.79.72.0/26
+oregon_core_subnet_weba_cidr=10.79.64.128/26
+oregon_core_subnet_webb_cidr=10.79.68.128/26
+oregon_core_subnet_webc_cidr=10.79.72.128/26
+oregon_core_subnet_applicationa_cidr=10.79.65.0/26
+oregon_core_subnet_applicationb_cidr=10.79.69.0/26
+oregon_core_subnet_applicationc_cidr=10.79.73.0/26
+oregon_core_subnet_databasea_cidr=10.79.66.0/26
+oregon_core_subnet_databaseb_cidr=10.79.70.0/26
+oregon_core_subnet_databasec_cidr=10.79.74.0/26
+oregon_core_subnet_managementa_cidr=10.79.67.192/28
+oregon_core_subnet_managementb_cidr=10.79.71.192/28
+oregon_core_subnet_managementc_cidr=10.79.75.192/28
+oregon_core_subnet_gatewaya_cidr=10.79.67.208/28
+oregon_core_subnet_gatewayb_cidr=10.79.71.208/28
+oregon_core_subnet_gatewayc_cidr=10.79.75.208/28
+oregon_core_subnet_endpointa_cidr=10.79.67.224/27
+oregon_core_subnet_endpointb_cidr=10.79.71.224/27
+oregon_core_subnet_endpointc_cidr=10.79.75.224/27
+
+## - CaMeLz Organization: Oregon Region: Log Environment (CIDRs Incorrect - Adjust)
+oregon_log_vpc_cidr=10.79.128.0/20
+oregon_log_subnet_publica_cidr=10.79.128.0/26
+oregon_log_subnet_publicb_cidr=10.79.132.0/26
+oregon_log_subnet_publicc_cidr=10.79.136.0/26
+oregon_log_subnet_weba_cidr=10.79.128.128/26
+oregon_log_subnet_webb_cidr=10.79.132.128/26
+oregon_log_subnet_webc_cidr=10.79.136.128/26
+oregon_log_subnet_applicationa_cidr=10.79.129.0/26
+oregon_log_subnet_applicationb_cidr=10.79.133.0/26
+oregon_log_subnet_applicationc_cidr=10.79.137.0/26
+oregon_log_subnet_databasea_cidr=10.79.130.0/26
+oregon_log_subnet_databaseb_cidr=10.79.134.0/26
+oregon_log_subnet_databasec_cidr=10.79.138.0/26
+oregon_log_subnet_managementa_cidr=10.79.131.192/28
+oregon_log_subnet_managementb_cidr=10.79.135.192/28
+oregon_log_subnet_managementc_cidr=10.79.139.192/28
+oregon_log_subnet_gatewaya_cidr=10.79.131.208/28
+oregon_log_subnet_gatewayb_cidr=10.79.135.208/28
+oregon_log_subnet_gatewayc_cidr=10.79.139.208/28
+oregon_log_subnet_endpointa_cidr=10.79.131.224/27
+oregon_log_subnet_endpointb_cidr=10.79.135.224/27
+oregon_log_subnet_endpointc_cidr=10.79.139.224/27
+
+## - Alfa Client: Oregon Region: Recovery Environment (CIDRs Incorrect - Adjust)
+alfa_oregon_recovery_vpc_cidr=10.64.0.0/20
+alfa_oregon_recovery_subnet_publica_cidr=10.64.0.0/26
+alfa_oregon_recovery_subnet_publicb_cidr=10.64.4.0/26
+alfa_oregon_recovery_subnet_publicc_cidr=10.64.8.0/26
+alfa_oregon_recovery_subnet_weba_cidr=10.64.0.128/26
+alfa_oregon_recovery_subnet_webb_cidr=10.64.4.128/26
+alfa_oregon_recovery_subnet_webc_cidr=10.64.8.128/26
+alfa_oregon_recovery_subnet_applicationa_cidr=10.64.1.0/26
+alfa_oregon_recovery_subnet_applicationb_cidr=10.64.5.0/26
+alfa_oregon_recovery_subnet_applicationc_cidr=10.64.9.0/26
+alfa_oregon_recovery_subnet_databasea_cidr=10.64.2.0/26
+alfa_oregon_recovery_subnet_databaseb_cidr=10.64.6.0/26
+alfa_oregon_recovery_subnet_databasec_cidr=10.64.10.0/26
+alfa_oregon_recovery_subnet_managementa_cidr=10.64.3.192/28
+alfa_oregon_recovery_subnet_managementb_cidr=10.64.7.192/28
+alfa_oregon_recovery_subnet_managementc_cidr=10.64.11.192/28
+alfa_oregon_recovery_subnet_gatewaya_cidr=10.64.3.208/28
+alfa_oregon_recovery_subnet_gatewayb_cidr=10.64.7.208/28
+alfa_oregon_recovery_subnet_gatewayc_cidr=10.64.11.208/28
+alfa_oregon_recovery_subnet_endpointa_cidr=10.64.3.224/27
+alfa_oregon_recovery_subnet_endpointb_cidr=10.64.7.224/27
+alfa_oregon_recovery_subnet_endpointc_cidr=10.64.11.224/27
+
+## - CaMeLz Organization: Santa Barbara Location: Data Center Simulation
+cml_sba_vpc_cidr=172.31.255.0/24
+cml_sba_subnet_publica_cidr=172.31.255.0/27
+cml_sba_subnet_publicb_cidr=172.31.255.128/27
+cml_sba_subnet_privatea_cidr=172.31.255.32/27
+cml_sba_subnet_privateb_cidr=172.31.255.160/27
+cml_sba_subnet_managementa_cidr=172.31.255.64/28
+cml_sba_subnet_managementb_cidr=172.31.255.192/28
+cml_sba_subnet_gatewaya_cidr=172.31.255.80/28
+cml_sba_subnet_gatewayb_cidr=172.31.255.208/28
+cml_sba_subnet_endpointa_cidr=172.31.255.96/27
+cml_sba_subnet_endpointb_cidr=172.31.255.224/27
+
+## - Alfa Client: Los Angeles Location: Data Center Simulation
+alfa_lax_vpc_cidr=172.24.0.0/24
+alfa_lax_subnet_publica_cidr=172.24.0.0/27
+alfa_lax_subnet_publicb_cidr=172.24.0.128/27
+alfa_lax_subnet_privatea_cidr=172.24.0.32/27
+alfa_lax_subnet_privateb_cidr=172.24.0.160/27
+alfa_lax_subnet_managementa_cidr=172.24.0.64/28
+alfa_lax_subnet_managementb_cidr=172.24.0.192/28
+alfa_lax_subnet_gatewaya_cidr=172.24.0.80/28
+alfa_lax_subnet_gatewayb_cidr=172.24.0.208/28
+alfa_lax_subnet_endpointa_cidr=172.24.0.96/27
+alfa_lax_subnet_endpointb_cidr=172.24.0.224/27
+
+## - Alfa Client: Miami Location: Data Center Simulation
+alfa_mia_vpc_cidr=172.24.1.0/24
+alfa_mia_subnet_publica_cidr=172.24.1.0/27
+alfa_mia_subnet_publicb_cidr=172.24.1.128/27
+alfa_mia_subnet_privatea_cidr=172.24.1.32/27
+alfa_mia_subnet_privateb_cidr=172.24.1.160/27
+alfa_mia_subnet_managementa_cidr=172.24.1.64/28
+alfa_mia_subnet_managementb_cidr=172.24.1.192/28
+alfa_mia_subnet_gatewaya_cidr=172.24.1.80/28
+alfa_mia_subnet_gatewayb_cidr=172.24.1.208/28
+alfa_mia_subnet_endpointa_cidr=172.24.1.96/27
+alfa_mia_subnet_endpointb_cidr=172.24.1.224/27
+
+## - Zulu Client: Dallas Location: Data Center Simulation
+zulu_dfw_vpc_cidr=172.28.0.0/24
+zulu_dfw_subnet_publica_cidr=172.28.0.0/27
+zulu_dfw_subnet_publicb_cidr=172.28.0.128/27
+zulu_dfw_subnet_privatea_cidr=172.28.0.32/27
+zulu_dfw_subnet_privateb_cidr=172.28.0.160/27
+zulu_dfw_subnet_managementa_cidr=172.28.0.64/28
+zulu_dfw_subnet_managementb_cidr=172.28.0.192/28
+zulu_dfw_subnet_gatewaya_cidr=172.28.0.80/28
+zulu_dfw_subnet_gatewayb_cidr=172.28.0.208/28
+zulu_dfw_subnet_endpointa_cidr=172.28.0.96/27
+zulu_dfw_subnet_endpointb_cidr=172.28.0.224/27
+
+
+# Transit Gateway, Customer Gateways, VPNs & Routing ##################################################################
+
+## - Ohio Region: Network Environment
+ohio_network_tgw_asn=64513
+
+ohio_network_tgw_rs_allow_external=true
+
+ohio_network_alfa_lax_vpn_tunnel1_cidr='169.254.10.0/30'
+ohio_network_alfa_lax_vpn_tunnel1_psk='6kjdQGLeEYq7GwpRArxXtYVPZAkZvvf3'
+ohio_network_alfa_lax_vpn_tunnel2_cidr='169.254.11.0/30'
+ohio_network_alfa_lax_vpn_tunnel2_psk='Y2nJKcgmqnA4pq7LhDqu7Q6VFtx9QGTM'
+ohio_network_alfa_lax_vpn_tunnel3_cidr='169.254.12.0/30'
+ohio_network_alfa_lax_vpn_tunnel3_psk='q7Dqu7QY2nJKcx9QLhgmqnA4pTM6VFtG'
+ohio_network_alfa_lax_vpn_tunnel4_cidr='169.254.13.0/30'
+ohio_network_alfa_lax_vpn_tunnel4_psk='QGTMYmqnA4pq7L2nJKcg6VFtx9hDqu7Q'
+
+ohio_network_alfa_mia_vpn_tunnel1_cidr='169.254.20.0/30'
+ohio_network_alfa_mia_vpn_tunnel1_psk='wpRArxXtYEYq7GZAkZvvf3VP6kjdQGLe'
+ohio_network_alfa_mia_vpn_tunnel2_cidr='169.254.21.0/30'
+ohio_network_alfa_mia_vpn_tunnel2_psk='A4pq7LhDY2nJKcgmqnqu7QQGTM6VFtx9'
+ohio_network_alfa_mia_vpn_tunnel3_cidr='169.254.22.0/30'
+ohio_network_alfa_mia_vpn_tunnel3_psk='ZApRArkZwxXtYEGvvf3VkjdQP6GLeYq7'
+ohio_network_alfa_mia_vpn_tunnel4_cidr='169.254.23.0/30'
+ohio_network_alfa_mia_vpn_tunnel4_psk='nJKcgA4pq7LhDY2mQQM6qnqu7VFtx9GT'
+
+ohio_network_zulu_dfw_vpn_tunnel1_cidr='169.254.30.0/30'
+ohio_network_zulu_dfw_vpn_tunnel1_psk='VPZLeEYq7GA6kjdQGwptYkZvvf3RArxX'
+ohio_network_zulu_dfw_vpn_tunnel2_cidr='169.254.31.0/30'
+ohio_network_zulu_dfw_vpn_tunnel2_psk='qnA4VFtx9QpqY2hGTMnJDqu7Q6Kcgm7L'
+ohio_network_zulu_dfw_vpn_tunnel3_cidr='169.254.32.0/30'
+ohio_network_zulu_dfw_vpn_tunnel3_psk='6kjVeEYq7GAdQGwPZLptvfArYkZvxX3R'
+ohio_network_zulu_dfw_vpn_tunnel4_cidr='169.254.33.0/30'
+ohio_network_zulu_dfw_vpn_tunnel4_psk='x9A4VFtqYQpqn2hGqu7QgTMnJDm7L6Kc'
+
+ohio_network_cml_sba_vpn_tunnel1_cidr='169.254.250.0/30'
+ohio_network_cml_sba_vpn_tunnel1_psk='EYq7GVPZLeAptYkZvRArx6kjdQGwXvf3'
+ohio_network_cml_sba_vpn_tunnel2_cidr='169.254.251.0/30'
+ohio_network_cml_sba_vpn_tunnel2_psk='txqnAhGTMnJKcgm7L4VF9QpDqu7Q6qY2'
+ohio_network_cml_sba_vpn_tunnel3_cidr='169.254.252.0/30'
+ohio_network_cml_sba_vpn_tunnel3_psk='Yq7EptvfdQGwPZX3RArYkZL6kjVexvGA'
+ohio_network_cml_sba_vpn_tunnel4_cidr='169.254.253.0/30'
+ohio_network_cml_sba_vpn_tunnel4_psk='qnMx9A4V2hGqDm7L6KYQcu7QgTFtqpnJ'
+
+ohio_network_client_vpn_cidr=172.32.16.0/22
+
+## - Oregon Region: Network Environment
+oregon_network_tgw_asn=64514
+
+oregon_network_tgw_rs_allow_external=true
+
+oregon_network_alfa_lax_vpn_tunnel1_cidr='169.254.10.0/30'
+oregon_network_alfa_lax_vpn_tunnel1_psk='6kjdQGLeEYq7GwpRArxXtYVPZAkZvvf3'
+oregon_network_alfa_lax_vpn_tunnel2_cidr='169.254.11.0/30'
+oregon_network_alfa_lax_vpn_tunnel2_psk='Y2nJKcgmqnA4pq7LhDqu7Q6VFtx9QGTM'
+oregon_network_alfa_lax_vpn_tunnel3_cidr='169.254.12.0/30'
+oregon_network_alfa_lax_vpn_tunnel3_psk='q7Dqu7QY2nJKcx9QLhgmqnA4pTM6VFtG'
+oregon_network_alfa_lax_vpn_tunnel4_cidr='169.254.13.0/30'
+oregon_network_alfa_lax_vpn_tunnel4_psk='QGTMYmqnA4pq7L2nJKcg6VFtx9hDqu7Q'
+
+oregon_network_alfa_mia_vpn_tunnel1_cidr='169.254.20.0/30'
+oregon_network_alfa_mia_vpn_tunnel1_psk='wpRArxXtYEYq7GZAkZvvf3VP6kjdQGLe'
+oregon_network_alfa_mia_vpn_tunnel2_cidr='169.254.21.0/30'
+oregon_network_alfa_mia_vpn_tunnel2_psk='A4pq7LhDY2nJKcgmqnqu7QQGTM6VFtx9'
+oregon_network_alfa_mia_vpn_tunnel3_cidr='169.254.22.0/30'
+oregon_network_alfa_mia_vpn_tunnel3_psk='ZApRArkZwxXtYEGvvf3VkjdQP6GLeYq7'
+oregon_network_alfa_mia_vpn_tunnel4_cidr='169.254.23.0/30'
+oregon_network_alfa_mia_vpn_tunnel4_psk='nJKcgA4pq7LhDY2mQQM6qnqu7VFtx9GT'
+
+oregon_network_client_vpn_cidr=172.32.16.0/22
+
+## Customer Gateways ##################################################################################################
+
+## - CaMeLz Organization: Santa Barbara Location: Data Center Simulation
+cml_sba_cgw_asn=65532
+
+## - Alfa Client: Los Angeles Location: Data Center Simulation
+alfa_lax_cgw_asn=64768
+
+## - Alfa Client: Miami Location: Alfa Client: Data Center Simulation
+alfa_mia_cgw_asn=64769
+
+## - Zulu Client: Dallas Location: Data Center Simulation
+zulu_dfw_cgw_asn=64780
+
+
+## Directory Service ##################################################################################################
+
+## - CaMeLz Organization: Global: Management Environment
+
+global_management_directory_domain=ad.$domain
+global_management_directory_netbios_domain=camelz
+global_management_directory_admin_user=Admin@$global_management_directory_domain
+global_management_directory_admin_password=@global_management_directory_admin_password@
+global_management_directory_ohio_trust_password=@global_management_directory_ohio_trust_password@
+global_management_directory_oregon_trust_password=@global_management_directory_oregon_trust_password@
+
+if [ $perclient_ds = 1 ]; then
+  # In the "PerClient" Directory Model, All Clients have their own Global Directory for Users & Groups
+  alfa_global_management_directory_domain=ad.alfa.$domain
+  alfa_global_management_directory_netbios_domain=alfa
+  alfa_global_management_directory_admin_user=Admin@$alfa_global_management_directory_domain
+  alfa_global_management_directory_admin_password=@alfa_global_management_directory_admin_password@
+  alfa_global_management_directory_ohio_trust_password=@alfa_global_management_directory_ohio_trust_password@
+  alfa_global_management_directory_oregon_trust_password=@alfa_global_management_directory_oregon_trust_password@
+
+  zulu_global_management_directory_domain=ad.zulu.$domain
+  zulu_global_management_directory_netbios_domain=zulu
+  zulu_global_management_directory_admin_user=Admin@$zulu_global_management_directory_domain
+  zulu_global_management_directory_admin_password=@zulu_global_management_directory_admin_password@
+  zulu_global_management_directory_ohio_trust_password=@zulu_global_management_directory_ohio_trust_password@
+  zulu_global_management_directory_oregon_trust_password=@zulu_global_management_directory_oregon_trust_password@
+else
+  # In the "OneGlobal" Directory Model, All Clients Share the same Global Directory for Users & Groups
+  alfa_global_management_directory_domain=$global_management_directory_domain                  # Shares Global Management Directory
+  alfa_global_management_directory_netbios_domain=$global_management_directory_netbios_domain  # Shares Global Management Directory
+  alfa_global_management_directory_admin_user=$global_management_directory_admin_user          # Shares Global Management Directory
+  alfa_global_management_directory_admin_password=$global_management_directory_admin_password  # Shares Global Management Directory
+
+  zulu_global_management_directory_domain=$global_management_directory_domain                  # Shares Global Management Directory
+  zulu_global_management_directory_netbios_domain=$global_management_directory_netbios_domain  # Shares Global Management Directory
+  zulu_global_management_directory_admin_user=$global_management_directory_admin_user          # Shares Global Management Directory
+  zulu_global_management_directory_admin_password=$global_management_directory_admin_password  # Shares Global Management Directory
+fi
+
+## - CaMeLz Organization: Global: Core Environment
+global_core_directory_domain=$global_management_directory_domain                  # Shares Global Management Directory
+global_core_directory_netbios_domain=$global_management_directory_netbios_domain  # Shares Global Management Directory
+global_core_directory_admin_user=$global_management_directory_admin_user          # Shares Global Management Directory
+global_core_directory_admin_password=$global_management_directory_admin_password  # Shares Global Management Directory
+
+## - CaMeLz Organization: Global: Log Environment
+global_log_directory_domain=$global_management_directory_domain                  # Shares Global Management Directory
+global_log_directory_netbios_domain=$global_management_directory_netbios_domain  # Shares Global Management Directory
+global_log_directory_admin_user=$global_management_directory_admin_user          # Shares Global Management Directory
+global_log_directory_admin_password=$global_management_directory_admin_password  # Shares Global Management Directory
+
+## - CaMeLz Organization: Ohio Region: Management Environment
+ohio_management_directory_domain=ad.us-east-2.$domain
+ohio_management_directory_netbios_domain=camelzue2
+ohio_management_directory_admin_user=Admin@$ohio_management_directory_domain
+ohio_management_directory_admin_password=MaybeNotHard2Guess
+
+if [ $perclient_ds = 1 ]; then
+  # In the "PerClient" Directory Model, All Clients have their own Ohio Directory for Computers in Ohio
+  alfa_ohio_management_directory_domain=ad.us-east-2.alfa.$domain
+  alfa_ohio_management_directory_netbios_domain=alfaue2
+  alfa_ohio_management_directory_admin_user=Admin@$alfa_ohio_management_directory_domain
+  alfa_ohio_management_directory_admin_password=@alfa_ohio_management_directory_admin_password@
+
+  zulu_ohio_management_directory_domain=ad.us-east-2.zulu.$domain
+  zulu_ohio_management_directory_netbios_domain=zuluue2
+  zulu_ohio_management_directory_admin_user=Admin@$zulu_ohio_management_directory_domain
+  zulu_ohio_management_directory_admin_password=@zulu_ohio_management_directory_admin_password@
+else
+  # In the "OneGlobal" Directory Model, All Clients Share the same Ohio Directory for Computers in Ohio
+  alfa_ohio_management_directory_domain=$ohio_management_directory_domain                  # Shares Ohio Management Directory
+  alfa_ohio_management_directory_netbios_domain=$ohio_management_directory_netbios_domain  # Shares Ohio Management Directory
+  alfa_ohio_management_directory_admin_user=$ohio_management_directory_admin_user          # Shares Ohio Management Directory
+  alfa_ohio_management_directory_admin_password=$ohio_management_directory_admin_password  # Shares Ohio Management Directory
+
+  zulu_ohio_management_directory_domain=$ohio_management_directory_domain                  # Shares Ohio Management Directory
+  zulu_ohio_management_directory_netbios_domain=$ohio_management_directory_netbios_domain  # Shares Ohio Management Directory
+  zulu_ohio_management_directory_admin_user=$ohio_management_directory_admin_user          # Shares Ohio Management Directory
+  zulu_ohio_management_directory_admin_password=$ohio_management_directory_admin_password  # Shares Ohio Management Directory
+fi
+
+## - CaMeLz Organization: Ohio Region: Core Environment
+ohio_core_directory_domain=$ohio_management_directory_domain                  # Shares Ohio Management Directory
+ohio_core_directory_netbios_domain=$ohio_management_directory_netbios_domain  # Shares Ohio Management Directory
+ohio_core_directory_admin_user=$ohio_management_directory_admin_user          # Shares Ohio Management Directory
+ohio_core_directory_admin_password=$ohio_management_directory_admin_password  # Shares Ohio Management Directory
+
+## - CaMeLz Organization: Ohio Region: Log Environment
+ohio_log_directory_domain=$ohio_management_directory_domain                  # Shares Ohio Management Directory
+ohio_log_directory_netbios_domain=$ohio_management_directory_netbios_domain  # Shares Ohio Management Directory
+ohio_log_directory_admin_user=$ohio_management_directory_admin_user          # Shares Ohio Management Directory
+ohio_log_directory_admin_password=$ohio_management_directory_admin_password  # Shares Ohio Management Directory
+
+## - Alfa Client: Ohio Region: Production Environment
+alfa_ohio_production_directory_domain=$alfa_ohio_management_directory_domain                  # Shares Alfa Ohio Management Directory
+alfa_ohio_production_directory_netbios_domain=$alfa_ohio_management_directory_netbios_domain  # Shares Alfa Ohio Management Directory
+alfa_ohio_production_directory_admin_user=$alfa_ohio_management_directory_admin_user          # Shares Alfa Ohio Management Directory
+alfa_ohio_production_directory_admin_password=$alfa_ohio_management_directory_admin_password  # Shares Alfa Ohio Management Directory
+
+## - Alfa Client: Ohio Region: Testing Environment
+alfa_ohio_testing_directory_domain=$alfa_ohio_management_directory_domain                  # Shares Alfa Ohio Management Directory
+alfa_ohio_testing_directory_netbios_domain=$alfa_ohio_management_directory_netbios_domain  # Shares Alfa Ohio Management Directory
+alfa_ohio_testing_directory_admin_user=$alfa_ohio_management_directory_admin_user          # Shares Alfa Ohio Management Directory
+alfa_ohio_testing_directory_admin_password=$alfa_ohio_management_directory_admin_password  # Shares Alfa Ohio Management Directory
+
+## - Alfa Client: Ohio Region: Development Environment
+alfa_ohio_development_directory_domain=$alfa_ohio_management_directory_domain                  # Shares Alfa Ohio Management Directory
+alfa_ohio_development_directory_netbios_domain=$alfa_ohio_management_directory_netbios_domain  # Shares Alfa Ohio Management Directory
+alfa_ohio_development_directory_admin_user=$alfa_ohio_management_directory_admin_user          # Shares Alfa Ohio Management Directory
+alfa_ohio_development_directory_admin_password=$alfa_ohio_management_directory_admin_password  # Shares Alfa Ohio Management Directory
+
+## - Zulu Client: Ohio Region: Production Environment
+zulu_ohio_production_directory_domain=$zulu_ohio_management_directory_domain                  # Shares Zulu Ohio Management Directory
+zulu_ohio_production_directory_netbios_domain=$zulu_ohio_management_directory_netbios_domain  # Shares Zulu Ohio Management Directory
+zulu_ohio_production_directory_admin_user=$zulu_ohio_management_directory_admin_user          # Shares Zulu Ohio Management Directory
+zulu_ohio_production_directory_admin_password=$zulu_ohio_management_directory_admin_password  # Shares Zulu Ohio Management Directory
+
+## - Zulu Client: Ohio Region: Development Environment
+zulu_ohio_development_directory_domain=$zulu_ohio_management_directory_domain                  # Shares Zulu Ohio Management Directory
+zulu_ohio_development_directory_netbios_domain=$zulu_ohio_management_directory_netbios_domain  # Shares Zulu Ohio Management Directory
+zulu_ohio_development_directory_admin_user=$zulu_ohio_management_directory_admin_user          # Shares Zulu Ohio Management Directory
+zulu_ohio_development_directory_admin_password=$zulu_ohio_management_directory_admin_password  # Shares Zulu Ohio Management Directory
+
+## - CaMeLz Organization: Oregon Region: Management Environment
+oregon_management_directory_domain=ad.us-west-2.$domain
+oregon_management_directory_netbios_domain=camelzuw2
+oregon_management_directory_admin_user=Admin@$oregon_management_directory_domain
+oregon_management_directory_admin_password=@oregon_management_directory_admin_password@
+
+if [ $perclient_ds = 1 ]; then
+  # In the "PerClient" Directory Model, All Clients have their own Oregon Directory for Computers in Oregon
+  alfa_oregon_management_directory_domain=ad.eu-west-1.alfa.$domain
+  alfa_oregon_management_directory_netbios_domain=alfaew1
+  alfa_oregon_management_directory_admin_user=Admin@$alfa_oregon_management_directory_domain
+  alfa_oregon_management_directory_admin_password=@alfa_oregon_management_directory_admin_password@
+
+  zulu_oregon_management_directory_domain=ad.eu-west-1.zulu.$domain
+  zulu_oregon_management_directory_netbios_domain=zuluew1
+  zulu_oregon_management_directory_admin_user=Admin@$zulu_oregon_management_directory_domain
+  zulu_oregon_management_directory_admin_password=@zulu_oregon_management_directory_admin_password@
+else
+  # In the "OneGlobal" Directory Model, All Clients Share the same Ohio Directory for Computers in Oregon
+  alfa_oregon_management_directory_domain=$oregon_management_directory_domain                  # Shares Oregon Management Directory
+  alfa_oregon_management_directory_netbios_domain=$oregon_management_directory_netbios_domain  # Shares Oregon Management Directory
+  alfa_oregon_management_directory_admin_user=$oregon_management_directory_admin_user          # Shares Oregon Management Directory
+  alfa_oregon_management_directory_admin_password=$oregon_management_directory_admin_password  # Shares Oregon Management Directory
+
+  zulu_oregon_management_directory_domain=$oregon_management_directory_domain                  # Shares Oregon Management Directory
+  zulu_oregon_management_directory_netbios_domain=$oregon_management_directory_netbios_domain  # Shares Oregon Management Directory
+  zulu_oregon_management_directory_admin_user=$oregon_management_directory_admin_user          # Shares Oregon Management Directory
+  zulu_oregon_management_directory_admin_password=$oregon_management_directory_admin_password  # Shares Oregon Management Directory
+fi
+
+## - CaMeLz Organization: Oregon Region: Core Environment
+oregon_core_directory_domain=$oregon_management_directory_domain                  # Shares Oregon Management Directory
+oregon_core_directory_netbios_domain=$oregon_management_directory_netbios_domain  # Shares Oregon Management Directory
+oregon_core_directory_admin_user=$oregon_management_directory_admin_user          # Shares Oregon Management Directory
+oregon_core_directory_admin_password=$oregon_management_directory_admin_password  # Shares Oregon Management Directory
+
+## - CaMeLz Organization: Oregon Region: Log Environment
+oregon_log_directory_domain=$oregon_management_directory_domain                  # Shares Oregon Management Directory
+oregon_log_directory_netbios_domain=$oregon_management_directory_netbios_domain  # Shares Oregon Management Directory
+oregon_log_directory_admin_user=$oregon_management_directory_admin_user          # Shares Oregon Management Directory
+oregon_log_directory_admin_password=$oregon_management_directory_admin_password  # Shares Oregon Management Directory
+
+## - Alfa Client: Oregon Region: Recovery Environment
+alfa_oregon_recovery_directory_domain=$alfa_oregon_management_directory_domain                  # Shares Alfa Oregon Management Directory
+alfa_oregon_recovery_directory_netbios_domain=$alfa_oregon_management_directory_netbios_domain  # Shares Alfa Oregon Management Directory
+alfa_oregon_recovery_directory_admin_user=$alfa_oregon_management_directory_admin_user          # Shares Alfa Oregon Management Directory
+alfa_oregon_recovery_directory_admin_password=$alfa_oregon_management_directory_admin_password  # Shares Alfa Oregon Management Directory

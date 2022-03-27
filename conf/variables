@@ -1,0 +1,116 @@
+#!/usr/bin/env bash
+#
+# CaMeLz Variables
+#
+# The default live location of this file is ~/.camelz/variables. This is the version of this file which wil be used
+# during the build process.
+#
+# Defaults and Examples of this script can be found in $CAMELZ_HOME/conf/:
+# - variables.default - a default version of this file, containing an empty set of variables in build sequence.
+# - variables.example - an example version of this file, containing the variables created when building the demo system.
+#
+# Source this script to rebuild your terminal environment variables if you need to restart your terminal session.
+#
+# The camelz-load shell function will source the constants script and this variables script
+#
+# Use the camelz-variable shell function to "upsert" keys in this file each time one is created or replaced.
+
+
+## Organizations ######################################################################################################
+
+## - CaMeLz Organization
+org_id=
+root_id=
+security_ou_id=
+infrastructure_ou_id=
+sandbox_ou_id=
+workloads_ou_id=
+workloads_production_ou_id=
+workloads_nonproduction_ou_id=
+deployments_ou_id=
+deployments_production_ou_id=
+
+
+## Accounts ###########################################################################################################
+
+## - CaMeLz Organization
+management_account_number=
+log_account_number=
+audit_account_number=
+network_account_number=
+core_account_number=
+build_account_number=
+production_account_number=
+recovery_account_number=
+development_account_number=
+
+## - Alfa Client
+alfa_production_account_number=
+alfa_recovery_account_number=
+alfa_development_account_number=
+
+## - Zulu Client
+zulu_production_account_number=
+zulu_development_account_number=
+
+
+## Public Hosted Zones ################################################################################################
+
+## Global (Virginia)
+## - Global Public Hosted Zones
+global_management_public_hostedzone_id=
+global_log_public_hostedzone_id=
+global_audit_public_hostedzone_id=
+global_network_public_hostedzone_id=
+global_core_public_hostedzone_id=
+global_build_public_hostedzone_id=
+global_production_public_hostedzone_id=
+global_recovery_public_hostedzone_id=
+global_staging_public_hostedzone_id=
+global_testing_public_hostedzone_id=
+global_development_public_hostedzone_id=
+
+## Ohio
+## - Ohio Public Hosted Zones
+ohio_management_public_hostedzone_id=
+ohio_log_public_hostedzone_id=
+ohio_audit_public_hostedzone_id=
+ohio_network_public_hostedzone_id=
+ohio_core_public_hostedzone_id=
+ohio_core_public_hostedzone_id=
+ohio_build_public_hostedzone_id=
+ohio_production_public_hostedzone_id=
+ohio_recovery_public_hostedzone_id=
+ohio_staging_public_hostedzone_id=
+ohio_testing_public_hostedzone_id=
+ohio_development_public_hostedzone_id=
+
+## - Alfa Ohio Public Hosted Zones
+alfa_ohio_production_public_hostedzone_id=
+alfa_ohio_testing_public_hostedzone_id=
+alfa_ohio_development_public_hostedzone_id=
+
+## - Zulu Ohio Shared Public Hosted Zones
+zulu_ohio_production_public_hostedzone_id=
+zulu_ohio_development_public_hostedzone_id=
+
+## Oregon
+## - Oregon Public Hosted Zones
+oregon_management_public_hostedzone_id=
+oregon_audit_public_hostedzone_id=
+oregon_core_public_hostedzone_id=
+
+## - Alfa Oregon Public Hosted Zones
+alfa_oregon_production_public_hostedzone_id=
+alfa_oregon_recovery_public_hostedzone_id=
+
+## Data Centers
+## - Alfa LosAngeles
+alfa_lax_public_hostedzone_id=
+alfa_mia_public_hostedzone_id=
+
+## - Alfa Miami
+zulu_dfw_public_hostedzone_id=
+
+## - CaMeLz SantaBarbara
+cml_sba_public_hostedzone_id=

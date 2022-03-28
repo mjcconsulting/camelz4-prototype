@@ -147,7 +147,7 @@ This module builds the Management VPC in the AWS Ohio (us-east-2) Region within 
                         --tags Key=Name,Value=Management-MainRouteTable \
                                Key=Company,Value=Camelz \
                                Key=Environment,Value=Management \
-                               Key=Project,Value= CaMeLz-POC-4 \
+                               Key=Project,Value=CaMeLz-POC-4 \
                         --profile $profile --region us-east-2 --output text
 
     # Tag Management-DefaultNetworkAcl

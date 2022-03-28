@@ -35,7 +35,7 @@ This module builds the Management VPC in the AWS Ohio (us-east-2) Region within 
     # Tag Default-Subnets
     ohio_default_default_subnet_tuples=$(aws ec2 describe-subnets --filters Name=vpc-id,Values=$ohio_default_vpc_id \
                                                                   --query 'Subnets[].[SubnetId,AvailabilityZone]' \
-                                                                  --profile $profile --region=us-west-2 --output text \
+                                                                  --profile $profile --region=us-east-2 --output text \
                                          | tr '\t' ',' | tr '\n' ' ')
 
     for tuple in $(echo $ohio_default_default_subnet_tuples); do

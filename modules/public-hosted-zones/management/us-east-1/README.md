@@ -20,7 +20,7 @@ This module builds Route 53 Public Hosted Zones in the AWS Virginia (us-east-1) 
                                                                             --caller-reference $(date +%s) \
                                                                             --query 'HostedZone.Id' \
                                                                             --profile $profile --region us-east-1 --output text | cut -f3 -d /)
-    camelz-state global_management_public_hostedzone_id
+    camelz-variable global_management_public_hostedzone_id
 
     aws route53 change-tags-for-resource --resource-type hostedzone \
                                          --resource-id $global_management_public_hostedzone_id \

@@ -21,12 +21,6 @@ chrome_installer_sha256=82bc081286f48148dce2c81f97bdb849b38680b7bb3435221fa470ad
 royalts_installer_url=http://installers-camelzm.s3-website-us-east-1.amazonaws.com/RoyalTSInstaller_5.02.60410.0.msi
 royalts_installer_sha256=699ef4391df99f1864d53baf0ce7c637576e6fec50c5677c64e686f3a2050130
 
-# Flags
-use_ngw=1
-ha_ngw=0
-
-perclient_ds=1 # Changing this value will require re-creating any client Windows Instances
-
 
 #  2. Define functions
 

@@ -14,15 +14,26 @@
 # The camelz-load shell function will source this constants script and the variables script
 
 
+## Feature Toggles ####################################################################################################
+
+use_ngw=0
+ha_ngw=0
+
+perclient_ds=1 # Changing this value will require re-creating any client Windows Instances
+
 ## Identifiers ########################################################################################################
 
 ## - Company Identifiers
 company_name=CaMeLz
-company_name_lc=cml
+company_name_lc=camelz
+
+company_code=cml
 
 ## - System Identifiers
 system_name=Demo
-system_name_lc=dem
+system_name_lc=demo
+
+system_code=demo
 
 ## - User Identifiers
 user=administrator
@@ -268,18 +279,21 @@ zulu_dfw_private_domain=dfw.zulu.$domain
 ## AMIs ###############################################################################################################
 ## - AMIs as of 3/24/22
 
+global_nat_ami_id=ami-04106ae1c90766385     # amzn-ami-vpc-nat-2018.03.0.20220315.0-x86_64-ebs
 global_amzn2_ami_id=ami-03e0b06f01d45a4eb   # amzn2-ami-hvm-2.0.20220316.0-x86_64-gp2
 global_win2016_ami_id=ami-0d938d1fe8ad66899 # Windows_Server-2016-English-Full-Base-2022.03.09
 global_win2019_ami_id=ami-0f9a92942448ac56f # Windows_Server-2019-English-Full-Base-2022.03.09
 global_win2022_ami_id=ami-09a4a092e0d0ed511 # Windows_Server-2022-English-Full-Base-2022.03.09
 global_csr_ami_id=ami-0d18f295f92eaca4c     # cisco_CSR-17.03.05-BYOL-624f5bb1-7f8e-4f7c-ad2c-03ae1cd1c2d3
 
+ohio_nat_ami_id=ami-042990f58e63bb416       # amzn-ami-vpc-nat-2018.03.0.20220315.0-x86_64-ebs
 ohio_amzn2_ami_id=ami-09662e4f2b2fb67f9     # amzn2-ami-hvm-2.0.20220316.0-x86_64-gp2
 ohio_win2016_ami_id=ami-04344d607c1a9d591   # Windows_Server-2016-English-Full-Base-2022.03.09
 ohio_win2019_ami_id=ami-0c4a11a8d0e503812   # Windows_Server-2019-English-Full-Base-2022.03.09
 ohio_win2022_ami_id=ami-0be5d9fcfaceb294c   # Windows_Server-2022-English-Full-Base-2022.03.09
 ohio_csr_ami_id=ami-00b5209416a980405       # cisco_CSR-17.03.05-BYOL-624f5bb1-7f8e-4f7c-ad2c-03ae1cd1c2d3
 
+oregon_nat_ami_id=ami-09969d752f1b24e55     # amzn-ami-vpc-nat-2018.03.0.20220315.0-x86_64-ebs
 oregon_amzn2_ami_id=ami-0eb324d928acca58a   # amzn2-ami-hvm-2.0.20220316.0-x86_64-gp2
 oregon_win2016_ami_id=ami-0c662df97f9b04f24 # Windows_Server-2016-English-Full-Base-2022.03.09
 oregon_win2019_ami_id=ami-000b6e3a1a8493a2f # Windows_Server-2019-English-Full-Base-2022.03.09

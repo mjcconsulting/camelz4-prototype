@@ -35,7 +35,7 @@ This module builds the Management VPC in the AWS Virginia (us-east-1) Region wit
     # Tag Default-Subnets
     global_default_default_subnet_tuples=$(aws ec2 describe-subnets --filters Name=vpc-id,Values=$global_default_vpc_id \
                                                                     --query 'Subnets[].[SubnetId,AvailabilityZone]' \
-                                                                    --profile $profile --region=us-west-2 --output text \
+                                                                    --profile $profile --region=us-east-1 --output text \
                                            | tr '\t' ',' | tr '\n' ' ')
 
     for tuple in $(echo $global_default_default_subnet_tuples); do

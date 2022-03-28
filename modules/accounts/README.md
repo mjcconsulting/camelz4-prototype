@@ -17,11 +17,11 @@ do all accounts in this top section instead of breaking them out, so that's what
     profile=$management_profile
     ```
 
-1.  **Confirm Management Profile works and Obtain Management Account Number**
+1.  **Confirm Management Profile works and Obtain Management Account ID**
     ```bash
-    management_account_number=$(aws sts get-caller-identity --query 'Account' \
-                                                             --profile $profile --region us-east-1 --output text)
-    camelz-variable management_account_number
+    management_account_id=$(aws sts get-caller-identity --query 'Account' \
+                                                        --profile $profile --region us-east-1 --output text)
+    camelz-variable management_account_id
     ```
 
 ## Log Account
@@ -31,11 +31,11 @@ do all accounts in this top section instead of breaking them out, so that's what
     profile=$log_profile
     ```
 
-1.  **Confirm log Profile works and Obtain Log Account Number**
+1.  **Confirm log Profile works and Obtain Log Account ID**
     ```bash
-    log_account_number=$(aws sts get-caller-identity --query 'Account' \
-                                                     --profile $profile --region us-east-1 --output text)
-    camelz-variable log_account_number
+    log_account_id=$(aws sts get-caller-identity --query 'Account' \
+                                                 --profile $profile --region us-east-1 --output text)
+    camelz-variable log_account_id
     ```
 
 ## Audit Account
@@ -45,11 +45,11 @@ do all accounts in this top section instead of breaking them out, so that's what
     profile=$audit_profile
     ```
 
-1.  **Confirm Audit Profile works and Obtain Audit Account Number**
+1.  **Confirm Audit Profile works and Obtain Audit Account ID**
     ```bash
-    audit_account_number=$(aws sts get-caller-identity --query 'Account' \
-                                                       --profile $profile --region us-east-1 --output text)
-    camelz-variable audit_account_number
+    audit_account_id=$(aws sts get-caller-identity --query 'Account' \
+                                                   --profile $profile --region us-east-1 --output text)
+    camelz-variable audit_account_id
     ```
 
 ## Network Account
@@ -59,11 +59,11 @@ do all accounts in this top section instead of breaking them out, so that's what
     profile=$network_profile
     ```
 
-1.  **Confirm Network Profile works and Obtain Network Account Number**
+1.  **Confirm Network Profile works and Obtain Network Account ID**
     ```bash
-    network_account_number=$(aws sts get-caller-identity --query 'Account' \
-                                                         --profile $profile --region us-east-1 --output text)
-    camelz-variable network_account_number
+    network_account_id=$(aws sts get-caller-identity --query 'Account' \
+                                                     --profile $profile --region us-east-1 --output text)
+    camelz-variable network_account_id
     ```
 
 ## Core Account
@@ -73,11 +73,11 @@ do all accounts in this top section instead of breaking them out, so that's what
     profile=$core_profile
     ```
 
-1.  **Confirm Core Profile works and Obtain Core Account Number**
+1.  **Confirm Core Profile works and Obtain Core Account ID**
     ```bash
-    core_account_number=$(aws sts get-caller-identity --query 'Account' \
-                                                      --profile $profile --region us-east-1 --output text)
-    camelz-variable core_account_number
+    core_account_id=$(aws sts get-caller-identity --query 'Account' \
+                                                  --profile $profile --region us-east-1 --output text)
+    camelz-variable core_account_id
     ```
 
 ## Build Account
@@ -87,11 +87,11 @@ do all accounts in this top section instead of breaking them out, so that's what
     profile=$build_profile
     ```
 
-1.  **Confirm Build Profile works and Obtain Build Account Number**
+1.  **Confirm Build Profile works and Obtain Build Account ID**
     ```bash
-    build_account_number=$(aws sts get-caller-identity --query 'Account' \
-                                                       --profile $profile --region us-east-1 --output text)
-    camelz-variable build_account_number
+    build_account_id=$(aws sts get-caller-identity --query 'Account' \
+                                                   --profile $profile --region us-east-1 --output text)
+    camelz-variable build_account_id
     ```
 
 ## Production Account
@@ -101,11 +101,11 @@ do all accounts in this top section instead of breaking them out, so that's what
     profile=$production_profile
     ```
 
-1.  **Confirm Production Profile works and Obtain Production Account Number**
+1.  **Confirm Production Profile works and Obtain Production Account ID**
     ```bash
-    production_account_number=$(aws sts get-caller-identity --query 'Account' \
-                                                            --profile $profile --region us-east-1 --output text)
-    camelz-variable production_account_number
+    production_account_id=$(aws sts get-caller-identity --query 'Account' \
+                                                        --profile $profile --region us-east-1 --output text)
+    camelz-variable production_account_id
     ```
 
 ## Recovery Account
@@ -115,11 +115,11 @@ do all accounts in this top section instead of breaking them out, so that's what
     profile=$recovery_profile
     ```
 
-1.  **Confirm Recovery Profile works and Obtain Recovery Account Number**
+1.  **Confirm Recovery Profile works and Obtain Recovery Account ID**
     ```bash
-    recovery_account_number=$(aws sts get-caller-identity --query 'Account' \
-                                                          --profile $profile --region us-east-1 --output text)
-    camelz-variable recovery_account_number
+    recovery_account_id=$(aws sts get-caller-identity --query 'Account' \
+                                                      --profile $profile --region us-east-1 --output text)
+    camelz-variable recovery_account_id
     ```
 
 ## Development Account
@@ -129,11 +129,11 @@ do all accounts in this top section instead of breaking them out, so that's what
     profile=$development_profile
     ```
 
-1.  **Confirm Development Profile works and Obtain Development Account Number**
+1.  **Confirm Development Profile works and Obtain Development Account ID**
     ```bash
-    development_account_number=$(aws sts get-caller-identity --query 'Account' \
-                                                             --profile $profile --region us-east-1 --output text)
-    camelz-variable development_account_number
+    development_account_id=$(aws sts get-caller-identity --query 'Account' \
+                                                         --profile $profile --region us-east-1 --output text)
+    camelz-variable development_account_id
     ```
 
 ## Alfa-Production Account
@@ -143,11 +143,11 @@ do all accounts in this top section instead of breaking them out, so that's what
     profile=$alfa_production_profile
     ```
 
-1.  **Confirm Alfa-Production Profile works and Obtain Afla-Production Account Number**
+1.  **Confirm Alfa-Production Profile works and Obtain Afla-Production Account ID**
     ```bash
-    alfa_production_account_number=$(aws sts get-caller-identity --query 'Account' \
-                                                                 --profile $profile --region us-east-1 --output text)
-    camelz-variable alfa_production_account_number
+    alfa_production_account_id=$(aws sts get-caller-identity --query 'Account' \
+                                                             --profile $profile --region us-east-1 --output text)
+    camelz-variable alfa_production_account_id
     ```
 
 ## Alfa-Recovery Account
@@ -157,11 +157,11 @@ do all accounts in this top section instead of breaking them out, so that's what
     profile=$alfa_recovery_profile
     ```
 
-1.  **Confirm Alfa-Recovery Profile works and Obtain Alfa-Recovery Account Number**
+1.  **Confirm Alfa-Recovery Profile works and Obtain Alfa-Recovery Account ID**
     ```bash
-    alfa_recovery_account_number=$(aws sts get-caller-identity --query 'Account' \
-                                                               --profile $profile --region us-east-1 --output text)
-    camelz-variable alfa_recovery_account_number
+    alfa_recovery_account_id=$(aws sts get-caller-identity --query 'Account' \
+                                                           --profile $profile --region us-east-1 --output text)
+    camelz-variable alfa_recovery_account_id
     ```
 
 ## Alfa-Development Account
@@ -171,11 +171,11 @@ do all accounts in this top section instead of breaking them out, so that's what
     profile=$alfa_development_profile
     ```
 
-1.  **Confirm Alfa-Development Profile works and Obtain Alfa-Development Account Number**
+1.  **Confirm Alfa-Development Profile works and Obtain Alfa-Development Account ID**
     ```bash
-    alfa_development_account_number=$(aws sts get-caller-identity --query 'Account' \
-                                                                  --profile $profile --region us-east-1 --output text)
-    camelz-variable alfa_development_account_number
+    alfa_development_account_id=$(aws sts get-caller-identity --query 'Account' \
+                                                              --profile $profile --region us-east-1 --output text)
+    camelz-variable alfa_development_account_id
     ```
 
 ## Zulu-Production Account
@@ -185,11 +185,11 @@ do all accounts in this top section instead of breaking them out, so that's what
     profile=$zulu_production_profile
     ```
 
-1.  **Confirm Zulu-Production Profile works and Obtain Zulu-Production Account Number**
+1.  **Confirm Zulu-Production Profile works and Obtain Zulu-Production Account ID**
     ```bash
-    zulu_production_account_number=$(aws sts get-caller-identity --query 'Account' \
-                                                                 --profile $profile --region us-east-1 --output text)
-    camelz-variable zulu_production_account_number
+    zulu_production_account_id=$(aws sts get-caller-identity --query 'Account' \
+                                                             --profile $profile --region us-east-1 --output text)
+    camelz-variable zulu_production_account_id
     ```
 
 ## Zulu-Development Account
@@ -199,11 +199,11 @@ do all accounts in this top section instead of breaking them out, so that's what
     profile=$zulu_development_profile
     ```
 
-1.  **Confirm Zulu-Development Profile works and Obtain Zulu-Development Account Number**
+1.  **Confirm Zulu-Development Profile works and Obtain Zulu-Development Account ID**
     ```bash
-    zulu_development_account_number=$(aws sts get-caller-identity --query 'Account' \
-                                                                  --profile $profile --region us-east-1 --output text)
-    camelz-variable zulu_development_account_number
+    zulu_development_account_id=$(aws sts get-caller-identity --query 'Account' \
+                                                              --profile $profile --region us-east-1 --output text)
+    camelz-variable zulu_development_account_id
     ```
 
 

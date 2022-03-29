@@ -1,14 +1,14 @@
-# Modules:VPCs:Management:Oregon
+# Modules:VPCs:Development:Oregon
 
-This module builds the Management VPC in the AWS Oregon (us-west-2) Region within the CaMeLz-Management Account.
+This module builds the Development VPC in the AWS Oregon (us-west-2) Region within the CaMeLz-Development Account.
 
 ## Dependencies
 
 **TODO**: Determine Dependencies and list.
 
-## Oregon Management VPC
+## Oregon Development VPC
 
-1. **Set Profile for Management Account**
+1. **Set Profile for Development Account**
 
     ```bash
     profile=$management_profile
@@ -111,13 +111,12 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                Key=Environment,Value=Default \
                                Key=Project,Value=Default \
                         --profile $profile --region us-west-2 --output text
-    ```
 
 1.  **Create VPC**
 
     ```bash
     oregon_management_vpc_id=$(aws ec2 create-vpc --cidr-block $oregon_management_vpc_cidr \
-                                                  --tag-specifications "ResourceType=vpc,Tags=[{Key=Name,Value=Management-VPC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                  --tag-specifications "ResourceType=vpc,Tags=[{Key=Name,Value=Development-VPC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                   --query 'Vpc.VpcId' \
                                                   --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_vpc_id
@@ -138,29 +137,29 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     We will also tag these associated resources to insure consistency in the list displays.
 
     ```bash
-    # Tag Management-MainRouteTable
+    # Tag Development-MainRouteTable
     main_rtb_id=$(aws ec2 describe-route-tables --filters Name=vpc-id,Values=$oregon_management_vpc_id \
                                                           Name=association.main,Values=true \
                                                 --query 'RouteTables[0].RouteTableId' \
                                                 --profile $profile --region us-west-2 --output text)
 
     aws ec2 create-tags --resources $main_rtb_id \
-                        --tags Key=Name,Value=Management-MainRouteTable \
+                        --tags Key=Name,Value=Development-MainRouteTable \
                                Key=Company,Value=Camelz \
-                               Key=Environment,Value=Management \
+                               Key=Environment,Value=Development \
                                Key=Project,Value=CaMeLz-POC-4 \
                         --profile $profile --region us-west-2 --output text
 
-    # Tag Management-DefaultNetworkAcl
+    # Tag Development-DefaultNetworkAcl
     default_nacl_id=$(aws ec2 describe-network-acls --filters Name=vpc-id,Values=$oregon_management_vpc_id \
                                                               Name=default,Values=true \
                                                     --query 'NetworkAcls[0].NetworkAclId' \
                                                     --profile $profile --region us-west-2 --output text)
 
     aws ec2 create-tags --resources $default_nacl_id \
-                        --tags Key=Name,Value=Management-DefaultNetworkAcl \
+                        --tags Key=Name,Value=Development-DefaultNetworkAcl \
                                Key=Company,Value=CaMeLz \
-                               Key=Environment,Value=Management \
+                               Key=Environment,Value=Development \
                                Key=Project,Value=CaMeLz-POC-4 \
                         --profile $profile --region us-west-2 --output text
 
@@ -171,9 +170,9 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                                      --profile $profile --region us-west-2 --output text)
 
     aws ec2 create-tags --resources $default_sg_id \
-                        --tags Key=Name,Value=Management-DefaultSecurityGroup \
+                        --tags Key=Name,Value=Development-DefaultSecurityGroup \
                                Key=Company,Value=CaMeLz \
-                               Key=Environment,Value=Management \
+                               Key=Environment,Value=Development \
                                Key=Project,Value=CaMeLz-POC-4 \
                         --profile $profile --region us-west-2 --output text
     ```
@@ -181,13 +180,13 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
 1.  **Create VPC Flow Log**
 
     ```bash
-    aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Management/Oregon" \
+    aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Development/Oregon" \
                               --profile $profile --region us-west-2 --output text
 
     aws ec2 create-flow-logs --resource-type VPC --resource-ids $oregon_management_vpc_id \
                              --traffic-type ALL \
                              --log-destination-type cloud-watch-logs \
-                             --log-destination "arn:aws:logs:us-west-2:${management_account_id}:log-group:/${company_name_lc}/${system_name_lc}/FlowLog/Management/Oregon" \
+                             --log-destination "arn:aws:logs:us-west-2:${management_account_id}:log-group:/${company_name_lc}/${system_name_lc}/FlowLog/Development/Oregon" \
                              --deliver-logs-permission-arn "arn:aws:iam::${management_account_id}:role/FlowLog" \
                              --profile $profile --region us-west-2 --output text
     ```
@@ -195,7 +194,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
 1.  **Create Internet Gateway**
 
     ```bash
-    oregon_management_igw_id=$(aws ec2 create-internet-gateway --tag-specifications "ResourceType=internet-gateway,Tags=[{Key=Name,Value=Management-InternetGateway},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+    oregon_management_igw_id=$(aws ec2 create-internet-gateway --tag-specifications "ResourceType=internet-gateway,Tags=[{Key=Name,Value=Development-InternetGateway},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                --query 'InternetGateway.InternetGatewayId' \
                                                                --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_igw_id
@@ -222,7 +221,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     ```bash
     oregon_management_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$oregon_management_private_domain]" \
                                                                                   "Key=domain-name-servers,Values=[AmazonProvidedDNS]" \
-                                                            --tag-specifications "ResourceType=dhcp-options,Tags=[{Key=Name,Value=Management-DHCPOptions},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                            --tag-specifications "ResourceType=dhcp-options,Tags=[{Key=Name,Value=Development-DHCPOptions},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                             --query 'DhcpOptions.DhcpOptionsId' \
                                                             --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_dopt_id
@@ -238,7 +237,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     oregon_management_public_subneta_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
                                                                 --cidr-block $oregon_management_subnet_publica_cidr \
                                                                 --availability-zone us-west-2a \
-                                                                --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-PublicSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Development-PublicSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                 --query 'Subnet.SubnetId' \
                                                                 --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_public_subneta_id
@@ -250,7 +249,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     oregon_management_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
                                                                 --cidr-block $oregon_management_subnet_publicb_cidr \
                                                                 --availability-zone us-west-2b \
-                                                                --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-PublicSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Development-PublicSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                 --query 'Subnet.SubnetId' \
                                                                 --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_public_subnetb_id
@@ -262,7 +261,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     oregon_management_public_subnetc_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
                                                                 --cidr-block $oregon_management_subnet_publicc_cidr \
                                                                 --availability-zone us-west-2c \
-                                                                --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-PublicSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Development-PublicSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                 --query 'Subnet.SubnetId' \
                                                                 --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_public_subnetc_id
@@ -274,7 +273,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     oregon_management_web_subneta_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
                                                              --cidr-block $oregon_management_subnet_weba_cidr \
                                                              --availability-zone us-west-2a \
-                                                             --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-WebSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                             --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Development-WebSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                              --query 'Subnet.SubnetId' \
                                                              --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_web_subneta_id
@@ -286,7 +285,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     oregon_management_web_subnetb_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
                                                              --cidr-block $oregon_management_subnet_webb_cidr \
                                                              --availability-zone us-west-2b \
-                                                             --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-WebSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                             --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Development-WebSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                              --query 'Subnet.SubnetId' \
                                                              --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_web_subnetb_id
@@ -298,7 +297,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     oregon_management_web_subnetc_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
                                                              --cidr-block $oregon_management_subnet_webc_cidr \
                                                              --availability-zone us-west-2c \
-                                                             --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-WebSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                             --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Development-WebSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                              --query 'Subnet.SubnetId' \
                                                              --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_web_subnetc_id
@@ -310,7 +309,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     oregon_management_application_subneta_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
                                                                      --cidr-block $oregon_management_subnet_applicationa_cidr \
                                                                      --availability-zone us-west-2a \
-                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-ApplicationSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Development-ApplicationSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                      --query 'Subnet.SubnetId' \
                                                                      --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_application_subneta_id
@@ -322,7 +321,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     oregon_management_application_subnetb_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
                                                                      --cidr-block $oregon_management_subnet_applicationb_cidr \
                                                                      --availability-zone us-west-2b \
-                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-ApplicationSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Development-ApplicationSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                      --query 'Subnet.SubnetId' \
                                                                      --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_application_subnetb_id
@@ -333,7 +332,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     oregon_management_application_subnetc_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
                                                                      --cidr-block $oregon_management_subnet_applicationc_cidr \
                                                                      --availability-zone us-west-2c \
-                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-ApplicationSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Development-ApplicationSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                      --query 'Subnet.SubnetId' \
                                                                      --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_application_subnetc_id
@@ -344,7 +343,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     oregon_management_database_subneta_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
                                                                   --cidr-block $oregon_management_subnet_databasea_cidr \
                                                                   --availability-zone us-west-2a \
-                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-DatabaseSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Development-DatabaseSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_database_subneta_id
@@ -355,7 +354,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     oregon_management_database_subnetb_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
                                                                   --cidr-block $oregon_management_subnet_databaseb_cidr \
                                                                   --availability-zone us-west-2b \
-                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-DatabaseSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Development-DatabaseSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_database_subnetb_id
@@ -366,7 +365,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     oregon_management_database_subnetc_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
                                                                   --cidr-block $oregon_management_subnet_databasec_cidr \
                                                                   --availability-zone us-west-2c \
-                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-DatabaseSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Development-DatabaseSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_database_subnetc_id
@@ -377,7 +376,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     oregon_management_directory_subneta_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
                                                                    --cidr-block $oregon_management_subnet_directorya_cidr \
                                                                    --availability-zone us-west-2a \
-                                                                   --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-DirectorySubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                   --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Development-DirectorySubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                    --query 'Subnet.SubnetId' \
                                                                    --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_directory_subneta_id
@@ -388,7 +387,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     oregon_management_directory_subnetb_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
                                                                    --cidr-block $oregon_management_subnet_directoryb_cidr \
                                                                    --availability-zone us-west-2b \
-                                                                   --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-DirectorySubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                   --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Development-DirectorySubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                    --query 'Subnet.SubnetId' \
                                                                    --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_directory_subnetb_id
@@ -399,40 +398,40 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     oregon_management_directory_subnetc_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
                                                                    --cidr-block $oregon_management_subnet_directoryc_cidr \
                                                                    --availability-zone us-west-2c \
-                                                                   --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-DirectorySubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                   --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Development-DirectorySubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                    --query 'Subnet.SubnetId' \
                                                                    --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_directory_subnetc_id
 
-1.  **Create Management Subnet A**
+1.  **Create Development Subnet A**
 
     ```bash
     oregon_management_management_subneta_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
                                                                     --cidr-block $oregon_management_subnet_managementa_cidr \
                                                                     --availability-zone us-west-2a \
-                                                                    --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-ManagementSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                    --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Development-DevelopmentSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                     --query 'Subnet.SubnetId' \
                                                                     --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_management_subneta_id
 
-1.  **Create Management Subnet B**
+1.  **Create Development Subnet B**
 
     ```bash
     oregon_management_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
                                                                     --cidr-block $oregon_management_subnet_managementb_cidr \
                                                                     --availability-zone us-west-2b \
-                                                                    --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-ManagementSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                    --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Development-DevelopmentSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                     --query 'Subnet.SubnetId' \
                                                                     --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_management_subnetb_id
 
-1.  **Create Management Subnet C**
+1.  **Create Development Subnet C**
 
     ```bash
     oregon_management_management_subnetc_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
                                                                     --cidr-block $oregon_management_subnet_managementc_cidr \
                                                                     --availability-zone us-west-2c \
-                                                                    --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-ManagementSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                    --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Development-DevelopmentSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                     --query 'Subnet.SubnetId' \
                                                                     --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_management_subnetc_id
@@ -443,7 +442,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     oregon_management_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
                                                                  --cidr-block $oregon_management_subnet_gatewaya_cidr \
                                                                  --availability-zone us-west-2a \
-                                                                 --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-GatewaySubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                 --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Development-GatewaySubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_gateway_subneta_id
@@ -454,7 +453,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     oregon_management_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
                                                                  --cidr-block $oregon_management_subnet_gatewayb_cidr \
                                                                  --availability-zone us-west-2b \
-                                                                 --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-GatewaySubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                 --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Development-GatewaySubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_gateway_subnetb_id
@@ -465,7 +464,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     oregon_management_gateway_subnetc_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
                                                                  --cidr-block $oregon_management_subnet_gatewayc_cidr \
                                                                  --availability-zone us-west-2c \
-                                                                 --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-GatewaySubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                 --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Development-GatewaySubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_gateway_subnetc_id
@@ -476,7 +475,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     oregon_management_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
                                                                   --cidr-block $oregon_management_subnet_endpointa_cidr \
                                                                   --availability-zone us-west-2a \
-                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-EndpointSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Development-EndpointSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_endpoint_subneta_id
@@ -487,7 +486,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     oregon_management_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
                                                                   --cidr-block $oregon_management_subnet_endpointb_cidr \
                                                                   --availability-zone us-west-2b \
-                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-EndpointSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Development-EndpointSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_endpoint_subnetb_id
@@ -498,7 +497,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     oregon_management_endpoint_subnetc_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
                                                                   --cidr-block $oregon_management_subnet_endpointc_cidr \
                                                                   --availability-zone us-west-2c \
-                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-EndpointSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Development-EndpointSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_endpoint_subnetc_id
@@ -507,7 +506,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
 
     ```bash
     oregon_management_public_rtb_id=$(aws ec2 create-route-table --vpc-id $oregon_management_vpc_id \
-                                                                 --tag-specifications "ResourceType=route-table,Tags=[{Key=Name,Value=Management-PublicRouteTable},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                 --tag-specifications "ResourceType=route-table,Tags=[{Key=Name,Value=Development-PublicRouteTable},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                  --query 'RouteTable.RouteTableId' \
                                                                  --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_public_rtb_id
@@ -550,7 +549,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     if [ $use_ngw = 1 ]; then
       # Create NAT Gateways
       oregon_management_ngw_eipa=$(aws ec2 allocate-address --domain vpc \
-                                                            --tag-specifications "ResourceType=elastic-ip,Tags=[{Key=Name,Value=Management-NAT-EIPA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                            --tag-specifications "ResourceType=elastic-ip,Tags=[{Key=Name,Value=Development-NAT-EIPA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                             --query 'AllocationId' \
                                                             --profile $profile --region us-west-2 --output text)
       camelz-variable oregon_management_ngw_eipa
@@ -558,14 +557,14 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
       oregon_management_ngwa_id=$(aws ec2 create-nat-gateway --allocation-id $oregon_management_ngw_eipa \
                                                              --subnet-id $oregon_management_public_subneta_id \
                                                              --client-token $(date +%s) \
-                                                             --tag-specifications "ResourceType=natgateway,Tags=[{Key=Name,Value=Management-NAT-GatewayA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                             --tag-specifications "ResourceType=natgateway,Tags=[{Key=Name,Value=Development-NAT-GatewayA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                              --query 'NatGateway.NatGatewayId' \
                                                              --profile $profile --region us-west-2 --output text)
       camelz-variable oregon_management_ngwa_id
 
       if [ $ha_ngw = 1 ]; then
         oregon_management_ngw_eipb=$(aws ec2 allocate-address --domain vpc \
-                                                              --tag-specifications "ResourceType=elastic-ip,Tags=[{Key=Name,Value=Management-NAT-EIPB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                              --tag-specifications "ResourceType=elastic-ip,Tags=[{Key=Name,Value=Development-NAT-EIPB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                               --query 'AllocationId' \
                                                               --profile $profile --region us-west-2 --output text)
         camelz-variable oregon_management_ngw_eipb
@@ -573,13 +572,13 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
         oregon_management_ngwb_id=$(aws ec2 create-nat-gateway --allocation-id $oregon_management_ngw_eipb \
                                                                --subnet-id $oregon_management_public_subnetb_id \
                                                                --client-token $(date +%s) \
-                                                               --tag-specifications "ResourceType=natgateway,Tags=[{Key=Name,Value=Management-NAT-GatewayB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                               --tag-specifications "ResourceType=natgateway,Tags=[{Key=Name,Value=Development-NAT-GatewayB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                --query 'NatGateway.NatGatewayId' \
                                                                --profile $profile --region us-west-2 --output text)
         camelz-variable oregon_management_ngwb_id
 
         oregon_management_ngw_eipc=$(aws ec2 allocate-address --domain vpc \
-                                                              --tag-specifications "ResourceType=elastic-ip,Tags=[{Key=Name,Value=Management-NAT-EIPC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                              --tag-specifications "ResourceType=elastic-ip,Tags=[{Key=Name,Value=Development-NAT-EIPC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                               --query 'AllocationId' \
                                                               --profile $profile --region us-west-2 --output text)
         camelz-variable oregon_management_ngw_eipc
@@ -587,17 +586,17 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
         oregon_management_ngwc_id=$(aws ec2 create-nat-gateway --allocation-id $oregon_management_ngw_eipc \
                                                                --subnet-id $oregon_management_public_subnetc_id \
                                                                --client-token $(date +%s) \
-                                                               --tag-specifications "ResourceType=natgateway,Tags=[{Key=Name,Value=Management-NAT-GatewayC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                               --tag-specifications "ResourceType=natgateway,Tags=[{Key=Name,Value=Development-NAT-GatewayC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                --query 'NatGateway.NatGatewayId' \
                                                                --profile $profile --region us-west-2 --output text)
         camelz-variable oregon_management_ngwc_id
       fi
     else
       # Create NAT Security Group
-      oregon_management_nat_sg_id=$(aws ec2 create-security-group --group-name Management-NAT-InstanceSecurityGroup \
-                                                                  --description Management-NAT-InstanceSecurityGroup \
+      oregon_management_nat_sg_id=$(aws ec2 create-security-group --group-name Development-NAT-InstanceSecurityGroup \
+                                                                  --description Development-NAT-InstanceSecurityGroup \
                                                                   --vpc-id $oregon_management_vpc_id \
-                                                                  --tag-specifications "ResourceType=security-group,Tags=[{Key=Name,Value=Management-NAT-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                  --tag-specifications "ResourceType=security-group,Tags=[{Key=Name,Value=Development-NAT-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                   --query 'GroupId' \
                                                                   --profile $profile --region us-west-2 --output text)
       camelz-variable oregon_management_nat_sg_id
@@ -611,8 +610,8 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                                                 --instance-type t3a.nano \
                                                                 --iam-instance-profile Name=ManagedInstance \
                                                                 --key-name administrator \
-                                                                --network-interfaces "AssociatePublicIpAddress=true,DeleteOnTermination=true,Description=Management-NAT-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$oregon_management_nat_sg_id],SubnetId=$oregon_management_public_subneta_id" \
-                                                                --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Management-NAT-Instance},{Key=Hostname,Value=cmlue1mnat01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                --network-interfaces "AssociatePublicIpAddress=true,DeleteOnTermination=true,Description=Development-NAT-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$oregon_management_nat_sg_id],SubnetId=$oregon_management_public_subneta_id" \
+                                                                --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Development-NAT-Instance},{Key=Hostname,Value=cmlue1mnat01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                 --query 'Instances[0].InstanceId' \
                                                                 --profile $profile --region us-west-2 --output text)
       camelz-variable oregon_management_nat_instance_id
@@ -637,7 +636,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
 
     ```bash
     oregon_management_private_rtba_id=$(aws ec2 create-route-table --vpc-id $oregon_management_vpc_id \
-                                                                   --tag-specifications "ResourceType=route-table,Tags=[{Key=Name,Value=Management-PrivateRouteTableA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                   --tag-specifications "ResourceType=route-table,Tags=[{Key=Name,Value=Development-PrivateRouteTableA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                    --query 'RouteTable.RouteTableId' \
                                                                    --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_private_rtba_id
@@ -672,7 +671,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
 
     ```bash
     oregon_management_private_rtbb_id=$(aws ec2 create-route-table --vpc-id $oregon_management_vpc_id \
-                                                                   --tag-specifications "ResourceType=route-table,Tags=[{Key=Name,Value=Management-PrivateRouteTableB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                   --tag-specifications "ResourceType=route-table,Tags=[{Key=Name,Value=Development-PrivateRouteTableB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                    --query 'RouteTable.RouteTableId' \
                                                                    --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_private_rtbb_id
@@ -707,7 +706,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
 
     ```bash
     oregon_management_private_rtbc_id=$(aws ec2 create-route-table --vpc-id $oregon_management_vpc_id \
-                                                                   --tag-specifications "ResourceType=route-table,Tags=[{Key=Name,Value=Management-PrivateRouteTableC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                   --tag-specifications "ResourceType=route-table,Tags=[{Key=Name,Value=Development-PrivateRouteTableC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                    --query 'RouteTable.RouteTableId' \
                                                                    --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_private_rtbc_id
@@ -742,10 +741,10 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
 1.  **Create VPC Endpoint Security Group**
 
     ```bash
-    oregon_management_vpce_sg_id=$(aws ec2 create-security-group --group-name Management-VPCEndpointSecurityGroup \
-                                                                 --description Management-VPCEndpointSecurityGroup \
+    oregon_management_vpce_sg_id=$(aws ec2 create-security-group --group-name Development-VPCEndpointSecurityGroup \
+                                                                 --description Development-VPCEndpointSecurityGroup \
                                                                  --vpc-id $oregon_management_vpc_id \
-                                                                 --tag-specifications "ResourceType=security-group,Tags=[{Key=Name,Value=Management-VPCEndpointSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                 --tag-specifications "ResourceType=security-group,Tags=[{Key=Name,Value=Development-VPCEndpointSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                  --query 'GroupId' \
                                                                  --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_vpce_sg_id
@@ -769,7 +768,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                                                 --security-group-ids $oregon_management_vpce_sg_id \
                                                                 --subnet-ids $oregon_management_endpoint_subneta_id $oregon_management_endpoint_subnetb_id $oregon_management_endpoint_subnetc_id \
                                                                 --client-token $(date +%s) \
-                                                                --tag-specifications "ResourceType=vpc-endpoint,Tags=[{Key=Name,Value=Management-SSMVpcEndpoint},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                --tag-specifications "ResourceType=vpc-endpoint,Tags=[{Key=Name,Value=Development-SSMVpcEndpoint},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                 --query 'VpcEndpoint.VpcEndpointId' \
                                                                 --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_ssm_vpce_id
@@ -781,7 +780,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                                                  --security-group-ids $oregon_management_vpce_sg_id \
                                                                  --subnet-ids $oregon_management_endpoint_subneta_id $oregon_management_endpoint_subnetb_id $oregon_management_endpoint_subnetc_id \
                                                                  --client-token $(date +%s) \
-                                                                 --tag-specifications "ResourceType=vpc-endpoint,Tags=[{Key=Name,Value=Management-SSMMessagesVpcEndpoint},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                 --tag-specifications "ResourceType=vpc-endpoint,Tags=[{Key=Name,Value=Development-SSMMessagesVpcEndpoint},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                  --query 'VpcEndpoint.VpcEndpointId' \
                                                                  --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_ssmm_vpce_id

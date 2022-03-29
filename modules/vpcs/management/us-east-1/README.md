@@ -111,6 +111,7 @@ This module builds the Management VPC in the AWS Virginia (us-east-1) Region wit
                                Key=Environment,Value=Default \
                                Key=Project,Value=Default \
                         --profile $profile --region us-east-1 --output text
+    ```
 
 1.  **Create VPC**
 

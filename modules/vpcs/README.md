@@ -1,4 +1,4 @@
-# Modules:VPC
+# Modules:VPCs
 This Module builds VPCs
 
 TODO: More description coming

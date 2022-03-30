@@ -70,13 +70,18 @@ global_staging_public_hostedzone_id=
 global_testing_public_hostedzone_id=
 global_development_public_hostedzone_id=
 
+## - Alfa Global Public Hosted Zones
+alfa_global_management_public_hostedzone_id=
+
+## - Zulu Global Public Hosted Zones
+zulu_global_management_public_hostedzone_id=
+
 ## Ohio
 ## - Ohio Public Hosted Zones
 ohio_management_public_hostedzone_id=
 ohio_log_public_hostedzone_id=
 ohio_audit_public_hostedzone_id=
 ohio_network_public_hostedzone_id=
-ohio_core_public_hostedzone_id=
 ohio_core_public_hostedzone_id=
 ohio_build_public_hostedzone_id=
 ohio_production_public_hostedzone_id=
@@ -86,34 +91,39 @@ ohio_testing_public_hostedzone_id=
 ohio_development_public_hostedzone_id=
 
 ## - Alfa Ohio Public Hosted Zones
+alfa_ohio_management_public_hostedzone_id=
 alfa_ohio_production_public_hostedzone_id=
 alfa_ohio_testing_public_hostedzone_id=
 alfa_ohio_development_public_hostedzone_id=
 
 ## - Zulu Ohio Shared Public Hosted Zones
+zulu_ohio_management_public_hostedzone_id=
 zulu_ohio_production_public_hostedzone_id=
 zulu_ohio_development_public_hostedzone_id=
 
 ## Oregon
 ## - Oregon Public Hosted Zones
 oregon_management_public_hostedzone_id=
+oregon_log_public_hostedzone_id=
 oregon_audit_public_hostedzone_id=
+oregon_network_public_hostedzone_id=
 oregon_core_public_hostedzone_id=
+oregon_build_public_hostedzone_id=
 
 ## - Alfa Oregon Public Hosted Zones
-alfa_oregon_production_public_hostedzone_id=
+alfa_oregon_management_public_hostedzone_id=
 alfa_oregon_recovery_public_hostedzone_id=
 
-## Data Centers
-## - Alfa LosAngeles
+## External
+## - CaMeLz
+cml_sba_public_hostedzone_id=
+
+## - Alfa
 alfa_lax_public_hostedzone_id=
 alfa_mia_public_hostedzone_id=
 
-## - Alfa Miami
+## - Zulu
 zulu_dfw_public_hostedzone_id=
-
-## - CaMeLz SantaBarbara
-cml_sba_public_hostedzone_id=
 
 
 ## VPCs ###############################################################################################################

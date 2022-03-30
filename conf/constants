@@ -110,7 +110,6 @@ domain=camelz.io
 ## - CaMeLz Organization: Global: Management Environment
 global_management_public_domain=$domain
 global_management_private_domain=$domain
-global_management_public_hostedzone_id=Z077196726TXJ6PQL7R3V # This already exists, so we just reference it
 
 ## - CaMeLz Organization: Global: Log Environment
 global_log_public_domain=l.$domain
@@ -252,12 +251,47 @@ oregon_testing_private_domain=t.us-west-2.$domain
 oregon_development_public_domain=d.us-west-2.$domain
 oregon_development_private_domain=d.us-west-2.$domain
 
+
+## - Alfa Client: Global: Management Environment
+alfa_global_management_public_domain=alfa.$domain
+
+## - Alfa Client: Ohio Region: Management Environment
+alfa_ohio_management_public_domain=us-east-2.alfa.$domain
+
+## - Alfa Client: Ohio Region: Production Environment
+alfa_ohio_production_public_domain=p.us-east-2.alfa.$domain
+alfa_ohio_production_private_domain=p.us-east-2.alfa.$domain
+
+## - Alfa Client: Ohio Region: Testing Environment
+alfa_ohio_testing_public_domain=t.us-east-2.alfa.$domain
+alfa_ohio_testing_private_domain=t.us-east-2.alfa.$domain
+
+## - Alfa Client: Ohio Region: Development Environment
+alfa_ohio_development_public_domain=d.us-east-2.alfa.$domain
+alfa_ohio_development_private_domain=d.us-east-2.alfa.$domain
+
 ## - Alfa Client: Oregon Region: Management Environment
 alfa_oregon_management_public_domain=us-west-2.alfa.$domain
 
 ## - Alfa Client: Oregon Region: Recovery Environment
 alfa_oregon_recovery_public_domain=r.us-west-2.alfa.$domain
 alfa_oregon_recovery_private_domain=r.us-west-2.alfa.$domain
+
+
+## - Zulu Client: Global: Management Environment
+zulu_global_management_public_domain=zulu.$domain
+
+## - Zulu Client: Ohio Region: Management Environment
+zulu_ohio_management_public_domain=us-east-2.zulu.$domain
+
+## - Zulu Client: Ohio Region: Production Environment
+zulu_ohio_production_public_domain=p.us-east-2.zulu.$domain
+zulu_ohio_production_private_domain=p.us-east-2.zulu.$domain
+
+## - Zulu Client: Ohio Region: Development Environment
+zulu_ohio_development_public_domain=d.us-east-2.zulu.$domain
+zulu_ohio_development_private_domain=d.us-east-2.zulu.$domain
+
 
 ## - CaMeLz Organization: Santa Barbara Location: Data Center Simulation
 cml_sba_public_domain=sba.$domain

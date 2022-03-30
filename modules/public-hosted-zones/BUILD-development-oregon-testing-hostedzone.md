@@ -1,40 +1,42 @@
-# Modules:Public Hosted Zones:Development Account:Oregon:Development Hosted Zone
+# Modules:Public Hosted Zones:Development Account:Oregon:Testing Hosted Zone
 
-This module builds the Development Public Hosted Zone in the AWS Oregon (us-west-2) Region within the
+This module builds the Testing Public Hosted Zone in the AWS Oregon (us-west-2) Region within the
 CaMeLz-Development Account.
 
 ## Dependencies
 
 **TODO**: Determine Dependencies and list.
 
-## Oregon Development Hosted Zone
+## Oregon Testing Hosted Zone
 
 1. **Set Profile for Development Account**
+
+    This is correct - Testing Environment Resources are inside the Development Account.
 
     ```bash
     profile=$development_profile
     ```
 
-1. **Create Development Public Hosted Zone**
+1. **Create Testing Public Hosted Zone**
 
     ```bash
-    oregon_development_public_hostedzone_id=$(aws route53 create-hosted-zone --name $oregon_development_public_domain \
-                                                                             --hosted-zone-config Comment="Public Zone for $oregon_development_public_domain",PrivateZone=false \
-                                                                             --caller-reference $(date +%s) \
-                                                                             --query 'HostedZone.Id' \
-                                                                             --profile $profile --region us-east-1 --output text | cut -f3 -d /)
-    camelz-variable oregon_development_public_hostedzone_id
+    oregon_testing_public_hostedzone_id=$(aws route53 create-hosted-zone --name $oregon_testing_public_domain \
+                                                                         --hosted-zone-config Comment="Public Zone for $oregon_testing_public_domain",PrivateZone=false \
+                                                                         --caller-reference $(date +%s) \
+                                                                         --query 'HostedZone.Id' \
+                                                                         --profile $profile --region us-east-1 --output text | cut -f3 -d /)
+    camelz-variable oregon_testing_public_hostedzone_id
 
     aws route53 change-tags-for-resource --resource-type hostedzone \
-                                         --resource-id $oregon_development_public_hostedzone_id \
-                                         --add-tags Key=Name,Value=Development-PublicHostedZone Key=Company,Value=CaMeLz Key=Environment,Value=Development \
+                                         --resource-id $oregon_testing_public_hostedzone_id \
+                                         --add-tags Key=Name,Value=Testing-PublicHostedZone Key=Company,Value=CaMeLz Key=Environment,Value=Testing \
                                          --profile $profile --region us-east-1 --output text
     ```
 
 1. **Get Domain Name Servers**
 
     ```bash
-    nameservers=$(aws route53 get-hosted-zone --id $oregon_development_public_hostedzone_id \
+    nameservers=$(aws route53 get-hosted-zone --id $oregon_testing_public_hostedzone_id \
                                               --query 'DelegationSet.NameServers' \
                                               --profile $profile --region us-east-1 --output text)
     nameservers_array=($(echo $nameservers | tr "\t" "\n"))
@@ -49,8 +51,8 @@ CaMeLz-Development Account.
 1. **Configure Sub-Domain Name Servers in the Parent Hosted Zone**
 
     ```bash
-    tmpfile=$CAMELZ_HOME/tmp/oregon-development-ns-$$.json
-    sed -e "s/@subdomain@/$oregon_development_public_domain/g" \
+    tmpfile=$CAMELZ_HOME/tmp/oregon-testing-ns-$$.json
+    sed -e "s/@subdomain@/$oregon_testing_public_domain/g" \
         -e "s/@ns1@/$nameservers_array[1]/g" \
         -e "s/@ns2@/$nameservers_array[2]/g" \
         -e "s/@ns3@/$nameservers_array[3]/g" \
@@ -76,16 +78,16 @@ CaMeLz-Development Account.
     ```bash
     txtvalue=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 32)
 
-    tmpfile=$CAMELZ_HOME/tmp/oregon-development-txt-check-$$.json
-    sed -e "s/@txtname@/check.$oregon_development_public_domain/g" \
+    tmpfile=$CAMELZ_HOME/tmp/oregon-testing-txt-check-$$.json
+    sed -e "s/@txtname@/check.$oregon_testing_public_domain/g" \
         -e "s/@txtvalue@/$txtvalue/g" \
         $CAMELZ_HOME/templates/route53-upsert-txt.json > $tmpfile
 
-    aws route53 change-resource-record-sets --hosted-zone-id $oregon_development_public_hostedzone_id \
+    aws route53 change-resource-record-sets --hosted-zone-id $oregon_testing_public_hostedzone_id \
                                             --change-batch file://$tmpfile \
                                             --profile $profile --region us-east-1 --output text
 
     sleep 10
 
-    [ $(dig +short -t TXT check.$oregon_development_public_domain) = "\"$txtvalue\"" ] && echo "Check confirmed"
+    [ $(dig +short -t TXT check.$oregon_testing_public_domain) = "\"$txtvalue\"" ] && echo "Check confirmed"
     ```

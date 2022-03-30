@@ -73,9 +73,9 @@ Skip creating these initially. I think we'll only have S3 Buckets in this accoun
 
 1. **[Network-HostedZone](./BUILD-network-ohio-network-vpc.md)** (n.us-east-2.camelz.io)
 1. **[CaMeLz-SantaBarbara-DataCenter-HostedZone](./BUILD-network-ohio-santabarbara-datacenter-hostedzone.md)** (sba.camelz.io)
-1. **[Alfa-LosAngeles-DataCenter-HostedZone](./BUILD-network-ohio-losangeles-alfa-datacenter-hostedzone.md)** (lax.alfa.camelz.io)
-1. **[Alfa-Miami-DataCenter-HostedZone](./BUILD-network-ohio-miami-alfa-datacenter-hostedzone.md)** (mia.alfa.camelz.io)
-1. **[Zulu-Dallas-DataCenter-HostedZone](./BUILD-network-ohio-dallas-zulu-datacenter-hostedzone.md)** (dfw.zulu.camelz.io)
+1. **[Alfa-LosAngeles-DataCenter-HostedZone](./BUILD-network-ohio-alfa-losangeles-datacenter-hostedzone.md)** (lax.alfa.camelz.io)
+1. **[Alfa-Miami-DataCenter-HostedZone](./BUILD-network-ohio-alfa-miami-datacenter-hostedzone.md)** (mia.alfa.camelz.io)
+1. **[Zulu-Dallas-DataCenter-HostedZone](./BUILD-network-ohio-zulu-dallas-datacenter-hostedzone.md)** (dfw.zulu.camelz.io)
 
 #### **Oregon Region**
 
@@ -117,6 +117,12 @@ Skip creating these initially. I think we'll only have S3 Buckets in this accoun
 
 ### **Production Account**
 
+#### **Global**
+
+Do not create
+
+1. **[Production-HostedZone](./BUILD-production-global-production-hostedzone.md)** (p.camelz.io)
+
 #### **Ohio Region**
 
 1. **[Production-HostedZone](./BUILD-production-ohio-production-hostedzone.md)** (p.us-east-2.camelz.io)
@@ -127,16 +133,42 @@ Skip creating these initially. I think we'll only have S3 Buckets in this accoun
 
 ### **Recovery Account**
 
+#### **Global**
+
+Do not create
+
+1. **[Recovery-HostedZone](./BUILD-recovery-global-recovery-hostedzone.md)** (r.camelz.io)
+
+#### **Ohio Region**
+
+Do not create
+
+1. **[Recovery-HostedZone](./BUILD-recovery-ohio-recovery-hostedzone.md)** (r.us-east-2.camelz.io)
+
 #### **Oregon Region**
 
 1. **[Recovery-HostedZone](./BUILD-recovery-oregon-recovery-hostedzone.md)** (r.us-west-2.camelz.io)
 
 ### **Development Account**
 
+#### **Global**
+
+Do not create
+
+1. **[Testing-HostedZone](./BUILD-development-global-testing-hostedzone.md)** (t.camelz.io)
+1. **[Development-HostedZone](./BUILD-development-global-development-hostedzone.md)** (d.camelz.io)
+
 #### **Ohio Region**
 
 1. **[Testing-HostedZone](./BUILD-development-ohio-testing-hostedzone.md)** (t.us-east-2.camelz.io)
 1. **[Development-HostedZone](./BUILD-development-ohio-development-hostedzone.md)** (d.us-east-2.camelz.io)
+
+#### **Oregon Region**
+
+Do not create
+
+1. **[Testing-HostedZone](./BUILD-development-oregon-testing-hostedzone.md)** (t.us-west-2.camelz.io)
+1. **[Development-HostedZone](./BUILD-development-oregon-development-hostedzone.md)** (d.us-west-2.camelz.io)
 
 ### **Alfa-Production Account**
 

@@ -49,7 +49,7 @@ CaMeLz-Development Account.
 1. **Configure Sub-Domain Name Servers in the Parent Hosted Zone**
 
     ```bash
-    tmpfile=$CAMELZ_HOME/tmp/ohio-development-ns-$$.sh
+    tmpfile=$CAMELZ_HOME/tmp/ohio-development-ns-$$.json
     sed -e "s/@subdomain@/$ohio_development_public_domain/g" \
         -e "s/@ns1@/$nameservers_array[1]/g" \
         -e "s/@ns2@/$nameservers_array[2]/g" \
@@ -60,4 +60,32 @@ CaMeLz-Development Account.
     aws route53 change-resource-record-sets --hosted-zone-id $ohio_management_public_hostedzone_id \
                                             --change-batch file://$tmpfile \
                                             --profile $profile --region us-east-1 --output text
+    ```
+
+1. **Set Profile for Development Account**
+
+    ```bash
+    profile=$development_profile
+    ```
+
+1. **Create Check TXT Record in Public Hosted Zone and Confirm**
+
+   Create a TXT record named `check` in the hosted zone, and then validate it is returned, to confirm the hosted zone is
+   properly setup in the public DNS hierarchy.
+
+    ```bash
+    txtvalue=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 32)
+
+    tmpfile=$CAMELZ_HOME/tmp/ohio-development-txt-check-$$.json
+    sed -e "s/@txtname@/check.$ohio_development_public_domain/g" \
+        -e "s/@txtvalue@/$txtvalue/g" \
+        $CAMELZ_HOME/templates/route53-upsert-txt.json > $tmpfile
+
+    aws route53 change-resource-record-sets --hosted-zone-id $ohio_development_public_hostedzone_id \
+                                            --change-batch file://$tmpfile \
+                                            --profile $profile --region us-east-1 --output text
+
+    sleep 10
+
+    [ $(dig +short -t TXT check.$ohio_development_public_domain) = "\"$txtvalue\"" ] && echo "Check confirmed"
     ```

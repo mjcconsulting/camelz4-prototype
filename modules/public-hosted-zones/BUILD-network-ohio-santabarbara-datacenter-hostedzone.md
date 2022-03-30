@@ -49,7 +49,7 @@ CaMeLz-Network Account.
 1. **Configure Sub-Domain Name Servers in the Parent Hosted Zone**
 
     ```bash
-    tmpfile=$CAMELZ_HOME/tmp/santabarbara-datacenter-ns-$$.sh
+    tmpfile=$CAMELZ_HOME/tmp/santabarbara-datacenter-ns-$$.json
     sed -e "s/@subdomain@/$cml_sba_public_domain/g" \
         -e "s/@ns1@/$nameservers_array[1]/g" \
         -e "s/@ns2@/$nameservers_array[2]/g" \
@@ -60,4 +60,32 @@ CaMeLz-Network Account.
     aws route53 change-resource-record-sets --hosted-zone-id $ohio_management_public_hostedzone_id \
                                             --change-batch file://$tmpfile \
                                             --profile $profile --region us-east-1 --output text
+    ```
+
+1. **Set Profile for Network Account**
+
+    ```bash
+    profile=$network_profile
+    ```
+
+1. **Create Check TXT Record in Public Hosted Zone and Confirm**
+
+   Create a TXT record named `check` in the hosted zone, and then validate it is returned, to confirm the hosted zone is
+   properly setup in the public DNS hierarchy.
+
+    ```bash
+    txtvalue=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 32)
+
+    tmpfile=$CAMELZ_HOME/tmp/santabarbara-datacenter-txt-check-$$.json
+    sed -e "s/@txtname@/check.$cml_sba_public_domain/g" \
+        -e "s/@txtvalue@/$txtvalue/g" \
+        $CAMELZ_HOME/templates/route53-upsert-txt.json > $tmpfile
+
+    aws route53 change-resource-record-sets --hosted-zone-id $cml_sba_public_hostedzone_id \
+                                            --change-batch file://$tmpfile \
+                                            --profile $profile --region us-east-1 --output text
+
+    sleep 10
+
+    [ $(dig +short -t TXT check.$cml_sba_public_domain) = "\"$txtvalue\"" ] && echo "Check confirmed"
     ```

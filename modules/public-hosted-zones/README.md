@@ -19,19 +19,19 @@ need them in the future.
 #### **Global**
 
 1. **[Management-HostedZone](./BUILD-management-global-management-hostedzone.md)** (camelz.io)
-1. **[Alfa-Management-HostedZone](./BUILD-management-global-alfa-management-vpc.md)** (alfa.camelz.io)
-1. **[Zulu-Management-HostedZone](./BUILD-management-global-zulu-management-vpc.md)** (zulu.camelz.io)
+1. **[Alfa-Management-HostedZone](./BUILD-management-global-alfa-management-hostedzone.md)** (alfa.camelz.io)
+1. **[Zulu-Management-HostedZone](./BUILD-management-global-zulu-management-hostedzone.md)** (zulu.camelz.io)
 
 #### **Ohio Region**
 
 1. **[Management-HostedZone](./BUILD-management-ohio-management-hostedzone.md)** (us-east-2.camelz.io)
-1. **[Alfa-Management-HostedZone](./BUILD-management-ohio-alfa-management-vpc.md)** (us-east-2.alfa.camelz.io)
-1. **[Zulu-Management-HostedZone](./BUILD-management-ohio-zulu-management-vpc.md)** (us-east-2.zulu.camelz.io)
+1. **[Alfa-Management-HostedZone](./BUILD-management-ohio-alfa-management-hostedzone.md)** (us-east-2.alfa.camelz.io)
+1. **[Zulu-Management-HostedZone](./BUILD-management-ohio-zulu-management-hostedzone.md)** (us-east-2.zulu.camelz.io)
 
 #### **Oregon Region**
 
 1. **[Management-HostedZone](./BUILD-management-oregon-management-hostedzone.md)** (us-west-2.camelz.io)
-1. **[Alfa-Management-HostedZone](./BUILD-management-oregon-alfa-management-vpc.md)** (us-west-2.alfa.camelz.io)
+1. **[Alfa-Management-HostedZone](./BUILD-management-oregon-alfa-management-hostedzone.md)** (us-west-2.alfa.camelz.io)
 
 ### **Log Account**
 
@@ -71,7 +71,7 @@ Skip creating these initially. I think we'll only have S3 Buckets in this accoun
 
 #### **Ohio Region**
 
-1. **[Network-HostedZone](./BUILD-network-ohio-network-vpc.md)** (n.us-east-2.camelz.io)
+1. **[Network-HostedZone](./BUILD-network-ohio-network-hostedzone.md)** (n.us-east-2.camelz.io)
 1. **[CaMeLz-SantaBarbara-DataCenter-HostedZone](./BUILD-network-ohio-santabarbara-datacenter-hostedzone.md)** (sba.camelz.io)
 1. **[Alfa-LosAngeles-DataCenter-HostedZone](./BUILD-network-ohio-alfa-losangeles-datacenter-hostedzone.md)** (lax.alfa.camelz.io)
 1. **[Alfa-Miami-DataCenter-HostedZone](./BUILD-network-ohio-alfa-miami-datacenter-hostedzone.md)** (mia.alfa.camelz.io)

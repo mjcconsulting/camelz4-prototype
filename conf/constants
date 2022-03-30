@@ -958,6 +958,13 @@ alfa_mia_cgw_asn=64769
 zulu_dfw_cgw_asn=64780
 
 
+## Instances ##########################################################################################################
+
+## - CaMeLz Organization: Parameters Used for Test Instances
+
+administrator_password=@administrator_password@
+
+
 ## Directory Service ##################################################################################################
 
 ## - CaMeLz Organization: Global: Management Environment

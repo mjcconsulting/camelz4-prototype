@@ -13,6 +13,10 @@ AWS structures it's on-line workshops and training (See links below).
 1.  **[Manual: Accounts](./accounts/)**
 1.  **[Skip: ManagedPolicies](./managed-policies/)**
 1.  **[Roles](./roles/)**
+1.  **[SSM Parameters](./ssm-parameters/)**
+1.  **[SSM Documents](./ssm-documents/)**
+1.  **[Skip: SSM Associations](./ssm-associations/)**
 1.  **[WIP: Public Hosted Zones](./public-hosted-zones/)**
 1.  **[WIP: VPCs](./vpcs/)**
+1.  **[Skip: Customer Gateways](./customer-gateways/)**
 1.  **[WIP: Instances](./instances/)**

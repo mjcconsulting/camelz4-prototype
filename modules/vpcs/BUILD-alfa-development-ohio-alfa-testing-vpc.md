@@ -6,7 +6,7 @@ This module builds the Alfa-Testing VPC in the AWS Ohio (us-east-2) Region withi
 
 **TODO**: Determine Dependencies and list.
 
-## Ohio Testing VPC
+## Ohio Alfa-Testing VPC
 
 1. **Set Profile for Alfa-Development Account**
 

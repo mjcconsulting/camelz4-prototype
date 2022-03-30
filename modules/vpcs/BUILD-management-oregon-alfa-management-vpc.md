@@ -1,4 +1,4 @@
-# Modules:VPCs:Oregon Alfa-Management-VPC
+# Modules:VPCs:Management Account:Oregon:Alfa Management VPC
 
 This module builds the Alfa-Management VPC in the AWS Oregon (us-west-2) Region within the CaMeLz-Management Account.
 

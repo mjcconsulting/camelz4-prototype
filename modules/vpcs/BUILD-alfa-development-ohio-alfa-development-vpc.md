@@ -8,7 +8,7 @@ This module builds the Alfa-Development VPC in the AWS Ohio (us-east-2) Region w
 
 ## Ohio Alfa-Development VPC
 
-1. **Set Profile for Alfa Development Account**
+1. **Set Profile for Alfa-Development Account**
 
     ```bash
     profile=$alfa_development_profile

@@ -6,7 +6,7 @@ This module builds the Zulu-Production VPC in the AWS Ohio (us-east-2) Region wi
 
 **TODO**: Determine Dependencies and list.
 
-## Ohio Production VPC
+## Ohio Zulu-Production VPC
 
 1. **Set Profile for Zulu-Production Account**
 

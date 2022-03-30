@@ -224,7 +224,7 @@ This section tags existing Default-VPCs, so their Resources appear tagged and ar
 
 #### **Oregon Region**
 
-1. **[Default-VPC](./TAG-audit-ohio-default-vpc.md)**
+1. **[Default-VPC](./TAG-audit-oregon-default-vpc.md)**
 
 ### **Network Account**
 

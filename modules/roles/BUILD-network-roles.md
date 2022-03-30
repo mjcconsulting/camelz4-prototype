@@ -1,19 +1,21 @@
-# Modules:Roles:Management:Global
+# Modules:Roles:Network Account:Global
 
-This module builds IAM Roles in the AWS Virginia (us-east-1) Region within the CaMeLz-Management Account.
+This module builds IAM Roles in the AWS Virginia (us-east-1) Region within the CaMeLz-Network Account.
 
 ## Dependencies
 
 **TODO**: Determine Dependencies and list.
 
-## Global Management Roles
+## Roles
 
-1. **Set Profile for Management Account**
+1. **Set Profile for Network Account**
+
     ```bash
-    profile=$management_profile
+    profile=$network_profile
     ```
 
 1.  **Create ManagedInstance Role & Instance Profile**
+
     ```bash
     aws iam create-role --role-name ManagedInstance \
                         --description 'Role which allows an Instance to be managed by SSM, join a Domain, and write to CloudWatch' \
@@ -39,6 +41,7 @@ This module builds IAM Roles in the AWS Virginia (us-east-1) Region within the C
     ```
 
 1.  **Create FlowLog Role**
+
     ```bash
     aws iam create-role --role-name FlowLog \
                         --description 'Role which allows a VPC to write Flow Logs' \

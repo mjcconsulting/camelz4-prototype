@@ -1,4 +1,4 @@
-# Modules:VPCs:Global Build Account:Default-VPC
+# Modules:VPCs:Build Account:Global:Default VPC
 
 This module tags the Default-VPC in the AWS Virginia (us-east-1) Region within the CaMeLz-Build Account.
 

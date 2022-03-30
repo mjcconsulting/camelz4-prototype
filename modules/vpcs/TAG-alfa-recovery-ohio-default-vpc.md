@@ -1,4 +1,4 @@
-# Modules:VPCs:Ohio Alfa-Recovery Account:Default-VPC
+# Modules:VPCs:Alfa Recovery Account:Ohio:Default VPC
 
 This module tags the Default-VPC in the AWS Ohio (us-east-2) Region within the Alfa-CaMeLz-Recovery Account.
 

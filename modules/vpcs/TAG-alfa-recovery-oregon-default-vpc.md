@@ -1,4 +1,4 @@
-# Modules:VPCs:Oregon Alfa-Recovery Account:Default-VPC
+# Modules:VPCs:Alfa Recovery Account:Oregon:Default VPC
 
 This module tags the Default-VPC in the AWS Oregon (us-west-2) Region within the Alfa-CaMeLz-Recovery Account.
 

@@ -1,4 +1,4 @@
-# Modules:VPCs:Global Recovery Account:Default-VPC
+# Modules:VPCs:Recovery Account:Global:Default VPC
 
 This module tags the Default-VPC in the AWS Virginia (us-east-1) Region within the CaMeLz-Recovery Account.
 

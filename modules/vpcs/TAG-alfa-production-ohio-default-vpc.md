@@ -1,4 +1,4 @@
-# Modules:VPCs:Ohio Alfa-Production Account:Default-VPC
+# Modules:VPCs:Alfa Production Account:Ohio:Default VPC
 
 This module tags the Default-VPC in the AWS Ohio (us-east-2) Region within the Alfa-CaMeLz-Production Account.
 

@@ -1,12 +1,12 @@
-# Modules:VPCs:Global Management Account:Default-VPC
+# Modules:VPCs:Management Account:Ohio:Default VPC
 
-This module tags the Default-VPC in the AWS Virginia (us-east-1) Region within the CaMeLz-Management Account.
+This module tags the Default-VPC in the AWS Ohio (us-east-2) Region within the CaMeLz-Management Account.
 
 ## Dependencies
 
 **TODO**: Determine Dependencies and list.
 
-## Global Management Account - Default-VPC
+## Ohio Management Account - Default-VPC
 
 1. **Set Profile for Management Account**
 

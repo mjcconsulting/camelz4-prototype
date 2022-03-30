@@ -1,4 +1,4 @@
-# Modules:VPCs:Global Management Account:Default-VPC
+# Modules:VPCs:Management Account:Global:Default VPC
 
 This module tags the Default-VPC in the AWS Virginia (us-east-1) Region within the CaMeLz-Management Account.
 

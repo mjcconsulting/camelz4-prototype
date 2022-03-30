@@ -1,4 +1,4 @@
-# Modules:VPCs:Global Development Account:Default-VPC
+# Modules:VPCs:Development Account:Global:Default VPC
 
 This module tags the Default-VPC in the AWS Virginia (us-east-1) Region within the CaMeLz-Development Account.
 

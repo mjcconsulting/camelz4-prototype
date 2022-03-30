@@ -1,4 +1,4 @@
-# Modules:VPCs:Ohio Audit Account:Default-VPC
+# Modules:VPCs:Audit Account:Ohio:Default VPC
 
 This module tags the Default-VPC in the AWS Ohio (us-east-2) Region within the CaMeLz-Audit Account.
 

@@ -1,4 +1,4 @@
-# Modules:VPCs:Oregon Zulu-Development Account:Default-VPC
+# Modules:VPCs:Zulu Development Account:Oregon:Default VPC
 
 This module tags the Default-VPC in the AWS Oregon (us-west-2) Region within the Zulu-CaMeLz-Development Account.
 

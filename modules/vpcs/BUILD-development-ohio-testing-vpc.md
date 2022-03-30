@@ -1,4 +1,4 @@
-# Modules:VPCs:Testing:Ohio
+# Modules:VPCs:Development Account:Ohio:Testing VPC
 
 This module builds the Testing VPC in the AWS Ohio (us-east-2) Region within the CaMeLz-Development Account.
 

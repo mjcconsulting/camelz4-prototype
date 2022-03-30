@@ -1,4 +1,4 @@
-# Modules:VPCs:Global Zulu-Development Account:Default-VPC
+# Modules:VPCs:Zulu Development Account:Global:Default VPC
 
 This module tags the Default-VPC in the AWS Virginia (us-east-1) Region within the Zulu-CaMeLz-Development Account.
 

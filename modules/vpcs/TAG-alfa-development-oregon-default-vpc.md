@@ -1,4 +1,4 @@
-# Modules:VPCs:Oregon Alfa-Development Account:Default-VPC
+# Modules:VPCs:Alfa Development Account:Oregon:Default VPC
 
 This module tags the Default-VPC in the AWS Oregon (us-west-2) Region within the Alfa-CaMeLz-Development Account.
 

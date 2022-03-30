@@ -1,4 +1,4 @@
-# Modules:VPCs:Global MCrawford-Sandbox Account:Default-VPC
+# Modules:VPCs:MCrawford Sandbox Account:Global:Default VPC
 
 This module tags the Default-VPC in the AWS Virginia (us-east-1) Region within the MCrawford-CaMeLz-Sandbox Account.
 

@@ -1,4 +1,4 @@
-# Modules:VPCs:Oregon Audit Account:Default-VPC
+# Modules:VPCs:Audit Account:Oregon:Default VPC
 
 This module tags the Default-VPC in the AWS Oregon (us-west-2) Region within the CaMeLz-Audit Account.
 

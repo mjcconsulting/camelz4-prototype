@@ -1,4 +1,4 @@
-# Modules:VPCs:Testing:Oregon
+# Modules:VPCs:Development Account:Oregon:Testing VPC
 
 This module builds the Testing VPC in the AWS Oregon (us-west-2) Region within the CaMeLz-Development Account.
 

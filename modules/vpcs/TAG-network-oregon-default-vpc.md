@@ -1,4 +1,4 @@
-# Modules:VPCs:Oregon Network Account:Default-VPC
+# Modules:VPCs:Network Account:Oregon:Default VPC
 
 This module tags the Default-VPC in the AWS Oregon (us-west-2) Region within the CaMeLz-Network Account.
 

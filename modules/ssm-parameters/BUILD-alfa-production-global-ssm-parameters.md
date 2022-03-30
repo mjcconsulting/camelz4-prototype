@@ -1,30 +1,30 @@
-# Modules:SSM Parameters:Audit Account:Global
+# Modules:SSM Parameters:Alfa Production Account:Global
 
 This module builds SSM Parameters in the AWS Virginia (us-east-1) Region within the
-CaMeLz-Audit Account.
+Alfa-CaMeLz-Production Account.
 
 ## Dependencies
 
 **TODO**: Determine Dependencies and list.
 
-## Roles
+## SSM Parameters
 
-1. **Set Profile for Audit Account**
+1. **Set Profile for Alfa-Production Account**
 
     ```bash
-    profile=$audit_profile
+    profile=$alfa_production_profile
     ```
 
-1. **Create Audit Instance SSM Parameters**
+1. **Create Alfa-Production Instance SSM Parameters**
 
     ```bash
-    aws ssm put-parameter --name Audit-Administrator-Password \
+    aws ssm put-parameter --name Alfa-Production-Administrator-Password \
                           --description 'Administrator Password for Windows Instances' \
                           --value "$administrator_password" \
                           --type SecureString \
-                          --tags Key=Name,Value=Audit-Administrator-Password \
-                                 Key=Company,Value=CaMeLz \
-                                 Key=Environment,Value=Audit \
+                          --tags Key=Name,Value=Alfa-Production-Administrator-Password \
+                                 Key=Company,Value=Alfa \
+                                 Key=Environment,Value=Production \
                                  Key=Project,Value=CaMeLz-POC-4 \
                           --profile $profile --region us-east-1 --output text
     ```

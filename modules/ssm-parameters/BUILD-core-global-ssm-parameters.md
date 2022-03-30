@@ -1,30 +1,30 @@
-# Modules:SSM Parameters:Zulu Development Account:Global
+# Modules:SSM Parameters:Core Account:Global
 
 This module builds SSM Parameters in the AWS Virginia (us-east-1) Region within the
-Zulu-CaMeLz-Development Account.
+CaMeLz-Core Account.
 
 ## Dependencies
 
 **TODO**: Determine Dependencies and list.
 
-## Roles
+## SSM Parameters
 
-1. **Set Profile for Zulu-Development Account**
+1. **Set Profile for Core Account**
 
     ```bash
-    profile=$zulu_development_profile
+    profile=$core_profile
     ```
 
-1. **Create Zulu-Development Instance SSM Parameters**
+1. **Create Core Instance SSM Parameters**
 
     ```bash
-    aws ssm put-parameter --name Zulu-Development-Administrator-Password \
+    aws ssm put-parameter --name Core-Administrator-Password \
                           --description 'Administrator Password for Windows Instances' \
                           --value "$administrator_password" \
                           --type SecureString \
-                          --tags Key=Name,Value=Zulu-Development-Administrator-Password \
-                                 Key=Company,Value=Zulu \
-                                 Key=Environment,Value=Development \
+                          --tags Key=Name,Value=Core-Administrator-Password \
+                                 Key=Company,Value=CaMeLz \
+                                 Key=Environment,Value=Core \
                                  Key=Project,Value=CaMeLz-POC-4 \
                           --profile $profile --region us-east-1 --output text
     ```

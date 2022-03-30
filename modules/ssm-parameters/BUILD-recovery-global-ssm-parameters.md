@@ -7,7 +7,7 @@ CaMeLz-Recovery Account.
 
 **TODO**: Determine Dependencies and list.
 
-## Roles
+## SSM Parameters
 
 1. **Set Profile for Recovery Account**
 

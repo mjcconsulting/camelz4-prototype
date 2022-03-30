@@ -7,7 +7,7 @@ CaMeLz-Management Account.
 
 **TODO**: Determine Dependencies and list.
 
-## Roles
+## SSM Parameters
 
 1. **Set Profile for Management Account**
 

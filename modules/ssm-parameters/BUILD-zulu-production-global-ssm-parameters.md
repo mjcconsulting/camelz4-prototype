@@ -1,29 +1,29 @@
-# Modules:SSM Parameters:Alfa Production Account:Global
+# Modules:SSM Parameters:Zulu Production Account:Global
 
 This module builds SSM Parameters in the AWS Virginia (us-east-1) Region within the
-Alfa-CaMeLz-Production Account.
+Zulu-CaMeLz-Production Account.
 
 ## Dependencies
 
 **TODO**: Determine Dependencies and list.
 
-## Roles
+## SSM Parameters
 
-1. **Set Profile for Alfa-Production Account**
+1. **Set Profile for Zulu-Production Account**
 
     ```bash
-    profile=$alfa_production_profile
+    profile=$zulu_production_profile
     ```
 
-1. **Create Alfa-Production Instance SSM Parameters**
+1. **Create Zulu-Production Instance SSM Parameters**
 
     ```bash
-    aws ssm put-parameter --name Alfa-Production-Administrator-Password \
+    aws ssm put-parameter --name Zulu-Production-Administrator-Password \
                           --description 'Administrator Password for Windows Instances' \
                           --value "$administrator_password" \
                           --type SecureString \
-                          --tags Key=Name,Value=Alfa-Production-Administrator-Password \
-                                 Key=Company,Value=Alfa \
+                          --tags Key=Name,Value=Zulu-Production-Administrator-Password \
+                                 Key=Company,Value=Zulu \
                                  Key=Environment,Value=Production \
                                  Key=Project,Value=CaMeLz-POC-4 \
                           --profile $profile --region us-east-1 --output text

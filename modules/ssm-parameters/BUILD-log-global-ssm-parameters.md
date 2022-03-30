@@ -1,30 +1,30 @@
-# Modules:SSM Parameters:Core Account:Global
+# Modules:SSM Parameters:Log Account:Global
 
 This module builds SSM Parameters in the AWS Virginia (us-east-1) Region within the
-CaMeLz-Core Account.
+CaMeLz-Log Account.
 
 ## Dependencies
 
 **TODO**: Determine Dependencies and list.
 
-## Roles
+## SSM Parameters
 
-1. **Set Profile for Core Account**
+1. **Set Profile for Log Account**
 
     ```bash
-    profile=$core_profile
+    profile=$log_profile
     ```
 
-1. **Create Core Instance SSM Parameters**
+1. **Create Log Instance SSM Parameters**
 
     ```bash
-    aws ssm put-parameter --name Core-Administrator-Password \
+    aws ssm put-parameter --name Log-Administrator-Password \
                           --description 'Administrator Password for Windows Instances' \
                           --value "$administrator_password" \
                           --type SecureString \
-                          --tags Key=Name,Value=Core-Administrator-Password \
+                          --tags Key=Name,Value=Log-Administrator-Password \
                                  Key=Company,Value=CaMeLz \
-                                 Key=Environment,Value=Core \
+                                 Key=Environment,Value=Log \
                                  Key=Project,Value=CaMeLz-POC-4 \
                           --profile $profile --region us-east-1 --output text
     ```

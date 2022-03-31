@@ -21,6 +21,7 @@ ha_ngw=0
 
 perclient_ds=1 # Changing this value will require re-creating any client Windows Instances
 
+
 ## Identifiers ########################################################################################################
 
 ## - Company Identifiers
@@ -976,7 +977,6 @@ administrator_password=@administrator_password@
 ## Directory Service ##################################################################################################
 
 ## - CaMeLz Organization: Global: Management Environment
-
 global_management_directory_domain=ad.$domain
 global_management_directory_netbios_domain=camelz
 global_management_directory_admin_user=Admin@$global_management_directory_domain
@@ -984,33 +984,17 @@ global_management_directory_admin_password=@global_management_directory_admin_pa
 global_management_directory_ohio_trust_password=@global_management_directory_ohio_trust_password@
 global_management_directory_oregon_trust_password=@global_management_directory_oregon_trust_password@
 
-if [ $perclient_ds = 1 ]; then
-  # In the "PerClient" Directory Model, All Clients have their own Global Directory for Users & Groups
-  alfa_global_management_directory_domain=ad.alfa.$domain
-  alfa_global_management_directory_netbios_domain=alfa
-  alfa_global_management_directory_admin_user=Admin@$alfa_global_management_directory_domain
-  alfa_global_management_directory_admin_password=@alfa_global_management_directory_admin_password@
-  alfa_global_management_directory_ohio_trust_password=@alfa_global_management_directory_ohio_trust_password@
-  alfa_global_management_directory_oregon_trust_password=@alfa_global_management_directory_oregon_trust_password@
+## - CaMeLz Organization: Global: Audit Environment
+global_audit_directory_domain=$global_management_directory_domain                  # Shares Global Management Directory
+global_audit_directory_netbios_domain=$global_management_directory_netbios_domain  # Shares Global Management Directory
+global_audit_directory_admin_user=$global_management_directory_admin_user          # Shares Global Management Directory
+global_audit_directory_admin_password=$global_management_directory_admin_password  # Shares Global Management Directory
 
-  zulu_global_management_directory_domain=ad.zulu.$domain
-  zulu_global_management_directory_netbios_domain=zulu
-  zulu_global_management_directory_admin_user=Admin@$zulu_global_management_directory_domain
-  zulu_global_management_directory_admin_password=@zulu_global_management_directory_admin_password@
-  zulu_global_management_directory_ohio_trust_password=@zulu_global_management_directory_ohio_trust_password@
-  zulu_global_management_directory_oregon_trust_password=@zulu_global_management_directory_oregon_trust_password@
-else
-  # In the "OneGlobal" Directory Model, All Clients Share the same Global Directory for Users & Groups
-  alfa_global_management_directory_domain=$global_management_directory_domain                  # Shares Global Management Directory
-  alfa_global_management_directory_netbios_domain=$global_management_directory_netbios_domain  # Shares Global Management Directory
-  alfa_global_management_directory_admin_user=$global_management_directory_admin_user          # Shares Global Management Directory
-  alfa_global_management_directory_admin_password=$global_management_directory_admin_password  # Shares Global Management Directory
-
-  zulu_global_management_directory_domain=$global_management_directory_domain                  # Shares Global Management Directory
-  zulu_global_management_directory_netbios_domain=$global_management_directory_netbios_domain  # Shares Global Management Directory
-  zulu_global_management_directory_admin_user=$global_management_directory_admin_user          # Shares Global Management Directory
-  zulu_global_management_directory_admin_password=$global_management_directory_admin_password  # Shares Global Management Directory
-fi
+## - CaMeLz Organization: Global: Network Environment
+global_network_directory_domain=$global_management_directory_domain                  # Shares Global Management Directory
+global_network_directory_netbios_domain=$global_management_directory_netbios_domain  # Shares Global Management Directory
+global_network_directory_admin_user=$global_management_directory_admin_user          # Shares Global Management Directory
+global_network_directory_admin_password=$global_management_directory_admin_password  # Shares Global Management Directory
 
 ## - CaMeLz Organization: Global: Core Environment
 global_core_directory_domain=$global_management_directory_domain                  # Shares Global Management Directory
@@ -1018,41 +1002,23 @@ global_core_directory_netbios_domain=$global_management_directory_netbios_domain
 global_core_directory_admin_user=$global_management_directory_admin_user          # Shares Global Management Directory
 global_core_directory_admin_password=$global_management_directory_admin_password  # Shares Global Management Directory
 
-## - CaMeLz Organization: Global: Log Environment
-global_log_directory_domain=$global_management_directory_domain                  # Shares Global Management Directory
-global_log_directory_netbios_domain=$global_management_directory_netbios_domain  # Shares Global Management Directory
-global_log_directory_admin_user=$global_management_directory_admin_user          # Shares Global Management Directory
-global_log_directory_admin_password=$global_management_directory_admin_password  # Shares Global Management Directory
-
 ## - CaMeLz Organization: Ohio Region: Management Environment
 ohio_management_directory_domain=ad.us-east-2.$domain
 ohio_management_directory_netbios_domain=camelzue2
 ohio_management_directory_admin_user=Admin@$ohio_management_directory_domain
-ohio_management_directory_admin_password=MaybeNotHard2Guess
+ohio_management_directory_admin_password=@ohio_management_directory_admin_password@
 
-if [ $perclient_ds = 1 ]; then
-  # In the "PerClient" Directory Model, All Clients have their own Ohio Directory for Computers in Ohio
-  alfa_ohio_management_directory_domain=ad.us-east-2.alfa.$domain
-  alfa_ohio_management_directory_netbios_domain=alfaue2
-  alfa_ohio_management_directory_admin_user=Admin@$alfa_ohio_management_directory_domain
-  alfa_ohio_management_directory_admin_password=@alfa_ohio_management_directory_admin_password@
+## - CaMeLz Organization: Ohio Region: Audit Environment
+ohio_audit_directory_domain=$ohio_management_directory_domain                  # Shares Ohio Management Directory
+ohio_audit_directory_netbios_domain=$ohio_management_directory_netbios_domain  # Shares Ohio Management Directory
+ohio_audit_directory_admin_user=$ohio_management_directory_admin_user          # Shares Ohio Management Directory
+ohio_audit_directory_admin_password=$ohio_management_directory_admin_password  # Shares Ohio Management Directory
 
-  zulu_ohio_management_directory_domain=ad.us-east-2.zulu.$domain
-  zulu_ohio_management_directory_netbios_domain=zuluue2
-  zulu_ohio_management_directory_admin_user=Admin@$zulu_ohio_management_directory_domain
-  zulu_ohio_management_directory_admin_password=@zulu_ohio_management_directory_admin_password@
-else
-  # In the "OneGlobal" Directory Model, All Clients Share the same Ohio Directory for Computers in Ohio
-  alfa_ohio_management_directory_domain=$ohio_management_directory_domain                  # Shares Ohio Management Directory
-  alfa_ohio_management_directory_netbios_domain=$ohio_management_directory_netbios_domain  # Shares Ohio Management Directory
-  alfa_ohio_management_directory_admin_user=$ohio_management_directory_admin_user          # Shares Ohio Management Directory
-  alfa_ohio_management_directory_admin_password=$ohio_management_directory_admin_password  # Shares Ohio Management Directory
-
-  zulu_ohio_management_directory_domain=$ohio_management_directory_domain                  # Shares Ohio Management Directory
-  zulu_ohio_management_directory_netbios_domain=$ohio_management_directory_netbios_domain  # Shares Ohio Management Directory
-  zulu_ohio_management_directory_admin_user=$ohio_management_directory_admin_user          # Shares Ohio Management Directory
-  zulu_ohio_management_directory_admin_password=$ohio_management_directory_admin_password  # Shares Ohio Management Directory
-fi
+## - CaMeLz Organization: Ohio Region: Network Environment
+ohio_network_directory_domain=$ohio_management_directory_domain                  # Shares Ohio Management Directory
+ohio_network_directory_netbios_domain=$ohio_management_directory_netbios_domain  # Shares Ohio Management Directory
+ohio_network_directory_admin_user=$ohio_management_directory_admin_user          # Shares Ohio Management Directory
+ohio_network_directory_admin_password=$ohio_management_directory_admin_password  # Shares Ohio Management Directory
 
 ## - CaMeLz Organization: Ohio Region: Core Environment
 ohio_core_directory_domain=$ohio_management_directory_domain                  # Shares Ohio Management Directory
@@ -1060,11 +1026,44 @@ ohio_core_directory_netbios_domain=$ohio_management_directory_netbios_domain  # 
 ohio_core_directory_admin_user=$ohio_management_directory_admin_user          # Shares Ohio Management Directory
 ohio_core_directory_admin_password=$ohio_management_directory_admin_password  # Shares Ohio Management Directory
 
-## - CaMeLz Organization: Ohio Region: Log Environment
-ohio_log_directory_domain=$ohio_management_directory_domain                  # Shares Ohio Management Directory
-ohio_log_directory_netbios_domain=$ohio_management_directory_netbios_domain  # Shares Ohio Management Directory
-ohio_log_directory_admin_user=$ohio_management_directory_admin_user          # Shares Ohio Management Directory
-ohio_log_directory_admin_password=$ohio_management_directory_admin_password  # Shares Ohio Management Directory
+## - CaMeLz Organization: Oregon Region: Management Environment
+oregon_management_directory_domain=ad.us-west-2.$domain
+oregon_management_directory_netbios_domain=camelzuw2
+oregon_management_directory_admin_user=Admin@$oregon_management_directory_domain
+oregon_management_directory_admin_password=@oregon_management_directory_admin_password@
+
+## - CaMeLz Organization: Oregon Region: Audit Environment
+oregon_audit_directory_domain=$oregon_management_directory_domain                  # Shares Oregon Management Directory
+oregon_audit_directory_netbios_domain=$oregon_management_directory_netbios_domain  # Shares Oregon Management Directory
+oregon_audit_directory_admin_user=$oregon_management_directory_admin_user          # Shares Oregon Management Directory
+oregon_audit_directory_admin_password=$oregon_management_directory_admin_password  # Shares Oregon Management Directory
+
+## - CaMeLz Organization: Oregon Region: Network Environment
+oregon_network_directory_domain=$oregon_management_directory_domain                  # Shares Oregon Management Directory
+oregon_network_directory_netbios_domain=$oregon_management_directory_netbios_domain  # Shares Oregon Management Directory
+oregon_network_directory_admin_user=$oregon_management_directory_admin_user          # Shares Oregon Management Directory
+oregon_network_directory_admin_password=$oregon_management_directory_admin_password  # Shares Oregon Management Directory
+
+## - CaMeLz Organization: Oregon Region: Core Environment
+oregon_core_directory_domain=$oregon_management_directory_domain                  # Shares Oregon Management Directory
+oregon_core_directory_netbios_domain=$oregon_management_directory_netbios_domain  # Shares Oregon Management Directory
+oregon_core_directory_admin_user=$oregon_management_directory_admin_user          # Shares Oregon Management Directory
+oregon_core_directory_admin_password=$oregon_management_directory_admin_password  # Shares Oregon Management Directory
+
+
+## - Alfa Client: Global: Management Environment
+alfa_global_management_directory_domain=ad.alfa.$domain
+alfa_global_management_directory_netbios_domain=alfa
+alfa_global_management_directory_admin_user=Admin@$alfa_global_management_directory_domain
+alfa_global_management_directory_admin_password=@alfa_global_management_directory_admin_password@
+alfa_global_management_directory_ohio_trust_password=@alfa_global_management_directory_ohio_trust_password@
+alfa_global_management_directory_oregon_trust_password=@alfa_global_management_directory_oregon_trust_password@
+
+## - Alfa Client: Ohio Region: Management Environment
+alfa_ohio_management_directory_domain=ad.us-east-2.alfa.$domain
+alfa_ohio_management_directory_netbios_domain=alfaue2
+alfa_ohio_management_directory_admin_user=Admin@$alfa_ohio_management_directory_domain
+alfa_ohio_management_directory_admin_password=@alfa_ohio_management_directory_admin_password@
 
 ## - Alfa Client: Ohio Region: Production Environment
 alfa_ohio_production_directory_domain=$alfa_ohio_management_directory_domain                  # Shares Alfa Ohio Management Directory
@@ -1084,6 +1083,33 @@ alfa_ohio_development_directory_netbios_domain=$alfa_ohio_management_directory_n
 alfa_ohio_development_directory_admin_user=$alfa_ohio_management_directory_admin_user          # Shares Alfa Ohio Management Directory
 alfa_ohio_development_directory_admin_password=$alfa_ohio_management_directory_admin_password  # Shares Alfa Ohio Management Directory
 
+## - Alfa Client: Oregon Region: Management Environment
+alfa_oregon_management_directory_domain=ad.us-west-2.alfa.$domain
+alfa_oregon_management_directory_netbios_domain=alfauw2
+alfa_oregon_management_directory_admin_user=Admin@$alfa_oregon_management_directory_domain
+alfa_oregon_management_directory_admin_password=@alfa_oregon_management_directory_admin_password@
+
+## - Alfa Client: Oregon Region: Recovery Environment
+alfa_oregon_recovery_directory_domain=$alfa_oregon_management_directory_domain                  # Shares Alfa Oregon Management Directory
+alfa_oregon_recovery_directory_netbios_domain=$alfa_oregon_management_directory_netbios_domain  # Shares Alfa Oregon Management Directory
+alfa_oregon_recovery_directory_admin_user=$alfa_oregon_management_directory_admin_user          # Shares Alfa Oregon Management Directory
+alfa_oregon_recovery_directory_admin_password=$alfa_oregon_management_directory_admin_password  # Shares Alfa Oregon Management Directory
+
+
+## - Zulu Client: Global: Management Environment
+zulu_global_management_directory_domain=ad.zulu.$domain
+zulu_global_management_directory_netbios_domain=zulu
+zulu_global_management_directory_admin_user=Admin@$zulu_global_management_directory_domain
+zulu_global_management_directory_admin_password=@zulu_global_management_directory_admin_password@
+zulu_global_management_directory_ohio_trust_password=@zulu_global_management_directory_ohio_trust_password@
+zulu_global_management_directory_oregon_trust_password=@zulu_global_management_directory_oregon_trust_password@
+
+## - Zulu Client: Ohio Region: Management Environment
+zulu_ohio_management_directory_domain=ad.us-east-2.zulu.$domain
+zulu_ohio_management_directory_netbios_domain=zuluue2
+zulu_ohio_management_directory_admin_user=Admin@$zulu_ohio_management_directory_domain
+zulu_ohio_management_directory_admin_password=@zulu_ohio_management_directory_admin_password@
+
 ## - Zulu Client: Ohio Region: Production Environment
 zulu_ohio_production_directory_domain=$zulu_ohio_management_directory_domain                  # Shares Zulu Ohio Management Directory
 zulu_ohio_production_directory_netbios_domain=$zulu_ohio_management_directory_netbios_domain  # Shares Zulu Ohio Management Directory
@@ -1096,50 +1122,9 @@ zulu_ohio_development_directory_netbios_domain=$zulu_ohio_management_directory_n
 zulu_ohio_development_directory_admin_user=$zulu_ohio_management_directory_admin_user          # Shares Zulu Ohio Management Directory
 zulu_ohio_development_directory_admin_password=$zulu_ohio_management_directory_admin_password  # Shares Zulu Ohio Management Directory
 
-## - CaMeLz Organization: Oregon Region: Management Environment
-oregon_management_directory_domain=ad.us-west-2.$domain
-oregon_management_directory_netbios_domain=camelzuw2
-oregon_management_directory_admin_user=Admin@$oregon_management_directory_domain
-oregon_management_directory_admin_password=@oregon_management_directory_admin_password@
+## - Zulu Client: Oregon Region: Management Environment
+zulu_oregon_management_directory_domain=ad.us-west-2.zulu.$domain
+zulu_oregon_management_directory_netbios_domain=zuluuw2
+zulu_oregon_management_directory_admin_user=Admin@$zulu_oregon_management_directory_domain
+zulu_oregon_management_directory_admin_password=@zulu_oregon_management_directory_admin_password@
 
-if [ $perclient_ds = 1 ]; then
-  # In the "PerClient" Directory Model, All Clients have their own Oregon Directory for Computers in Oregon
-  alfa_oregon_management_directory_domain=ad.eu-west-1.alfa.$domain
-  alfa_oregon_management_directory_netbios_domain=alfaew1
-  alfa_oregon_management_directory_admin_user=Admin@$alfa_oregon_management_directory_domain
-  alfa_oregon_management_directory_admin_password=@alfa_oregon_management_directory_admin_password@
-
-  zulu_oregon_management_directory_domain=ad.eu-west-1.zulu.$domain
-  zulu_oregon_management_directory_netbios_domain=zuluew1
-  zulu_oregon_management_directory_admin_user=Admin@$zulu_oregon_management_directory_domain
-  zulu_oregon_management_directory_admin_password=@zulu_oregon_management_directory_admin_password@
-else
-  # In the "OneGlobal" Directory Model, All Clients Share the same Ohio Directory for Computers in Oregon
-  alfa_oregon_management_directory_domain=$oregon_management_directory_domain                  # Shares Oregon Management Directory
-  alfa_oregon_management_directory_netbios_domain=$oregon_management_directory_netbios_domain  # Shares Oregon Management Directory
-  alfa_oregon_management_directory_admin_user=$oregon_management_directory_admin_user          # Shares Oregon Management Directory
-  alfa_oregon_management_directory_admin_password=$oregon_management_directory_admin_password  # Shares Oregon Management Directory
-
-  zulu_oregon_management_directory_domain=$oregon_management_directory_domain                  # Shares Oregon Management Directory
-  zulu_oregon_management_directory_netbios_domain=$oregon_management_directory_netbios_domain  # Shares Oregon Management Directory
-  zulu_oregon_management_directory_admin_user=$oregon_management_directory_admin_user          # Shares Oregon Management Directory
-  zulu_oregon_management_directory_admin_password=$oregon_management_directory_admin_password  # Shares Oregon Management Directory
-fi
-
-## - CaMeLz Organization: Oregon Region: Core Environment
-oregon_core_directory_domain=$oregon_management_directory_domain                  # Shares Oregon Management Directory
-oregon_core_directory_netbios_domain=$oregon_management_directory_netbios_domain  # Shares Oregon Management Directory
-oregon_core_directory_admin_user=$oregon_management_directory_admin_user          # Shares Oregon Management Directory
-oregon_core_directory_admin_password=$oregon_management_directory_admin_password  # Shares Oregon Management Directory
-
-## - CaMeLz Organization: Oregon Region: Log Environment
-oregon_log_directory_domain=$oregon_management_directory_domain                  # Shares Oregon Management Directory
-oregon_log_directory_netbios_domain=$oregon_management_directory_netbios_domain  # Shares Oregon Management Directory
-oregon_log_directory_admin_user=$oregon_management_directory_admin_user          # Shares Oregon Management Directory
-oregon_log_directory_admin_password=$oregon_management_directory_admin_password  # Shares Oregon Management Directory
-
-## - Alfa Client: Oregon Region: Recovery Environment
-alfa_oregon_recovery_directory_domain=$alfa_oregon_management_directory_domain                  # Shares Alfa Oregon Management Directory
-alfa_oregon_recovery_directory_netbios_domain=$alfa_oregon_management_directory_netbios_domain  # Shares Alfa Oregon Management Directory
-alfa_oregon_recovery_directory_admin_user=$alfa_oregon_management_directory_admin_user          # Shares Alfa Oregon Management Directory
-alfa_oregon_recovery_directory_admin_password=$alfa_oregon_management_directory_admin_password  # Shares Alfa Oregon Management Directory

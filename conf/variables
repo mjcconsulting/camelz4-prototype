@@ -109,6 +109,11 @@ oregon_audit_public_hostedzone_id=
 oregon_network_public_hostedzone_id=
 oregon_core_public_hostedzone_id=
 oregon_build_public_hostedzone_id=
+oregon_production_public_hostedzone_id=
+oregon_recovery_public_hostedzone_id=
+oregon_staging_public_hostedzone_id=
+oregon_testing_public_hostedzone_id=
+oregon_development_public_hostedzone_id=
 
 ## - Alfa Oregon Public Hosted Zones
 alfa_oregon_management_public_hostedzone_id=

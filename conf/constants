@@ -171,6 +171,10 @@ ohio_network_private_domain=n.us-east-2.$domain
 ohio_core_public_domain=c.us-east-2.$domain
 ohio_core_private_domain=c.us-east-2.$domain
 
+## - CaMeLz Organization: Ohio Region: Build Environment
+ohio_build_public_domain=b.us-east-2.$domain
+ohio_build_private_domain=b.us-east-2.$domain
+
 ## - CaMeLz Organization: Ohio Region: Production Environment
 ohio_production_public_domain=p.us-east-2.$domain
 ohio_production_private_domain=p.us-east-2.$domain
@@ -230,6 +234,10 @@ oregon_network_private_domain=n.us-west-2.$domain
 ## - CaMeLz Organization: Oregon Region: Core Environment
 oregon_core_public_domain=c.us-west-2.$domain
 oregon_core_private_domain=c.us-west-2.$domain
+
+## - CaMeLz Organization: Oregon Region: Build Environment
+oregon_build_public_domain=b.us-west-2.$domain
+oregon_build_private_domain=b.us-west-2.$domain
 
 ## - CaMeLz Organization: Oregon Region: Production Environment
 oregon_production_public_domain=p.us-west-2.$domain

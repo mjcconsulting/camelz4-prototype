@@ -39,6 +39,7 @@ log_account_id=
 audit_account_id=
 network_account_id=
 core_account_id=
+mcrawford_sandbox_account_id=
 build_account_id=
 production_account_id=
 recovery_account_id=
@@ -52,6 +53,15 @@ alfa_development_account_id=
 ## - Zulu Client
 zulu_production_account_id=
 zulu_development_account_id=
+
+
+## Buckets ############################################################################################################
+
+## Global (Virginia)
+global_build_image_builder_bucket_name=
+
+## Ohio Region
+ohio_build_image_builder_bucket_name=
 
 
 ## Public Hosted Zones ################################################################################################

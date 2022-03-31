@@ -63,6 +63,10 @@ core_account_name=CaMeLz-Core
 core_account_alias=camelzc
 core_profile=$core_account_alias-$user
 
+mcrawford_sandbox_account_name=MCrawford-CaMeLz-Sandbox
+mcrawford_sandbox_account_alias=mcrawford-camelzx
+mcrawford_sandbox_profile=$mcrawford_sandbox_account_alias-$user
+
 build_account_name=CaMeLz-Build
 build_account_alias=camelzb
 build_profile=$build_account_alias-$user

@@ -2,10 +2,10 @@
   "Changes": [{
     "Action": "UPSERT",
     "ResourceRecordSet": {
-      "Name": "@txtname@",
+      "Name": "@name@",
       "Type": "TXT",
       "TTL": 300,
-      "ResourceRecords": [{"Value": "\"@txtvalue@\""}]
+      "ResourceRecords": [{"Value": "\"@value@\""}]
     }
   }]
 }

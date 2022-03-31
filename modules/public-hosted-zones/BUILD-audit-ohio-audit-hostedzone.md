@@ -50,7 +50,7 @@ CaMeLz-Audit Account.
 
     ```bash
     tmpfile=$CAMELZ_HOME/tmp/ohio-audit-ns-$$.json
-    sed -e "s/@subdomain@/$ohio_audit_public_domain/g" \
+    sed -e "s/@name@/$ohio_audit_public_domain/g" \
         -e "s/@ns1@/$nameservers_array[1]/g" \
         -e "s/@ns2@/$nameservers_array[2]/g" \
         -e "s/@ns3@/$nameservers_array[3]/g" \
@@ -74,18 +74,18 @@ CaMeLz-Audit Account.
    properly setup in the public DNS hierarchy.
 
     ```bash
-    txtvalue=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 32)
+    value=$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 32)
 
     tmpfile=$CAMELZ_HOME/tmp/ohio-audit-txt-check-$$.json
-    sed -e "s/@txtname@/check.$ohio_audit_public_domain/g" \
-        -e "s/@txtvalue@/$txtvalue/g" \
+    sed -e "s/@name@/check.$ohio_audit_public_domain/g" \
+        -e "s/@value@/$value/g" \
         $CAMELZ_HOME/templates/route53-upsert-txt.json > $tmpfile
 
     aws route53 change-resource-record-sets --hosted-zone-id $ohio_audit_public_hostedzone_id \
                                             --change-batch file://$tmpfile \
                                             --profile $profile --region us-east-1 --output text
 
-    sleep 10
+    sleep 15
 
-    [ $(dig +short -t TXT check.$ohio_audit_public_domain) = "\"$txtvalue\"" ] && echo "Check confirmed"
+    [ "$(dig +short -t TXT check.$ohio_audit_public_domain)" = "\"$value\"" ] && echo "Check confirmed" || echo "Check failed"
     ```

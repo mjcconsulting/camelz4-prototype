@@ -35,17 +35,21 @@ need them in the future.
 
 ### **Log Account**
 
-Skip creating these initially. I think we'll only have S3 Buckets in this account, by intent.
-
 #### **Global**
+
+Do not create
 
 1. **[Log-HostedZone](./BUILD-log-global-log-hostedzone.md)** (l.camelz.io)
 
 #### **Ohio Region**
 
+Do not create
+
 1. **[Log-HostedZone](./BUILD-log-ohio-log-hostedzone.md)** (l.us-east-2.camelz.io)
 
 #### **Oregon Region**
+
+Do not create
 
 1. **[Log-HostedZone](./BUILD-log-oregon-log-hostedzone.md)** (l.us-west-2.camelz.io)
 
@@ -53,13 +57,19 @@ Skip creating these initially. I think we'll only have S3 Buckets in this accoun
 
 #### **Global**
 
+Do not create initially - not sure we need this yet
+
 1. **[Audit-HostedZone](./BUILD-audit-global-audit-hostedzone.md)** (a.camelz.io)
 
 #### **Ohio Region**
 
+Do not create initially - not sure we need this yet
+
 1. **[Audit-HostedZone](./BUILD-audit-ohio-audit-hostedzone.md)** (a.us-east-2.camelz.io)
 
 #### **Oregon Region**
+
+Do not create initially - not sure we need this yet
 
 1. **[Audit-HostedZone](./BUILD-audit-oregon-audit-hostedzone.md)** (a.us-west-2.camelz.io)
 
@@ -99,11 +109,15 @@ Skip creating these initially. I think we'll only have S3 Buckets in this accoun
 
 #### **Oregon**
 
+Do not create - come back to test this, may need intermediate additional hosted zone created, or may be able to jump two levels
+
 1. **[MCrawford-Sandbox-HostedZone](./BUILD-mcrawford-sandbox-oregon-mcrawford-sandbox-hostedzone.md)** (mcrawford.x.us-west-2.camelz.io)
 
 ### **Build Account**
 
 #### **Global**
+
+Do not create
 
 1. **[Build-HostedZone](./BUILD-build-global-build-hostedzone.md)** (b.camelz.io)
 
@@ -112,6 +126,8 @@ Skip creating these initially. I think we'll only have S3 Buckets in this accoun
 1. **[Build-HostedZone](./BUILD-build-ohio-build-hostedzone.md)** (b.us-east-2.camelz.io)
 
 #### **Oregon Region**
+
+Do not create
 
 1. **[Build-HostedZone](./BUILD-build-oregon-build-hostedzone.md)** (b.us-west-2.camelz.io)
 

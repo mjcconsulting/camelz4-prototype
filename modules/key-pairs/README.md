@@ -38,7 +38,7 @@ This is the list of Key Pairs to be imported. The same Key Pair is imported into
 
 ### **Build Account**
 
-1. **[### **Buil-KeyPairs](./BUILD-build-key-pairs.md)**
+1. **[Build-KeyPairs](./BUILD-build-key-pairs.md)**
 
 ### **Production Account**
 

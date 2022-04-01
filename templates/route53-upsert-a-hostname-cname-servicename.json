@@ -13,7 +13,7 @@
     "ResourceRecordSet": {
       "Name": "@servicename@",
       "Type": "CNAME",
-      "TTL": 86400,
+      "TTL": 3600,
       "ResourceRecords": [{"Value": "@hostname@"}]
     }
   }]

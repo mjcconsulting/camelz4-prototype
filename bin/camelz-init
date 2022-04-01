@@ -30,28 +30,39 @@ camelz-variable() {
   mode=${2:-upsert}
   variablesfile=${3:-$HOME/.camelz/variables}
 
-  echo "$key=$value"
+  if [[ $value = *" "* ]]; then
+    value="\"$value\""
+  fi
 
   case $mode in
     upsert)
-      grep -q "^${key}=" ${variablesfile} &&
-        sed -i -e "s/^${key}=.*$/${key}=${value}/" ${variablesfile} ||
-        sed -i -e "$ a\\${key}=${value}" ${variablesfile}
+      echo "$key=$value"
+      if grep -q "^${key}=" ${variablesfile}; then
+        sed -i -e "s/^${key}=.*$/${key}=${value}/" ${variablesfile}
+      else
+        sed -i -e '$ a\'$'\n'"${key}=${value}"$'\n' ${variablesfile}
+      fi
       ;;
     append)
+      echo "$key=$value"
       sed -i -e "/^${key}=/d" ${variablesfile}
-      sed -i -e "$ a\\${key}=${value}" ${variablesfile}
+      sed -i -e '$ a\'$'\n'"${key}=${value}"$'\n' ${variablesfile}
       ;;
     clear)
+      echo "$key="
       sed -i -e "/^${key}=/s/=.*$/=/g" ${variablesfile}
       ;;
     delete)
+      echo "$key (removed)"
       sed -i -e "/^${key}=/d" ${variablesfile}
       ;;
     *)
       echo "Usage: $0 key [upsert|append|clear|delete] [variablesfile]"
   esac
 }
+
+
+
 
 camelz-load() {
   constantsfile=${1:-$HOME/.camelz/constants}

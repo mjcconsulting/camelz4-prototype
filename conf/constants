@@ -132,6 +132,10 @@ global_network_private_domain=n.$domain
 global_core_public_domain=c.$domain
 global_core_private_domain=c.$domain
 
+## - CaMeLz Organization: Global: MCrawford Sandbox Environment
+mcrawford_global_sandbox_public_domain=mcrawford.x.$domain
+mcrawford_global_sancbox_private_domain=mcrawford.x.$domain
+
 ## - CaMeLz Organization: Global: Build Environment
 global_build_public_domain=b.$domain
 global_build_private_domain=b.$domain
@@ -200,26 +204,6 @@ ohio_testing_private_domain=t.us-east-2.$domain
 ohio_development_public_domain=d.us-east-2.$domain
 ohio_development_private_domain=d.us-east-2.$domain
 
-## - Alfa Client: Ohio Region: Production Environment
-alfa_ohio_production_public_domain=p.us-east-2.alfa.$domain
-alfa_ohio_production_private_domain=p.us-east-2.alfa.$domain
-
-## - Alfa Client: Ohio Region: Testing Environment
-alfa_ohio_testing_public_domain=t.us-east-2.alfa.$domain
-alfa_ohio_testing_private_domain=t.us-east-2.alfa.$domain
-
-## - Alfa Client: Ohio Region: Development Environment
-alfa_ohio_development_public_domain=d.us-east-2.alfa.$domain
-alfa_ohio_development_private_domain=d.us-east-2.alfa.$domain
-
-## - Zulu Client: Ohio Region: Production Environment
-zulu_ohio_production_public_domain=p.us-east-2.zulu.$domain
-zulu_ohio_production_private_domain=p.us-east-2.zulu.$domain
-
-## - Zulu Client: Ohio Region: Development Environment
-zulu_ohio_development_public_domain=d.us-east-2.zulu.$domain
-zulu_ohio_development_private_domain=d.us-east-2.zulu.$domain
-
 ## - CaMeLz Organization: Oregon Region: Management Environment
 oregon_management_public_domain=us-west-2.$domain
 oregon_management_private_domain=us-west-2.$domain
@@ -268,6 +252,18 @@ oregon_development_private_domain=d.us-west-2.$domain
 ## - Alfa Client: Global: Management Environment
 alfa_global_management_public_domain=alfa.$domain
 
+## - Alfa Client: Global: Production Environment
+alfa_global_production_public_domain=p.alfa.$domain
+
+## - Alfa Client: Global: Recovery Environment
+alfa_global_recovery_public_domain=r.alfa.$domain
+
+## - Alfa Client: Global: Testing Environment
+alfa_global_testing_public_domain=t.alfa.$domain
+
+## - Alfa Client: Global: development Environment
+alfa_global_development_public_domain=d.alfa.$domain
+
 ## - Alfa Client: Ohio Region: Management Environment
 alfa_ohio_management_public_domain=us-east-2.alfa.$domain
 
@@ -293,6 +289,12 @@ alfa_oregon_recovery_private_domain=r.us-west-2.alfa.$domain
 
 ## - Zulu Client: Global: Management Environment
 zulu_global_management_public_domain=zulu.$domain
+
+## - Zulu Client: Global: Production Environment
+zulu_global_production_public_domain=p.zulu.$domain
+
+## - Zulu Client: Global: Development Environment
+zulu_global_development_public_domain=d.zulu.$domain
 
 ## - Zulu Client: Ohio Region: Management Environment
 zulu_ohio_management_public_domain=us-east-2.zulu.$domain
@@ -491,53 +493,29 @@ global_core_subnet_endpointa_cidr=10.15.71.224/27
 global_core_subnet_endpointb_cidr=10.15.79.224/27
 global_core_subnet_endpointc_cidr=10.15.87.224/27
 
-## - CaMeLz Organization: Global: Production Environment
-global_audit_vpc_cidr=
-global_audit_subnet_publica_cidr=
-global_audit_subnet_publicb_cidr=
-global_audit_subnet_publicc_cidr=
-global_audit_subnet_weba_cidr=
-global_audit_subnet_webb_cidr=
-global_audit_subnet_webc_cidr=
-global_audit_subnet_applicationa_cidr=
-global_audit_subnet_applicationb_cidr=
-global_audit_subnet_applicationc_cidr=
-global_audit_subnet_databasea_cidr=
-global_audit_subnet_databaseb_cidr=
-global_audit_subnet_databasec_cidr=
-global_audit_subnet_managementa_cidr=
-global_audit_subnet_managementb_cidr=
-global_audit_subnet_managementc_cidr=
-global_audit_subnet_gatewaya_cidr=
-global_audit_subnet_gatewayb_cidr=
-global_audit_subnet_gatewayc_cidr=
-global_audit_subnet_endpointa_cidr=
-global_audit_subnet_endpointb_cidr=
-global_audit_subnet_endpointc_cidr=
-
-## - CaMeLz Organization: Global: Staging Environment
-global_audit_vpc_cidr=
-global_audit_subnet_publica_cidr=
-global_audit_subnet_publicb_cidr=
-global_audit_subnet_publicc_cidr=
-global_audit_subnet_weba_cidr=
-global_audit_subnet_webb_cidr=
-global_audit_subnet_webc_cidr=
-global_audit_subnet_applicationa_cidr=
-global_audit_subnet_applicationb_cidr=
-global_audit_subnet_applicationc_cidr=
-global_audit_subnet_databasea_cidr=
-global_audit_subnet_databaseb_cidr=
-global_audit_subnet_databasec_cidr=
-global_audit_subnet_managementa_cidr=
-global_audit_subnet_managementb_cidr=
-global_audit_subnet_managementc_cidr=
-global_audit_subnet_gatewaya_cidr=
-global_audit_subnet_gatewayb_cidr=
-global_audit_subnet_gatewayc_cidr=
-global_audit_subnet_endpointa_cidr=
-global_audit_subnet_endpointb_cidr=
-global_audit_subnet_endpointc_cidr=
+## - CaMeLz Organization: Global: Build Environment
+global_build_vpc_cidr=
+global_build_subnet_publica_cidr=
+global_build_subnet_publicb_cidr=
+global_build_subnet_publicc_cidr=
+global_build_subnet_weba_cidr=
+global_build_subnet_webb_cidr=
+global_build_subnet_webc_cidr=
+global_build_subnet_applicationa_cidr=
+global_build_subnet_applicationb_cidr=
+global_build_subnet_applicationc_cidr=
+global_build_subnet_databasea_cidr=
+global_build_subnet_databaseb_cidr=
+global_build_subnet_databasec_cidr=
+global_build_subnet_managementa_cidr=
+global_build_subnet_managementb_cidr=
+global_build_subnet_managementc_cidr=
+global_build_subnet_gatewaya_cidr=
+global_build_subnet_gatewayb_cidr=
+global_build_subnet_gatewayc_cidr=
+global_build_subnet_endpointa_cidr=
+global_build_subnet_endpointb_cidr=
+global_build_subnet_endpointc_cidr=
 
 ## - CaMeLz Organization: Ohio Region: Management Environment
 ohio_management_vpc_cidr=10.31.0.0/20
@@ -566,7 +544,79 @@ ohio_management_subnet_endpointa_cidr=10.31.3.224/27
 ohio_management_subnet_endpointb_cidr=10.31.7.224/27
 ohio_management_subnet_endpointc_cidr=10.31.11.224/27
 
-## - CaMeLz Organization: Ohio Region: Core Environment
+## - CaMeLz Organization: Ohio Region: Log Environment (CIDRs Incorrect - Adjust)
+ohio_log_vpc_cidr=10.31.128.0/20
+ohio_log_subnet_publica_cidr=10.31.128.0/26
+ohio_log_subnet_publicb_cidr=10.31.132.0/26
+ohio_log_subnet_publicc_cidr=10.31.136.0/26
+ohio_log_subnet_weba_cidr=10.31.128.128/26
+ohio_log_subnet_webb_cidr=10.31.132.128/26
+ohio_log_subnet_webc_cidr=10.31.136.128/26
+ohio_log_subnet_applicationa_cidr=10.31.129.0/26
+ohio_log_subnet_applicationb_cidr=10.31.133.0/26
+ohio_log_subnet_applicationc_cidr=10.31.137.0/26
+ohio_log_subnet_databasea_cidr=10.31.130.0/26
+ohio_log_subnet_databaseb_cidr=10.31.134.0/26
+ohio_log_subnet_databasec_cidr=10.31.138.0/26
+ohio_log_subnet_managementa_cidr=10.31.131.192/28
+ohio_log_subnet_managementb_cidr=10.31.135.192/28
+ohio_log_subnet_managementc_cidr=10.31.139.192/28
+ohio_log_subnet_gatewaya_cidr=10.31.131.208/28
+ohio_log_subnet_gatewayb_cidr=10.31.135.208/28
+ohio_log_subnet_gatewayc_cidr=10.31.139.208/28
+ohio_log_subnet_endpointa_cidr=10.31.131.224/27
+ohio_log_subnet_endpointb_cidr=10.31.135.224/27
+ohio_log_subnet_endpointc_cidr=10.31.139.224/27
+
+## - CaMeLz Organization: Ohio Region: Audit Environment
+ohio_audit_vpc_cidr=
+ohio_audit_subnet_publica_cidr=
+ohio_audit_subnet_publicb_cidr=
+ohio_audit_subnet_publicc_cidr=
+ohio_audit_subnet_weba_cidr=
+ohio_audit_subnet_webb_cidr=
+ohio_audit_subnet_webc_cidr=
+ohio_audit_subnet_applicationa_cidr=
+ohio_audit_subnet_applicationb_cidr=
+ohio_audit_subnet_applicationc_cidr=
+ohio_audit_subnet_databasea_cidr=
+ohio_audit_subnet_databaseb_cidr=
+ohio_audit_subnet_databasec_cidr=
+ohio_audit_subnet_managementa_cidr=
+ohio_audit_subnet_managementb_cidr=
+ohio_audit_subnet_managementc_cidr=
+ohio_audit_subnet_gatewaya_cidr=
+ohio_audit_subnet_gatewayb_cidr=
+ohio_audit_subnet_gatewayc_cidr=
+ohio_audit_subnet_endpointa_cidr=
+ohio_audit_subnet_endpointb_cidr=
+ohio_audit_subnet_endpointc_cidr=
+
+## - CaMeLz Organization: Ohio Region: Log Environment
+ohio_network_vpc_cidr=
+ohio_network_subnet_publica_cidr=
+ohio_network_subnet_publicb_cidr=
+ohio_network_subnet_publicc_cidr=
+ohio_network_subnet_weba_cidr=
+ohio_network_subnet_webb_cidr=
+ohio_network_subnet_webc_cidr=
+ohio_network_subnet_applicationa_cidr=
+ohio_network_subnet_applicationb_cidr=
+ohio_network_subnet_applicationc_cidr=
+ohio_network_subnet_databasea_cidr=
+ohio_network_subnet_databaseb_cidr=
+ohio_network_subnet_databasec_cidr=
+ohio_network_subnet_managementa_cidr=
+ohio_network_subnet_managementb_cidr=
+ohio_network_subnet_managementc_cidr=
+ohio_network_subnet_gatewaya_cidr=
+ohio_network_subnet_gatewayb_cidr=
+ohio_network_subnet_gatewayc_cidr=
+ohio_network_subnet_endpointa_cidr=
+ohio_network_subnet_endpointb_cidr=
+ohio_network_subnet_endpointc_cidr=
+
+## - CaMeLz Organization: Ohio Region: Core Environment (CIDRs Incorrect - Adjust)
 ohio_core_vpc_cidr=10.31.64.0/20
 ohio_core_subnet_publica_cidr=10.31.64.0/26
 ohio_core_subnet_publicb_cidr=10.31.68.0/26
@@ -590,29 +640,29 @@ ohio_core_subnet_endpointa_cidr=10.31.67.224/27
 ohio_core_subnet_endpointb_cidr=10.31.71.224/27
 ohio_core_subnet_endpointc_cidr=10.31.75.224/27
 
-## - CaMeLz Organization: Ohio Region: Log Environment
-ohio_log_vpc_cidr=10.31.128.0/20
-ohio_log_subnet_publica_cidr=10.31.128.0/26
-ohio_log_subnet_publicb_cidr=10.31.132.0/26
-ohio_log_subnet_publicc_cidr=10.31.136.0/26
-ohio_log_subnet_weba_cidr=10.31.128.128/26
-ohio_log_subnet_webb_cidr=10.31.132.128/26
-ohio_log_subnet_webc_cidr=10.31.136.128/26
-ohio_log_subnet_applicationa_cidr=10.31.129.0/26
-ohio_log_subnet_applicationb_cidr=10.31.133.0/26
-ohio_log_subnet_applicationc_cidr=10.31.137.0/26
-ohio_log_subnet_databasea_cidr=10.31.130.0/26
-ohio_log_subnet_databaseb_cidr=10.31.134.0/26
-ohio_log_subnet_databasec_cidr=10.31.138.0/26
-ohio_log_subnet_managementa_cidr=10.31.131.192/28
-ohio_log_subnet_managementb_cidr=10.31.135.192/28
-ohio_log_subnet_managementc_cidr=10.31.139.192/28
-ohio_log_subnet_gatewaya_cidr=10.31.131.208/28
-ohio_log_subnet_gatewayb_cidr=10.31.135.208/28
-ohio_log_subnet_gatewayc_cidr=10.31.139.208/28
-ohio_log_subnet_endpointa_cidr=10.31.131.224/27
-ohio_log_subnet_endpointb_cidr=10.31.135.224/27
-ohio_log_subnet_endpointc_cidr=10.31.139.224/27
+## - CaMeLz Organization: Ohio Region: Build Environment
+ohio_build_vpc_cidr=10.31.192.0/20
+ohio_build_subnet_publica_cidr=10.31.192.0/26
+ohio_build_subnet_publicb_cidr=10.31.196.0/26
+ohio_build_subnet_publicc_cidr=10.31.200.0/26
+ohio_build_subnet_weba_cidr=10.31.192.128/26
+ohio_build_subnet_webb_cidr=10.31.196.128/26
+ohio_build_subnet_webc_cidr=10.31.200.128/26
+ohio_build_subnet_applicationa_cidr=10.31.193.0/26
+ohio_build_subnet_applicationb_cidr=10.31.197.0/26
+ohio_build_subnet_applicationc_cidr=10.31.201.0/26
+ohio_build_subnet_databasea_cidr=10.31.194.0/26
+ohio_build_subnet_databaseb_cidr=10.31.198.0/26
+ohio_build_subnet_databasec_cidr=10.31.202.0/26
+ohio_build_subnet_managementa_cidr=10.31.195.192/28
+ohio_build_subnet_managementb_cidr=10.31.199.192/28
+ohio_build_subnet_managementc_cidr=10.31.203.192/28
+ohio_build_subnet_gatewaya_cidr=10.31.195.208/28
+ohio_build_subnet_gatewayb_cidr=10.31.199.208/28
+ohio_build_subnet_gatewayc_cidr=10.31.203.208/28
+ohio_build_subnet_endpointa_cidr=10.31.195.224/27
+ohio_build_subnet_endpointb_cidr=10.31.199.224/27
+ohio_build_subnet_endpointc_cidr=10.31.203.224/27
 
 ## - Alfa Client: Ohio Region: Production Environment
 alfa_ohio_production_vpc_cidr=10.16.0.0/20
@@ -761,30 +811,6 @@ oregon_management_subnet_endpointa_cidr=10.79.3.224/27
 oregon_management_subnet_endpointb_cidr=10.79.7.224/27
 oregon_management_subnet_endpointc_cidr=10.79.11.224/27
 
-## - CaMeLz Organization: Oregon Region: Core Environment (CIDRs Incorrect - Adjust)
-oregon_core_vpc_cidr=10.79.64.0/20
-oregon_core_subnet_publica_cidr=10.79.64.0/26
-oregon_core_subnet_publicb_cidr=10.79.68.0/26
-oregon_core_subnet_publicc_cidr=10.79.72.0/26
-oregon_core_subnet_weba_cidr=10.79.64.128/26
-oregon_core_subnet_webb_cidr=10.79.68.128/26
-oregon_core_subnet_webc_cidr=10.79.72.128/26
-oregon_core_subnet_applicationa_cidr=10.79.65.0/26
-oregon_core_subnet_applicationb_cidr=10.79.69.0/26
-oregon_core_subnet_applicationc_cidr=10.79.73.0/26
-oregon_core_subnet_databasea_cidr=10.79.66.0/26
-oregon_core_subnet_databaseb_cidr=10.79.70.0/26
-oregon_core_subnet_databasec_cidr=10.79.74.0/26
-oregon_core_subnet_managementa_cidr=10.79.67.192/28
-oregon_core_subnet_managementb_cidr=10.79.71.192/28
-oregon_core_subnet_managementc_cidr=10.79.75.192/28
-oregon_core_subnet_gatewaya_cidr=10.79.67.208/28
-oregon_core_subnet_gatewayb_cidr=10.79.71.208/28
-oregon_core_subnet_gatewayc_cidr=10.79.75.208/28
-oregon_core_subnet_endpointa_cidr=10.79.67.224/27
-oregon_core_subnet_endpointb_cidr=10.79.71.224/27
-oregon_core_subnet_endpointc_cidr=10.79.75.224/27
-
 ## - CaMeLz Organization: Oregon Region: Log Environment (CIDRs Incorrect - Adjust)
 oregon_log_vpc_cidr=10.79.128.0/20
 oregon_log_subnet_publica_cidr=10.79.128.0/26
@@ -808,6 +834,79 @@ oregon_log_subnet_gatewayc_cidr=10.79.139.208/28
 oregon_log_subnet_endpointa_cidr=10.79.131.224/27
 oregon_log_subnet_endpointb_cidr=10.79.135.224/27
 oregon_log_subnet_endpointc_cidr=10.79.139.224/27
+
+## - CaMeLz Organization: Oregon Region: Log Environment
+oregon_audit_vpc_cidr=10.79.128.0/20
+oregon_audit_subnet_publica_cidr=10.79.128.0/26
+oregon_audit_subnet_publicb_cidr=10.79.132.0/26
+oregon_audit_subnet_publicc_cidr=10.79.136.0/26
+oregon_audit_subnet_weba_cidr=10.79.128.128/26
+oregon_audit_subnet_webb_cidr=10.79.132.128/26
+oregon_audit_subnet_webc_cidr=10.79.136.128/26
+oregon_audit_subnet_applicationa_cidr=10.79.129.0/26
+oregon_audit_subnet_applicationb_cidr=10.79.133.0/26
+oregon_audit_subnet_applicationc_cidr=10.79.137.0/26
+oregon_audit_subnet_databasea_cidr=10.79.130.0/26
+oregon_audit_subnet_databaseb_cidr=10.79.134.0/26
+oregon_audit_subnet_databasec_cidr=10.79.138.0/26
+oregon_audit_subnet_managementa_cidr=10.79.131.192/28
+oregon_audit_subnet_managementb_cidr=10.79.135.192/28
+oregon_audit_subnet_managementc_cidr=10.79.139.192/28
+oregon_audit_subnet_gatewaya_cidr=10.79.131.208/28
+oregon_audit_subnet_gatewayb_cidr=10.79.135.208/28
+oregon_audit_subnet_gatewayc_cidr=10.79.139.208/28
+oregon_audit_subnet_endpointa_cidr=10.79.131.224/27
+oregon_audit_subnet_endpointb_cidr=10.79.135.224/27
+oregon_audit_subnet_endpointc_cidr=10.79.139.224/27
+
+
+## - CaMeLz Organization: Oregon Region: Log Environment (CIDRs Incorrect - Adjust)
+oregon_network_vpc_cidr=10.79.128.0/20
+oregon_network_subnet_publica_cidr=10.79.128.0/26
+oregon_network_subnet_publicb_cidr=10.79.132.0/26
+oregon_network_subnet_publicc_cidr=10.79.136.0/26
+oregon_network_subnet_weba_cidr=10.79.128.128/26
+oregon_network_subnet_webb_cidr=10.79.132.128/26
+oregon_network_subnet_webc_cidr=10.79.136.128/26
+oregon_network_subnet_applicationa_cidr=10.79.129.0/26
+oregon_network_subnet_applicationb_cidr=10.79.133.0/26
+oregon_network_subnet_applicationc_cidr=10.79.137.0/26
+oregon_network_subnet_databasea_cidr=10.79.130.0/26
+oregon_network_subnet_databaseb_cidr=10.79.134.0/26
+oregon_network_subnet_databasec_cidr=10.79.138.0/26
+oregon_network_subnet_managementa_cidr=10.79.131.192/28
+oregon_network_subnet_managementb_cidr=10.79.135.192/28
+oregon_network_subnet_managementc_cidr=10.79.139.192/28
+oregon_network_subnet_gatewaya_cidr=10.79.131.208/28
+oregon_network_subnet_gatewayb_cidr=10.79.135.208/28
+oregon_network_subnet_gatewayc_cidr=10.79.139.208/28
+oregon_network_subnet_endpointa_cidr=10.79.131.224/27
+oregon_network_subnet_endpointb_cidr=10.79.135.224/27
+oregon_network_subnet_endpointc_cidr=10.79.139.224/27
+
+## - CaMeLz Organization: Oregon Region: Core Environment (CIDRs Incorrect - Adjust)
+oregon_core_vpc_cidr=10.79.64.0/20
+oregon_core_subnet_publica_cidr=10.79.64.0/26
+oregon_core_subnet_publicb_cidr=10.79.68.0/26
+oregon_core_subnet_publicc_cidr=10.79.72.0/26
+oregon_core_subnet_weba_cidr=10.79.64.128/26
+oregon_core_subnet_webb_cidr=10.79.68.128/26
+oregon_core_subnet_webc_cidr=10.79.72.128/26
+oregon_core_subnet_applicationa_cidr=10.79.65.0/26
+oregon_core_subnet_applicationb_cidr=10.79.69.0/26
+oregon_core_subnet_applicationc_cidr=10.79.73.0/26
+oregon_core_subnet_databasea_cidr=10.79.66.0/26
+oregon_core_subnet_databaseb_cidr=10.79.70.0/26
+oregon_core_subnet_databasec_cidr=10.79.74.0/26
+oregon_core_subnet_managementa_cidr=10.79.67.192/28
+oregon_core_subnet_managementb_cidr=10.79.71.192/28
+oregon_core_subnet_managementc_cidr=10.79.75.192/28
+oregon_core_subnet_gatewaya_cidr=10.79.67.208/28
+oregon_core_subnet_gatewayb_cidr=10.79.71.208/28
+oregon_core_subnet_gatewayc_cidr=10.79.75.208/28
+oregon_core_subnet_endpointa_cidr=10.79.67.224/27
+oregon_core_subnet_endpointb_cidr=10.79.71.224/27
+oregon_core_subnet_endpointc_cidr=10.79.75.224/27
 
 ## - Alfa Client: Oregon Region: Recovery Environment (CIDRs Incorrect - Adjust)
 alfa_oregon_recovery_vpc_cidr=10.64.0.0/20

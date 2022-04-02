@@ -38,7 +38,8 @@ system_code=demo
 
 ## - User Identifiers
 user=administrator
-
+user_email=@administrator_email@
+user_phone=@administrator_phone@
 
 ## Accounts & Profiles ################################################################################################
 

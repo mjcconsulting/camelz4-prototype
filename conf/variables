@@ -55,6 +55,183 @@ zulu_production_account_id=
 zulu_development_account_id=
 
 
+## Topics #############################################################################################################
+
+## Global (Virginia)
+## - Global Public Hosted Zones
+global_management_bills_topic_arn=
+global_management_events_topic_arn=
+global_management_alarms_topic_arn=
+
+global_log_bills_topic_arn=
+global_log_events_topic_arn=
+global_log_alarms_topic_arn=
+
+global_audit_bills_topic_arn=
+global_audit_events_topic_arn=
+global_audit_alarms_topic_arn=
+
+global_network_bills_topic_arn=
+global_network_events_topic_arn=
+global_network_alarms_topic_arn=
+
+global_core_bills_topic_arn=
+global_core_events_topic_arn=
+global_core_alarms_topic_arn=
+
+global_build_bills_topic_arn=
+global_build_events_topic_arn=
+global_build_alarms_topic_arn=
+
+global_production_bills_topic_arn=
+global_production_events_topic_arn=
+global_production_alarms_topic_arn=
+
+global_recovery_bills_topic_arn=
+global_recovery_events_topic_arn=
+global_recovery_alarms_topic_arn=
+
+global_staging_bills_topic_arn=
+global_staging_events_topic_arn=
+global_staging_alarms_topic_arn=
+
+global_testing_bills_topic_arn=
+global_testing_events_topic_arn=
+global_testing_alarms_topic_arn=
+
+global_development_bills_topic_arn=
+global_development_events_topic_arn=
+global_development_alarms_topic_arn=
+
+
+## - Alfa Global Public Hosted Zones
+alfa_global_management_bills_topic_arn=
+alfa_global_management_events_topic_arn=
+alfa_global_management_alarms_topic_arn=
+
+## - Zulu Global Public Hosted Zones
+zulu_global_management_bills_topic_arn=
+zulu_global_management_events_topic_arn=
+zulu_global_management_alarms_topic_arn=
+
+## Ohio
+## - Ohio Public Hosted Zones
+ohio_management_events_topic_arn=
+ohio_management_alarms_topic_arn=
+
+ohio_log_events_topic_arn=
+ohio_log_alarms_topic_arn=
+
+ohio_audit_events_topic_arn=
+ohio_audit_alarms_topic_arn=
+
+ohio_network_events_topic_arn=
+ohio_network_alarms_topic_arn=
+
+ohio_core_events_topic_arn=
+ohio_core_alarms_topic_arn=
+
+ohio_build_events_topic_arn=
+ohio_build_alarms_topic_arn=
+
+ohio_production_events_topic_arn=
+ohio_production_alarms_topic_arn=
+
+ohio_recovery_events_topic_arn=
+ohio_recovery_alarms_topic_arn=
+
+ohio_staging_events_topic_arn=
+ohio_staging_alarms_topic_arn=
+
+ohio_testing_events_topic_arn=
+ohio_testing_alarms_topic_arn=
+
+ohio_development_events_topic_arn=
+ohio_development_alarms_topic_arn=
+
+## - Alfa Ohio Public Hosted Zones
+alfa_ohio_management_events_topic_arn=
+alfa_ohio_management_alarms_topic_arn=
+
+alfa_ohio_production_events_topic_arn=
+alfa_ohio_production_alarms_topic_arn=
+
+alfa_ohio_testing_events_topic_arn=
+alfa_ohio_testing_alarms_topic_arn=
+
+alfa_ohio_development_events_topic_arn=
+alfa_ohio_development_alarms_topic_arn=
+
+## - Zulu Ohio Shared Public Hosted Zones
+zulu_ohio_management_events_topic_arn=
+zulu_ohio_management_alarms_topic_arn=
+
+zulu_ohio_production_events_topic_arn=
+zulu_ohio_production_alarms_topic_arn=
+
+zulu_ohio_development_events_topic_arn=
+zulu_ohio_development_alarms_topic_arn=
+
+## Oregon
+## - Oregon Public Hosted Zones
+oregon_management_events_topic_arn=
+oregon_management_alarms_topic_arn=
+
+oregon_log_events_topic_arn=
+oregon_log_alarms_topic_arn=
+
+oregon_audit_events_topic_arn=
+oregon_audit_alarms_topic_arn=
+
+oregon_network_events_topic_arn=
+oregon_network_alarms_topic_arn=
+
+oregon_core_events_topic_arn=
+oregon_core_alarms_topic_arn=
+
+oregon_build_events_topic_arn=
+oregon_build_alarms_topic_arn=
+
+oregon_production_events_topic_arn=
+oregon_production_alarms_topic_arn=
+
+oregon_recovery_events_topic_arn=
+oregon_recovery_alarms_topic_arn=
+
+oregon_staging_events_topic_arn=
+oregon_staging_alarms_topic_arn=
+
+oregon_testing_events_topic_arn=
+oregon_testing_alarms_topic_arn=
+
+oregon_development_events_topic_arn=
+oregon_development_alarms_topic_arn=
+
+
+## - Alfa Oregon Public Hosted Zones
+alfa_oregon_management_events_topic_arn=
+alfa_oregon_management_alarms_topic_arn=
+
+alfa_oregon_recovery_events_topic_arn=
+alfa_oregon_recovery_alarms_topic_arn=
+
+## External
+## - CaMeLz
+cml_sba_events_topic_arn=
+cml_sba_alarms_topic_arn=
+
+## - Alfa
+alfa_lax_events_topic_arn=
+alfa_lax_alarms_topic_arn=
+
+alfa_mia_events_topic_arn=
+alfa_mia_alarms_topic_arn=
+
+## - Zulu
+zulu_dfw_events_topic_arn=
+zulu_dfw_alarms_topic_arn=
+
+
 ## Buckets ############################################################################################################
 
 ## Global (Virginia)

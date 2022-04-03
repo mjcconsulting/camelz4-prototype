@@ -24,13 +24,13 @@ This is the list of Topics to be created.
 
 #### **Oregon Region**
 
-1. **[Management-Topics](./BUILD-management-oregon-management-topics)**
+1. **[Management-Topics](./BUILD-management-oregon-management-topics.md)**
 
 ### **Log Account**
 
 #### **Global**
 
-1. **[Log-Topics](./BUILD-log-global-log-topics)**
+1. **[Log-Topics](./BUILD-log-global-log-topics.md)**
 
 #### **Ohio Region**
 

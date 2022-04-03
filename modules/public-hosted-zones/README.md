@@ -107,7 +107,7 @@ Do not create initially - not sure we need this yet
 
 ### **Sandbox Accounts**
 
-#### **Oregon**
+#### **Oregon Region**
 
 Do not create - come back to test this, may need intermediate additional hosted zone created, or may be able to jump two levels
 

@@ -8,66 +8,78 @@ This Module creates Budgets to monitor costs.
 
 **TODO**: Determine Module Pre-Requisites and List here
 
+## Enable Cost Explorer
+
+I think this has to be done manually.
+
+### Steps
+
+1. **Login to Management Account via the Console**
+1. **Select the Billing Dashboard**
+1. **Select Left>Cost Explorer**
+1. **Press the Launch Cost Explorer Button**  
+    It will take 24 hours from this point before Cost Explorer is enabled and you can continue with Budget Creation
+
 ## Create Budgets
 
 This is the list of Budgets to be created.
 
 ### **Management Account**
 
-1. **[Management-Budget](./BUILD-management-budgets.md)**
+1. **[Management-Budgets](./BUILD-management-budgets.md)**
 
 ### **Log Account**
 
-1. **[Log-Budget](./BUILD-log-budgets.md)**
+1. **[Log-Budgets](./BUILD-log-budgets.md)**
 
 ### **Audit Account**
 
-1. **[Audit-Budget](./BUILD-audit-budgets.md)**
+1. **[Audit-Budgets](./BUILD-audit-budgets.md)**
 
 ### **Network Account**
 
-1. **[Network-Budget](./BUILD-network-budgets.md)**
+1. **[Network-Budgets](./BUILD-network-budgets.md)**
 
 ### **Core Account**
 
-1. **[Core-Budget](./BUILD-core-budgets.md)**
+1. **[Core-Budgets](./BUILD-core-budgets.md)**
 
 ### **Sandbox Accounts**
 
-1. **[MCrawford-Sandbox-Budget](./BUILD-mcrawford-sandbox-budgets.md)**
+1. **[MCrawford-Sandbox-Budgets](./BUILD-mcrawford-sandbox-budgets.md)**
 
 ### **Build Account**
 
-1. **[Build-Budget](./BUILD-build-budgets.md)**
+1. **[Build-Budgets](./BUILD-build-budgets.md)**
 
 ### **Production Account**
 
-1. **[Production-Budget](./BUILD-production-budgets.md)**
+1. **[Production-Budgets](./BUILD-production-budgets.md)**
 
 ### **Recovery Account**
 
-1. **[Recovery-Budget](./BUILD-recovery-budgets.md)**
+1. **[Recovery-Budgets](./BUILD-recovery-budgets.md)**
 
 ### **Development Account**
 
-1. **[Development-Budget](./BUILD-development-budgets.md)**
+1. **[Development-Budgets](./BUILD-development-budgets.md)**
 
 ### **Alfa-Production Account**
 
-1. **[Alfa-Production-Budget](./BUILD-alfa-production-budgets.md)**
+1. **[Alfa-Production-Budgets](./BUILD-alfa-production-budgets.md)**
 
 ### **Alfa-Recovery Account**
 
-1. **[Alfa-Recovery-Budget](./BUILD-alfa-recovery-budgets.md)**
+1. **[Alfa-Recovery-Budgets](./BUILD-alfa-recovery-budgets.md)**
 
 ### **Alfa-Development Account**
 
-1. **[Alfa-Development-Budget](./BUILD-alfa-development-budgets.md)**
+1. **[Alfa-Development-Budgets](./BUILD-alfa-development-budgets.md)**
 
 ### **Zulu-Production Account**
 
-1. **[Zulu-Production-Budget](./BUILD-zulu-production-budgets.md)**
+1. **[Zulu-Production-Budgets](./BUILD-zulu-production-budgets.md)**
 
 ### **Zulu-Development Account**
 
-1. **[Zulu-Development-Budget](./BUILD-zulu-development-budgets.md)**
+1. **[Zulu-Development-Budgets](./BUILD-zulu-development-budgets.md)**

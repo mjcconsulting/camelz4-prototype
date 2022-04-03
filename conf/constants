@@ -155,7 +155,7 @@ zulu_production_account_budget_name="$zulu_production_account_name Account Budge
 zulu_production_account_budget_amount=20
 
 zulu_development_account_budget_name="$zulu_development_account_name Account Budget"
-zulu_development_accountbudget_amount=20
+zulu_development_account_budget_amount=20
 
 
 ## Hosted Zones #######################################################################################################

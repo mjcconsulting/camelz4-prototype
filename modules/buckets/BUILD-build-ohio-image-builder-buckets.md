@@ -37,7 +37,7 @@ CaMeLz-Build Account.
     tmpfile=$CAMELZ_HOME/tmp/ohio-build-image-builder-bucket-policy-$$.json
     sed -e "s/@bucketname@/$ohio_build_image_builder_bucket_name/g" \
         -e "s/@orgid@/$org_id/g" \
-        $CAMELZ_HOME/policies/S3OrganizationReadBucketPolicyTemplate.json > $tmpfile
+        $CAMELZ_HOME/policies/S3OrganizationReadBucketPolicy-Template.json > $tmpfile
 
     aws s3api put-bucket-policy --bucket $ohio_build_image_builder_bucket_name \
                                 --policy file://$tmpfile \

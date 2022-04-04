@@ -18,7 +18,7 @@ Zulu-CaMeLz-Production Account.
 1. **Create Zulu-Production Events Topic**
 
     ```bash
-    zulu_ohio_production_events_topic_arn=$(aws sns create-topic --name Events \
+    zulu_ohio_production_events_topic_arn=$(aws sns create-topic --name Zulu-Production-Events \
                                                                  --attributes "DisplayName=ZULP Events" \
                                                                  --tags Key=Name,Value=Zulu-Production-Events-Topic Key=Company,Value=Zulu Key=Environment,Value=Production \
                                                                  --query 'TopicArn' \
@@ -38,7 +38,7 @@ Zulu-CaMeLz-Production Account.
 1. **Create Zulu-Production Alarms Topic**
 
     ```bash
-    zulu_ohio_production_alarms_topic_arn=$(aws sns create-topic --name Alarms \
+    zulu_ohio_production_alarms_topic_arn=$(aws sns create-topic --name Zulu-Production-Alarms \
                                                                  --attributes "DisplayName=ZULP Alarms" \
                                                                  --tags Key=Name,Value=Zulu-Production-Alarms-Topic Key=Company,Value=Zulu Key=Environment,Value=Production \
                                                                  --query 'TopicArn' \

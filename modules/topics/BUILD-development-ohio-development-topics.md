@@ -18,7 +18,7 @@ CaMeLz-Development Account.
 1. **Create Development Events Topic**
 
     ```bash
-    ohio_development_events_topic_arn=$(aws sns create-topic --name Events \
+    ohio_development_events_topic_arn=$(aws sns create-topic --name Development-Events \
                                                              --attributes "DisplayName=CMLD Events" \
                                                              --tags Key=Name,Value=Development-Events-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Development \
                                                              --query 'TopicArn' \
@@ -38,7 +38,7 @@ CaMeLz-Development Account.
 1. **Create Development Alarms Topic**
 
     ```bash
-    ohio_development_alarms_topic_arn=$(aws sns create-topic --name Alarms \
+    ohio_development_alarms_topic_arn=$(aws sns create-topic --name Development-Alarms \
                                                              --attributes "DisplayName=CMLD Alarms" \
                                                              --tags Key=Name,Value=Development-Alarms-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Development \
                                                              --query 'TopicArn' \

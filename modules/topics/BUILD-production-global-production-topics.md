@@ -19,7 +19,7 @@ CaMeLz-Production Account.
 1. **Create Production Events Topic**
 
     ```bash
-    global_production_events_topic_arn=$(aws sns create-topic --name Events \
+    global_production_events_topic_arn=$(aws sns create-topic --name Production-Events \
                                                               --attributes "DisplayName=CMLP Events" \
                                                               --tags Key=Name,Value=Production-Events-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Production \
                                                               --query 'TopicArn' \
@@ -39,7 +39,7 @@ CaMeLz-Production Account.
 1. **Create Production Alarms Topic**
 
     ```bash
-    global_production_alarms_topic_arn=$(aws sns create-topic --name Alarms \
+    global_production_alarms_topic_arn=$(aws sns create-topic --name Production-Alarms \
                                                               --attributes "DisplayName=CMLP Alarms" \
                                                               --tags Key=Name,Value=Production-Alarms-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Production \
                                                               --query 'TopicArn' \

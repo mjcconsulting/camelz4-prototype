@@ -18,7 +18,7 @@ CaMeLz-Recovery Account.
 1. **Create Recovery Events Topic**
 
     ```bash
-    ohio_recovery_events_topic_arn=$(aws sns create-topic --name Events \
+    ohio_recovery_events_topic_arn=$(aws sns create-topic --name Recovery-Events \
                                                           --attributes "DisplayName=CMLR Events" \
                                                           --tags Key=Name,Value=Recovery-Events-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Recovery \
                                                           --query 'TopicArn' \
@@ -38,7 +38,7 @@ CaMeLz-Recovery Account.
 1. **Create Recovery Alarms Topic**
 
     ```bash
-    ohio_recovery_alarms_topic_arn=$(aws sns create-topic --name Alarms \
+    ohio_recovery_alarms_topic_arn=$(aws sns create-topic --name Recovery-Alarms \
                                                           --attributes "DisplayName=CMLR Alarms" \
                                                           --tags Key=Name,Value=Recovery-Alarms-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Recovery \
                                                           --query 'TopicArn' \

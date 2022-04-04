@@ -18,7 +18,7 @@ Alfa-CaMeLz-Recovery Account.
 1. **Create Alfa-Recovery Events Topic**
 
     ```bash
-    alfa_global_recovery_events_topic_arn=$(aws sns create-topic --name Events \
+    alfa_global_recovery_events_topic_arn=$(aws sns create-topic --name Alfa-Recovery-Events \
                                                                  --attributes "DisplayName=ALFR Events" \
                                                                  --tags Key=Name,Value=Alfa-Recovery-Events-Topic Key=Company,Value=Alfa Key=Environment,Value=Recovery \
                                                                  --query 'TopicArn' \
@@ -38,7 +38,7 @@ Alfa-CaMeLz-Recovery Account.
 1. **Create Alfa-Recovery Alarms Topic**
 
     ```bash
-    alfa_global_recovery_alarms_topic_arn=$(aws sns create-topic --name Alarms \
+    alfa_global_recovery_alarms_topic_arn=$(aws sns create-topic --name Alfa-Recovery-Alarms \
                                                                  --attributes "DisplayName=ALFR Alarms" \
                                                                  --tags Key=Name,Value=Alfa-Recovery-Alarms-Topic Key=Company,Value=Alfa Key=Environment,Value=Recovery \
                                                                  --query 'TopicArn' \

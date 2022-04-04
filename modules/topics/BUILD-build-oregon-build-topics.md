@@ -18,7 +18,7 @@ CaMeLz-Build Account.
 1. **Create Build Events Topic**
 
     ```bash
-    oregon_build_events_topic_arn=$(aws sns create-topic --name Events \
+    oregon_build_events_topic_arn=$(aws sns create-topic --name Build-Events \
                                                          --attributes "DisplayName=CMLB Events" \
                                                          --tags Key=Name,Value=Build-Events-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Build \
                                                          --query 'TopicArn' \
@@ -38,7 +38,7 @@ CaMeLz-Build Account.
 1. **Create Build Alarms Topic**
 
     ```bash
-    oregon_build_alarms_topic_arn=$(aws sns create-topic --name Alarms \
+    oregon_build_alarms_topic_arn=$(aws sns create-topic --name Build-Alarms \
                                                          --attributes "DisplayName=CMLB Alarms" \
                                                          --tags Key=Name,Value=Build-Alarms-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Build \
                                                          --query 'TopicArn' \

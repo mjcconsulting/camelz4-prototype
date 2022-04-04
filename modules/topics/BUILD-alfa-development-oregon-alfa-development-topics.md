@@ -18,7 +18,7 @@ Alfa-CaMeLz-Development Account.
 1. **Create Alfa-Development Events Topic**
 
     ```bash
-    alfa_oregon_development_events_topic_arn=$(aws sns create-topic --name Events \
+    alfa_oregon_development_events_topic_arn=$(aws sns create-topic --name Alfa-Development-Events \
                                                                     --attributes "DisplayName=ALFD Events" \
                                                                     --tags Key=Name,Value=Alfa-Development-Events-Topic Key=Company,Value=Alfa Key=Environment,Value=Development \
                                                                     --query 'TopicArn' \
@@ -38,7 +38,7 @@ Alfa-CaMeLz-Development Account.
 1. **Create Alfa-Development Alarms Topic**
 
     ```bash
-    alfa_oregon_development_alarms_topic_arn=$(aws sns create-topic --name Alarms \
+    alfa_oregon_development_alarms_topic_arn=$(aws sns create-topic --name Alfa-Development-Alarms \
                                                               --attributes "DisplayName=ALFD Alarms" \
                                                               --tags Key=Name,Value=Alfa-Development-Alarms-Topic Key=Company,Value=Alfa Key=Environment,Value=Development \
                                                               --query 'TopicArn' \

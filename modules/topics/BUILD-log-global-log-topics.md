@@ -19,7 +19,7 @@ CaMeLz-Log Account.
 1. **Create Log Events Topic**
 
     ```bash
-    global_log_events_topic_arn=$(aws sns create-topic --name Events \
+    global_log_events_topic_arn=$(aws sns create-topic --name Log-Events \
                                                        --attributes "DisplayName=CMLL Events" \
                                                        --tags Key=Name,Value=Log-Events-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Log \
                                                        --query 'TopicArn' \
@@ -39,7 +39,7 @@ CaMeLz-Log Account.
 1. **Create Log Alarms Topic**
 
     ```bash
-    global_log_alarms_topic_arn=$(aws sns create-topic --name Alarms \
+    global_log_alarms_topic_arn=$(aws sns create-topic --name Log-Alarms \
                                                        --attributes "DisplayName=CMLL Alarms" \
                                                        --tags Key=Name,Value=Log-Alarms-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Log \
                                                        --query 'TopicArn' \

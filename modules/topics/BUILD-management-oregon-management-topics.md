@@ -18,7 +18,7 @@ CaMeLz-Management Account.
 1. **Create Management Events Topic**
 
     ```bash
-    oregon_management_events_topic_arn=$(aws sns create-topic --name Events \
+    oregon_management_events_topic_arn=$(aws sns create-topic --name Management-Events \
                                                               --attributes "DisplayName=CMLM Events" \
                                                               --tags Key=Name,Value=Management-Events-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Management \
                                                               --query 'TopicArn' \
@@ -38,7 +38,7 @@ CaMeLz-Management Account.
 1. **Create Management Alarms Topic**
 
     ```bash
-    oregon_management_alarms_topic_arn=$(aws sns create-topic --name Alarms \
+    oregon_management_alarms_topic_arn=$(aws sns create-topic --name Management-Alarms \
                                                               --attributes "DisplayName=CMLM Alarms" \
                                                               --tags Key=Name,Value=Management-Alarms-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Management \
                                                               --query 'TopicArn' \

@@ -18,7 +18,7 @@ CaMeLz-MCrawford-Sandbox Account.
 1. **Create MCrawford-Sandbox Events Topic**
 
     ```bash
-    oregon_mcrawford_sandbox_events_topic_arn=$(aws sns create-topic --name Events \
+    oregon_mcrawford_sandbox_events_topic_arn=$(aws sns create-topic --name MCrawford-Sandbox-Events \
                                                                      --attributes "DisplayName=MJCX Events" \
                                                                      --tags Key=Name,Value=MCrawford-Sandbox-Events-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Sandbox \
                                                                      --query 'TopicArn' \
@@ -38,7 +38,7 @@ CaMeLz-MCrawford-Sandbox Account.
 1. **Create MCrawford-Sandbox Alarms Topic**
 
     ```bash
-    oregon_mcrawford_sandbox_alarms_topic_arn=$(aws sns create-topic --name Alarms \
+    oregon_mcrawford_sandbox_alarms_topic_arn=$(aws sns create-topic --name MCrawford-Sandbox-Alarms \
                                                                      --attributes "DisplayName=MJCX Alarms" \
                                                                      --tags Key=Name,Value=MCrawford-Sandbox-Alarms-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Sandbox \
                                                                      --query 'TopicArn' \

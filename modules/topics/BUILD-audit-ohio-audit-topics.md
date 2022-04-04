@@ -18,7 +18,7 @@ CaMeLz-Audit Account.
 1. **Create Audit Events Topic**
 
     ```bash
-    ohio_audit_events_topic_arn=$(aws sns create-topic --name Events \
+    ohio_audit_events_topic_arn=$(aws sns create-topic --name Audit-Events \
                                                        --attributes "DisplayName=CMLA Events" \
                                                        --tags Key=Name,Value=Audit-Events-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Audit \
                                                        --query 'TopicArn' \
@@ -38,7 +38,7 @@ CaMeLz-Audit Account.
 1. **Create Audit Alarms Topic**
 
     ```bash
-    ohio_audit_alarms_topic_arn=$(aws sns create-topic --name Alarms \
+    ohio_audit_alarms_topic_arn=$(aws sns create-topic --name Audit-Alarms \
                                                        --attributes "DisplayName=CMLA Alarms" \
                                                        --tags Key=Name,Value=Audit-Alarms-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Audit \
                                                        --query 'TopicArn' \

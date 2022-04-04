@@ -18,7 +18,7 @@ Zulu-CaMeLz-Development Account.
 1. **Create Zulu-Development Events Topic**
 
     ```bash
-    zulu_global_development_events_topic_arn=$(aws sns create-topic --name Events \
+    zulu_global_development_events_topic_arn=$(aws sns create-topic --name Zulu-Development-Events \
                                                                     --attributes "DisplayName=ZULD Events" \
                                                                     --tags Key=Name,Value=Zulu-Development-Events-Topic Key=Company,Value=Zulu Key=Environment,Value=Development \
                                                                     --query 'TopicArn' \
@@ -38,7 +38,7 @@ Zulu-CaMeLz-Development Account.
 1. **Create Zulu-Development Alarms Topic**
 
     ```bash
-    zulu_global_development_alarms_topic_arn=$(aws sns create-topic --name Alarms \
+    zulu_global_development_alarms_topic_arn=$(aws sns create-topic --name Zulu-Development-Alarms \
                                                                     --attributes "DisplayName=ZULD Alarms" \
                                                                     --tags Key=Name,Value=Zulu-Development-Alarms-Topic Key=Company,Value=Zulu Key=Environment,Value=Development \
                                                                     --query 'TopicArn' \

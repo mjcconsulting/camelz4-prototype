@@ -18,7 +18,7 @@ CaMeLz-Network Account.
 1. **Create Network Events Topic**
 
     ```bash
-    oregon_network_events_topic_arn=$(aws sns create-topic --name Events \
+    oregon_network_events_topic_arn=$(aws sns create-topic --name Network-Events \
                                                            --attributes "DisplayName=CMLN Events" \
                                                            --tags Key=Name,Value=Network-Events-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Network \
                                                            --query 'TopicArn' \
@@ -38,7 +38,7 @@ CaMeLz-Network Account.
 1. **Create Network Alarms Topic**
 
     ```bash
-    oregon_network_alarms_topic_arn=$(aws sns create-topic --name Alarms \
+    oregon_network_alarms_topic_arn=$(aws sns create-topic --name Network-Alarms \
                                                            --attributes "DisplayName=CMLN Alarms" \
                                                            --tags Key=Name,Value=Network-Alarms-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Network \
                                                            --query 'TopicArn' \

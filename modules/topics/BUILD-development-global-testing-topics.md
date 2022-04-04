@@ -19,7 +19,7 @@ CaMeLz-Development Account.
 1. **Create Testing Events Topic**
 
     ```bash
-    global_testing_events_topic_arn=$(aws sns create-topic --name Events \
+    global_testing_events_topic_arn=$(aws sns create-topic --name Testing-Events \
                                                            --attributes "DisplayName=CMLT Events" \
                                                            --tags Key=Name,Value=Testing-Events-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Testing \
                                                            --query 'TopicArn' \
@@ -39,7 +39,7 @@ CaMeLz-Development Account.
 1. **Create Testing Alarms Topic**
 
     ```bash
-    global_testing_alarms_topic_arn=$(aws sns create-topic --name Alarms \
+    global_testing_alarms_topic_arn=$(aws sns create-topic --name Testing-Alarms \
                                                            --attributes "DisplayName=CMLT Alarms" \
                                                            --tags Key=Name,Value=Testing-Alarms-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Testing \
                                                            --query 'TopicArn' \

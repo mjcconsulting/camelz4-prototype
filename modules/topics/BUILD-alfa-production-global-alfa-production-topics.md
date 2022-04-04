@@ -18,7 +18,7 @@ Alfa-CaMeLz-Production Account.
 1. **Create Alfa-Production Events Topic**
 
     ```bash
-    alfa_global_production_events_topic_arn=$(aws sns create-topic --name Events \
+    alfa_global_production_events_topic_arn=$(aws sns create-topic --name Alfa-Production-Events \
                                                                    --attributes "DisplayName=ALFP Events" \
                                                                    --tags Key=Name,Value=Alfa-Production-Events-Topic Key=Company,Value=Alfa Key=Environment,Value=Production \
                                                                    --query 'TopicArn' \
@@ -38,7 +38,7 @@ Alfa-CaMeLz-Production Account.
 1. **Create Alfa-Production Alarms Topic**
 
     ```bash
-    alfa_global_production_alarms_topic_arn=$(aws sns create-topic --name Alarms \
+    alfa_global_production_alarms_topic_arn=$(aws sns create-topic --name Alfa-Production-Alarms \
                                                                    --attributes "DisplayName=ALFP Alarms" \
                                                                    --tags Key=Name,Value=Alfa-Production-Alarms-Topic Key=Company,Value=Alfa Key=Environment,Value=Production \
                                                                    --query 'TopicArn' \

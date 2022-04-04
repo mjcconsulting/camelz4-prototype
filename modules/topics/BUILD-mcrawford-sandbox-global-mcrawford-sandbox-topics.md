@@ -39,7 +39,7 @@ CaMeLz-Management Account.
 1. **Create MCrawford-Sandbox Alarms Topic**
 
     ```bash
-    mcrawford_global_sandbox_alarms_topic_arn=$(aws sns create-topic --name Alarms \
+    mcrawford_global_sandbox_alarms_topic_arn=$(aws sns create-topic --name MCrawford-Sandbox-Alarms \
                                                                      --attributes "DisplayName=MJCX Alarms" \
                                                                      --tags Key=Name,Value=MCrawford-Sandbox-Alarms-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Sandbox \
                                                                      --query 'TopicArn' \

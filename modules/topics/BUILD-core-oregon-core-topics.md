@@ -18,7 +18,7 @@ CaMeLz-Core Account.
 1. **Create Core Events Topic**
 
     ```bash
-    oregon_core_events_topic_arn=$(aws sns create-topic --name Events \
+    oregon_core_events_topic_arn=$(aws sns create-topic --name Core-Events \
                                                         --attributes "DisplayName=CMLC Events" \
                                                         --tags Key=Name,Value=Core-Events-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Core \
                                                         --query 'TopicArn' \
@@ -38,7 +38,7 @@ CaMeLz-Core Account.
 1. **Create Core Alarms Topic**
 
     ```bash
-    oregon_core_alarms_topic_arn=$(aws sns create-topic --name Alarms \
+    oregon_core_alarms_topic_arn=$(aws sns create-topic --name Core-Alarms \
                                                         --attributes "DisplayName=CMLC Alarms" \
                                                         --tags Key=Name,Value=Core-Alarms-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Core \
                                                         --query 'TopicArn' \

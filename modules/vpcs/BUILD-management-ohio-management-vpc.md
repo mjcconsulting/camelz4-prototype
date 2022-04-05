@@ -533,7 +533,7 @@ This module builds the Management VPC in the AWS Ohio (us-east-2) Region within 
                                                               --iam-instance-profile Name=ManagedInstance \
                                                               --key-name administrator \
                                                               --network-interfaces "AssociatePublicIpAddress=true,DeleteOnTermination=true,Description=Management-NAT-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$ohio_management_nat_sg_id],SubnetId=$ohio_management_public_subneta_id" \
-                                                              --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Management-NAT-Instance},{Key=Hostname,Value=cmlue1mnat01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                              --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Management-NAT-Instance},{Key=Hostname,Value=cmlue2mnat01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                               --query 'Instances[0].InstanceId' \
                                                               --profile $profile --region us-east-2 --output text)
       camelz-variable ohio_management_nat_instance_id

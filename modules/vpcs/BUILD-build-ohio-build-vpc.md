@@ -505,6 +505,7 @@ This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the C
 
       aws ec2 authorize-security-group-ingress --group-id $ohio_build_nat_sg_id \
                                                --ip-permissions "IpProtocol=-1,IpRanges=[{CidrIp=$ohio_build_vpc_cidr,Description=\"VPC (All)\"}]" \
+                                               --tag-specifications "ResourceType=security-group-rule,Tags=[{Key=Name,Value=\"VPC (All)\"}]" \
                                                --profile $profile --region us-east-2 --output text
 
       # Create NAT Instance
@@ -513,7 +514,7 @@ This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the C
                                                          --iam-instance-profile Name=ManagedInstance \
                                                          --key-name administrator \
                                                          --network-interfaces "AssociatePublicIpAddress=true,DeleteOnTermination=true,Description=Build-NAT-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$ohio_build_nat_sg_id],SubnetId=$ohio_build_public_subneta_id" \
-                                                         --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Build-NAT-Instance},{Key=Hostname,Value=cmlue1mnat01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                         --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Build-NAT-Instance},{Key=Hostname,Value=cmlue2bnat01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                          --query 'Instances[0].InstanceId' \
                                                          --profile $profile --region us-east-2 --output text)
       camelz-variable ohio_build_nat_instance_id
@@ -653,10 +654,12 @@ This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the C
 
     aws ec2 authorize-security-group-ingress --group-id $ohio_build_vpce_sg_id \
                                              --ip-permissions "IpProtocol=tcp,FromPort=0,ToPort=65535,IpRanges=[{CidrIp=$ohio_build_vpc_cidr,Description=\"VPC (All TCP)\"}]" \
+                                             --tag-specifications "ResourceType=security-group-rule,Tags=[{Key=Name,Value=\"VPC (All TCP)\"}]" \
                                              --profile $profile --region us-east-2 --output text
 
     aws ec2 authorize-security-group-ingress --group-id $ohio_build_vpce_sg_id \
                                              --ip-permissions "IpProtocol=udp,FromPort=0,ToPort=65535,IpRanges=[{CidrIp=$ohio_build_vpc_cidr,Description=\"VPC (All UDP)\"}]" \
+                                             --tag-specifications "ResourceType=security-group-rule,Tags=[{Key=Name,Value=\"VPC (All UDP)\"}]" \
                                              --profile $profile --region us-east-2 --output text
     ```
 

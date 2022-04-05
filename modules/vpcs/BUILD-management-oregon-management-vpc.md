@@ -532,7 +532,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                                                 --iam-instance-profile Name=ManagedInstance \
                                                                 --key-name administrator \
                                                                 --network-interfaces "AssociatePublicIpAddress=true,DeleteOnTermination=true,Description=Management-NAT-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$oregon_management_nat_sg_id],SubnetId=$oregon_management_public_subneta_id" \
-                                                                --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Management-NAT-Instance},{Key=Hostname,Value=cmlue1mnat01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Management-NAT-Instance},{Key=Hostname,Value=cmluw2mnat01a},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                 --query 'Instances[0].InstanceId' \
                                                                 --profile $profile --region us-west-2 --output text)
       camelz-variable oregon_management_nat_instance_id

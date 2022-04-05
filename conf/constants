@@ -85,6 +85,7 @@ development_account_name=CaMeLz-Development
 development_account_alias=camelzd
 development_profile=$development_account_alias-$user
 
+
 ## Client: Alfa
 alfa_production_account_name=Alfa-CaMeLz-Production
 alfa_production_account_alias=alfa-camelzp
@@ -97,6 +98,7 @@ alfa_recovery_profile=$alfa_recovery_account_alias-$user
 alfa_development_account_name=Alfa-CaMeLz-Development
 alfa_development_account_alias=alfa-camelzd
 alfa_development_profile=$alfa_development_account_alias-$user
+
 
 ## Client: Zulu
 zulu_production_account_name=Zulu-CaMeLz-Production
@@ -140,6 +142,7 @@ recovery_account_budget_amount=20
 development_account_budget_name="$development_account_name Account Budget"
 development_account_budget_amount=20
 
+
 ## Client: Alfa
 alfa_production_account_budget_name="$alfa_production_account_name Account Budget"
 alfa_production_account_budget_amount=20
@@ -149,6 +152,7 @@ alfa_recovery_account_budget_amount=20
 
 alfa_development_account_budget_name="$alfa_development_account_name Account Budget"
 alfa_development_account_budget_amount=20
+
 
 ## Client: Zulu
 zulu_production_account_budget_name="$zulu_production_account_name Account Budget"
@@ -163,6 +167,7 @@ zulu_development_account_budget_amount=20
 
 ## Top-Level Domain
 domain=camelz.io
+
 
 ## Organization
 ## - Global (Virginia)
@@ -270,6 +275,7 @@ oregon_testing_private_domain=t.us-west-2.$domain
 oregon_development_public_domain=d.us-west-2.$domain
 oregon_development_private_domain=d.us-west-2.$domain
 
+
 ## Client: Alfa
 ## - Global (Virginia)
 alfa_global_management_public_domain=alfa.$domain
@@ -300,6 +306,7 @@ alfa_oregon_management_public_domain=us-west-2.alfa.$domain
 alfa_oregon_recovery_public_domain=r.us-west-2.alfa.$domain
 alfa_oregon_recovery_private_domain=r.us-west-2.alfa.$domain
 
+
 ## Client: Zulu
 ## - Global (Virginia)
 zulu_global_management_public_domain=zulu.$domain
@@ -316,6 +323,7 @@ zulu_ohio_production_private_domain=p.us-east-2.zulu.$domain
 
 zulu_ohio_development_public_domain=d.us-east-2.zulu.$domain
 zulu_ohio_development_private_domain=d.us-east-2.zulu.$domain
+
 
 ## Data Center Simulations
 ## - Region: Ohio
@@ -335,6 +343,7 @@ zulu_dfw_private_domain=dfw.zulu.$domain
 ## AMIs ###############################################################################################################
 ## - AMIs as of 3/24/22
 
+## Organization
 ## - Global (Virginia)
 global_nat_ami_id=ami-04106ae1c90766385     # amzn-ami-vpc-nat-2018.03.0.20220315.0-x86_64-ebs
 global_amzn2_ami_id=ami-03e0b06f01d45a4eb   # amzn2-ami-hvm-2.0.20220316.0-x86_64-gp2
@@ -855,6 +864,9 @@ alfa_ohio_production_subnet_applicationc_cidr=10.16.9.0/26
 alfa_ohio_production_subnet_databasea_cidr=10.16.2.0/26
 alfa_ohio_production_subnet_databaseb_cidr=10.16.6.0/26
 alfa_ohio_production_subnet_databasec_cidr=10.16.10.0/26
+alfa_ohio_production_subnet_directorya_cidr=10.16.3.128/26
+alfa_ohio_production_subnet_directoryb_cidr=10.16.7.128/26
+alfa_ohio_production_subnet_directoryc_cidr=10.16.11.128/26
 alfa_ohio_production_subnet_managementa_cidr=10.16.3.192/28
 alfa_ohio_production_subnet_managementb_cidr=10.16.7.192/28
 alfa_ohio_production_subnet_managementc_cidr=10.16.11.192/28
@@ -881,6 +893,9 @@ alfa_ohio_testing_subnet_applicationc_cidr=10.16.41.0/26
 alfa_ohio_testing_subnet_databasea_cidr=10.16.34.0/26
 alfa_ohio_testing_subnet_databaseb_cidr=10.16.38.0/26
 alfa_ohio_testing_subnet_databasec_cidr=10.16.42.0/26
+alfa_ohio_testing_subnet_directorya_cidr=10.16.35.128/26
+alfa_ohio_testing_subnet_directoryb_cidr=10.16.39.128/26
+alfa_ohio_testing_subnet_directoryc_cidr=10.16.43.128/26
 alfa_ohio_testing_subnet_managementa_cidr=10.16.35.192/28
 alfa_ohio_testing_subnet_managementb_cidr=10.16.39.192/28
 alfa_ohio_testing_subnet_managementc_cidr=10.16.43.192/28
@@ -907,6 +922,9 @@ alfa_ohio_development_subnet_applicationc_cidr=10.16.57.0/26
 alfa_ohio_development_subnet_databasea_cidr=10.16.50.0/26
 alfa_ohio_development_subnet_databaseb_cidr=10.16.54.0/26
 alfa_ohio_development_subnet_databasec_cidr=10.16.58.0/26
+alfa_ohio_development_subnet_directorya_cidr=10.16.51.128/26
+alfa_ohio_development_subnet_directoryb_cidr=10.16.55.128/26
+alfa_ohio_development_subnet_directoryc_cidr=10.16.59.128/26
 alfa_ohio_development_subnet_managementa_cidr=10.16.51.192/28
 alfa_ohio_development_subnet_managementb_cidr=10.16.55.192/28
 alfa_ohio_development_subnet_managementc_cidr=10.16.59.192/28
@@ -917,7 +935,7 @@ alfa_ohio_development_subnet_endpointa_cidr=10.16.51.224/27
 alfa_ohio_development_subnet_endpointb_cidr=10.16.55.224/27
 alfa_ohio_development_subnet_endpointc_cidr=10.16.59.224/27
 
-## - Region: Ohio
+## - Region: Oregon
 alfa_oregon_recovery_vpc_cidr=10.64.0.0/20
 alfa_oregon_recovery_subnet_firewalla_cidr=
 alfa_oregon_recovery_subnet_firewallb_cidr=
@@ -934,6 +952,9 @@ alfa_oregon_recovery_subnet_applicationc_cidr=10.64.9.0/26
 alfa_oregon_recovery_subnet_databasea_cidr=10.64.2.0/26
 alfa_oregon_recovery_subnet_databaseb_cidr=10.64.6.0/26
 alfa_oregon_recovery_subnet_databasec_cidr=10.64.10.0/26
+alfa_oregon_recovery_subnet_directorya_cidr=10.64.3.128/26
+alfa_oregon_recovery_subnet_directoryb_cidr=10.64.7.128/26
+alfa_oregon_recovery_subnet_directoryc_cidr=10.64.11.128/26
 alfa_oregon_recovery_subnet_managementa_cidr=10.64.3.192/28
 alfa_oregon_recovery_subnet_managementb_cidr=10.64.7.192/28
 alfa_oregon_recovery_subnet_managementc_cidr=10.64.11.192/28
@@ -943,6 +964,7 @@ alfa_oregon_recovery_subnet_gatewayc_cidr=10.64.11.208/28
 alfa_oregon_recovery_subnet_endpointa_cidr=10.64.3.224/27
 alfa_oregon_recovery_subnet_endpointb_cidr=10.64.7.224/27
 alfa_oregon_recovery_subnet_endpointc_cidr=10.64.11.224/27
+
 
 ## Client: Zulu
 ## - Region: Ohio
@@ -997,6 +1019,7 @@ zulu_ohio_development_subnet_gatewayc_cidr=10.22.123.208/28
 zulu_ohio_development_subnet_endpointa_cidr=10.22.115.224/27
 zulu_ohio_development_subnet_endpointb_cidr=10.22.119.224/27
 zulu_ohio_development_subnet_endpointc_cidr=10.22.123.224/27
+
 
 ## Data Center Simulations
 ## - Region: Ohio
@@ -1083,6 +1106,7 @@ oregon_network_tgw_rs_allow_external=true
 
 oregon_network_client_vpn_cidr=172.32.16.0/22
 
+
 ## Client: Alfa
 ## - Region: Ohio
 ohio_network_alfa_lax_vpn_tunnel1_cidr='169.254.10.0/30'
@@ -1122,6 +1146,7 @@ oregon_network_alfa_mia_vpn_tunnel3_psk='ZApRArkZwxXtYEGvvf3VkjdQP6GLeYq7'
 oregon_network_alfa_mia_vpn_tunnel4_cidr='169.254.23.0/30'
 oregon_network_alfa_mia_vpn_tunnel4_psk='nJKcgA4pq7LhDY2mQQM6qnqu7VFtx9GT'
 
+
 ## Client: Zulu
 ## - Region: Ohio
 ohio_network_zulu_dfw_vpn_tunnel1_cidr='169.254.30.0/30'
@@ -1139,10 +1164,12 @@ ohio_network_zulu_dfw_vpn_tunnel4_psk='x9A4VFtqYQpqn2hGqu7QgTMnJDm7L6Kc'
 ## Organization
 cml_sba_cgw_asn=65532
 
+
 ## Client: Alfa
 alfa_lax_cgw_asn=64768
 
 alfa_mia_cgw_asn=64769
+
 
 ## Client: Zulu
 zulu_dfw_cgw_asn=64780
@@ -1223,6 +1250,7 @@ oregon_core_directory_netbios_domain=$oregon_management_directory_netbios_domain
 oregon_core_directory_admin_user=$oregon_management_directory_admin_user          # Shares Oregon Management Directory
 oregon_core_directory_admin_password=$oregon_management_directory_admin_password  # Shares Oregon Management Directory
 
+
 ## Client: Alfa
 ## - Global (Virginia)
 alfa_global_management_directory_domain=ad.alfa.$domain
@@ -1263,6 +1291,7 @@ alfa_oregon_recovery_directory_domain=$alfa_oregon_management_directory_domain  
 alfa_oregon_recovery_directory_netbios_domain=$alfa_oregon_management_directory_netbios_domain  # Shares Alfa Oregon Management Directory
 alfa_oregon_recovery_directory_admin_user=$alfa_oregon_management_directory_admin_user          # Shares Alfa Oregon Management Directory
 alfa_oregon_recovery_directory_admin_password=$alfa_oregon_management_directory_admin_password  # Shares Alfa Oregon Management Directory
+
 
 ## Client: Zulu
 ## - Global (Virginia)

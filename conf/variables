@@ -45,10 +45,12 @@ production_account_id=
 recovery_account_id=
 development_account_id=
 
+
 ## Client: Alfa
 alfa_production_account_id=
 alfa_recovery_account_id=
 alfa_development_account_id=
+
 
 ## Client: Zulu
 zulu_production_account_id=
@@ -123,6 +125,9 @@ ohio_network_alarms_topic_arn=
 ohio_core_events_topic_arn=
 ohio_core_alarms_topic_arn=
 
+mcrawford_ohio_sandbox_events_topic_arn=
+mcrawford_ohio_sandbox_alarms_topic_arn=
+
 ohio_build_events_topic_arn=
 ohio_build_alarms_topic_arn=
 
@@ -157,6 +162,9 @@ oregon_network_alarms_topic_arn=
 oregon_core_events_topic_arn=
 oregon_core_alarms_topic_arn=
 
+mcrawford_oregon_sandbox_events_topic_arn=
+mcrawford_oregon_sandbox_alarms_topic_arn=
+
 oregon_build_events_topic_arn=
 oregon_build_alarms_topic_arn=
 
@@ -175,17 +183,27 @@ oregon_testing_alarms_topic_arn=
 oregon_development_events_topic_arn=
 oregon_development_alarms_topic_arn=
 
+
 ## Client: Alfa
 ## - Global (Virginia)
 alfa_global_production_budgets_topic_arn=
+alfa_global_production_events_topic_arn=
+alfa_global_production_alarms_topic_arn=
 
 alfa_global_recovery_budgets_topic_arn=
+alfa_global_recovery_events_topic_arn=
+alfa_global_recovery_alarms_topic_arn=
 
 alfa_global_development_budgets_topic_arn=
+alfa_global_development_events_topic_arn=
+alfa_global_development_alarms_topic_arn=
 
 ## - Region: Ohio
 alfa_ohio_production_events_topic_arn=
 alfa_ohio_production_alarms_topic_arn=
+
+alfa_ohio_recovery_events_topic_arn=
+alfa_ohio_recovery_alarms_topic_arn=
 
 alfa_ohio_testing_events_topic_arn=
 alfa_ohio_testing_alarms_topic_arn=
@@ -194,15 +212,25 @@ alfa_ohio_development_events_topic_arn=
 alfa_ohio_development_alarms_topic_arn=
 
 ## - Region: Oregon
+alfa_oregon_production_events_topic_arn=
+alfa_oregon_production_alarms_topic_arn=
+
 alfa_oregon_recovery_events_topic_arn=
 alfa_oregon_recovery_alarms_topic_arn=
+
+alfa_oregon_development_events_topic_arn=
+alfa_oregon_development_alarms_topic_arn=
 
 
 ## Client: Zulu
 ## - Global (Virginia)
 zulu_global_production_budgets_topic_arn=
+zulu_global_production_events_topic_arn=
+zulu_global_production_alarms_topic_arn=
 
 zulu_global_development_budgets_topic_arn=
+zulu_global_development_events_topic_arn=
+zulu_global_development_alarms_topic_arn=
 
 ## - Region: Ohio
 zulu_ohio_management_events_topic_arn=
@@ -213,6 +241,14 @@ zulu_ohio_production_alarms_topic_arn=
 
 zulu_ohio_development_events_topic_arn=
 zulu_ohio_development_alarms_topic_arn=
+
+## - Region: Oregon
+zulu_oregon_production_events_topic_arn=
+zulu_oregon_production_alarms_topic_arn=
+
+zulu_oregon_development_events_topic_arn=
+zulu_oregon_development_alarms_topic_arn=
+
 
 ## Data Center Simulations
 ## - Region: Ohio
@@ -281,6 +317,7 @@ oregon_staging_public_hostedzone_id=
 oregon_testing_public_hostedzone_id=
 oregon_development_public_hostedzone_id=
 
+
 ## Client: Alfa
 ## - Global (Virginia)
 alfa_global_management_public_hostedzone_id=
@@ -294,6 +331,7 @@ alfa_ohio_development_public_hostedzone_id=
 ## - Region: Oregon
 alfa_oregon_management_public_hostedzone_id=
 alfa_oregon_recovery_public_hostedzone_id=
+
 
 ## Client: Zulu
 ## - Global (Virginia)
@@ -973,6 +1011,259 @@ oregon_core_vpce_sg_id=
 oregon_core_ssm_vpce_id=
 oregon_core_ssmm_vpce_id=
 
+
+## Client: Alfa
+## - Region: Ohio
+alfa_ohio_production_vpc_id=
+alfa_ohio_production_igw_id=
+alfa_ohio_production_private_hostedzone_id=
+alfa_ohio_production_dopt_id=
+alfa_ohio_production_firewall_subneta_id=
+alfa_ohio_production_firewall_subnetb_id=
+alfa_ohio_productione_firewall_subnetc_id=
+alfa_ohio_production_public_subneta_id=
+alfa_ohio_production_public_subnetb_id=
+alfa_ohio_production_public_subnetc_id=
+alfa_ohio_production_web_subneta_id=
+alfa_ohio_production_web_subnetb_id=
+alfa_ohio_production_web_subnetc_id=
+alfa_ohio_production_application_subneta_id=
+alfa_ohio_production_application_subnetb_id=
+alfa_ohio_production_application_subnetc_id=
+alfa_ohio_production_database_subneta_id=
+alfa_ohio_production_database_subnetb_id=
+alfa_ohio_production_database_subnetc_id=
+alfa_ohio_production_directory_subneta_id=
+alfa_ohio_production_directory_subnetb_id=
+alfa_ohio_production_directory_subnetc_id=
+alfa_ohio_production_management_subneta_id=
+alfa_ohio_production_management_subnetb_id=
+alfa_ohio_production_management_subnetc_id=
+alfa_ohio_production_gateway_subneta_id=
+alfa_ohio_production_gateway_subnetb_id=
+alfa_ohio_production_gateway_subnetc_id=
+alfa_ohio_production_endpoint_subneta_id=
+alfa_ohio_production_endpoint_subnetb_id=
+alfa_ohio_production_endpoint_subnetc_id=
+alfa_ohio_production_public_rtb_id=
+alfa_ohio_production_ngw_eipa=
+alfa_ohio_production_ngwa_id=
+alfa_ohio_production_ngw_eipb=
+alfa_ohio_production_ngwb_id=
+alfa_ohio_production_ngw_eipc=
+alfa_ohio_production_ngwc_id=
+alfa_ohio_production_nat_sg_id=
+alfa_ohio_production_nat_instance_id=
+alfa_ohio_production_nat_instance_eni_id=
+alfa_ohio_production_nat_instance_private_ip=
+alfa_ohio_production_private_rtba_id=
+alfa_ohio_production_private_rtbb_id=
+alfa_ohio_production_private_rtbc_id=
+alfa_ohio_production_vpce_sg_id=
+alfa_ohio_production_ssm_vpce_id=
+alfa_ohio_production_ssmm_vpce_id=
+
+alfa_ohio_development_vpc_id=
+alfa_ohio_development_igw_id=
+alfa_ohio_development_private_hostedzone_id=
+alfa_ohio_development_dopt_id=
+alfa_ohio_development_firewall_subneta_id=
+alfa_ohio_development_firewall_subnetb_id=
+alfa_ohio_developmente_firewall_subnetc_id=
+alfa_ohio_development_public_subneta_id=
+alfa_ohio_development_public_subnetb_id=
+alfa_ohio_development_public_subnetc_id=
+alfa_ohio_development_web_subneta_id=
+alfa_ohio_development_web_subnetb_id=
+alfa_ohio_development_web_subnetc_id=
+alfa_ohio_development_application_subneta_id=
+alfa_ohio_development_application_subnetb_id=
+alfa_ohio_development_application_subnetc_id=
+alfa_ohio_development_database_subneta_id=
+alfa_ohio_development_database_subnetb_id=
+alfa_ohio_development_database_subnetc_id=
+alfa_ohio_development_directory_subneta_id=
+alfa_ohio_development_directory_subnetb_id=
+alfa_ohio_development_directory_subnetc_id=
+alfa_ohio_development_management_subneta_id=
+alfa_ohio_development_management_subnetb_id=
+alfa_ohio_development_management_subnetc_id=
+alfa_ohio_development_gateway_subneta_id=
+alfa_ohio_development_gateway_subnetb_id=
+alfa_ohio_development_gateway_subnetc_id=
+alfa_ohio_development_endpoint_subneta_id=
+alfa_ohio_development_endpoint_subnetb_id=
+alfa_ohio_development_endpoint_subnetc_id=
+alfa_ohio_development_public_rtb_id=
+alfa_ohio_development_ngw_eipa=
+alfa_ohio_development_ngwa_id=
+alfa_ohio_development_ngw_eipb=
+alfa_ohio_development_ngwb_id=
+alfa_ohio_development_ngw_eipc=
+alfa_ohio_development_ngwc_id=
+alfa_ohio_development_nat_sg_id=
+alfa_ohio_development_nat_instance_id=
+alfa_ohio_development_nat_instance_eni_id=
+alfa_ohio_development_nat_instance_private_ip=
+alfa_ohio_development_private_rtba_id=
+alfa_ohio_development_private_rtbb_id=
+alfa_ohio_development_private_rtbc_id=
+alfa_ohio_development_vpce_sg_id=
+alfa_ohio_development_ssm_vpce_id=
+alfa_ohio_development_ssmm_vpce_id=
+
+## - Region: Oregon
+alfa_oregon_recovery_vpc_id=
+alfa_oregon_recovery_igw_id=
+alfa_oregon_recovery_private_hostedzone_id=
+alfa_oregon_recovery_dopt_id=
+alfa_oregon_recovery_firewall_subneta_id=
+alfa_oregon_recovery_firewall_subnetb_id=
+alfa_oregon_recoverye_firewall_subnetc_id=
+alfa_oregon_recovery_public_subneta_id=
+alfa_oregon_recovery_public_subnetb_id=
+alfa_oregon_recovery_public_subnetc_id=
+alfa_oregon_recovery_web_subneta_id=
+alfa_oregon_recovery_web_subnetb_id=
+alfa_oregon_recovery_web_subnetc_id=
+alfa_oregon_recovery_application_subneta_id=
+alfa_oregon_recovery_application_subnetb_id=
+alfa_oregon_recovery_application_subnetc_id=
+alfa_oregon_recovery_database_subneta_id=
+alfa_oregon_recovery_database_subnetb_id=
+alfa_oregon_recovery_database_subnetc_id=
+alfa_oregon_recovery_directory_subneta_id=
+alfa_oregon_recovery_directory_subnetb_id=
+alfa_oregon_recovery_directory_subnetc_id=
+alfa_oregon_recovery_management_subneta_id=
+alfa_oregon_recovery_management_subnetb_id=
+alfa_oregon_recovery_management_subnetc_id=
+alfa_oregon_recovery_gateway_subneta_id=
+alfa_oregon_recovery_gateway_subnetb_id=
+alfa_oregon_recovery_gateway_subnetc_id=
+alfa_oregon_recovery_endpoint_subneta_id=
+alfa_oregon_recovery_endpoint_subnetb_id=
+alfa_oregon_recovery_endpoint_subnetc_id=
+alfa_oregon_recovery_public_rtb_id=
+alfa_oregon_recovery_ngw_eipa=
+alfa_oregon_recovery_ngwa_id=
+alfa_oregon_recovery_ngw_eipb=
+alfa_oregon_recovery_ngwb_id=
+alfa_oregon_recovery_ngw_eipc=
+alfa_oregon_recovery_ngwc_id=
+alfa_oregon_recovery_nat_sg_id=
+alfa_oregon_recovery_nat_instance_id=
+alfa_oregon_recovery_nat_instance_eni_id=
+alfa_oregon_recovery_nat_instance_private_ip=
+alfa_oregon_recovery_private_rtba_id=
+alfa_oregon_recovery_private_rtbb_id=
+alfa_oregon_recovery_private_rtbc_id=
+alfa_oregon_recovery_vpce_sg_id=
+alfa_oregon_recovery_ssm_vpce_id=
+alfa_oregon_recovery_ssmm_vpce_id=
+
+
+## Client: Zulu
+## - Region: Ohio
+zulu_ohio_production_vpc_id=
+zulu_ohio_production_igw_id=
+zulu_ohio_production_private_hostedzone_id=
+zulu_ohio_production_dopt_id=
+zulu_ohio_production_firewall_subneta_id=
+zulu_ohio_production_firewall_subnetb_id=
+zulu_ohio_productione_firewall_subnetc_id=
+zulu_ohio_production_public_subneta_id=
+zulu_ohio_production_public_subnetb_id=
+zulu_ohio_production_public_subnetc_id=
+zulu_ohio_production_web_subneta_id=
+zulu_ohio_production_web_subnetb_id=
+zulu_ohio_production_web_subnetc_id=
+zulu_ohio_production_application_subneta_id=
+zulu_ohio_production_application_subnetb_id=
+zulu_ohio_production_application_subnetc_id=
+zulu_ohio_production_database_subneta_id=
+zulu_ohio_production_database_subnetb_id=
+zulu_ohio_production_database_subnetc_id=
+zulu_ohio_production_directory_subneta_id=
+zulu_ohio_production_directory_subnetb_id=
+zulu_ohio_production_directory_subnetc_id=
+zulu_ohio_production_management_subneta_id=
+zulu_ohio_production_management_subnetb_id=
+zulu_ohio_production_management_subnetc_id=
+zulu_ohio_production_gateway_subneta_id=
+zulu_ohio_production_gateway_subnetb_id=
+zulu_ohio_production_gateway_subnetc_id=
+zulu_ohio_production_endpoint_subneta_id=
+zulu_ohio_production_endpoint_subnetb_id=
+zulu_ohio_production_endpoint_subnetc_id=
+zulu_ohio_production_public_rtb_id=
+zulu_ohio_production_ngw_eipa=
+zulu_ohio_production_ngwa_id=
+zulu_ohio_production_ngw_eipb=
+zulu_ohio_production_ngwb_id=
+zulu_ohio_production_ngw_eipc=
+zulu_ohio_production_ngwc_id=
+zulu_ohio_production_nat_sg_id=
+zulu_ohio_production_nat_instance_id=
+zulu_ohio_production_nat_instance_eni_id=
+zulu_ohio_production_nat_instance_private_ip=
+zulu_ohio_production_private_rtba_id=
+zulu_ohio_production_private_rtbb_id=
+zulu_ohio_production_private_rtbc_id=
+zulu_ohio_production_vpce_sg_id=
+zulu_ohio_production_ssm_vpce_id=
+zulu_ohio_production_ssmm_vpce_id=
+
+zulu_ohio_development_vpc_id=
+zulu_ohio_development_igw_id=
+zulu_ohio_development_private_hostedzone_id=
+zulu_ohio_development_dopt_id=
+zulu_ohio_development_firewall_subneta_id=
+zulu_ohio_development_firewall_subnetb_id=
+zulu_ohio_developmente_firewall_subnetc_id=
+zulu_ohio_development_public_subneta_id=
+zulu_ohio_development_public_subnetb_id=
+zulu_ohio_development_public_subnetc_id=
+zulu_ohio_development_web_subneta_id=
+zulu_ohio_development_web_subnetb_id=
+zulu_ohio_development_web_subnetc_id=
+zulu_ohio_development_application_subneta_id=
+zulu_ohio_development_application_subnetb_id=
+zulu_ohio_development_application_subnetc_id=
+zulu_ohio_development_database_subneta_id=
+zulu_ohio_development_database_subnetb_id=
+zulu_ohio_development_database_subnetc_id=
+zulu_ohio_development_directory_subneta_id=
+zulu_ohio_development_directory_subnetb_id=
+zulu_ohio_development_directory_subnetc_id=
+zulu_ohio_development_management_subneta_id=
+zulu_ohio_development_management_subnetb_id=
+zulu_ohio_development_management_subnetc_id=
+zulu_ohio_development_gateway_subneta_id=
+zulu_ohio_development_gateway_subnetb_id=
+zulu_ohio_development_gateway_subnetc_id=
+zulu_ohio_development_endpoint_subneta_id=
+zulu_ohio_development_endpoint_subnetb_id=
+zulu_ohio_development_endpoint_subnetc_id=
+zulu_ohio_development_public_rtb_id=
+zulu_ohio_development_ngw_eipa=
+zulu_ohio_development_ngwa_id=
+zulu_ohio_development_ngw_eipb=
+zulu_ohio_development_ngwb_id=
+zulu_ohio_development_ngw_eipc=
+zulu_ohio_development_ngwc_id=
+zulu_ohio_development_nat_sg_id=
+zulu_ohio_development_nat_instance_id=
+zulu_ohio_development_nat_instance_eni_id=
+zulu_ohio_development_nat_instance_private_ip=
+zulu_ohio_development_private_rtba_id=
+zulu_ohio_development_private_rtbb_id=
+zulu_ohio_development_private_rtbc_id=
+zulu_ohio_development_vpce_sg_id=
+zulu_ohio_development_ssm_vpce_id=
+zulu_ohio_development_ssmm_vpce_id=
+
+
 ## Instances ##########################################################################################################
 ## - These initially are Linux Test Instances to confirm all topology works
 
@@ -988,7 +1279,6 @@ global_management_lws_eipa=
 global_management_lws_instancea_public_ip=
 global_management_lws_instancea_id=
 global_management_lws_instancea_private_ip=
-
 global_management_las_instancea_description=
 global_management_las_instancea_private_hostname=
 global_management_las_instancea_private_hostalias=
@@ -1007,10 +1297,104 @@ ohio_build_lws_eipa=
 ohio_build_lws_instancea_public_ip=
 ohio_build_lws_instancea_id=
 ohio_build_lws_instancea_private_ip=
-
 ohio_build_las_instancea_description=
 ohio_build_las_instancea_private_hostname=
 ohio_build_las_instancea_private_hostalias=
 ohio_build_las_sg_id=
 ohio_build_las_instancea_id=
 ohio_build_las_instancea_private_ip=
+
+
+## Client: Alfa
+## - Region: Ohio
+alfa_ohio_production_lws_instancea_description=
+alfa_ohio_production_lws_instancea_public_hostname=
+alfa_ohio_production_lws_instancea_public_hostalias=
+alfa_ohio_production_lws_instancea_private_hostname=
+alfa_ohio_production_lws_instancea_private_hostalias=
+alfa_ohio_production_lws_sg_id=
+alfa_ohio_production_lws_eipa=
+alfa_ohio_production_lws_instancea_public_ip=
+alfa_ohio_production_lws_instancea_id=
+alfa_ohio_production_lws_instancea_private_ip=
+alfa_ohio_production_las_instancea_description=
+alfa_ohio_production_las_instancea_private_hostname=
+alfa_ohio_production_las_instancea_private_hostalias=
+alfa_ohio_production_las_sg_id=
+alfa_ohio_production_las_instancea_id=
+alfa_ohio_production_las_instancea_private_ip=
+
+alfa_ohio_development_lws_instancea_description=
+alfa_ohio_development_lws_instancea_public_hostname=
+alfa_ohio_development_lws_instancea_public_hostalias=
+alfa_ohio_development_lws_instancea_private_hostname=
+alfa_ohio_development_lws_instancea_private_hostalias=
+alfa_ohio_development_lws_sg_id=
+alfa_ohio_development_lws_eipa=
+alfa_ohio_development_lws_instancea_public_ip=
+alfa_ohio_development_lws_instancea_id=
+alfa_ohio_development_lws_instancea_private_ip=
+alfa_ohio_development_las_instancea_description=
+alfa_ohio_development_las_instancea_private_hostname=
+alfa_ohio_development_las_instancea_private_hostalias=
+alfa_ohio_development_las_sg_id=
+alfa_ohio_development_las_instancea_id=
+alfa_ohio_development_las_instancea_private_ip=
+
+## - Region: Oregon
+alfa_oregon_recovery_lws_instancea_description=
+alfa_oregon_recovery_lws_instancea_public_hostname=
+alfa_oregon_recovery_lws_instancea_public_hostalias=
+alfa_oregon_recovery_lws_instancea_private_hostname=
+alfa_oregon_recovery_lws_instancea_private_hostalias=
+alfa_oregon_recovery_lws_sg_id=
+alfa_oregon_recovery_lws_eipa=
+alfa_oregon_recovery_lws_instancea_public_ip=
+alfa_oregon_recovery_lws_instancea_id=
+alfa_oregon_recovery_lws_instancea_private_ip=
+alfa_oregon_recovery_las_instancea_description=
+alfa_oregon_recovery_las_instancea_private_hostname=
+alfa_oregon_recovery_las_instancea_private_hostalias=
+alfa_oregon_recovery_las_sg_id=
+alfa_oregon_recovery_las_instancea_id=
+alfa_oregon_recovery_las_instancea_private_ip=
+
+
+## Client: Zulu
+## - Region: Ohio
+zulu_ohio_production_lws_instancea_description=
+zulu_ohio_production_lws_instancea_public_hostname=
+zulu_ohio_production_lws_instancea_public_hostalias=
+zulu_ohio_production_lws_instancea_private_hostname=
+zulu_ohio_production_lws_instancea_private_hostalias=
+zulu_ohio_production_lws_sg_id=
+zulu_ohio_production_lws_eipa=
+zulu_ohio_production_lws_instancea_public_ip=
+zulu_ohio_production_lws_instancea_id=
+zulu_ohio_production_lws_instancea_private_ip=
+zulu_ohio_production_las_instancea_description=
+zulu_ohio_production_las_instancea_private_hostname=
+zulu_ohio_production_las_instancea_private_hostalias=
+zulu_ohio_production_las_sg_id=
+zulu_ohio_production_las_instancea_id=
+zulu_ohio_production_las_instancea_private_ip=
+
+zulu_ohio_development_lws_instancea_description=
+zulu_ohio_development_lws_instancea_public_hostname=
+zulu_ohio_development_lws_instancea_public_hostalias=
+zulu_ohio_development_lws_instancea_private_hostname=
+zulu_ohio_development_lws_instancea_private_hostalias=
+zulu_ohio_development_lws_sg_id=
+zulu_ohio_development_lws_eipa=
+zulu_ohio_development_lws_instancea_public_ip=
+zulu_ohio_development_lws_instancea_id=
+zulu_ohio_development_lws_instancea_private_ip=
+zulu_ohio_development_las_instancea_description=
+zulu_ohio_development_las_instancea_private_hostname=
+zulu_ohio_development_las_instancea_private_hostalias=
+zulu_ohio_development_las_sg_id=
+zulu_ohio_development_las_instancea_id=
+zulu_ohio_development_las_instancea_private_ip=
+
+
+## Additions to Code Not Yet Placed into Proper Sorted Order Within variables Template File ###########################

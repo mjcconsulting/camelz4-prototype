@@ -18,18 +18,18 @@ CaMeLz-MCrawford-Sandbox Account.
 1. **Create MCrawford-Sandbox Events Topic**
 
     ```bash
-    ohio_mcrawford_sandbox_events_topic_arn=$(aws sns create-topic --name MCrawford-Sandbox-Events \
+    mcrawford_ohio_sandbox_events_topic_arn=$(aws sns create-topic --name MCrawford-Sandbox-Events \
                                                                    --attributes "DisplayName=MJCX Events" \
                                                                    --tags Key=Name,Value=MCrawford-Sandbox-Events-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Sandbox \
                                                                    --query 'TopicArn' \
                                                                    --profile $profile --region us-east-2 --output text)
-    camelz-variable ohio_mcrawford_sandbox_events_topic_arn
+    camelz-variable mcrawford_ohio_sandbox_events_topic_arn
     ```
 
 1. **Create MCrawford-Sandbox Events Subscriptions**
 
     ```bash
-    aws sns subscribe --topic-arn $ohio_mcrawford_sandbox_events_topic_arn \
+    aws sns subscribe --topic-arn $mcrawford_ohio_sandbox_events_topic_arn \
                       --protocol email \
                       --notification-endpoint $user_email \
                       --profile $profile --region us-east-2 --output text
@@ -38,18 +38,18 @@ CaMeLz-MCrawford-Sandbox Account.
 1. **Create MCrawford-Sandbox Alarms Topic**
 
     ```bash
-    ohio_mcrawford_sandbox_alarms_topic_arn=$(aws sns create-topic --name MCrawford-Sandbox-Alarms \
+    mcrawford_ohio_sandbox_alarms_topic_arn=$(aws sns create-topic --name MCrawford-Sandbox-Alarms \
                                                                    --attributes "DisplayName=MJCX Alarms" \
                                                                    --tags Key=Name,Value=MCrawford-Sandbox-Alarms-Topic Key=Company,Value=CaMeLz Key=Environment,Value=Sandbox \
                                                                    --query 'TopicArn' \
                                                                    --profile $profile --region us-east-2 --output text)
-    camelz-variable ohio_mcrawford_sandbox_alarms_topic_arn
+    camelz-variable mcrawford_ohio_sandbox_alarms_topic_arn
     ```
 
 1. **Create MCrawford-Sandbox Alarms Subscriptions**
 
     ```bash
-    aws sns subscribe --topic-arn $ohio_mcrawford_sandbox_alarms_topic_arn \
+    aws sns subscribe --topic-arn $mcrawford_ohio_sandbox_alarms_topic_arn \
                       --protocol email \
                       --notification-endpoint $user_email \
                       --profile $profile --region us-east-2 --output text

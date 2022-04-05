@@ -14,7 +14,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     profile=$management_profile
     ```
 
-1.  **Create VPC**
+1. **Create VPC**
 
     ```bash
     oregon_management_vpc_id=$(aws ec2 create-vpc --cidr-block $oregon_management_vpc_cidr \
@@ -33,7 +33,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                  --profile $profile --region us-west-2 --output text
     ```
 
-1.  **Tag Attached Default Resources Created With VPC**
+1. **Tag Attached Default Resources Created With VPC**
 
     Creating a VPC also creates a set of attached default resources which do not have the same tags propagated.
     We will also tag these associated resources to insure consistency in the list displays.
@@ -79,7 +79,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                         --profile $profile --region us-west-2 --output text
     ```
 
-1.  **Create VPC Flow Log**
+1. **Create VPC Flow Log**
 
     ```bash
     aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Management/Oregon" \
@@ -93,7 +93,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                              --profile $profile --region us-west-2 --output text
     ```
 
-1.  **Create Internet Gateway**
+1. **Create Internet Gateway**
 
     ```bash
     oregon_management_igw_id=$(aws ec2 create-internet-gateway --tag-specifications "ResourceType=internet-gateway,Tags=[{Key=Name,Value=Management-InternetGateway},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
@@ -106,7 +106,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                     --profile $profile --region us-west-2 --output text
     ```
 
-1.  **Create Private Hosted Zone**
+1. **Create Private Hosted Zone**
 
     ```bash
     oregon_management_private_hostedzone_id=$(aws route53 create-hosted-zone --name $oregon_management_private_domain \
@@ -118,7 +118,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     camelz-variable oregon_management_private_hostedzone_id
     ```
 
-1.  **Create DHCP Options Set**
+1. **Create DHCP Options Set**
 
     ```bash
     oregon_management_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$oregon_management_private_domain]" \
@@ -133,7 +133,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                    --profile $profile --region us-west-2 --output text
     ```
 
-1.  **Create Public Subnet A**
+1. **Create Public Subnet A**
 
     ```bash
     oregon_management_public_subneta_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
@@ -145,7 +145,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     camelz-variable oregon_management_public_subneta_id
     ```
 
-1.  **Create Public Subnet B**
+1. **Create Public Subnet B**
 
     ```bash
     oregon_management_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
@@ -157,7 +157,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     camelz-variable oregon_management_public_subnetb_id
     ```
 
-1.  **Create Public Subnet C**
+1. **Create Public Subnet C**
 
     ```bash
     oregon_management_public_subnetc_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
@@ -169,7 +169,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     camelz-variable oregon_management_public_subnetc_id
     ```
 
-1.  **Create Web Subnet A**
+1. **Create Web Subnet A**
 
     ```bash
     oregon_management_web_subneta_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
@@ -181,7 +181,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     camelz-variable oregon_management_web_subneta_id
     ```
 
-1.  **Create Web Subnet B**
+1. **Create Web Subnet B**
 
     ```bash
     oregon_management_web_subnetb_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
@@ -193,7 +193,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     camelz-variable oregon_management_web_subnetb_id
     ```
 
-1.  **Create Web Subnet C**
+1. **Create Web Subnet C**
 
     ```bash
     oregon_management_web_subnetc_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
@@ -205,7 +205,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     camelz-variable oregon_management_web_subnetc_id
     ```
 
-1.  **Create Application Subnet A**
+1. **Create Application Subnet A**
 
     ```bash
     oregon_management_application_subneta_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
@@ -217,7 +217,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     camelz-variable oregon_management_application_subneta_id
     ```
 
-1.  **Create Application Subnet B**
+1. **Create Application Subnet B**
 
     ```bash
     oregon_management_application_subnetb_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
@@ -227,8 +227,9 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                                                      --query 'Subnet.SubnetId' \
                                                                      --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_application_subnetb_id
+    ```
 
-1.  **Create Application Subnet C**
+1. **Create Application Subnet C**
 
     ```bash
     oregon_management_application_subnetc_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
@@ -238,8 +239,9 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                                                      --query 'Subnet.SubnetId' \
                                                                      --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_application_subnetc_id
+    ```
 
-1.  **Create Database Subnet A**
+1. **Create Database Subnet A**
 
     ```bash
     oregon_management_database_subneta_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
@@ -249,8 +251,9 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_database_subneta_id
+    ```
 
-1.  **Create Database Subnet B**
+1. **Create Database Subnet B**
 
     ```bash
     oregon_management_database_subnetb_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
@@ -260,8 +263,9 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_database_subnetb_id
+    ```
 
-1.  **Create Database Subnet C**
+1. **Create Database Subnet C**
 
     ```bash
     oregon_management_database_subnetc_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
@@ -271,8 +275,9 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_database_subnetc_id
+    ```
 
-1.  **Create Directory Subnet A**
+1. **Create Directory Subnet A**
 
     ```bash
     oregon_management_directory_subneta_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
@@ -282,8 +287,9 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                                                    --query 'Subnet.SubnetId' \
                                                                    --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_directory_subneta_id
+    ```
 
-1.  **Create Directory Subnet B**
+1. **Create Directory Subnet B**
 
     ```bash
     oregon_management_directory_subnetb_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
@@ -293,8 +299,9 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                                                    --query 'Subnet.SubnetId' \
                                                                    --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_directory_subnetb_id
+    ```
 
-1.  **Create Directory Subnet C**
+1. **Create Directory Subnet C**
 
     ```bash
     oregon_management_directory_subnetc_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
@@ -304,8 +311,9 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                                                    --query 'Subnet.SubnetId' \
                                                                    --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_directory_subnetc_id
+    ```
 
-1.  **Create Management Subnet A**
+1. **Create Management Subnet A**
 
     ```bash
     oregon_management_management_subneta_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
@@ -315,8 +323,9 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                                                     --query 'Subnet.SubnetId' \
                                                                     --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_management_subneta_id
+    ```
 
-1.  **Create Management Subnet B**
+1. **Create Management Subnet B**
 
     ```bash
     oregon_management_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
@@ -326,8 +335,9 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                                                     --query 'Subnet.SubnetId' \
                                                                     --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_management_subnetb_id
+    ```
 
-1.  **Create Management Subnet C**
+1. **Create Management Subnet C**
 
     ```bash
     oregon_management_management_subnetc_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
@@ -337,8 +347,9 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                                                     --query 'Subnet.SubnetId' \
                                                                     --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_management_subnetc_id
+    ```
 
-1.  **Create Gateway Subnet A**
+1. **Create Gateway Subnet A**
 
     ```bash
     oregon_management_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
@@ -348,8 +359,9 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_gateway_subneta_id
+    ```
 
-1.  **Create Gateway Subnet B**
+1. **Create Gateway Subnet B**
 
     ```bash
     oregon_management_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
@@ -359,8 +371,9 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_gateway_subnetb_id
+    ```
 
-1.  **Create Gateway Subnet C**
+1. **Create Gateway Subnet C**
 
     ```bash
     oregon_management_gateway_subnetc_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
@@ -370,8 +383,9 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                                                  --query 'Subnet.SubnetId' \
                                                                  --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_gateway_subnetc_id
+    ```
 
-1.  **Create Endpoint Subnet A**
+1. **Create Endpoint Subnet A**
 
     ```bash
     oregon_management_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
@@ -381,8 +395,9 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_endpoint_subneta_id
+    ```
 
-1.  **Create Endpoint Subnet B**
+1. **Create Endpoint Subnet B**
 
     ```bash
     oregon_management_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
@@ -392,8 +407,9 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_endpoint_subnetb_id
+    ```
 
-1.  **Create Endpoint Subnet C**
+1. **Create Endpoint Subnet C**
 
     ```bash
     oregon_management_endpoint_subnetc_id=$(aws ec2 create-subnet --vpc-id $oregon_management_vpc_id \
@@ -403,8 +419,9 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                                                   --query 'Subnet.SubnetId' \
                                                                   --profile $profile --region us-west-2 --output text)
     camelz-variable oregon_management_endpoint_subnetc_id
+    ```
 
-1.  **Create Public Route Table, Default Route and Associate with Public Subnets**
+1. **Create Public Route Table, Default Route and Associate with Public Subnets**
 
     ```bash
     oregon_management_public_rtb_id=$(aws ec2 create-route-table --vpc-id $oregon_management_vpc_id \
@@ -431,8 +448,9 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                   --profile $profile --region us-west-2 --output text
     aws ec2 associate-route-table --route-table-id $oregon_management_public_rtb_id --subnet-id $oregon_management_web_subnetc_id \
                                   --profile $profile --region us-west-2 --output text
+    ```
 
-1.  **Create NAT Gateways - OR - NAT Instances**
+1. **Create NAT Gateways - OR - NAT Instances**
 
     This Step can create either NAT Gateway(s) or NAT Instance(s), depending on what you want to do.
     - NAT Gateways are the recommended and scalable approach. But, you can't turn them off, and they are $32/each per
@@ -505,6 +523,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
 
       aws ec2 authorize-security-group-ingress --group-id $oregon_management_nat_sg_id \
                                                --ip-permissions "IpProtocol=-1,IpRanges=[{CidrIp=$oregon_management_vpc_cidr,Description=\"VPC (All)\"}]" \
+                                               --tag-specifications "ResourceType=security-group-rule,Tags=[{Key=Name,Value=\"VPC (All)\"}]" \
                                                --profile $profile --region us-west-2 --output text
 
       # Create NAT Instance
@@ -534,7 +553,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
     fi
     ```
 
-1.  **Create Private Route Table for Availability Zone A, Default Route and Associate with Private Subnets**
+1. **Create Private Route Table for Availability Zone A, Default Route and Associate with Private Subnets**
 
     ```bash
     oregon_management_private_rtba_id=$(aws ec2 create-route-table --vpc-id $oregon_management_vpc_id \
@@ -569,7 +588,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                   --profile $profile --region us-west-2 --output text
     ```
 
-1.  **Create Private Route Table for Availability Zone B, Default Route and Associate with Private Subnets**
+1. **Create Private Route Table for Availability Zone B, Default Route and Associate with Private Subnets**
 
     ```bash
     oregon_management_private_rtbb_id=$(aws ec2 create-route-table --vpc-id $oregon_management_vpc_id \
@@ -603,8 +622,9 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                   --profile $profile --region us-west-2 --output text
     aws ec2 associate-route-table --route-table-id $oregon_management_private_rtbb_id --subnet-id $oregon_management_endpoint_subnetb_id \
                                   --profile $profile --region us-west-2 --output text
+    ```
 
-1.  **Create Private Route Table for Availability Zone C, Default Route and Associate with Private Subnets**
+1. **Create Private Route Table for Availability Zone C, Default Route and Associate with Private Subnets**
 
     ```bash
     oregon_management_private_rtbc_id=$(aws ec2 create-route-table --vpc-id $oregon_management_vpc_id \
@@ -640,7 +660,7 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
                                   --profile $profile --region us-west-2 --output text
     ```
 
-1.  **Create VPC Endpoint Security Group**
+1. **Create VPC Endpoint Security Group**
 
     ```bash
     oregon_management_vpce_sg_id=$(aws ec2 create-security-group --group-name Management-VPCEndpointSecurityGroup \
@@ -653,14 +673,16 @@ This module builds the Management VPC in the AWS Oregon (us-west-2) Region withi
 
     aws ec2 authorize-security-group-ingress --group-id $oregon_management_vpce_sg_id \
                                              --ip-permissions "IpProtocol=tcp,FromPort=0,ToPort=65535,IpRanges=[{CidrIp=$oregon_management_vpc_cidr,Description=\"VPC (All TCP)\"}]" \
+                                             --tag-specifications "ResourceType=security-group-rule,Tags=[{Key=Name,Value=\"VPC (All TCP)\"}]" \
                                              --profile $profile --region us-west-2 --output text
 
     aws ec2 authorize-security-group-ingress --group-id $oregon_management_vpce_sg_id \
                                              --ip-permissions "IpProtocol=udp,FromPort=0,ToPort=65535,IpRanges=[{CidrIp=$oregon_management_vpc_cidr,Description=\"VPC (All UDP)\"}]" \
+                                             --tag-specifications "ResourceType=security-group-rule,Tags=[{Key=Name,Value=\"VPC (All UDP)\"}]" \
                                              --profile $profile --region us-west-2 --output text
     ```
 
-1.  **Create VPC Endpoints for SSM and SSMMessages**
+1. **Create VPC Endpoints for SSM and SSMMessages**
 
     ```bash
     oregon_management_ssm_vpce_id=$(aws ec2 create-vpc-endpoint --vpc-id $oregon_management_vpc_id \

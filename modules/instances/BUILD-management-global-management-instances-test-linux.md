@@ -1,7 +1,7 @@
-# Modules:Instances:Management Account:Global:Linux Test Instances
+# Modules:Instances:Management Account:Global:Management Linux Test Instances
 
-This module builds Linux Test Instances in the Management VPC in the AWS Virginia (us-east-1) Region within the
-CaMeLz-Management Account.
+This module creates Management Linux Test Instances in the Management VPC in the AWS Virginia (us-east-1) Region
+within the CaMeLz-Management Account.
 
 ## Dependencies
 

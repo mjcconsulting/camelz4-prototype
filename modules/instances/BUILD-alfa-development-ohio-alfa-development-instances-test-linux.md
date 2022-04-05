@@ -1,13 +1,13 @@
-# Modules:Instances:Alfa Development Account:Ohio:Linux Test Instances
+# Modules:Instances:Alfa Development Account:Ohio:Alfa Development Linux Test Instances
 
-This module builds Linux Test Instances in the Alfa-Development VPC in the AWS Ohio (us-east-2) Region within the
-Alfa-CaMeLz-Development Account.
+This module creates Alfa-Development Linux Test Instances in the Alfa-Development VPC in the AWS Ohio (us-east-2) Region
+within the Alfa-CaMeLz-Development Account.
 
 ## Dependencies
 
 **TODO**: Determine Dependencies and list.
 - Role: ManagedInstance
-- Public Hosted Zone: dp.us-east-2.alfa.camelz.io
+- Public Hosted Zone: d.us-east-2.alfa.camelz.io
 - KeyPair: administrator
 - VPC: (Ohio) Alfa-Development-VPC
 
@@ -25,13 +25,13 @@ Alfa-CaMeLz-Development Account.
     alfa_ohio_development_lws_instancea_description="Alfa Ohio Development Linux Web Server 01-A"
     camelz-variable alfa_ohio_development_lws_instancea_description
 
-    alfa_ohio_development_lws_instancea_public_hostname=alfue2plws01a.$alfa_ohio_development_public_domain
+    alfa_ohio_development_lws_instancea_public_hostname=alfue2dlws01a.$alfa_ohio_development_public_domain
     camelz-variable alfa_ohio_development_lws_instancea_public_hostname
 
     alfa_ohio_development_lws_instancea_public_hostalias=lwsa.$alfa_ohio_development_public_domain
     camelz-variable alfa_ohio_development_lws_instancea_public_hostalias
 
-    alfa_ohio_development_lws_instancea_private_hostname=alfue2plws01a.$alfa_ohio_development_private_domain
+    alfa_ohio_development_lws_instancea_private_hostname=alfue2dlws01a.$alfa_ohio_development_private_domain
     camelz-variable alfa_ohio_development_lws_instancea_private_hostname
 
     alfa_ohio_development_lws_instancea_private_hostalias=lwsa.$alfa_ohio_development_private_domain
@@ -42,11 +42,11 @@ Alfa-CaMeLz-Development Account.
 
     ```bash
     alfa_ohio_development_lws_sg_id=$(aws ec2 create-security-group --group-name Alfa-Development-LinuxWebServer-InstanceSecurityGroup \
-                                                                   --description Alfa-Development-LinuxWebServer-InstanceSecurityGroup \
-                                                                   --vpc-id $alfa_ohio_development_vpc_id \
-                                                                   --tag-specifications "ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Development-LinuxWebServer-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                                   --query 'GroupId' \
-                                                                   --profile $profile --region us-east-2 --output text)
+                                                                    --description Alfa-Development-LinuxWebServer-InstanceSecurityGroup \
+                                                                    --vpc-id $alfa_ohio_development_vpc_id \
+                                                                    --tag-specifications "ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Development-LinuxWebServer-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                    --query 'GroupId' \
+                                                                    --profile $profile --region us-east-2 --output text)
     camelz-variable alfa_ohio_development_lws_sg_id
 
     aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_development_lws_sg_id \
@@ -88,14 +88,14 @@ Alfa-CaMeLz-Development Account.
 
     ```bash
     alfa_ohio_development_lws_eipa=$(aws ec2 allocate-address --domain vpc \
-                                                             --tag-specifications "ResourceType=elastic-ip,Tags=[{Key=Name,Value=Alfa-Development-LinuxWebServer-EIPA},{Key=Hostname,Value=alfue2plws01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                             --query 'AllocationId' \
-                                                             --profile $profile --region us-east-2 --output text)
+                                                              --tag-specifications "ResourceType=elastic-ip,Tags=[{Key=Name,Value=Alfa-Development-LinuxWebServer-EIPA},{Key=Hostname,Value=alfue2dlws01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                              --query 'AllocationId' \
+                                                              --profile $profile --region us-east-2 --output text)
     camelz-variable alfa_ohio_development_lws_eipa
 
     alfa_ohio_development_lws_instancea_public_ip=$(aws ec2 describe-addresses --allocation-ids $alfa_ohio_development_lws_eipa \
-                                                                              --query 'Addresses[0].PublicIp' \
-                                                                              --profile $profile --region us-east-2 --output text)
+                                                                               --query 'Addresses[0].PublicIp' \
+                                                                               --profile $profile --region us-east-2 --output text)
     camelz-variable alfa_ohio_development_lws_instancea_public_ip
     ```
 
@@ -122,20 +122,20 @@ Alfa-CaMeLz-Development Account.
         $CAMELZ_HOME/templates/linux-standard-user-data.sh > $tmpfile
 
     alfa_ohio_development_lws_instancea_id=$(aws ec2 run-instances --image-id $ohio_amzn2_ami_id \
-                                                                  --instance-type t3a.nano \
-                                                                  --iam-instance-profile Name=ManagedInstance \
-                                                                  --key-name administrator \
-                                                                  --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-Development-LinuxWebServer-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_ohio_development_lws_sg_id],SubnetId=$alfa_ohio_development_web_subneta_id" \
-                                                                  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Development-LinuxWebServer-InstanceA},{Key=Hostname,Value=alfue2plws01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                                  --user-data file://$tmpfile \
-                                                                  --client-token $(date +%s) \
-                                                                  --query 'Instances[0].InstanceId' \
-                                                                  --profile $profile --region us-east-2 --output text)
+                                                                   --instance-type t3a.nano \
+                                                                   --iam-instance-profile Name=ManagedInstance \
+                                                                   --key-name administrator \
+                                                                   --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-Development-LinuxWebServer-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_ohio_development_lws_sg_id],SubnetId=$alfa_ohio_development_web_subneta_id" \
+                                                                   --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Development-LinuxWebServer-InstanceA},{Key=Hostname,Value=alfue2dlws01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                   --user-data file://$tmpfile \
+                                                                   --client-token $(date +%s) \
+                                                                   --query 'Instances[0].InstanceId' \
+                                                                   --profile $profile --region us-east-2 --output text)
     camelz-variable alfa_ohio_development_lws_instancea_id
 
     alfa_ohio_development_lws_instancea_private_ip=$(aws ec2 describe-instances --instance-ids $alfa_ohio_development_lws_instancea_id \
-                                                                               --query 'Reservations[0].Instances[0].PrivateIpAddress' \
-                                                                               --profile $profile --region us-east-2 --output text)
+                                                                                --query 'Reservations[0].Instances[0].PrivateIpAddress' \
+                                                                                --profile $profile --region us-east-2 --output text)
     camelz-variable alfa_ohio_development_lws_instancea_private_ip
     ```
 
@@ -170,7 +170,7 @@ Alfa-CaMeLz-Development Account.
     alfa_ohio_development_las_instancea_description="Alfa Ohio Development Linux Application Server 01-A"
     camelz-variable alfa_ohio_development_las_instancea_description
 
-    alfa_ohio_development_las_instancea_private_hostname=alfue2plas01a.$alfa_ohio_development_private_domain
+    alfa_ohio_development_las_instancea_private_hostname=alfue2dlas01a.$alfa_ohio_development_private_domain
     camelz-variable alfa_ohio_development_las_instancea_private_hostname
 
     alfa_ohio_development_las_instancea_private_hostalias=lasa.$alfa_ohio_development_private_domain
@@ -181,11 +181,11 @@ Alfa-CaMeLz-Development Account.
 
     ```bash
     alfa_ohio_development_las_sg_id=$(aws ec2 create-security-group --group-name Alfa-Development-LinuxApplicationServer-InstanceSecurityGroup \
-                                                                   --description Alfa-Development-LinuxApplicationServer-InstanceSecurityGroup \
-                                                                   --vpc-id $alfa_ohio_development_vpc_id \
-                                                                   --tag-specifications "ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Development-LinuxApplicationServer-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Application,Value=LinuxApplicationServer},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                                   --query 'GroupId' \
-                                                                   --profile $profile --region us-east-2 --output text)
+                                                                    --description Alfa-Development-LinuxApplicationServer-InstanceSecurityGroup \
+                                                                    --vpc-id $alfa_ohio_development_vpc_id \
+                                                                    --tag-specifications "ResourceType=security-group,Tags=[{Key=Name,Value=Alfa-Development-LinuxApplicationServer-InstanceSecurityGroup},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Application,Value=LinuxApplicationServer},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                    --query 'GroupId' \
+                                                                    --profile $profile --region us-east-2 --output text)
     camelz-variable alfa_ohio_development_las_sg_id
 
     aws ec2 authorize-security-group-ingress --group-id $alfa_ohio_development_las_sg_id \
@@ -212,20 +212,20 @@ Alfa-CaMeLz-Development Account.
         $CAMELZ_HOME/templates/linux-standard-user-data.sh > $tmpfile
 
     alfa_ohio_development_las_instancea_id=$(aws ec2 run-instances --image-id $ohio_amzn2_ami_id \
-                                                                  --instance-type t3a.nano \
-                                                                  --iam-instance-profile Name=ManagedInstance \
-                                                                  --key-name administrator \
-                                                                  --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-Development-LinuxApplicationServer-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_ohio_development_las_sg_id],SubnetId=$alfa_ohio_development_application_subneta_id" \
-                                                                  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Development-LinuxApplicationServer-InstanceA},{Key=Hostname,Value=alfue2plas01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Application,Value=LinuxApplicationServer},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                                  --user-data file://$tmpfile \
-                                                                  --client-token $(date +%s) \
-                                                                  --query 'Instances[0].InstanceId' \
-                                                                  --profile $profile --region us-east-2 --output text)
+                                                                   --instance-type t3a.nano \
+                                                                   --iam-instance-profile Name=ManagedInstance \
+                                                                   --key-name administrator \
+                                                                   --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-Development-LinuxApplicationServer-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_ohio_development_las_sg_id],SubnetId=$alfa_ohio_development_application_subneta_id" \
+                                                                   --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Development-LinuxApplicationServer-InstanceA},{Key=Hostname,Value=alfue2dlas01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Application,Value=LinuxApplicationServer},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                   --user-data file://$tmpfile \
+                                                                   --client-token $(date +%s) \
+                                                                   --query 'Instances[0].InstanceId' \
+                                                                   --profile $profile --region us-east-2 --output text)
     camelz-variable alfa_ohio_development_las_instancea_id
 
     alfa_ohio_development_las_instancea_private_ip=$(aws ec2 describe-instances --instance-ids $alfa_ohio_development_las_instancea_id \
-                                                                               --query 'Reservations[0].Instances[0].PrivateIpAddress' \
-                                                                               --profile $profile --region us-east-2 --output text)
+                                                                                --query 'Reservations[0].Instances[0].PrivateIpAddress' \
+                                                                                --profile $profile --region us-east-2 --output text)
     camelz-variable alfa_ohio_development_las_instancea_private_ip
     ```
 

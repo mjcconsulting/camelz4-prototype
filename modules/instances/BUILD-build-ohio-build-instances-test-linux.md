@@ -1,7 +1,7 @@
-# Modules:Instances:Build Account:Ohio:Linux Test Instances
+# Modules:Instances:Build Account:Ohio:Build Linux Test Instances
 
-This module builds Linux Test Instances in the Build VPC in the AWS Ohio (us-east-2) Region within the
-CaMeLz-Build Account.
+This module creates Build Linux Test Instances in the Build VPC in the AWS Ohio (us-east-2) Region
+within the CaMeLz-Build Account.
 
 ## Dependencies
 

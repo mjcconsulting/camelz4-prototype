@@ -1,7 +1,7 @@
-# Modules:Instances:Alfa Production Account:Ohio:Linux Test Instances
+# Modules:Instances:Alfa Production Account:Ohio:Alfa Production Linux Test Instances
 
-This module builds Linux Test Instances in the Alfa-Production VPC in the AWS Ohio (us-east-2) Region within the
-Alfa-CaMeLz-Production Account.
+This module creates Alfa-Production Linux Test Instances in the Alfa-Production VPC in the AWS Ohio (us-east-2) Region
+within the Alfa-CaMeLz-Production Account.
 
 ## Dependencies
 

@@ -1,7 +1,7 @@
-# Modules:Instances:Alfa Recovery Account:Oregon:Linux Test Instances
+# Modules:Instances:Alfa Recovery Account:Oregon:Alfa Recovery Linux Test Instances
 
-This module builds Linux Test Instances in the Alfa-Recovery VPC in the AWS Oregon (us-west-2) Region within the
-Alfa-CaMeLz-Recovery Account.
+This module creates Alfa-Recovery Linux Test Instances in the Alfa-Recovery VPC in the AWS Oregon (us-west-2) Region
+within the Alfa-CaMeLz-Recovery Account.
 
 ## Dependencies
 
@@ -88,7 +88,7 @@ Alfa-CaMeLz-Recovery Account.
 
     ```bash
     alfa_oregon_recovery_lws_eipa=$(aws ec2 allocate-address --domain vpc \
-                                                             --tag-specifications "ResourceType=elastic-ip,Tags=[{Key=Name,Value=Alfa-Recovery-LinuxWebServer-EIPA},{Key=Hostname,Value=alfue2plws01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                             --tag-specifications "ResourceType=elastic-ip,Tags=[{Key=Name,Value=Alfa-Recovery-LinuxWebServer-EIPA},{Key=Hostname,Value=alfuw2rlws01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                              --query 'AllocationId' \
                                                              --profile $profile --region us-west-2 --output text)
     camelz-variable alfa_oregon_recovery_lws_eipa
@@ -126,7 +126,7 @@ Alfa-CaMeLz-Recovery Account.
                                                                   --iam-instance-profile Name=ManagedInstance \
                                                                   --key-name administrator \
                                                                   --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-Recovery-LinuxWebServer-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_oregon_recovery_lws_sg_id],SubnetId=$alfa_oregon_recovery_web_subneta_id" \
-                                                                  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Recovery-LinuxWebServer-InstanceA},{Key=Hostname,Value=alfue2plws01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Recovery-LinuxWebServer-InstanceA},{Key=Hostname,Value=alfuw2rlws01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                   --user-data file://$tmpfile \
                                                                   --client-token $(date +%s) \
                                                                   --query 'Instances[0].InstanceId' \
@@ -216,7 +216,7 @@ Alfa-CaMeLz-Recovery Account.
                                                                   --iam-instance-profile Name=ManagedInstance \
                                                                   --key-name administrator \
                                                                   --network-interfaces "AssociatePublicIpAddress=false,DeleteOnTermination=true,Description=Alfa-Recovery-LinuxApplicationServer-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_oregon_recovery_las_sg_id],SubnetId=$alfa_oregon_recovery_application_subneta_id" \
-                                                                  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Recovery-LinuxApplicationServer-InstanceA},{Key=Hostname,Value=alfue2plas01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Application,Value=LinuxApplicationServer},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Recovery-LinuxApplicationServer-InstanceA},{Key=Hostname,Value=alfuw2rlas01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Application,Value=LinuxApplicationServer},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                   --user-data file://$tmpfile \
                                                                   --client-token $(date +%s) \
                                                                   --query 'Instances[0].InstanceId' \

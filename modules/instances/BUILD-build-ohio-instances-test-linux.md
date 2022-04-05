@@ -94,8 +94,8 @@ CaMeLz-Build Account.
     camelz-variable ohio_build_lws_eipa
 
     ohio_build_lws_instancea_public_ip=$(aws ec2 describe-addresses --allocation-ids $ohio_build_lws_eipa \
-                                                                           --query 'Addresses[0].PublicIp' \
-                                                                           --profile $profile --region us-east-2 --output text)
+                                                                    --query 'Addresses[0].PublicIp' \
+                                                                    --profile $profile --region us-east-2 --output text)
     camelz-variable ohio_build_lws_instancea_public_ip
     ```
 

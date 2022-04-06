@@ -1,6 +1,6 @@
-# Modules:SSM Associations
+# Modules:Associations
 
-This Module builds SSM Associations
+This Module creates Associations
 
 Some Associations reference Application Software Installers which are assumed to have been uploaded to the
 installers-camelzm S3 bucket in a prior build step.
@@ -14,9 +14,9 @@ installation of the same applications done via cloud-init.
 
 **TODO**: Determine Module Pre-Requisites and List here
 
-## Build SSM Associations
+## Build Associations
 
-This is the list of SSM Associations to be created within the Management Account.
+This is the list of Associations to be created within the Management Account.
 
 **WIP**: This is initially a copy of some partially working code from the CaMeLz3-Prototype that was not used, in case
 we may want to use it here. This needs more work and testing before it's ready for use.
@@ -25,14 +25,14 @@ we may want to use it here. This needs more work and testing before it's ready f
 
 #### **Global**
 
-1. **[SSM Associations](./BUILD-management-global-ssm-associations.md)**
+1. **[Management Associations](./BUILD-management-global-management-associations.md)**
 
 #### **Ohio Region**
 
-1. **[SSM Associations](./BUILD-management-ohio-ssm-associations.md)**
+1. **[Management Associations](./BUILD-management-ohio-management-associations.md)**
 
 #### **Oregon Region**
 
-1. **[SSM Associations](./BUILD-management-oregon-ssm-associations.md)**
+1. **[Management Associations](./BUILD-management-oregon-management-associations.md)**
 
-**NOTE**: I think we need to create the SSM Associations explicitly in each Account, can't share globally like Documents.
+**NOTE**: I think we need to create the Associations explicitly in each Account, can't share globally like Documents.

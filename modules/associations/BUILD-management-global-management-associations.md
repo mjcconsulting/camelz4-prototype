@@ -1,6 +1,6 @@
-# Modules:SSM Associations:Management Account:Global
+# Modules:Associations:Management Account:Global:Management Associations
 
-This module builds SSM Associations based on Tags in the AWS Virginia (us-east-1) Region within the
+This module creates Management Associations based on Tags in the AWS Virginia (us-east-1) Region within the
 CaMeLz-Management Account.
 
 Some Associations reference Application Software Installers which are assumed to have been uploaded to the
@@ -13,7 +13,7 @@ installation of the same applications done via cloud-init.
 
 **TODO**: Determine Dependencies and list.
 
-## SSM Associations
+## Management Associations
 
 1. **Set Profile for Management Account**
 
@@ -21,7 +21,7 @@ installation of the same applications done via cloud-init.
     profile=$management_profile
     ```
 
-1. **Create SystemAssociationForSsmAgentUpdate SSM Association**
+1. **Create SystemAssociationForSsmAgentUpdate Association**
 
     ```bash
     if [ -z $(aws ssm list-associations --association-filter-list key=AssociationName,value=SystemAssociationForSsmAgentUpdate \
@@ -39,15 +39,15 @@ installation of the same applications done via cloud-init.
     fi
     ```
 
-1. **Create SystemAssociationForLinuxProfile SSM Association**
+1. **Create SystemAssociationForLinuxProfile Association**
 
     ```bash
     if [ -z $(aws ssm list-associations --association-filter-list key=AssociationName,value=SystemAssociationForLinuxProfile \
-                                        --query 'Associations[?Name==`CAMELZ-ConfigureLinuxProfile`].Name' \
+                                        --query 'Associations[?Name==`CaMeLz-ConfigureLinuxProfile`].Name' \
                                         --profile $profile --region us-east-1 --output text) ]; then
       echo "Association: SystemAssociationForLinuxProfile does not exist, creating"
       aws ssm create-association --association-name SystemAssociationForLinuxProfile \
-                                 --name CAMELZ-ConfigureLinuxProfile \
+                                 --name CaMeLz-ConfigureLinuxProfile \
                                  --targets Key=tag:Project,Values=CaMeLz-POC-4 \
                                  --schedule-expression "rate(3 days)" \
                                  --query 'AssociationDescription.Overview.DetailedStatus' \
@@ -57,7 +57,7 @@ installation of the same applications done via cloud-init.
     fi
     ```
 
-1. **Create SystemAssociationForWindowsGoogleChrome SSM Association**
+1. **Create SystemAssociationForWindowsGoogleChrome Association**
 
     ```bash
     if [ -z $(aws ssm list-associations --association-filter-list key=AssociationName,value=SystemAssociationForWindowsGoogleChrome \
@@ -75,7 +75,7 @@ installation of the same applications done via cloud-init.
     fi
     ```
 
-1. **Create WindowsBastionsAssociationForRoyalTS SSM Association**
+1. **Create WindowsBastionsAssociationForRoyalTS Association**
 
     ```bash
     if [ -z $(aws ssm list-associations --association-filter-list key=AssociationName,value=WindowsBastionsAssociationForRoyalTS \
@@ -93,15 +93,15 @@ installation of the same applications done via cloud-init.
     fi
     ```
 
-1. **Create WindowsBastionAssociationForWindowsStartMenu SSM Association**
+1. **Create WindowsBastionAssociationForWindowsStartMenu Association**
 
     ```bash
     if [ -z $(aws ssm list-associations --association-filter-list key=AssociationName,value=WindowsBastionAssociationForWindowsStartMenu \
-                                        --query 'Associations[?Name==`CAMELZ-ConfigureWindowsStartMenu`].Name' \
+                                        --query 'Associations[?Name==`CaMeLz-ConfigureWindowsStartMenu`].Name' \
                                         --profile $profile --region us-east-1 --output text) ]; then
       echo "Association: WindowsBastionAssociationForWindowsStartMenu does not exist, creating"
       aws ssm create-association --association-name SystemAssociationForWindowsStartMenu \
-                                 --name CAMELZ-ConfigureWindowsStartMenu \
+                                 --name CaMeLz-ConfigureWindowsStartMenu \
                                  --parameters action=Install,source=$royalts_installer_url,sourceHash=$royalts_installer_sha256,parameters="\quiet" \
                                  --targets Key=tag:Project,Values=CaMeLz-POC-4 Key=tag:Utility,Values=WindowsBastion \
                                  --query 'AssociationDescription.Overview.DetailedStatus' \

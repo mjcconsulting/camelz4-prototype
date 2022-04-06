@@ -1,6 +1,6 @@
-# Modules:SSM Documents
+# Modules:Documents
 
-This Module builds & shares SSM Documents
+This Module creates & shares Documents
 
 **TODO**: More description coming
 
@@ -8,9 +8,9 @@ This Module builds & shares SSM Documents
 
 **TODO**: Determine Module Pre-Requisites and List here
 
-## Build & Share SSM Documents
+## Build & Share Documents
 
-This is the list of SSM Documents to be created within the Management Account, then shared with the Organization
+This is the list of Documents to be created within the Management Account, then shared with the Organization
 and therefore visible to all other Accounts. Documents can be shared across all Accounts but are Region-specific,
 so we must create and share them in each region.
 
@@ -18,12 +18,12 @@ so we must create and share them in each region.
 
 #### **Global**
 
-1. **[SSM Documents](./BUILD-management-global-ssm-documents.md)**
+1. **[Management Documents](./BUILD-management-global-management-documents.md)**
 
 #### **Ohio Region**
 
-1. **[SSM Documents](./BUILD-management-ohio-ssm-documents.md)**
+1. **[Management Documents](./BUILD-management-ohio-management-documents.md)**
 
 #### **Oregon Region**
 
-1. **[SSM Documents](./BUILD-management-oregon-ssm-documents.md)**
+1. **[Management Documents](./BUILD-management-oregon-management-documents.md)**

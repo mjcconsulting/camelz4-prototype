@@ -1,7 +1,7 @@
 # Modules:Public Hosted Zones:Zulu Development Account:Ohio:Zulu Development Hosted Zone
 
-This module builds the Zulu-Development Public Hosted Zone in the AWS Ohio (us-east-2) Region within the
-Zulu-CaMeLz-Development Account.
+This module creates the Zulu-Development Public Hosted Zone in the AWS Ohio (us-east-2) Region within the
+CaMeLz-Zulu-Development Account.
 
 ## Dependencies
 

@@ -1,6 +1,6 @@
 # Modules:Public Hosted Zones:Audit Account:Global:Audit Hosted Zone
 
-This module builds the Audit Public Hosted Zone in the AWS Virginia (us-east-1) Region within the
+This module creates the Audit Public Hosted Zone in the AWS Virginia (us-east-1) Region within the
 CaMeLz-Audit Account.
 
 ## Dependencies

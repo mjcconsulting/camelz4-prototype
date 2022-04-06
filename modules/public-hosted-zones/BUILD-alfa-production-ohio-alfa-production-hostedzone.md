@@ -1,7 +1,7 @@
 # Modules:Public Hosted Zones:Alfa Production Account:Ohio:Alfa Production Hosted Zone
 
-This module builds the Alfa-Production Public Hosted Zone in the AWS Ohio (us-east-2) Region within the
-Alfa-CaMeLz-Production Account.
+This module creates the Alfa-Production Public Hosted Zone in the AWS Ohio (us-east-2) Region within the
+CaMeLz-Alfa-Production Account.
 
 ## Dependencies
 

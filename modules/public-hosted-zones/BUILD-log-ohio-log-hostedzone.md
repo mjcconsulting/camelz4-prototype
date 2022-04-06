@@ -1,6 +1,6 @@
 # Modules:Public Hosted Zones:Log Account:Ohio:Log Hosted Zone
 
-This module builds the Log Public Hosted Zone in the AWS Ohio (us-east-2) Region within the
+This module creates the Log Public Hosted Zone in the AWS Ohio (us-east-2) Region within the
 CaMeLz-Log Account.
 
 ## Dependencies

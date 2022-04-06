@@ -1,6 +1,6 @@
 # Modules:Public Hosted Zones
 
-This Module builds Route 53 Public Hosted Zones
+This module creates Route 53 Public Hosted Zones
 
 **TODO**: More description coming
 

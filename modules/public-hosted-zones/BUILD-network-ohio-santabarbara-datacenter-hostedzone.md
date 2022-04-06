@@ -1,6 +1,6 @@
 # Modules:Public Hosted Zones:Network Account:Ohio:Santa Barbara Data Center Hosted Zone
 
-This module builds the SantaBarbara-DataCenter Public Hosted Zone in the AWS Ohio (us-east-2) Region within the
+This module creates the SantaBarbara-DataCenter Public Hosted Zone in the AWS Ohio (us-east-2) Region within the
 CaMeLz-Network Account.
 
 ## Dependencies

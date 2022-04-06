@@ -1,6 +1,6 @@
 # Modules:Public Hosted Zones:Development Account:Global:Development Hosted Zone
 
-This module builds the Development Public Hosted Zone in the AWS Virginia (us-east-1) Region within the
+This module creates the Development Public Hosted Zone in the AWS Virginia (us-east-1) Region within the
 CaMeLz-Development Account.
 
 ## Dependencies

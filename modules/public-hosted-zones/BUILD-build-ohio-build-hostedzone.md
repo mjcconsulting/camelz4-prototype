@@ -1,6 +1,6 @@
 # Modules:Public Hosted Zones:Build Account:Ohio:Build Hosted Zone
 
-This module builds the Build Public Hosted Zone in the AWS Ohio (us-east-2) Region within the
+This module creates the Build Public Hosted Zone in the AWS Ohio (us-east-2) Region within the
 CaMeLz-Build Account.
 
 ## Dependencies

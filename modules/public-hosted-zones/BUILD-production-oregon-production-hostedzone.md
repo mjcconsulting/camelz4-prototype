@@ -1,6 +1,6 @@
 # Modules:Public Hosted Zones:Production Account:Oregon:Production Hosted Zone
 
-This module builds the Production Public Hosted Zone in the AWS Oregon (us-west-2) Region within the
+This module creates the Production Public Hosted Zone in the AWS Oregon (us-west-2) Region within the
 CaMeLz-Production Account.
 
 ## Dependencies

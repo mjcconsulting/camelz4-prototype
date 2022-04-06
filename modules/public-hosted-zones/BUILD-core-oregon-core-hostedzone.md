@@ -1,6 +1,6 @@
 # Modules:Public Hosted Zones:Core Account:Oregon:Core Hosted Zone
 
-This module builds the Core Public Hosted Zone in the AWS Oregon (us-west-2) Region within the
+This module creates the Core Public Hosted Zone in the AWS Oregon (us-west-2) Region within the
 CaMeLz-Core Account.
 
 ## Dependencies

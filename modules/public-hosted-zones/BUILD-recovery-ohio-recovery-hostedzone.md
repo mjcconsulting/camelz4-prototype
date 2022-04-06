@@ -1,6 +1,6 @@
 # Modules:Public Hosted Zones:Recovery Account:Ohio:Recovery Hosted Zone
 
-This module builds the Recovery Public Hosted Zone in the AWS Ohio (us-east-2) Region within the
+This module creates the Recovery Public Hosted Zone in the AWS Ohio (us-east-2) Region within the
 CaMeLz-Recovery Account.
 
 ## Dependencies

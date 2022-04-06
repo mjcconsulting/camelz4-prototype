@@ -1,6 +1,6 @@
 # Modules:Public Hosted Zones:Management Account:Global:Alfa Management Hosted Zone
 
-This module builds the Alfa-Management Public Hosted Zone in the AWS Virginia (us-east-1) Region within the
+This module creates the Alfa-Management Public Hosted Zone in the AWS Virginia (us-east-1) Region within the
 CaMeLz-Management Account.
 
 ## Dependencies

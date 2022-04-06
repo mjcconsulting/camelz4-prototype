@@ -1,7 +1,7 @@
 # Modules:Topics:Alfa Production Account:Ohio:Alfa Production Topics
 
 This module creates Alfa-Production Topics & Subscriptions in the AWS Ohio (us-east-2) Region within the
-Alfa-CaMeLz-Production Account.
+CaMeLz-Alfa-Production Account.
 
 ## Dependencies
 

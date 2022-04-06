@@ -1,7 +1,7 @@
 # Modules:Topics:Alfa Development Account:Global:Alfa Development Topics
 
 This module creates Alfa-Development Topics & Subscriptions in the AWS Virginia (us-east-1) Region within the
-Alfa-CaMeLz-Development Account.
+CaMeLz-Alfa-Development Account.
 
 ## Dependencies
 

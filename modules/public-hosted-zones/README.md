@@ -8,7 +8,7 @@ This module creates Route 53 Public Hosted Zones
 
 **TODO**: Determine Module Pre-Requisites and List here
 
-## Build Public Hosted Zones
+## Public Hosted Zones
 
 This is the list of Public Hosted Zones to be created.
 More of these will be created initially than we may want to keep, just so we insure all will work if it turns out we

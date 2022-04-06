@@ -1,7 +1,7 @@
 # Modules:Topics:Zulu Production Account:Ohio:Zulu Production Topics
 
 This module creates Zulu-Production Topics & Subscriptions in the AWS Ohio (us-east-2) Region within the
-Zulu-CaMeLz-Production Account.
+CaMeLz-Zulu-Production Account.
 
 ## Dependencies
 

@@ -1,7 +1,7 @@
 # Modules:Topics:Alfa Development Account:Ohio:Alfa Development Topics
 
 This module creates Build Topics & Subscriptions in the AWS Ohio (us-east-2) Region within the
-Alfa-CaMeLz-Development Account.
+CaMeLz-Alfa-Development Account.
 
 ## Dependencies
 

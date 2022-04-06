@@ -1,7 +1,7 @@
 # Modules:Topics:Alfa Production Account:Global:Alfa Production Topics
 
 This module creates Alfa-Production Topics & Subscriptions in the AWS Virginia (us-east-1) Region within the
-Alfa-CaMeLz-Production Account.
+CaMeLz-Alfa-Production Account.
 
 ## Dependencies
 

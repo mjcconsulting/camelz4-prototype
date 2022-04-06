@@ -1,7 +1,7 @@
 # Modules:Topics:Zulu Development Account:Ohio:Zulu Development Topics
 
 This module creates Zulu-Development Topics & Subscriptions in the AWS Ohio (us-east-2) Region within the
-Zulu-CaMeLz-Development Account.
+CaMeLz-Zulu-Development Account.
 
 ## Dependencies
 

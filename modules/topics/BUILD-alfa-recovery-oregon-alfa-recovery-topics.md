@@ -1,7 +1,7 @@
 # Modules:Topics:Alfa Recovery Account:Oregon:Alfa Recovery Topics
 
 This module creates Alfa-Recovery Topics & Subscriptions in the AWS Oregon (us-west-2) Region within the
-Alfa-CaMeLz-Recovery Account.
+CaMeLz-Alfa-Recovery Account.
 
 ## Dependencies
 

@@ -1,6 +1,6 @@
 # Modules:VPCs:Zulu Development Account:Ohio:Zulu Development VPC
 
-This module builds the Zulu-Development VPC in the AWS Ohio (us-east-2) Region within the Zulu-CaMeLz-Development Account.
+This module builds the Zulu-Development VPC in the AWS Ohio (us-east-2) Region within the CaMeLz-Zulu-Development Account.
 
 ## Dependencies
 

@@ -1,6 +1,6 @@
 # Modules:VPCs:Alfa Development Account:Ohio:Alfa Testing VPC
 
-This module builds the Alfa-Testing VPC in the AWS Ohio (us-east-2) Region within the Alfa-CaMeLz-Development Account.
+This module builds the Alfa-Testing VPC in the AWS Ohio (us-east-2) Region within the CaMeLz-Alfa-Development Account.
 
 ## Dependencies
 

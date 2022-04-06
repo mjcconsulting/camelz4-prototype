@@ -1,0 +1,76 @@
+#!/bin/bash
+#
+# Script to initialize CaMeLz-POC-4
+#
+# Source this script to initialize a build host to build and deploy this POC.
+#
+# WIP: This is a work in progress until this message is removed
+#
+
+if [[ $SHLVL > 2 ]]; then
+  echo "Running as sub-shell, which will have no effect. Please run 'source camelz-init' or '. camelz-init'"
+  [ $SHLVL > 2 ] && return || exit 98
+fi
+
+#  1. Initalize Environment
+
+# Installers
+chrome_installer_url=http://installers-camelzm.s3-website-us-east-1.amazonaws.com/GoogleChromeStandaloneEnterprise64.msi
+chrome_installer_sha256=82bc081286f48148dce2c81f97bdb849b38680b7bb3435221fa470adcf75aa5b
+
+royalts_installer_url=http://installers-camelzm.s3-website-us-east-1.amazonaws.com/RoyalTSInstaller_5.02.60410.0.msi
+royalts_installer_sha256=699ef4391df99f1864d53baf0ce7c637576e6fec50c5677c64e686f3a2050130
+
+
+#  2. Define functions
+
+camelz-variable() {
+  key=$1
+  [ -n "$ZSH_VERSION" ] && value=${(P)key} || value=${!key}
+  mode=${2:-upsert}
+  variablesfile=${3:-$HOME/.camelz/variables}
+
+  if [[ $value = *" "* ]]; then
+    value="\"$value\""
+  fi
+
+  case $mode in
+    upsert)
+      echo "$key=$value"
+      if grep -q "^${key}=" ${variablesfile}; then
+        sed -i -e "s/^${key}=.*$/${key}=${value}/" ${variablesfile}
+      else
+        sed -i -e '$ a\'$'\n'"${key}=${value}"$'\n' ${variablesfile}
+      fi
+      ;;
+    append)
+      echo "$key=$value"
+      sed -i -e "/^${key}=/d" ${variablesfile}
+      sed -i -e '$ a\'$'\n'"${key}=${value}"$'\n' ${variablesfile}
+      ;;
+    clear)
+      echo "$key="
+      sed -i -e "/^${key}=/s/=.*$/=/g" ${variablesfile}
+      ;;
+    delete)
+      echo "$key (removed)"
+      sed -i -e "/^${key}=/d" ${variablesfile}
+      ;;
+    *)
+      echo "Usage: $0 key [upsert|append|clear|delete] [variablesfile]"
+  esac
+}
+
+
+
+
+camelz-load() {
+  constantsfile=${1:-$HOME/.camelz/constants}
+  variablesfile=${2:-$HOME/.camelz/variables}
+
+  source $constantsfile
+  source $variablesfile
+}
+
+#  3. Load constants and variables
+camelz-load

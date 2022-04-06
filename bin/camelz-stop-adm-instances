@@ -8,7 +8,8 @@
 #
 
 accounts='camelzm'
-regions='us-east-1 us-east-2 eu-west-1'
+regions='us-east-1 us-east-2 us-west-2'
+user=administrator
 
 for a in $accounts; do
   echo "== Account $a ========================"
@@ -18,14 +19,14 @@ for a in $accounts; do
                                                      Name=tag:Utility,Values=ActiveDirectoryManagement \
                                                      Name=instance-state-name,Values=running,pending \
                                            --query 'Reservations[].Instances[].InstanceId' \
-                                           --profile $a-bootstrapadministrator --region $r --output text)
+                                           --profile $a-$user --region $r --output text)
     for i in $instances; do
       i_name=$(aws ec2 describe-instances --instance-id $i \
                                            --query 'Reservations[].Instances[0].Tags[?Key==`Name`].Value' \
-                                           --profile $a-bootstrapadministrator --region $r --output text)
+                                           --profile $a-$user --region $r --output text)
 
       echo " - Instance: $i_name ($i)"
-      aws ec2 stop-instances --instance-id $i --profile $a-bootstrapadministrator --region $r --output text
+      aws ec2 stop-instances --instance-id $i --profile $a-$user --region $r --output text
     done
   done
 done

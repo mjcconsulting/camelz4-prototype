@@ -1,0 +1,20 @@
+{
+  "Changes": [{
+    "Action": "UPSERT",
+    "ResourceRecordSet": {
+      "Name": "@hostname@",
+      "Type": "A",
+      "TTL": 300,
+      "ResourceRecords": [{"Value": "@ip@"}]
+    }
+  },
+  {
+    "Action": "UPSERT",
+    "ResourceRecordSet": {
+      "Name": "@servicename@",
+      "Type": "CNAME",
+      "TTL": 3600,
+      "ResourceRecords": [{"Value": "@hostname@"}]
+    }
+  }]
+}

@@ -7,8 +7,12 @@
 #   Name=instance-state-name,Values=running,pending
 #
 
-accounts='camelzm camelzc camelzl camelzp camelzr camelzt camelzd'
-regions='us-east-1 us-east-2 eu-west-1'
+camelz_accounts='camelzm camelzl camelza camelzn camelzc camelzb camelzp camelzr camelzd'
+alfa_accounts='alfa-camelzp alfa-camelzr alfa-camelzd'
+zulu_accounts='zulu-camelzp zulu-camelzd'
+accounts="$camelz_accounts $alfa_accounts $zulu_accounts"
+regions='us-east-1 us-east-2 us-west-2'
+user=administrator
 
 for a in $accounts; do
   echo "== Account $a ========================"
@@ -18,14 +22,14 @@ for a in $accounts; do
                                                      Name=tag:Utility,Values=WindowsBastion \
                                                      Name=instance-state-name,Values=running,pending \
                                            --query 'Reservations[].Instances[].InstanceId' \
-                                           --profile $a-bootstrapadministrator --region $r --output text)
+                                           --profile $a-$user --region $r --output text)
     for i in $instances; do
       i_name=$(aws ec2 describe-instances --instance-id $i \
                                            --query 'Reservations[].Instances[0].Tags[?Key==`Name`].Value' \
-                                           --profile $a-bootstrapadministrator --region $r --output text)
+                                           --profile $a-$user --region $r --output text)
 
       echo " - Instance: $i_name ($i)"
-      aws ec2 stop-instances --instance-id $i --profile $a-bootstrapadministrator --region $r --output text
+      aws ec2 stop-instances --instance-id $i --profile $a-$user --region $r --output text
     done
   done
 done

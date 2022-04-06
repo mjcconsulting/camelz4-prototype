@@ -1,0 +1,11 @@
+{
+  "Changes": [{
+    "Action": "UPSERT",
+    "ResourceRecordSet": {
+      "Name": "@name@",
+      "Type": "TXT",
+      "TTL": 300,
+      "ResourceRecords": [{"Value": "\"@value@\""}]
+    }
+  }]
+}

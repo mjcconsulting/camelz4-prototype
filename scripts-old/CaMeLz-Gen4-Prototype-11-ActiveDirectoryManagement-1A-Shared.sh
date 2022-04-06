@@ -38,7 +38,7 @@ profile=$management_profile
 global_management_adm_sg_id=$(aws ec2 create-security-group --group-name Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                             --description Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                             --vpc-id $global_management_vpc_id \
-                                                            --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Management-ActiveDirectoryManagement-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Application,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                            --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Management-ActiveDirectoryManagement-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
                                                             --query 'GroupId' \
                                                             --profile $profile --region us-east-1 --output text)
 echo "global_management_adm_sg_id=$global_management_adm_sg_id"
@@ -119,7 +119,7 @@ profile=$management_profile
 ohio_management_adm_sg_id=$(aws ec2 create-security-group --group-name Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                           --description Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                           --vpc-id $ohio_management_vpc_id \
-                                                          --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Management-ActiveDirectoryManagement-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Application,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                          --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Management-ActiveDirectoryManagement-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
                                                           --query 'GroupId' \
                                                           --profile $profile --region us-east-2 --output text)
 echo "ohio_management_adm_sg_id=$ohio_management_adm_sg_id"
@@ -200,7 +200,7 @@ profile=$management_profile
 ireland_management_adm_sg_id=$(aws ec2 create-security-group --group-name Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                              --description Management-ActiveDirectoryManagement-InstanceSecurityGroup \
                                                              --vpc-id $ireland_management_vpc_id \
-                                                             --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Management-ActiveDirectoryManagement-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Application,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                             --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Management-ActiveDirectoryManagement-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Utility,Value=ActiveDirectoryManagement},{Key=Project,Value=CaMeLz-POC-4}] \
                                                              --query 'GroupId' \
                                                              --profile $profile --region eu-west-1 --output text)
 echo "ireland_management_adm_sg_id=$ireland_management_adm_sg_id"

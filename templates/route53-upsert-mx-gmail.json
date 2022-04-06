@@ -1,0 +1,15 @@
+{
+  "Changes": [{
+    "Action": "UPSERT",
+    "ResourceRecordSet": {
+      "Name": "@name@",
+      "Type": "MX",
+      "TTL": 86400,
+      "ResourceRecords": [{"Value": "10 aspmx.l.google.com."},
+                          {"Value": "20 alt1.aspmx.l.google.com."},
+                          {"Value": "20 alt2.aspmx.l.google.com."},
+                          {"Value": "30 alt3.aspmx.l.google.com."},
+                          {"Value": "30 alt4.aspmx.l.google.com."}]
+    }
+  }]
+}

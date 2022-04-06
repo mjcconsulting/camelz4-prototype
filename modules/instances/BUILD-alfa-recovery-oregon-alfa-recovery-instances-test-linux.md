@@ -1,7 +1,7 @@
 # Modules:Instances:Alfa Recovery Account:Oregon:Alfa Recovery Linux Test Instances
 
 This module creates Alfa-Recovery Linux Test Instances in the Alfa-Recovery VPC in the AWS Oregon (us-west-2) Region
-within the Alfa-CaMeLz-Recovery Account.
+within the CaMeLz-Alfa-Recovery Account.
 
 ## Dependencies
 

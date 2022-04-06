@@ -44,6 +44,8 @@ CaMeLz-Zulu-Development Account.
                       --profile $profile --region us-east-1 --output text
     ```
 
+## Global Zulu-Development Budgets
+
 1. **Create Zulu-Development Budget**
 
     We will create a simple monthly cost budget for the amount described in `constants`. Then, we will add the following

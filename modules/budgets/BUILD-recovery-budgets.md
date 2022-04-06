@@ -44,6 +44,8 @@ CaMeLz-Recovery Account.
                       --profile $profile --region us-east-1 --output text
     ```
 
+## Global Recovery Budgets
+
 1. **Create Recovery Budget**
 
     We will create a simple monthly cost budget for the amount described in `constants`. Then, we will add the following

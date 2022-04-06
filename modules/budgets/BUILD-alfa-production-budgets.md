@@ -44,6 +44,8 @@ CaMeLz-Alfa-Production Account.
                       --profile $profile --region us-east-1 --output text
     ```
 
+## Global Alfa-Production Budgets
+
 1. **Create Alfa-Production Budget**
 
     We will create a simple monthly cost budget for the amount described in `constants`. Then, we will add the following

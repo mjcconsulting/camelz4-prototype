@@ -1,7 +1,7 @@
 # Modules:Budgets:Alfa Development Account
 
 This module creates Budgets in the AWS Virginia (us-east-1) Region within the
-CaMeLz-Alfa-Development Account.
+Alfa-CaMeLz-Development Account.
 
 ## Dependencies
 
@@ -43,6 +43,8 @@ CaMeLz-Alfa-Development Account.
                       --notification-endpoint $user_email \
                       --profile $profile --region us-east-1 --output text
     ```
+
+## Global Alfa-Development Budgets
 
 1. **Create Alfa-Development Budget**
 

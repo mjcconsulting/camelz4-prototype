@@ -1,6 +1,6 @@
 # Modules:Roles
 
-This Module builds IAM Roles
+This Module creates IAM Roles
 
 **TODO**: More description coming
 
@@ -8,7 +8,7 @@ This Module builds IAM Roles
 
 **TODO**: Determine Module Pre-Requisites and List here
 
-## Build Roles
+## Roles
 
 This is the list of Roles to be created.
 

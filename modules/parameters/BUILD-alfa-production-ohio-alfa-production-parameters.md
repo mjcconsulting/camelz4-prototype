@@ -1,6 +1,6 @@
-# Modules:Parameters:Alfa Production Account:Global:Alfa Production Parameters
+# Modules:Parameters:Alfa Production Account:Ohio:Alfa Production Parameters
 
-This module creates Alfa-Production Parameters in the AWS Virginia (us-east-1) Region within the
+This module creates Alfa-Production Parameters in the AWS Ohio (us-east-2) Region within the
 CaMeLz-Alfa-Production Account.
 
 ## Dependencies
@@ -26,5 +26,5 @@ CaMeLz-Alfa-Production Account.
                                  Key=Company,Value=Alfa \
                                  Key=Environment,Value=Production \
                                  Key=Project,Value=CaMeLz-POC-4 \
-                          --profile $profile --region us-east-1 --output text
+                          --profile $profile --region us-east-2 --output text
     ```

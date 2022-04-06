@@ -1,6 +1,6 @@
-# Modules:Parameters:Alfa Development Account:Global:Alfa Testing Parameters
+# Modules:Parameters:Alfa Development Account:Ohio:Alfa Testing Parameters
 
-This module creates Alfa-Testing Parameters in the AWS Virginia (us-east-1) Region within the
+This module creates Alfa-Testing Parameters in the AWS Ohio (us-east-2) Region within the
 CaMeLz-Alfa-Development Account.
 
 ## Dependencies
@@ -26,5 +26,5 @@ CaMeLz-Alfa-Development Account.
                                  Key=Company,Value=Alfa \
                                  Key=Environment,Value=Testing \
                                  Key=Project,Value=CaMeLz-POC-4 \
-                          --profile $profile --region us-east-1 --output text
+                          --profile $profile --region us-east-2 --output text
     ```

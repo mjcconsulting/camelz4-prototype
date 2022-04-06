@@ -1,6 +1,6 @@
-# Modules:Parameters:Alfa Recovery Account:Global:Alfa Recovery Parameters
+# Modules:Parameters:Alfa Recovery Account:Ohio:Alfa Recovery Parameters
 
-This module creates Alfa-Recovery Parameters in the AWS Virginia (us-east-1) Region within the
+This module creates Alfa-Recovery Parameters in the AWS Ohio (us-east-2) Region within the
 CaMeLz-Alfa-Recovery Account.
 
 ## Dependencies
@@ -26,5 +26,5 @@ CaMeLz-Alfa-Recovery Account.
                                  Key=Company,Value=Alfa \
                                  Key=Environment,Value=Recovery \
                                  Key=Project,Value=CaMeLz-POC-4 \
-                          --profile $profile --region us-east-1 --output text
+                          --profile $profile --region us-east-2 --output text
     ```

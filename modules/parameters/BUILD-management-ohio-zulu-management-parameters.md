@@ -1,6 +1,6 @@
-# Modules:Parameters:Management Account:Global:Zulu Management Parameters
+# Modules:Parameters:Management Account:Ohio:Zulu Management Parameters
 
-This module creates Zulu-Management Parameters in the AWS Virginia (us-east-1) Region within the
+This module creates Zulu-Management Parameters in the AWS Ohio (us-east-2) Region within the
 CaMeLz-Management Account.
 
 ## Dependencies
@@ -26,7 +26,7 @@ CaMeLz-Management Account.
                                  Key=Company,Value=Zulu \
                                  Key=Environment,Value=Management \
                                  Key=Project,Value=CaMeLz-POC-4 \
-                          --profile $profile --region us-east-1 --output text
+                          --profile $profile --region us-east-2 --output text
     ```
 
 1. **Create Zulu-Management Directory Service Parameters**
@@ -42,7 +42,7 @@ CaMeLz-Management Account.
                                  Key=Company,Value=Zulu \
                                  Key=Environment,Value=Management \
                                  Key=Project,Value=CaMeLz-POC-4 \
-                          --profile $profile --region us-east-1 --output text
+                          --profile $profile --region us-east-2 --output text
 
     aws ssm put-parameter --name Zulu-Management-Directory-DomainJoin-User \
                           --description 'User with permissions to Join Instances to the Zulu Directory Domain' \
@@ -52,7 +52,7 @@ CaMeLz-Management Account.
                                  Key=Company,Value=Zulu \
                                  Key=Environment,Value=Management \
                                  Key=Project,Value=CaMeLz-POC-4 \
-                          --profile $profile --region us-east-1 --output text
+                          --profile $profile --region us-east-2 --output text
 
     aws ssm put-parameter --name Zulu-Management-Directory-DomainJoin-Password \
                           --description 'Password for User with permissions to Join Instances to the Zulu Directory Domain' \
@@ -62,5 +62,5 @@ CaMeLz-Management Account.
                                  Key=Company,Value=Zulu \
                                  Key=Environment,Value=Management \
                                  Key=Project,Value=CaMeLz-POC-4 \
-                          --profile $profile --region us-east-1 --output text
+                          --profile $profile --region us-east-2 --output text
     ```

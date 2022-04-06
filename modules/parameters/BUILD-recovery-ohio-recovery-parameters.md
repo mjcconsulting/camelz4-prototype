@@ -1,6 +1,6 @@
-# Modules:Parameters:Recovery Account:Global:Recovery Parameters
+# Modules:Parameters:Recovery Account:Ohio:Recovery Parameters
 
-This module creates Recovery Parameters in the AWS Virginia (us-east-1) Region within the
+This module creates Recovery Parameters in the AWS Ohio (us-east-2) Region within the
 CaMeLz-Recovery Account.
 
 ## Dependencies
@@ -26,5 +26,5 @@ CaMeLz-Recovery Account.
                                  Key=Company,Value=CaMeLz \
                                  Key=Environment,Value=Recovery \
                                  Key=Project,Value=CaMeLz-POC-4 \
-                          --profile $profile --region us-east-1 --output text
+                          --profile $profile --region us-east-2 --output text
     ```

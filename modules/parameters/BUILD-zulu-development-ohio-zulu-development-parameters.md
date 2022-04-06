@@ -1,6 +1,6 @@
-# Modules:Parameters:Zulu Development Account:Global:Zulu Development Parameters
+# Modules:Parameters:Zulu Development Account:Ohio:Zulu Development Parameters
 
-This module creates Zulu-Development Parameters in the AWS Virginia (us-east-1) Region within the
+This module creates Zulu-Development Parameters in the AWS Ohio (us-east-2) Region within the
 CaMeLz-Zulu-Development Account.
 
 ## Dependencies
@@ -26,5 +26,5 @@ CaMeLz-Zulu-Development Account.
                                  Key=Company,Value=Zulu \
                                  Key=Environment,Value=Development \
                                  Key=Project,Value=CaMeLz-POC-4 \
-                          --profile $profile --region us-east-1 --output text
+                          --profile $profile --region us-east-2 --output text
     ```

@@ -1,6 +1,6 @@
-# Modules:Parameters:Build Account:Global:Build Parameters
+# Modules:Parameters:Build Account:Ohio:Build Parameters
 
-This module creates Build Parameters in the AWS Virginia (us-east-1) Region within the
+This module creates Build Parameters in the AWS Ohio (us-east-2) Region within the
 CaMeLz-Build Account.
 
 ## Dependencies
@@ -26,5 +26,5 @@ CaMeLz-Build Account.
                                  Key=Company,Value=CaMeLz \
                                  Key=Environment,Value=Build \
                                  Key=Project,Value=CaMeLz-POC-4 \
-                          --profile $profile --region us-east-1 --output text
+                          --profile $profile --region us-east-2 --output text
     ```

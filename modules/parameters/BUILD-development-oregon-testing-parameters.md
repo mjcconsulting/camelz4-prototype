@@ -1,6 +1,6 @@
-# Modules:Parameters:Development Account:Global:Testing Parameters
+# Modules:Parameters:Development Account:Oregon:Testing Parameters
 
-This module creates Testing Parameters in the AWS Virginia (us-east-1) Region within the
+This module creates Testing Parameters in the AWS Oregon (us-west-2) Region within the
 CaMeLz-Development Account.
 
 ## Dependencies
@@ -26,5 +26,5 @@ CaMeLz-Development Account.
                                  Key=Company,Value=CaMeLz \
                                  Key=Environment,Value=Testing \
                                  Key=Project,Value=CaMeLz-POC-4 \
-                          --profile $profile --region us-east-1 --output text
+                          --profile $profile --region us-west-2 --output text
     ```

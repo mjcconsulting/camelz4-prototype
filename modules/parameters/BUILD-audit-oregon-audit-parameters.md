@@ -1,6 +1,6 @@
-# Modules:Parameters:Audit Account:Global:Audit Parameters
+# Modules:Parameters:Audit Account:Oregon:Audit Parameters
 
-This module creates Audit Parameters in the AWS Virginia (us-east-1) Region within the
+This module creates Audit Parameters in the AWS Oregon (us-west-2) Region within the
 CaMeLz-Audit Account.
 
 ## Dependencies
@@ -26,5 +26,5 @@ CaMeLz-Audit Account.
                                  Key=Company,Value=CaMeLz \
                                  Key=Environment,Value=Audit \
                                  Key=Project,Value=CaMeLz-POC-4 \
-                          --profile $profile --region us-east-1 --output text
+                          --profile $profile --region us-west-2 --output text
     ```

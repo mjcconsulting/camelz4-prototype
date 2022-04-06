@@ -1,6 +1,6 @@
-# Modules:Parameters:Production Account:Global:Production Parameters
+# Modules:Parameters:Production Account:Oregon:Production Parameters
 
-This module creates Production Parameters in the AWS Virginia (us-east-1) Region within the
+This module creates Production Parameters in the AWS Oregon (us-west-2) Region within the
 CaMeLz-Production Account.
 
 ## Dependencies
@@ -26,5 +26,5 @@ CaMeLz-Production Account.
                                  Key=Company,Value=CaMeLz \
                                  Key=Environment,Value=Production \
                                  Key=Project,Value=CaMeLz-POC-4 \
-                          --profile $profile --region us-east-1 --output text
+                          --profile $profile --region us-west-2 --output text
     ```

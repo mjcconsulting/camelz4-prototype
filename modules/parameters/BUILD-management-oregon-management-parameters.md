@@ -1,6 +1,6 @@
-# Modules:Parameters:Management Account:Global:Management Parameters
+# Modules:Parameters:Management Account:Oregon:Management Parameters
 
-This module creates Management Parameters in the AWS Virginia (us-east-1) Region within the
+This module creates Management Parameters in the AWS Oregon (us-west-2) Region within the
 CaMeLz-Management Account.
 
 ## Dependencies
@@ -26,7 +26,7 @@ CaMeLz-Management Account.
                                  Key=Company,Value=CaMeLz \
                                  Key=Environment,Value=Management \
                                  Key=Project,Value=CaMeLz-POC-4 \
-                          --profile $profile --region us-east-1 --output text
+                          --profile $profile --region us-west-2 --output text
     ```
 
 1. **Create Management Directory Service Parameters**
@@ -43,7 +43,7 @@ CaMeLz-Management Account.
                                  Key=Company,Value=CaMeLz \
                                  Key=Environment,Value=Management \
                                  Key=Project,Value=CaMeLz-POC-4 \
-                          --profile $profile --region us-east-1 --output text
+                          --profile $profile --region us-west-2 --output text
 
     aws ssm put-parameter --name Management-Directory-DomainJoin-User \
                           --description 'User with permissions to Join Instances to the Directory Domain' \
@@ -53,7 +53,7 @@ CaMeLz-Management Account.
                                  Key=Company,Value=CaMeLz \
                                  Key=Environment,Value=Management \
                                  Key=Project,Value=CaMeLz-POC-4 \
-                          --profile $profile --region us-east-1 --output text
+                          --profile $profile --region us-west-2 --output text
 
     aws ssm put-parameter --name Management-Directory-DomainJoin-Password \
                           --description 'Password for User with permissions to Join Instances to the Directory Domain' \
@@ -63,7 +63,7 @@ CaMeLz-Management Account.
                                  Key=Company,Value=CaMeLz \
                                  Key=Environment,Value=Management \
                                  Key=Project,Value=CaMeLz-POC-4 \
-                          --profile $profile --region us-east-1 --output text
+                          --profile $profile --region us-west-2 --output text
 
     aws ssm put-parameter --name Management-Directory-OhioTrust-Password \
                           --description 'Password for Trust Relationship with Ohio Management Directory Service' \
@@ -73,7 +73,7 @@ CaMeLz-Management Account.
                                  Key=Company,Value=CaMeLz \
                                  Key=Environment,Value=Management \
                                  Key=Project,Value=CaMeLz-POC-4 \
-                          --profile $profile --region us-east-1 --output text
+                          --profile $profile --region us-west-2 --output text
 
     aws ssm put-parameter --name Management-Directory-OregonTrust-Password \
                           --description 'Password for Trust Relationship with Oregon Management Directory Service' \
@@ -83,5 +83,5 @@ CaMeLz-Management Account.
                                  Key=Company,Value=CaMeLz \
                                  Key=Environment,Value=Management \
                                  Key=Project,Value=CaMeLz-POC-4 \
-                          --profile $profile --region us-east-1 --output text
+                          --profile $profile --region us-west-2 --output text
     ```

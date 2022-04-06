@@ -1,6 +1,6 @@
-# Modules:Parameters:Zulu Production Account:Global:Zulu Production Parameters
+# Modules:Parameters:Zulu Production Account:Ohio:Zulu Production Parameters
 
-This module creates Zulu-Production Parameters in the AWS Virginia (us-east-1) Region within the
+This module creates Zulu-Production Parameters in the AWS Ohio (us-east-2) Region within the
 CaMeLz-Zulu-Production Account.
 
 ## Dependencies
@@ -26,5 +26,5 @@ CaMeLz-Zulu-Production Account.
                                  Key=Company,Value=Zulu \
                                  Key=Environment,Value=Production \
                                  Key=Project,Value=CaMeLz-POC-4 \
-                          --profile $profile --region us-east-1 --output text
+                          --profile $profile --region us-east-2 --output text
     ```

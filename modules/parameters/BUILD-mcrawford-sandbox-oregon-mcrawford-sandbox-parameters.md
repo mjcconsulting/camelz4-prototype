@@ -1,6 +1,6 @@
-# Modules:Parameters:MCrawford Sandbox Account:Global:MCrawford Sandbox Parameters
+# Modules:Parameters:MCrawford Sandbox Account:Oregon:MCrawford Sandbox Parameters
 
-This module creates MCrawford-Sandbox Parameters in the AWS Virginia (us-east-1) Region within the
+This module creates MCrawford-Sandbox Parameters in the AWS Oregon (us-west-2) Region within the
 CaMeLz-MCrawford-Sandbox Account.
 
 ## Dependencies
@@ -26,5 +26,5 @@ CaMeLz-MCrawford-Sandbox Account.
                                  Key=Company,Value=CaMeLz \
                                  Key=Environment,Value=Sandbox \
                                  Key=Project,Value=CaMeLz-POC-4 \
-                          --profile $profile --region us-east-1 --output text
+                          --profile $profile --region us-west-2 --output text
     ```

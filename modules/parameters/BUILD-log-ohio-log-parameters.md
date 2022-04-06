@@ -1,6 +1,6 @@
-# Modules:Parameters:Log Account:Global:Log Parameters
+# Modules:Parameters:Log Account:Ohio:Log Parameters
 
-This module creates Log Parameters in the AWS Virginia (us-east-1) Region within the
+This module creates Log Parameters in the AWS Ohio (us-east-2) Region within the
 CaMeLz-Log Account.
 
 ## Dependencies
@@ -26,5 +26,5 @@ CaMeLz-Log Account.
                                  Key=Company,Value=CaMeLz \
                                  Key=Environment,Value=Log \
                                  Key=Project,Value=CaMeLz-POC-4 \
-                          --profile $profile --region us-east-1 --output text
+                          --profile $profile --region us-east-2 --output text
     ```

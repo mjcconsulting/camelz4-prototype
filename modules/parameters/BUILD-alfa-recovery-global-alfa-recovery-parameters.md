@@ -1,13 +1,13 @@
-# Modules:SSM Parameters:Alfa Recovery Account:Global
+# Modules:SSM Parameters:Alfa Recovery Account:Global:Alfa Recovery Parameters
 
-This module builds SSM Parameters in the AWS Virginia (us-east-1) Region within the
+This module creates Alfa-Recovery Parameters in the AWS Virginia (us-east-1) Region within the
 Alfa-CaMeLz-Recovery Account.
 
 ## Dependencies
 
 **TODO**: Determine Dependencies and list.
 
-## SSM Parameters
+## Alfa-Recovery Parameters
 
 1. **Set Profile for Alfa-Recovery Account**
 
@@ -15,12 +15,12 @@ Alfa-CaMeLz-Recovery Account.
     profile=$alfa_recovery_profile
     ```
 
-1. **Create Alfa-Recovery Instance SSM Parameters**
+1. **Create Alfa-Recovery Instance Parameters**
 
     ```bash
     aws ssm put-parameter --name Alfa-Recovery-Administrator-Password \
                           --description 'Administrator Password for Windows Instances' \
-                          --value "$administrator_password" \
+                          --value "$alfa_recovery_administrator_password" \
                           --type SecureString \
                           --tags Key=Name,Value=Alfa-Recovery-Administrator-Password \
                                  Key=Company,Value=Alfa \

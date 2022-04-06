@@ -1178,8 +1178,32 @@ zulu_dfw_cgw_asn=64780
 ## Instances ##########################################################################################################
 
 ## Organization
-## - Parameters Used for Test Instances
 administrator_password=@administrator_password@
+management_administrator_password=@management_administrator_password@
+log_administrator_password=@log_administrator_password@
+audit_administrator_password=@audit_administrator_password@
+network_administrator_password=@network_administrator_password@
+core_administrator_password=@core_administrator_password@
+mcrawford_sandbox_administrator_password=@mcrawford_sandbox_administrator_password@
+build_administrator_password=@build_administrator_password@
+production_administrator_password=@production_administrator_password@
+recovery_administrator_password=@recovery_administrator_password@
+testing_administrator_password=@testing_administrator_password@
+development_administrator_password=@development_administrator_password@
+
+
+## Client: Alfa
+alfa_management_administrator_password=@alfa_management_administrator_password@
+alfa_production_administrator_password=@alfa_production_administrator_password@
+alfa_recovery_administrator_password=@alfa_recovery_administrator_password@
+alfa_testing_administrator_password=@alfa_testing_administrator_password@
+alfa_development_administrator_password=@alfa_development_administrator_password@
+
+
+## Client: Zulu
+zulu_management_administrator_password=@zulu_management_administrator_password@
+zulu_production_administrator_password=@zulu_production_administrator_password@
+zulu_development_administrator_password=@zulu_development_administrator_password@
 
 
 ## Directory Service ##################################################################################################

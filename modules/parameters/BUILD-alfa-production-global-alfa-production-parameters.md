@@ -1,13 +1,13 @@
-# Modules:SSM Parameters:Alfa Production Account:Global
+# Modules:SSM Parameters:Alfa Production Account:Global:Alfa Production Parameters
 
-This module builds SSM Parameters in the AWS Virginia (us-east-1) Region within the
+This module creates Alfa-Production Parameters in the AWS Virginia (us-east-1) Region within the
 Alfa-CaMeLz-Production Account.
 
 ## Dependencies
 
 **TODO**: Determine Dependencies and list.
 
-## SSM Parameters
+## Alfa-Production Parameters
 
 1. **Set Profile for Alfa-Production Account**
 
@@ -15,12 +15,12 @@ Alfa-CaMeLz-Production Account.
     profile=$alfa_production_profile
     ```
 
-1. **Create Alfa-Production Instance SSM Parameters**
+1. **Create Alfa-Production Instance Parameters**
 
     ```bash
     aws ssm put-parameter --name Alfa-Production-Administrator-Password \
                           --description 'Administrator Password for Windows Instances' \
-                          --value "$administrator_password" \
+                          --value "$alfa_production_administrator_password" \
                           --type SecureString \
                           --tags Key=Name,Value=Alfa-Production-Administrator-Password \
                                  Key=Company,Value=Alfa \

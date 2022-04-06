@@ -1,13 +1,13 @@
-# Modules:SSM Parameters:Network Account:Global
+# Modules:SSM Parameters:Network Account:Global:Network Parameters
 
-This module builds SSM Parameters in the AWS Virginia (us-east-1) Region within the
+This module creates Network Parameters in the AWS Virginia (us-east-1) Region within the
 CaMeLz-Network Account.
 
 ## Dependencies
 
 **TODO**: Determine Dependencies and list.
 
-## SSM Parameters
+## Network Parameters
 
 1. **Set Profile for Network Account**
 
@@ -15,12 +15,12 @@ CaMeLz-Network Account.
     profile=$network_profile
     ```
 
-1. **Create Network Instance SSM Parameters**
+1. **Create Network Instance Parameters**
 
     ```bash
     aws ssm put-parameter --name Network-Administrator-Password \
                           --description 'Administrator Password for Windows Instances' \
-                          --value "$administrator_password" \
+                          --value "$network_administrator_password" \
                           --type SecureString \
                           --tags Key=Name,Value=Network-Administrator-Password \
                                  Key=Company,Value=CaMeLz \

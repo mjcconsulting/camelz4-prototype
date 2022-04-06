@@ -1,13 +1,13 @@
-# Modules:SSM Parameters:Development Account:Global
+# Modules:SSM Parameters:Development Account:Global:Testing Parameters
 
-This module builds SSM Parameters in the AWS Virginia (us-east-1) Region within the
+This module creates Testing Parameters in the AWS Virginia (us-east-1) Region within the
 CaMeLz-Development Account.
 
 ## Dependencies
 
 **TODO**: Determine Dependencies and list.
 
-## SSM Parameters
+## Testing Parameters
 
 1. **Set Profile for Development Account**
 
@@ -15,16 +15,16 @@ CaMeLz-Development Account.
     profile=$development_profile
     ```
 
-1. **Create Development Instance SSM Parameters**
+1. **Create Testing Instance Parameters**
 
     ```bash
-    aws ssm put-parameter --name Development-Administrator-Password \
+    aws ssm put-parameter --name Testing-Administrator-Password \
                           --description 'Administrator Password for Windows Instances' \
-                          --value "$administrator_password" \
+                          --value "$testing_administrator_password" \
                           --type SecureString \
-                          --tags Key=Name,Value=Development-Administrator-Password \
+                          --tags Key=Name,Value=Testing-Administrator-Password \
                                  Key=Company,Value=CaMeLz \
-                                 Key=Environment,Value=Development \
+                                 Key=Environment,Value=Testing \
                                  Key=Project,Value=CaMeLz-POC-4 \
                           --profile $profile --region us-east-1 --output text
     ```

@@ -1,13 +1,13 @@
-# Modules:SSM Parameters:Build Account:Global
+# Modules:SSM Parameters:Build Account:Global:Build Parameters
 
-This module builds SSM Parameters in the AWS Virginia (us-east-1) Region within the
+This module creates Build Parameters in the AWS Virginia (us-east-1) Region within the
 CaMeLz-Build Account.
 
 ## Dependencies
 
 **TODO**: Determine Dependencies and list.
 
-## SSM Parameters
+## Build Parameters
 
 1. **Set Profile for Build Account**
 
@@ -15,12 +15,12 @@ CaMeLz-Build Account.
     profile=$build_profile
     ```
 
-1. **Create Build Instance SSM Parameters**
+1. **Create Build Instance Parameters**
 
     ```bash
     aws ssm put-parameter --name Build-Administrator-Password \
                           --description 'Administrator Password for Windows Instances' \
-                          --value "$administrator_password" \
+                          --value "$build_administrator_password" \
                           --type SecureString \
                           --tags Key=Name,Value=Build-Administrator-Password \
                                  Key=Company,Value=CaMeLz \

@@ -1,13 +1,13 @@
-# Modules:SSM Parameters:Audit Account:Global
+# Modules:SSM Parameters:Audit Account:Global:Audit Parameters
 
-This module builds SSM Parameters in the AWS Virginia (us-east-1) Region within the
+This module creates Audit Parameters in the AWS Virginia (us-east-1) Region within the
 CaMeLz-Audit Account.
 
 ## Dependencies
 
 **TODO**: Determine Dependencies and list.
 
-## SSM Parameters
+## Audit Parameters
 
 1. **Set Profile for Audit Account**
 
@@ -15,12 +15,12 @@ CaMeLz-Audit Account.
     profile=$audit_profile
     ```
 
-1. **Create Audit Instance SSM Parameters**
+1. **Create Audit Instance Parameters**
 
     ```bash
     aws ssm put-parameter --name Audit-Administrator-Password \
                           --description 'Administrator Password for Windows Instances' \
-                          --value "$administrator_password" \
+                          --value "$audit_administrator_password" \
                           --type SecureString \
                           --tags Key=Name,Value=Audit-Administrator-Password \
                                  Key=Company,Value=CaMeLz \

@@ -1,7 +1,7 @@
-# Modules:SSM Parameters:MCrawford Sandbox Account:Global:MCrawford Sandbox Parameters
+# Modules:Parameters:MCrawford Sandbox Account:Global:MCrawford Sandbox Parameters
 
 This module creates MCrawford-Sandbox Parameters in the AWS Virginia (us-east-1) Region within the
-MCrawford-CaMeLz-Sandbox Account.
+CaMeLz-MCrawford-Sandbox Account.
 
 ## Dependencies
 

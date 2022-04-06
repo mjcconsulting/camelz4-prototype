@@ -1,4 +1,4 @@
-# Modules:SSM Parameters:Development Account:Global:Development Parameters
+# Modules:Parameters:Development Account:Global:Development Parameters
 
 This module creates Development Parameters in the AWS Virginia (us-east-1) Region within the
 CaMeLz-Development Account.

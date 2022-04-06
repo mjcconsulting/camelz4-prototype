@@ -1,4 +1,4 @@
-# Modules:SSM Parameters:Production Account:Global:Production Parameters
+# Modules:Parameters:Production Account:Global:Production Parameters
 
 This module creates Production Parameters in the AWS Virginia (us-east-1) Region within the
 CaMeLz-Production Account.

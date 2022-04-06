@@ -1,6 +1,6 @@
 # Modules:Public Hosted Zones:Recovery Account:Oregon:Recovery Hosted Zone
 
-This module builds the Recovery Public Hosted Zone in the AWS Oregon (us-west-2) Region within the
+This module creates the Recovery Public Hosted Zone in the AWS Oregon (us-west-2) Region within the
 CaMeLz-Recovery Account.
 
 ## Dependencies

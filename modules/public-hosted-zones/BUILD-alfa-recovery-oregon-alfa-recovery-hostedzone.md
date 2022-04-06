@@ -1,7 +1,7 @@
 # Modules:Public Hosted Zones:Alfa Recovery Account:Oregon:Alfa Recovery Hosted Zone
 
-This module builds the Alfa-Recovery Public Hosted Zone in the AWS Oregon (us-west-2) Region within the
-Alfa-CaMeLz-Recovery Account.
+This module creates the Alfa-Recovery Public Hosted Zone in the AWS Oregon (us-west-2) Region within the
+CaMeLz-Alfa-Recovery Account.
 
 ## Dependencies
 

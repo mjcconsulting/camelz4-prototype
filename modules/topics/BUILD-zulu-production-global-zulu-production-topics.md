@@ -1,7 +1,7 @@
 # Modules:Topics:Zulu Production Account:Global:Zulu Production Topics
 
 This module creates Zulu-Production Topics & Subscriptions in the AWS Virginia (us-east-1) Region within the
-Zulu-CaMeLz-Production Account.
+CaMeLz-Zulu-Production Account.
 
 ## Dependencies
 

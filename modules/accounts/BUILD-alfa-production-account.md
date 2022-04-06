@@ -1,7 +1,7 @@
 # Modules:Accounts:Alfa Production Account
 
 This module confirms the Profile and gets the Account ID in the AWS Virginia (us-east-1) Region within the
-Alfa-CaMeLz-Production Account.
+CaMeLz-Alfa-Production Account.
 
 This is a placeholder until a more comprehensive document describing what must be done here can be written.
 

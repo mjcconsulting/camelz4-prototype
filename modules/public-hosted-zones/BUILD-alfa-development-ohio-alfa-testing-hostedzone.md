@@ -1,7 +1,7 @@
 # Modules:Public Hosted Zones:Alfa Development Account:Ohio:Alfa Testing Hosted Zone
 
-This module builds the Alfa-Testing Public Hosted Zone in the AWS Ohio (us-east-2) Region within the
-Alfa-CaMeLz-Development Account.
+This module creates the Alfa-Testing Public Hosted Zone in the AWS Ohio (us-east-2) Region within the
+CaMeLz-Alfa-Development Account.
 
 ## Dependencies
 

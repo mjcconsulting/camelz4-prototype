@@ -8,9 +8,9 @@ This Module creates Budgets to monitor costs.
 
 **TODO**: Determine Module Pre-Requisites and List here
 
-## Enable Cost Explorer
+## Cost Explorer
 
-I think this has to be done manually.
+We must enable Cost Explorer in order for Budgets to work. I think this has to be done manually.
 
 ### Steps
 
@@ -20,7 +20,7 @@ I think this has to be done manually.
 1. **Press the Launch Cost Explorer Button**  
     It will take 24 hours from this point before Cost Explorer is enabled and you can continue with Budget Creation
 
-## Create Budgets
+## Budgets
 
 This is the list of Budgets to be created.
 

@@ -1,4 +1,4 @@
-# Modules:SSM Parameters:Management Account:Global:Alfa Management Parameters
+# Modules:Parameters:Management Account:Global:Alfa Management Parameters
 
 This module creates Alfa-Management Parameters in the AWS Virginia (us-east-1) Region within the
 CaMeLz-Management Account.

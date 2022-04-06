@@ -1,6 +1,6 @@
 # Modules:Public Hosted Zones:Management Account:Oregon:Alfa Management Hosted Zone
 
-This module builds the Alfa-Management Public Hosted Zone in the AWS Oregon (us-west-2) Region within the
+This module creates the Alfa-Management Public Hosted Zone in the AWS Oregon (us-west-2) Region within the
 CaMeLz-Management Account.
 
 ## Dependencies

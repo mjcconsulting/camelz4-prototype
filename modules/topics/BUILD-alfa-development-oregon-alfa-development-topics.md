@@ -1,7 +1,7 @@
 # Modules:Topics:Alfa Development Account:Oregon:Alfa Development Topics
 
 This module creates Build Topics & Subscriptions in the AWS Oregon (us-west-2) Region within the
-Alfa-CaMeLz-Development Account.
+CaMeLz-Alfa-Development Account.
 
 ## Dependencies
 

@@ -1,7 +1,7 @@
 # Modules:Topics:Alfa Recovery Account:Global:Alfa Recovery Topics
 
 This module creates Alfa-Recovery Topics & Subscriptions in the AWS Virginia (us-east-1) Region within the
-Alfa-CaMeLz-Recovery Account.
+CaMeLz-Alfa-Recovery Account.
 
 ## Dependencies
 

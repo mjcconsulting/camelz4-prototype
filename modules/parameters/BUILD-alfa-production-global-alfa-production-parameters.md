@@ -1,7 +1,7 @@
-# Modules:SSM Parameters:Alfa Production Account:Global:Alfa Production Parameters
+# Modules:Parameters:Alfa Production Account:Global:Alfa Production Parameters
 
 This module creates Alfa-Production Parameters in the AWS Virginia (us-east-1) Region within the
-Alfa-CaMeLz-Production Account.
+CaMeLz-Alfa-Production Account.
 
 ## Dependencies
 

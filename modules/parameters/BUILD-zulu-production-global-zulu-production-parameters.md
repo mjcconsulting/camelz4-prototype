@@ -1,7 +1,7 @@
-# Modules:SSM Parameters:Zulu Production Account:Global:Zulu Production Parameters
+# Modules:Parameters:Zulu Production Account:Global:Zulu Production Parameters
 
 This module creates Zulu-Production Parameters in the AWS Virginia (us-east-1) Region within the
-Zulu-CaMeLz-Production Account.
+CaMeLz-Zulu-Production Account.
 
 ## Dependencies
 

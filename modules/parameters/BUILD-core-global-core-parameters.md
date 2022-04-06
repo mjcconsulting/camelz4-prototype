@@ -1,4 +1,4 @@
-# Modules:SSM Parameters:Core Account:Global:Core Parameters
+# Modules:Parameters:Core Account:Global:Core Parameters
 
 This module creates Core Parameters in the AWS Virginia (us-east-1) Region within the
 CaMeLz-Core Account.

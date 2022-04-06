@@ -1,7 +1,7 @@
 # Modules:Budgets:Alfa Production Account
 
 This module creates Budgets in the AWS Virginia (us-east-1) Region within the
-Alfa-CaMeLz-Production Account.
+CaMeLz-Alfa-Production Account.
 
 ## Dependencies
 
@@ -43,6 +43,8 @@ Alfa-CaMeLz-Production Account.
                       --notification-endpoint $user_email \
                       --profile $profile --region us-east-1 --output text
     ```
+
+## Global Alfa-Production Budgets
 
 1. **Create Alfa-Production Budget**
 

@@ -44,6 +44,8 @@ CaMeLz-Management Account.
                       --profile $profile --region us-east-1 --output text
     ```
 
+## Global Management Budgets
+
 1. **Create Management Budget**
 
     We will create a simple monthly cost budget for the amount described in `constants`. Then, we will add the following

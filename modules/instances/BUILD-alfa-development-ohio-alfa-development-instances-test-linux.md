@@ -1,7 +1,7 @@
 # Modules:Instances:Alfa Development Account:Ohio:Alfa Development Linux Test Instances
 
 This module creates Alfa-Development Linux Test Instances in the Alfa-Development VPC in the AWS Ohio (us-east-2) Region
-within the Alfa-CaMeLz-Development Account.
+within the CaMeLz-Alfa-Development Account.
 
 ## Dependencies
 

@@ -1,6 +1,6 @@
 # Modules:VPCs:Zulu Production Account:Ohio:Zulu Production VPC
 
-This module builds the Zulu-Production VPC in the AWS Ohio (us-east-2) Region within the Zulu-CaMeLz-Production Account.
+This module builds the Zulu-Production VPC in the AWS Ohio (us-east-2) Region within the CaMeLz-Zulu-Production Account.
 
 ## Dependencies
 

@@ -1,6 +1,6 @@
 # Modules:VPCs:Alfa Recovery Account:Oregon:Alfa Recovery VPC
 
-This module builds the Alfa-Recovery VPC in the AWS Oregon (us-west-2) Region within the Alfa-CaMeLz-Recovery Account.
+This module builds the Alfa-Recovery VPC in the AWS Oregon (us-west-2) Region within the CaMeLz-Alfa-Recovery Account.
 
 ## Dependencies
 

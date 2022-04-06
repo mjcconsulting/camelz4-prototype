@@ -1,6 +1,6 @@
 # Modules:Public Hosted Zones:Core Account:Global:Core Hosted Zone
 
-This module builds the Core Public Hosted Zone in the AWS Virginia (us-east-1) Region within the
+This module creates the Core Public Hosted Zone in the AWS Virginia (us-east-1) Region within the
 CaMeLz-Core Account.
 
 ## Dependencies

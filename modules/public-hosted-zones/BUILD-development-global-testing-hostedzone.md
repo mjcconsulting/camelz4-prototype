@@ -1,6 +1,6 @@
 # Modules:Public Hosted Zones:Development Account:Global:Testing Hosted Zone
 
-This module builds the Testing Public Hosted Zone in the AWS Virginia (us-east-1) Region within the
+This module creates the Testing Public Hosted Zone in the AWS Virginia (us-east-1) Region within the
 CaMeLz-Development Account.
 
 ## Dependencies

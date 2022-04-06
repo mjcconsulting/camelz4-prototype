@@ -1,6 +1,6 @@
 # Modules:VPCs:MCrawford Sandbox Account:Ohio:Default VPC
 
-This module tags the Default-VPC in the AWS Ohio (us-east-2) Region within the MCrawford-CaMeLz-Sandbox Account.
+This module tags the Default-VPC in the AWS Ohio (us-east-2) Region within the CaMeLz-MCrawford-Sandbox Account.
 
 ## Dependencies
 

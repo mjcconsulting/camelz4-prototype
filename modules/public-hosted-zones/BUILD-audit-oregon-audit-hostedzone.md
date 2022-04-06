@@ -1,6 +1,6 @@
 # Modules:Public Hosted Zones:Audit Account:Oregon:Audit Hosted Zone
 
-This module builds the Audit Public Hosted Zone in the AWS Oregon (us-west-2) Region within the
+This module creates the Audit Public Hosted Zone in the AWS Oregon (us-west-2) Region within the
 CaMeLz-Audit Account.
 
 ## Dependencies

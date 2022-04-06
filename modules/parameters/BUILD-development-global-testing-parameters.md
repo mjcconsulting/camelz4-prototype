@@ -1,4 +1,4 @@
-# Modules:SSM Parameters:Development Account:Global:Testing Parameters
+# Modules:Parameters:Development Account:Global:Testing Parameters
 
 This module creates Testing Parameters in the AWS Virginia (us-east-1) Region within the
 CaMeLz-Development Account.

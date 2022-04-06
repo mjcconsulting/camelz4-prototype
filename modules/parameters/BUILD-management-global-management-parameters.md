@@ -1,4 +1,4 @@
-# Modules:SSM Parameters:Management Account:Global:Management Parameters
+# Modules:Parameters:Management Account:Global:Management Parameters
 
 This module creates Management Parameters in the AWS Virginia (us-east-1) Region within the
 CaMeLz-Management Account.

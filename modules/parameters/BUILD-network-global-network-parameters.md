@@ -1,4 +1,4 @@
-# Modules:SSM Parameters:Network Account:Global:Network Parameters
+# Modules:Parameters:Network Account:Global:Network Parameters
 
 This module creates Network Parameters in the AWS Virginia (us-east-1) Region within the
 CaMeLz-Network Account.

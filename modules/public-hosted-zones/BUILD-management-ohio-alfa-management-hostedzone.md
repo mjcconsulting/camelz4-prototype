@@ -1,6 +1,6 @@
 # Modules:Public Hosted Zones:Management Account:Ohio:Alfa Management Hosted Zone
 
-This module builds the Alfa-Management Public Hosted Zone in the AWS Ohio (us-east-2) Region within the
+This module creates the Alfa-Management Public Hosted Zone in the AWS Ohio (us-east-2) Region within the
 CaMeLz-Management Account.
 
 ## Dependencies

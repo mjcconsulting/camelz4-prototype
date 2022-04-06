@@ -45,69 +45,97 @@ user_phone=@administrator_phone@
 ## Accounts & Profiles ################################################################################################
 
 ## Organization
+management_account_email=aws+camelz@mjcconsulting.com
 management_account_name=CaMeLz-Management
 management_account_alias=camelzm
 management_profile=$management_account_alias-$user
 
+log_account_email=aws-la+camelz@mjcconsulting.com
 log_account_name=CaMeLz-Log-Archive
 log_account_alias=camelzl
 log_profile=$log_account_alias-$user
 
+audit_account_email=aws-a+camelz@mjcconsulting.com
 audit_account_name=CaMeLz-Audit
 audit_account_alias=camelza
 audit_profile=$audit_account_alias-$user
 
+network_account_email=aws-n+camelz@mjcconsulting.com
 network_account_name=CaMeLz-Network
 network_account_alias=camelzn
 network_profile=$network_account_alias-$user
 
+core_account_email=aws-c+camelz@mjcconsulting.com
 core_account_name=CaMeLz-Core
 core_account_alias=camelzc
 core_profile=$core_account_alias-$user
 
-mcrawford_sandbox_account_name=MCrawford-CaMeLz-Sandbox
-mcrawford_sandbox_account_alias=mcrawford-camelzx
+mcrawford_sandbox_account_email=aws-x+camelz-mcrawford@mjcconsulting.com
+mcrawford_sandbox_account_name=CaMeLz-MCrawford-Sandbox
+mcrawford_sandbox_account_alias=camelzx-mcrawford
 mcrawford_sandbox_profile=$mcrawford_sandbox_account_alias-$user
 
+build_account_email=aws-b+camelz@mjcconsulting.com
 build_account_name=CaMeLz-Build
 build_account_alias=camelzb
 build_profile=$build_account_alias-$user
 
+production_account_email=aws-p+camelz@mjcconsulting.com
 production_account_name=CaMeLz-Production
 production_account_alias=camelzp
 production_profile=$production_account_alias-$user
 
+recovery_account_email=aws-r+camelz@mjcconsulting.com
 recovery_account_name=CaMeLz-Recovery
 recovery_account_alias=camelzr
 recovery_profile=$recovery_account_alias-$user
 
+development_account_email=aws-d+camelz@mjcconsulting.com
 development_account_name=CaMeLz-Development
 development_account_alias=camelzd
 development_profile=$development_account_alias-$user
 
 
 ## Client: Alfa
-alfa_production_account_name=Alfa-CaMeLz-Production
-alfa_production_account_alias=alfa-camelzp
+alfa_production_account_email=aws-p+camelz-alfa@mjcconsulting.com
+alfa_production_account_name=CaMeLz-Alfa-Production
+alfa_production_account_alias=camelzp-alfa
 alfa_production_profile=$alfa_production_account_alias-$user
 
-alfa_recovery_account_name=Alfa-CaMeLz-Recovery
-alfa_recovery_account_alias=alfa-camelzr
+alfa_recovery_account_email=aws-r+camelz-alfa@mjcconsulting.com
+alfa_recovery_account_name=CaMeLz-Alfa-Recovery
+alfa_recovery_account_alias=camelzr-alfa
 alfa_recovery_profile=$alfa_recovery_account_alias-$user
 
-alfa_development_account_name=Alfa-CaMeLz-Development
-alfa_development_account_alias=alfa-camelzd
+alfa_development_account_email=aws-d+camelz-alfa@mjcconsulting.com
+alfa_development_account_name=CaMeLz-Alfa-Development
+alfa_development_account_alias=camelzd-alfa
 alfa_development_profile=$alfa_development_account_alias-$user
 
 
+## Client: Bravo
+bravo_production_account_email=aws-p+camelz-bravo@mjcconsulting.com
+bravo_production_account_name=CaMeLz-Bravo-Production
+bravo_production_account_alias=camelzp-bravo
+bravo_production_profile=$bravo_production_account_alias-$user
+
+bravo_development_account_email=aws-d+camelz-bravo@mjcconsulting.com
+bravo_development_account_name=CaMeLz-Bravo-Development
+bravo_development_account_alias=camelzd-bravo
+bravo_development_profile=$bravo_development_account_alias-$user
+
+
 ## Client: Zulu
-zulu_production_account_name=Zulu-CaMeLz-Production
-zulu_production_account_alias=zulu-camelzp
+zulu_production_account_email=aws-p+camelz-zulu@mjcconsulting.com
+zulu_production_account_name=CaMeLz-Zulu-Production
+zulu_production_account_alias=camelzp-zulu
 zulu_production_profile=$zulu_production_account_alias-$user
 
-zulu_development_account_name=Zulu-CaMeLz-Development
-zulu_development_account_alias=zulu-camelzd
+zulu_development_account_email=aws-d+camelz-zulu@mjcconsulting.com
+zulu_development_account_name=CaMeLz-Zulu-Development
+zulu_development_account_alias=camelzd-zulu
 zulu_development_profile=$zulu_development_account_alias-$user
+
 
 ## Budgets ############################################################################################################
 
@@ -152,6 +180,14 @@ alfa_recovery_account_budget_amount=20
 
 alfa_development_account_budget_name="$alfa_development_account_name Account Budget"
 alfa_development_account_budget_amount=20
+
+
+## Client: Bravo
+bravo_production_account_budget_name="$bravo_production_account_name Account Budget"
+bravo_production_account_budget_amount=20
+
+bravo_development_account_budget_name="$bravo_development_account_name Account Budget"
+bravo_development_account_budget_amount=20
 
 
 ## Client: Zulu
@@ -307,6 +343,24 @@ alfa_oregon_recovery_public_domain=r.us-west-2.alfa.$domain
 alfa_oregon_recovery_private_domain=r.us-west-2.alfa.$domain
 
 
+## Client: Bravo
+## - Global (Virginia)
+bravo_global_management_public_domain=bravo.$domain
+
+bravo_global_production_public_domain=p.bravo.$domain
+
+bravo_global_development_public_domain=d.bravo.$domain
+
+## - Region: Ohio
+bravo_ohio_management_public_domain=us-east-2.bravo.$domain
+
+bravo_ohio_production_public_domain=p.us-east-2.bravo.$domain
+bravo_ohio_production_private_domain=p.us-east-2.bravo.$domain
+
+bravo_ohio_development_public_domain=d.us-east-2.bravo.$domain
+bravo_ohio_development_private_domain=d.us-east-2.bravo.$domain
+
+
 ## Client: Zulu
 ## - Global (Virginia)
 zulu_global_management_public_domain=zulu.$domain
@@ -335,6 +389,9 @@ alfa_lax_private_domain=lax.alfa.$domain
 
 alfa_mia_public_domain=mia.alfa.$domain
 alfa_mia_private_domain=mia.alfa.$domain
+
+bravo_sea_public_domain=sea.bravo.$domain
+bravo_sea_private_domain=sea.bravo.$domain
 
 zulu_dfw_public_domain=dfw.zulu.$domain
 zulu_dfw_private_domain=dfw.zulu.$domain
@@ -966,6 +1023,61 @@ alfa_oregon_recovery_subnet_endpointb_cidr=10.64.7.224/27
 alfa_oregon_recovery_subnet_endpointc_cidr=10.64.11.224/27
 
 
+## Client: Bravo
+## - Region: Ohio
+bravo_ohio_production_vpc_cidr=
+bravo_ohio_production_subnet_firewalla_cidr=
+bravo_ohio_production_subnet_firewallb_cidr=
+bravo_ohio_production_subnet_firewallc_cidr=
+bravo_ohio_production_subnet_publica_cidr=
+bravo_ohio_production_subnet_publicb_cidr=
+bravo_ohio_production_subnet_publicc_cidr=
+bravo_ohio_production_subnet_weba_cidr=
+bravo_ohio_production_subnet_webb_cidr=
+bravo_ohio_production_subnet_webc_cidr=
+bravo_ohio_production_subnet_applicationa_cidr=
+bravo_ohio_production_subnet_applicationb_cidr=
+bravo_ohio_production_subnet_applicationc_cidr=
+bravo_ohio_production_subnet_databasea_cidr=
+bravo_ohio_production_subnet_databaseb_cidr=
+bravo_ohio_production_subnet_databasec_cidr=
+bravo_ohio_production_subnet_managementa_cidr=
+bravo_ohio_production_subnet_managementb_cidr=
+bravo_ohio_production_subnet_managementc_cidr=
+bravo_ohio_production_subnet_gatewaya_cidr=
+bravo_ohio_production_subnet_gatewayb_cidr=
+bravo_ohio_production_subnet_gatewayc_cidr=
+bravo_ohio_production_subnet_endpointa_cidr=
+bravo_ohio_production_subnet_endpointb_cidr=
+bravo_ohio_production_subnet_endpointc_cidr=
+
+bravo_ohio_development_vpc_cidr=
+bravo_ohio_development_subnet_firewalla_cidr=
+bravo_ohio_development_subnet_firewallb_cidr=
+bravo_ohio_development_subnet_firewallc_cidr=
+bravo_ohio_development_subnet_publica_cidr=
+bravo_ohio_development_subnet_publicb_cidr=
+bravo_ohio_development_subnet_publicc_cidr=
+bravo_ohio_development_subnet_weba_cidr=
+bravo_ohio_development_subnet_webb_cidr=
+bravo_ohio_development_subnet_webc_cidr=
+bravo_ohio_development_subnet_applicationa_cidr=
+bravo_ohio_development_subnet_applicationb_cidr=
+bravo_ohio_development_subnet_applicationc_cidr=
+bravo_ohio_development_subnet_databasea_cidr=
+bravo_ohio_development_subnet_databaseb_cidr=
+bravo_ohio_development_subnet_databasec_cidr=
+bravo_ohio_development_subnet_managementa_cidr=
+bravo_ohio_development_subnet_managementb_cidr=
+bravo_ohio_development_subnet_managementc_cidr=
+bravo_ohio_development_subnet_gatewaya_cidr=
+bravo_ohio_development_subnet_gatewayb_cidr=
+bravo_ohio_development_subnet_gatewayc_cidr=
+bravo_ohio_development_subnet_endpointa_cidr=
+bravo_ohio_development_subnet_endpointb_cidr=
+bravo_ohio_development_subnet_endpointc_cidr=
+
+
 ## Client: Zulu
 ## - Region: Ohio
 zulu_ohio_production_vpc_cidr=10.22.64.0/19
@@ -1064,6 +1176,20 @@ alfa_mia_subnet_gatewaya_cidr=172.24.1.80/28
 alfa_mia_subnet_gatewayb_cidr=172.24.1.208/28
 alfa_mia_subnet_endpointa_cidr=172.24.1.96/27
 alfa_mia_subnet_endpointb_cidr=172.24.1.224/27
+
+bravo_sea_vpc_cidr=
+bravo_sea_subnet_firewalla_cidr=
+bravo_sea_subnet_firewallb_cidr=
+bravo_sea_subnet_publica_cidr=
+bravo_sea_subnet_publicb_cidr=
+bravo_sea_subnet_privatea_cidr=
+bravo_sea_subnet_privateb_cidr=
+bravo_sea_subnet_managementa_cidr=
+bravo_sea_subnet_managementb_cidr=
+bravo_sea_subnet_gatewaya_cidr=
+bravo_sea_subnet_gatewayb_cidr=
+bravo_sea_subnet_endpointa_cidr=
+bravo_sea_subnet_endpointb_cidr=
 
 zulu_dfw_vpc_cidr=172.28.0.0/24
 zulu_dfw_subnet_firewalla_cidr=
@@ -1200,6 +1326,12 @@ alfa_testing_administrator_password=@alfa_testing_administrator_password@
 alfa_development_administrator_password=@alfa_development_administrator_password@
 
 
+## Client: Bravo
+bravo_management_administrator_password=@bravo_management_administrator_password@
+bravo_production_administrator_password=@bravo_production_administrator_password@
+bravo_development_administrator_password=@bravo_development_administrator_password@
+
+
 ## Client: Zulu
 zulu_management_administrator_password=@zulu_management_administrator_password@
 zulu_production_administrator_password=@zulu_production_administrator_password@
@@ -1315,6 +1447,38 @@ alfa_oregon_recovery_directory_domain=$alfa_oregon_management_directory_domain  
 alfa_oregon_recovery_directory_netbios_domain=$alfa_oregon_management_directory_netbios_domain  # Shares Alfa Oregon Management Directory
 alfa_oregon_recovery_directory_admin_user=$alfa_oregon_management_directory_admin_user          # Shares Alfa Oregon Management Directory
 alfa_oregon_recovery_directory_admin_password=$alfa_oregon_management_directory_admin_password  # Shares Alfa Oregon Management Directory
+
+
+## Client: Bravo
+## - Global (Virginia)
+bravo_global_management_directory_domain=ad.bravo.$domain
+bravo_global_management_directory_netbios_domain=bravo
+bravo_global_management_directory_admin_user=Admin@$bravo_global_management_directory_domain
+bravo_global_management_directory_admin_password=@bravo_global_management_directory_admin_password@
+bravo_global_management_directory_ohio_trust_password=@bravo_global_management_directory_ohio_trust_password@
+bravo_global_management_directory_oregon_trust_password=@bravo_global_management_directory_oregon_trust_password@
+
+## - Region: Ohio
+bravo_ohio_management_directory_domain=ad.us-east-2.bravo.$domain
+bravo_ohio_management_directory_netbios_domain=bravoue2
+bravo_ohio_management_directory_admin_user=Admin@$bravo_ohio_management_directory_domain
+bravo_ohio_management_directory_admin_password=@bravo_ohio_management_directory_admin_password@
+
+bravo_ohio_production_directory_domain=$bravo_ohio_management_directory_domain                  # Shares Bravo Ohio Management Directory
+bravo_ohio_production_directory_netbios_domain=$bravo_ohio_management_directory_netbios_domain  # Shares Bravo Ohio Management Directory
+bravo_ohio_production_directory_admin_user=$bravo_ohio_management_directory_admin_user          # Shares Bravo Ohio Management Directory
+bravo_ohio_production_directory_admin_password=$bravo_ohio_management_directory_admin_password  # Shares Bravo Ohio Management Directory
+
+bravo_ohio_development_directory_domain=$bravo_ohio_management_directory_domain                  # Shares Bravo Ohio Management Directory
+bravo_ohio_development_directory_netbios_domain=$bravo_ohio_management_directory_netbios_domain  # Shares Bravo Ohio Management Directory
+bravo_ohio_development_directory_admin_user=$bravo_ohio_management_directory_admin_user          # Shares Bravo Ohio Management Directory
+bravo_ohio_development_directory_admin_password=$bravo_ohio_management_directory_admin_password  # Shares Bravo Ohio Management Directory
+
+## - Region: Oregon
+bravo_oregon_management_directory_domain=ad.us-west-2.bravo.$domain
+bravo_oregon_management_directory_netbios_domain=bravouw2
+bravo_oregon_management_directory_admin_user=Admin@$bravo_oregon_management_directory_domain
+bravo_oregon_management_directory_admin_password=@bravo_oregon_management_directory_admin_password@
 
 
 ## Client: Zulu

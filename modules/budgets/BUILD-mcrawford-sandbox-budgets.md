@@ -1,7 +1,7 @@
 # Modules:Budgets:MCrawford Sandbox Account
 
 This module creates Budgets in the AWS Virginia (us-east-1) Region within the
-MCrawford-CaMeLz-Sandbox Account.
+CaMeLz-MCrawford-Sandbox Account.
 
 ## Dependencies
 
@@ -43,6 +43,8 @@ MCrawford-CaMeLz-Sandbox Account.
                       --notification-endpoint $user_email \
                       --profile $profile --region us-east-1 --output text
     ```
+
+## Global MCrawford-Sandbox Budgets
 
 1. **Create MCrawford-Sandbox Budget**
 

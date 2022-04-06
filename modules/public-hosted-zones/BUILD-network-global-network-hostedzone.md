@@ -1,6 +1,6 @@
 # Modules:Public Hosted Zones:Network Account:Global:Network Hosted Zone
 
-This module builds the Network Public Hosted Zone in the AWS Virginia (us-east-1) Region within the
+This module creates the Network Public Hosted Zone in the AWS Virginia (us-east-1) Region within the
 CaMeLz-Network Account.
 
 ## Dependencies

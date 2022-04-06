@@ -1,6 +1,6 @@
 # Modules:VPCs:Alfa Production Account:Global:Default VPC
 
-This module tags the Default-VPC in the AWS Virginia (us-east-1) Region within the Alfa-CaMeLz-Production Account.
+This module tags the Default-VPC in the AWS Virginia (us-east-1) Region within the CaMeLz-Alfa-Production Account.
 
 ## Dependencies
 

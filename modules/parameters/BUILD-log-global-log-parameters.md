@@ -1,4 +1,4 @@
-# Modules:SSM Parameters:Log Account:Global:Log Parameters
+# Modules:Parameters:Log Account:Global:Log Parameters
 
 This module creates Log Parameters in the AWS Virginia (us-east-1) Region within the
 CaMeLz-Log Account.

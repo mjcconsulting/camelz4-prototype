@@ -1,7 +1,7 @@
 # Modules:Budgets:Alfa Recovery Account
 
 This module creates Budgets in the AWS Virginia (us-east-1) Region within the
-Alfa-CaMeLz-Recovery Account.
+CaMeLz-Alfa-Recovery Account.
 
 ## Dependencies
 
@@ -43,6 +43,8 @@ Alfa-CaMeLz-Recovery Account.
                       --notification-endpoint $user_email \
                       --profile $profile --region us-east-1 --output text
     ```
+
+## Global Alfa-Recovery Budgets
 
 1. **Create Alfa-Recovery Budget**
 

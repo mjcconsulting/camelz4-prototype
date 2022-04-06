@@ -1,4 +1,4 @@
-# Modules:SSM Parameters:Audit Account:Global:Audit Parameters
+# Modules:Parameters:Audit Account:Global:Audit Parameters
 
 This module creates Audit Parameters in the AWS Virginia (us-east-1) Region within the
 CaMeLz-Audit Account.

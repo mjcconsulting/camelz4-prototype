@@ -1,4 +1,4 @@
-# Modules:SSM Parameters:Management Account:Global:Zulu Management Parameters
+# Modules:Parameters:Management Account:Global:Zulu Management Parameters
 
 This module creates Zulu-Management Parameters in the AWS Virginia (us-east-1) Region within the
 CaMeLz-Management Account.

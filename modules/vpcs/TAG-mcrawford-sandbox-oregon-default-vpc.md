@@ -1,6 +1,6 @@
 # Modules:VPCs:MCrawford Sandbox Account:Oregon:Default VPC
 
-This module tags the Default-VPC in the AWS Oregon (us-west-2) Region within the MCrawford-CaMeLz-Sandbox Account.
+This module tags the Default-VPC in the AWS Oregon (us-west-2) Region within the CaMeLz-MCrawford-Sandbox Account.
 
 ## Dependencies
 

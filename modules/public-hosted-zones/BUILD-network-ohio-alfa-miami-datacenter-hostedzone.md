@@ -1,6 +1,6 @@
 # Modules:Public Hosted Zones:Network Account:Ohio:Alfa Miami Data Center Hosted Zone
 
-This module builds the Alfa-Miami-DataCenter Public Hosted Zone in the AWS Ohio (us-east-2) Region within the
+This module creates the Alfa-Miami-DataCenter Public Hosted Zone in the AWS Ohio (us-east-2) Region within the
 CaMeLz-Network Account.
 
 ## Dependencies

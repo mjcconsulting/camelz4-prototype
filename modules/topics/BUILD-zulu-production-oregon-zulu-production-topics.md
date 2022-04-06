@@ -1,7 +1,7 @@
 # Modules:Topics:Zulu Production Account:Oregon:Zulu Production Topics
 
 This module creates Zulu-Production Topics & Subscriptions in the AWS Oregon (us-west-2) Region within the
-Zulu-CaMeLz-Production Account.
+CaMeLz-Zulu-Production Account.
 
 ## Dependencies
 

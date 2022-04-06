@@ -1,7 +1,7 @@
-# Modules:SSM Parameters:Zulu Development Account:Global:Zulu Development Parameters
+# Modules:Parameters:Zulu Development Account:Global:Zulu Development Parameters
 
 This module creates Zulu-Development Parameters in the AWS Virginia (us-east-1) Region within the
-Zulu-CaMeLz-Development Account.
+CaMeLz-Zulu-Development Account.
 
 ## Dependencies
 

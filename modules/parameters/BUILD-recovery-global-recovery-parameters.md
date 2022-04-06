@@ -1,4 +1,4 @@
-# Modules:SSM Parameters:Recovery Account:Global:Recovery Parameters
+# Modules:Parameters:Recovery Account:Global:Recovery Parameters
 
 This module creates Recovery Parameters in the AWS Virginia (us-east-1) Region within the
 CaMeLz-Recovery Account.

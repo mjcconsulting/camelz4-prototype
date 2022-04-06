@@ -1,7 +1,7 @@
 # Modules:Public Hosted Zones:Zulu Production Account:Ohio:Zulu Production Hosted Zone
 
-This module builds the Zulu-Production Public Hosted Zone in the AWS Ohio (us-east-2) Region within the
-Zulu-CaMeLz-Production Account.
+This module creates the Zulu-Production Public Hosted Zone in the AWS Ohio (us-east-2) Region within the
+CaMeLz-Zulu-Production Account.
 
 ## Dependencies
 

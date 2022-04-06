@@ -1,6 +1,6 @@
 # Modules:Public Hosted Zones:Development Account:Ohio:Development Hosted Zone
 
-This module builds the Development Public Hosted Zone in the AWS Ohio (us-east-2) Region within the
+This module creates the Development Public Hosted Zone in the AWS Ohio (us-east-2) Region within the
 CaMeLz-Development Account.
 
 ## Dependencies

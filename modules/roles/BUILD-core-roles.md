@@ -1,6 +1,6 @@
 # Modules:Roles:Core Account:Global
 
-This module builds IAM Roles in the AWS Virginia (us-east-1) Region within the CaMeLz-Core Account.
+This module creates IAM Roles in the AWS Virginia (us-east-1) Region within the CaMeLz-Core Account.
 
 ## Dependencies
 
@@ -14,7 +14,7 @@ This module builds IAM Roles in the AWS Virginia (us-east-1) Region within the C
     profile=$core_profile
     ```
 
-1.  **Create ManagedInstance Role & Instance Profile**
+1. **Create ManagedInstance Role & Instance Profile**
 
     ```bash
     aws iam create-role --role-name ManagedInstance \
@@ -40,7 +40,7 @@ This module builds IAM Roles in the AWS Virginia (us-east-1) Region within the C
                                          --profile $profile --region us-east-1 --output text
     ```
 
-1.  **Create FlowLog Role**
+1. **Create FlowLog Role**
 
     ```bash
     aws iam create-role --role-name FlowLog \

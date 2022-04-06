@@ -1,7 +1,7 @@
-# Modules:SSM Parameters:Alfa Development Account:Global:Alfa Development Parameters
+# Modules:Parameters:Alfa Development Account:Global:Alfa Development Parameters
 
 This module creates Alfa-Development Parameters in the AWS Virginia (us-east-1) Region within the
-Alfa-CaMeLz-Development Account.
+CaMeLz-Alfa-Development Account.
 
 ## Dependencies
 

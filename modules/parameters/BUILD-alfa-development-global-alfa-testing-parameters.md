@@ -1,7 +1,7 @@
-# Modules:SSM Parameters:Alfa Development Account:Global:Alfa Testing Parameters
+# Modules:Parameters:Alfa Development Account:Global:Alfa Testing Parameters
 
 This module creates Alfa-Testing Parameters in the AWS Virginia (us-east-1) Region within the
-Alfa-CaMeLz-Development Account.
+CaMeLz-Alfa-Development Account.
 
 ## Dependencies
 

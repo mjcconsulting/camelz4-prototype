@@ -1,7 +1,7 @@
-# Modules:SSM Parameters:Alfa Recovery Account:Global:Alfa Recovery Parameters
+# Modules:Parameters:Alfa Recovery Account:Global:Alfa Recovery Parameters
 
 This module creates Alfa-Recovery Parameters in the AWS Virginia (us-east-1) Region within the
-Alfa-CaMeLz-Recovery Account.
+CaMeLz-Alfa-Recovery Account.
 
 ## Dependencies
 

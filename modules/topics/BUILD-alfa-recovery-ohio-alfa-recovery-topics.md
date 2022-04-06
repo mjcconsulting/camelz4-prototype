@@ -2,7 +2,7 @@
 # Modules:Topics:Alfa Recovery Account:Ohio:Alfa Recovery Topics
 
 This module creates Alfa-Recovery Topics & Subscriptions in the AWS Ohio (us-east-2) Region within the
-Alfa-CaMeLz-Recovery Account.
+CaMeLz-Alfa-Recovery Account.
 
 ## Dependencies
 

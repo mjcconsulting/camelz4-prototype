@@ -1,4 +1,4 @@
-# Modules:SSM Parameters:Build Account:Global:Build Parameters
+# Modules:Parameters:Build Account:Global:Build Parameters
 
 This module creates Build Parameters in the AWS Virginia (us-east-1) Region within the
 CaMeLz-Build Account.

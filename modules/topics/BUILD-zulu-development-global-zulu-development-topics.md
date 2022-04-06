@@ -1,7 +1,7 @@
 # Modules:Topics:Zulu Development Account:Global:Zulu Development Topics
 
 This module creates Zulu-Development Topics & Subscriptions in the AWS Virginia (us-east-1) Region within the
-Zulu-CaMeLz-Development Account.
+CaMeLz-Zulu-Development Account.
 
 ## Dependencies
 

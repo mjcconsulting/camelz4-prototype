@@ -1,13 +1,13 @@
-# Modules:SSM Documents:Management Account:Ohio
+# Modules:Documents:Management Account:Oregon:Management Documents
 
-This module builds & shares SSM Documents in the AWS Ohio (us-east-2) Region within the
+This module creates & shares Management Documents in the AWS Oregon (us-west-2) Region within the
 CaMeLz-Management Account.
 
 ## Dependencies
 
 **TODO**: Determine Dependencies and list.
 
-## SSM Documents
+## Management Documents
 
 1. **Set Profile for Management Account**
 
@@ -15,7 +15,7 @@ CaMeLz-Management Account.
     profile=$management_profile
     ```
 
-1. **Create & Share CaMeLz-ChangeAdministratorPassword SSM Command Document**
+1. **Create & Share CaMeLz-ChangeAdministratorPassword Command Document**
 
     ```bash
     aws ssm create-document --name CaMeLz-ChangeAdministratorPassword \
@@ -23,15 +23,15 @@ CaMeLz-Management Account.
                             --document-type Command \
                             --document-format YAML \
                             --query 'DocumentDescription.Status' \
-                            --profile $profile --region us-east-2 --output text
+                            --profile $profile --region us-west-2 --output text
 
     aws ssm modify-document-permission --name CaMeLz-ChangeAdministratorPassword \
                                        --permission-type Share \
                                        --account-ids-to-add All \
-                                       --profile $profile --region us-east-2 --output text
+                                       --profile $profile --region us-west-2 --output text
     ```
 
-1. **Create & Share CaMeLz-RenameComputer SSM Command Document**
+1. **Create & Share CaMeLz-RenameComputer Command Document**
 
     ```bash
     aws ssm create-document --name CaMeLz-RenameComputer \
@@ -39,15 +39,15 @@ CaMeLz-Management Account.
                             --document-type Command \
                             --document-format YAML \
                             --query 'DocumentDescription.Status' \
-                            --profile $profile --region us-east-2 --output text
+                            --profile $profile --region us-west-2 --output text
 
     aws ssm modify-document-permission --name CaMeLz-RenameComputer \
                                        --permission-type Share \
                                        --account-ids-to-add All \
-                                       --profile $profile --region us-east-2 --output text
+                                       --profile $profile --region us-west-2 --output text
 
 
-1. **Create & Share CaMeLz-InstallActiveDirectoryManagementTools SSM Command Document**
+1. **Create & Share CaMeLz-InstallActiveDirectoryManagementTools Command Document**
 
     ```bash
     aws ssm create-document --name CaMeLz-InstallActiveDirectoryManagementTools \
@@ -55,15 +55,15 @@ CaMeLz-Management Account.
                             --document-type Command \
                             --document-format YAML \
                             --query 'DocumentDescription.Status' \
-                            --profile $profile --region us-east-2 --output text
+                            --profile $profile --region us-west-2 --output text
 
     aws ssm modify-document-permission --name CaMeLz-InstallActiveDirectoryManagementTools \
                                        --permission-type Share \
                                        --account-ids-to-add All \
-                                       --profile $profile --region us-east-2 --output text
+                                       --profile $profile --region us-west-2 --output text
     ```
 
-1. **Create & Share CaMeLz-InstallGoogleChrome SSM Command Document**
+1. **Create & Share CaMeLz-InstallGoogleChrome Command Document**
 
     ```bash
     aws ssm create-document --name CaMeLz-InstallGoogleChrome \
@@ -71,15 +71,15 @@ CaMeLz-Management Account.
                             --document-type Command \
                             --document-format YAML \
                             --query 'DocumentDescription.Status' \
-                            --profile $profile --region us-east-2 --output text
+                            --profile $profile --region us-west-2 --output text
 
     aws ssm modify-document-permission --name CaMeLz-InstallGoogleChrome \
                                        --permission-type Share \
                                        --account-ids-to-add All \
-                                       --profile $profile --region us-east-2 --output text
+                                       --profile $profile --region us-west-2 --output text
     ```
 
-1. **Create & Share CaMeLz-InstallRoyalTS SSM Command Document**
+1. **Create & Share CaMeLz-InstallRoyalTS Command Document**
 
     ```bash
     aws ssm create-document --name CaMeLz-InstallRoyalTS \
@@ -87,15 +87,15 @@ CaMeLz-Management Account.
                             --document-type Command \
                             --document-format YAML \
                             --query 'DocumentDescription.Status' \
-                            --profile $profile --region us-east-2 --output text
+                            --profile $profile --region us-west-2 --output text
 
     aws ssm modify-document-permission --name CaMeLz-InstallRoyalTS \
                                        --permission-type Share \
                                        --account-ids-to-add All \
-                                       --profile $profile --region us-east-2 --output text
+                                       --profile $profile --region us-west-2 --output text
     ```
 
-1. **Create & Share CaMeLz-ConfigureWindowsProfile SSM Command Document**
+1. **Create & Share CaMeLz-ConfigureWindowsProfile Command Document**
 
     ```bash
     aws ssm create-document --name CaMeLz-ConfigureWindowsProfile \
@@ -103,15 +103,15 @@ CaMeLz-Management Account.
                             --document-type Command \
                             --document-format YAML \
                             --query 'DocumentDescription.Status' \
-                            --profile $profile --region us-east-2 --output text
+                            --profile $profile --region us-west-2 --output text
 
     aws ssm modify-document-permission --name CaMeLz-ConfigureWindowsProfile \
                                        --permission-type Share \
                                        --account-ids-to-add All \
-                                       --profile $profile --region us-east-2 --output text
+                                       --profile $profile --region us-west-2 --output text
     ```
 
-1. **Create & Share CaMeLz-ConfigureLinuxProfile SSM Command Document**
+1. **Create & Share CaMeLz-ConfigureLinuxProfile Command Document**
 
     ```bash
     aws ssm create-document --name CaMeLz-ConfigureLinuxProfile \
@@ -119,15 +119,15 @@ CaMeLz-Management Account.
                             --document-type Command \
                             --document-format YAML \
                             --query 'DocumentDescription.Status' \
-                            --profile $profile --region us-east-2 --output text
+                            --profile $profile --region us-west-2 --output text
 
     aws ssm modify-document-permission --name CaMeLz-ConfigureLinuxProfile \
                                        --permission-type Share \
                                        --account-ids-to-add All \
-                                       --profile $profile --region us-east-2 --output text
+                                       --profile $profile --region us-west-2 --output text
     ```
 
-1. **Create & Share CaMeLz-ConfigureWindowsStartMenu SSM Command Document**
+1. **Create & Share CaMeLz-ConfigureWindowsStartMenu Command Document**
 
     ```bash
     aws ssm create-document --name CaMeLz-ConfigureWindowsStartMenu \
@@ -135,15 +135,15 @@ CaMeLz-Management Account.
                             --document-type Command \
                             --document-format YAML \
                             --query 'DocumentDescription.Status' \
-                            --profile $profile --region us-east-2 --output text
+                            --profile $profile --region us-west-2 --output text
 
     aws ssm modify-document-permission --name CaMeLz-ConfigureWindowsStartMenu \
                                        --permission-type Share \
                                        --account-ids-to-add All \
-                                       --profile $profile --region us-east-2 --output text
+                                       --profile $profile --region us-west-2 --output text
     ```
 
-1. **Create & Share CaMeLz-ProvisionWindowsBastion SSM Command Document**
+1. **Create & Share CaMeLz-ProvisionWindowsBastion Command Document**
 
     ```bash
     aws ssm create-document --name CaMeLz-ProvisionWindowsBastion \
@@ -151,15 +151,15 @@ CaMeLz-Management Account.
                             --document-type Command \
                             --document-format YAML \
                             --query 'DocumentDescription.Status' \
-                            --profile $profile --region us-east-2 --output text
+                            --profile $profile --region us-west-2 --output text
 
     aws ssm modify-document-permission --name CaMeLz-ProvisionWindowsBastion \
                                        --permission-type Share \
                                        --account-ids-to-add All \
-                                       --profile $profile --region us-east-2 --output text
+                                       --profile $profile --region us-west-2 --output text
     ```
 
-1. **Create & Share CaMeLz-ProvisionActiveDirectoryManagement SSM Command Document**
+1. **Create & Share CaMeLz-ProvisionActiveDirectoryManagement Command Document**
 
     ```bash
     aws ssm create-document --name CaMeLz-ProvisionActiveDirectoryManagement \
@@ -167,10 +167,10 @@ CaMeLz-Management Account.
                             --document-type Command \
                             --document-format YAML \
                             --query 'DocumentDescription.Status' \
-                            --profile $profile --region us-east-2 --output text
+                            --profile $profile --region us-west-2 --output text
 
     aws ssm modify-document-permission --name CaMeLz-ProvisionActiveDirectoryManagement \
                                        --permission-type Share \
                                        --account-ids-to-add All \
-                                       --profile $profile --region us-east-2 --output text
+                                       --profile $profile --region us-west-2 --output text
     ```

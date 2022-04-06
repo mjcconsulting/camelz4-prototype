@@ -1,7 +1,7 @@
 # Modules:Budgets:Zulu Production Account
 
 This module creates Budgets in the AWS Virginia (us-east-1) Region within the
-Zulu-CaMeLz-Production Account.
+CaMeLz-Zulu-Production Account.
 
 ## Dependencies
 

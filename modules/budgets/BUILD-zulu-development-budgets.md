@@ -1,7 +1,7 @@
 # Modules:Budgets:Zulu Development Account
 
 This module creates Budgets in the AWS Virginia (us-east-1) Region within the
-Zulu-CaMeLz-Development Account.
+CaMeLz-Zulu-Development Account.
 
 ## Dependencies
 

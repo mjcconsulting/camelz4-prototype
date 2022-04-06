@@ -1,7 +1,7 @@
 # Modules:Key Pairs:Alfa Recovery Account
 
 This module imports Key Pairs in the AWS Virginia (us-east-1), AWS Ohio (us-east-2) & AWS Oregon (us-west-2) Regions
-within the Alfa-CaMeLz-Recovery Account.
+within the CaMeLz-Alfa-Recovery Account.
 
 ## Dependencies
 

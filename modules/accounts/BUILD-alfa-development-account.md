@@ -1,7 +1,7 @@
 # Modules:Accounts:Alfa Development Account
 
 This module confirms the Profile and gets the Account ID in the AWS Virginia (us-east-1) Region within the
-Alfa-CaMeLz-Development Account.
+CaMeLz-Alfa-Development Account.
 
 This is a placeholder until a more comprehensive document describing what must be done here can be written.
 

@@ -37,50 +37,50 @@ Perform these steps in the AWS EC2 Console while in the CaMeLz-Management Accoun
 1. **Create CaMeLz Root Certification Authority Volume**
 
     Create a 2GB gp3 Volume, Encrypt with the default EBS KMS key, and Tag
-    - Name = Default-PKI-CertificateAuthorityInstance:/var/lib/pki/CA/CaMeLzRootCertificationAuthority
+    - Name = Default-PKI-CertificationAuthorityInstance:/var/lib/pki/CA/CaMeLzRootCertificationAuthority
     - Hostname = cmlue1mpkica01
     - Mountpoint = /var/lib/pki/CA/CaMeLzRootCertificationAuthority
 
-1. **Attach CaMeLz Root Certification Authority Volume to Default-PKI-CertificateAuthority Instance**
+1. **Attach CaMeLz Root Certification Authority Volume to Default-PKI-CertificationAuthority Instance**
 
     Attach the volume to the instance as device /dev/sdf, which should show up in the OS as /dev/nvme1n1
 
 1. **Create CaMeLz TLS Certification Authority Volume**
 
     Create a 2GB gp3 Volume, Encrypt with the default EBS KMS key, and Tag
-    - Name = Default-PKI-CertificateAuthorityInstance:/var/lib/pki/CA/CaMeLzTLSCertificationAuthority
+    - Name = Default-PKI-CertificationAuthorityInstance:/var/lib/pki/CA/CaMeLzTLSCertificationAuthority
     - Hostname = cmlue1mpkica01
     - Mountpoint = /var/lib/pki/CA/CaMeLzTLSCertificationAuthority
 
-1. **Attach CaMeLz TLS Certification Authority Volume to Default-PKI-CertificateAuthority Instance**
+1. **Attach CaMeLz TLS Certification Authority Volume to Default-PKI-CertificationAuthority Instance**
 
     Attach the volume to the instance as device /dev/sdg, which should show up in the OS as /dev/nvme2n1
 
 1. **Create CaMeLz User Certification Authority Volume**
 
     Create a 1GB gp3 Volume, Encrypt with the default EBS KMS key, and Tag
-    - Name = Default-PKI-CertificateAuthorityInstance:/var/lib/pki/CA/CaMeLzUserCertificationAuthority
+    - Name = Default-PKI-CertificationAuthorityInstance:/var/lib/pki/CA/CaMeLzUserCertificationAuthority
     - Hostname = cmlue1mpkica01
     - Mountpoint = /var/lib/pki/CA/CaMeLzUserCertificationAuthority
 
-1. **Attach CaMeLz User Certification Authority Volume to Default-PKI-CertificateAuthority Instance**
+1. **Attach CaMeLz User Certification Authority Volume to Default-PKI-CertificationAuthority Instance**
 
     Attach the volume to the instance as device /dev/sdh, which should show up in the OS as /dev/nvme3n1
 
 1. **Create CaMeLz Software Certification Authority Volume**
 
     Create a 1GB gp3 Volume, Encrypt with the default EBS KMS key, and Tag
-    - Name       = Default-PKI-CertificateAuthorityInstance:/var/lib/pki/CA/CaMeLzSoftwareCertificationAuthority
+    - Name       = Default-PKI-CertificationAuthorityInstance:/var/lib/pki/CA/CaMeLzSoftwareCertificationAuthority
     - Hostname   = cmlue1mpkica01
     - Mountpoint = /var/lib/pki/CA/CaMeLzSoftwareCertificationAuthority
 
-1. **Attach CaMeLz Software Certification Authority Volume to Default-PKI-CertificateAuthority Instance**
+1. **Attach CaMeLz Software Certification Authority Volume to Default-PKI-CertificationAuthority Instance**
 
     Attach the volume to the instance as device /dev/sdi, which should show up in the OS as /dev/nvme4n1
 
 ### Format Volumes and Mount Filesystems
 
-Perform these steps while logged in as root to the Default-PKI-CertificateAuthority Instance.
+Perform these steps while logged in as root to the Default-PKI-CertificationAuthority Instance.
 
 1. **Format & Mount CaMeLz Root Certification Authority Volume**
 
@@ -152,7 +152,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
 
 ### Setup the Build Environment
 
-Perform these steps while logged in as root to the Default-PKI-CertificateAuthority Instance.
+Perform these steps while logged in as root to the Default-PKI-CertificationAuthority Instance.
 
 1. **Define Environment**
 
@@ -176,7 +176,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
 
 ### Create the CaMeLz Root Certification Authority
 
-Perform these steps while logged in as root to the Default-PKI-CertificateAuthority Instance.
+Perform these steps while logged in as root to the Default-PKI-CertificationAuthority Instance.
 
 1. **Create CA directory structure**
 
@@ -262,7 +262,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
     Once we verify the CA certificate is correct, we need to publish it to the CA Issuer website in DER format.
 
     The commands below assume we have setup the appropriate AWS security groups to allow the rsync operation from the
-    Default-PKI-CertificateAuthorityInstance (cmlue1mpkica01) Instance to the Default-PKI-Instance (cmlue1pki01)
+    Default-PKI-CertificationAuthorityInstance (cmlue1mpkica01) Instance to the Default-PKI-Instance (cmlue1pki01)
     Instance, where the crt.camelz.io website is hosted, and the certificate needs to be copied as shown in the command
     below.
 
@@ -308,8 +308,8 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
     All published CRLs must be in DER format. MIME type: application/pkix-crl. [RFC 2585#section-4.2]
 
     The commands below assume we have setup the appropriate AWS security groups to allow the rsync operation from the
-    Default-PKI-CertificateAuthorityInstance (cmlue1mpkica01) Instance to the Default-PKI-Instance (cmlue1pki01)
-    Instance, where the crt.camelz.io website is hosted, and the certificate needs to be copied as shown in the command
+    Default-PKI-CertificationAuthorityInstance (cmlue1mpkica01) Instance to the Default-PKI-Instance (cmlue1pki01)
+    Instance, where the crl.camelz.io website is hosted, and the certificate needs to be copied as shown in the command
     below.
 
     Note you can't actually DO this without a lot more setup than is efficient to setup here, due to needing to run
@@ -319,7 +319,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
 
     ```bash
     openssl crl -in $CAMELZ_PKI_ROOT_CA_HOME/$CAMELZ_PKI_ROOT_CA.crl \
-                -out -in /var/tmp/$CAMELZ_PKI_ROOT_CA.crl \
+                -out /var/tmp/$CAMELZ_PKI_ROOT_CA.crl \
                 -outform der
 
     rsync -avzP /var/tmp/$CAMELZ_PKI_ROOT_CA.crl cmlue1mpki01:/var/www/crl.camels.io/html/$CAMELZ_PKI_ROOT_CA.crl
@@ -327,7 +327,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
 
 ### Create the CaMeLz TLS Certification Authority
 
-Perform these steps while logged in as root to the Default-PKI-CertificateAuthority Instance.
+Perform these steps while logged in as root to the Default-PKI-CertificationAuthority Instance.
 
 1. **Create CA directory structure**
 
@@ -403,7 +403,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
     Once we verify the CA certificate is correct, we need to publish it to the CA Issuer website in DER format.
 
     The commands below assume we have setup the appropriate AWS security groups to allow the rsync operation from the
-    Default-PKI-CertificateAuthorityInstance (cmlue1mpkica01) Instance to the Default-PKI-Instance (cmlue1pki01)
+    Default-PKI-CertificationAuthorityInstance (cmlue1mpkica01) Instance to the Default-PKI-Instance (cmlue1pki01)
     Instance, where the crt.camelz.io website is hosted, and the certificate needs to be copied as shown in the command
     below.
 
@@ -442,8 +442,8 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
     All published CRLs must be in DER format. MIME type: application/pkix-crl. [RFC 2585#section-4.2]
 
     The commands below assume we have setup the appropriate AWS security groups to allow the rsync operation from the
-    Default-PKI-CertificateAuthorityInstance (cmlue1mpkica01) Instance to the Default-PKI-Instance (cmlue1pki01)
-    Instance, where the crt.camelz.io website is hosted, and the certificate needs to be copied as shown in the command
+    Default-PKI-CertificationAuthorityInstance (cmlue1mpkica01) Instance to the Default-PKI-Instance (cmlue1pki01)
+    Instance, where the crl.camelz.io website is hosted, and the certificate needs to be copied as shown in the command
     below.
 
     Note you can't actually DO this without a lot more setup than is efficient to setup here, due to needing to run
@@ -453,7 +453,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
 
     ```bash
     openssl crl -in $CAMELZ_PKI_TLS_CA_HOME/$CAMELZ_PKI_TLS_CA.crl \
-                -out -in /var/tmp/$CAMELZ_PKI_TLS_CA.crl \
+                -out /var/tmp/$CAMELZ_PKI_TLS_CA.crl \
                 -outform der
 
     rsync -avzP /var/tmp/$CAMELZ_PKI_TLS_CA.crl cmlue1mpki01:/var/www/crl.camels.io/html/$CAMELZ_PKI_TLS_CA.crl
@@ -468,7 +468,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
 
 ### Create the CaMeLz User Certification Authority
 
-Perform these steps while logged in as root to the Default-PKI-CertificateAuthority Instance.
+Perform these steps while logged in as root to the Default-PKI-CertificationAuthority Instance.
 
 1. **Create CA directory structure**
 
@@ -525,7 +525,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
     openssl ca -config $CAMELZ_PKI_ROOT_CA_HOME/$CAMELZ_PKI_ROOT_CA.conf \
                -in $CAMELZ_PKI_USER_CA_HOME/$CAMELZ_PKI_USER_CA.csr \
                -out $CAMELZ_PKI_USER_CA_HOME/$CAMELZ_PKI_USER_CA.crt \
-               -extensions sub_ca_ext
+               -extensions sub_user_ca_ext
     ```
 
 1. **Verify CA certificate**
@@ -544,7 +544,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
     Once we verify the CA certificate is correct, we need to publish it to the CA Issuer website in DER format.
 
     The commands below assume we have setup the appropriate AWS security groups to allow the rsync operation from the
-    Default-PKI-CertificateAuthorityInstance (cmlue1mpkica01) Instance to the Default-PKI-Instance (cmlue1pki01)
+    Default-PKI-CertificationAuthorityInstance (cmlue1mpkica01) Instance to the Default-PKI-Instance (cmlue1pki01)
     Instance, where the crt.camelz.io website is hosted, and the certificate needs to be copied as shown in the command
     below.
 
@@ -583,8 +583,8 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
     All published CRLs must be in DER format. MIME type: application/pkix-crl. [RFC 2585#section-4.2]
 
     The commands below assume we have setup the appropriate AWS security groups to allow the rsync operation from the
-    Default-PKI-CertificateAuthorityInstance (cmlue1mpkica01) Instance to the Default-PKI-Instance (cmlue1pki01)
-    Instance, where the crt.camelz.io website is hosted, and the certificate needs to be copied as shown in the command
+    Default-PKI-CertificationAuthorityInstance (cmlue1mpkica01) Instance to the Default-PKI-Instance (cmlue1pki01)
+    Instance, where the crl.camelz.io website is hosted, and the certificate needs to be copied as shown in the command
     below.
 
     Note you can't actually DO this without a lot more setup than is efficient to setup here, due to needing to run
@@ -594,7 +594,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
 
     ```bash
     openssl crl -in $CAMELZ_PKI_USER_CA_HOME/$CAMELZ_PKI_USER_CA.crl \
-                -out -in /var/tmp/$CAMELZ_PKI_USER_CA.crl \
+                -out /var/tmp/$CAMELZ_PKI_USER_CA.crl \
                 -outform der
 
     rsync -avzP /var/tmp/$CAMELZ_PKI_USER_CA.crl cmlue1mpki01:/var/www/crl.camels.io/html/$CAMELZ_PKI_USER_CA.crl
@@ -609,7 +609,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
 
 ### Create the CaMeLz Software Certification Authority
 
-Perform these steps while logged in as root to the Default-PKI-CertificateAuthority Instance.
+Perform these steps while logged in as root to the Default-PKI-CertificationAuthority Instance.
 
 1. **Create CA directory structure**
 
@@ -666,7 +666,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
     openssl ca -config $CAMELZ_PKI_ROOT_CA_HOME/$CAMELZ_PKI_ROOT_CA.conf \
                -in $CAMELZ_PKI_SOFTWARE_CA_HOME/$CAMELZ_PKI_SOFTWARE_CA.csr \
                -out $CAMELZ_PKI_SOFTWARE_CA_HOME/$CAMELZ_PKI_SOFTWARE_CA.crt \
-               -extensions sub_ca_ext
+               -extensions sub_software_ca_ext
     ```
 
 1. **Verify CA certificate**
@@ -685,7 +685,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
     Once we verify the CA certificate is correct, we need to publish it to the CA Issuer website in DER format.
 
     The commands below assume we have setup the appropriate AWS security groups to allow the rsync operation from the
-    Default-PKI-CertificateAuthorityInstance (cmlue1mpkica01) Instance to the Default-PKI-Instance (cmlue1pki01)
+    Default-PKI-CertificationAuthorityInstance (cmlue1mpkica01) Instance to the Default-PKI-Instance (cmlue1pki01)
     Instance, where the crt.camelz.io website is hosted, and the certificate needs to be copied as shown in the command
     below.
 
@@ -724,8 +724,8 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
     All published CRLs must be in DER format. MIME type: application/pkix-crl. [RFC 2585#section-4.2]
 
     The commands below assume we have setup the appropriate AWS security groups to allow the rsync operation from the
-    Default-PKI-CertificateAuthorityInstance (cmlue1mpkica01) Instance to the Default-PKI-Instance (cmlue1pki01)
-    Instance, where the crt.camelz.io website is hosted, and the certificate needs to be copied as shown in the command
+    Default-PKI-CertificationAuthorityInstance (cmlue1mpkica01) Instance to the Default-PKI-Instance (cmlue1pki01)
+    Instance, where the crl.camelz.io website is hosted, and the certificate needs to be copied as shown in the command
     below.
 
     Note you can't actually DO this without a lot more setup than is efficient to setup here, due to needing to run
@@ -735,7 +735,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
 
     ```bash
     openssl crl -in $CAMELZ_PKI_SOFTWARE_CA_HOME/$CAMELZ_PKI_SOFTWARE_CA.crl \
-                -out -in /var/tmp/$CAMELZ_PKI_SOFTWARE_CA.crl \
+                -out /var/tmp/$CAMELZ_PKI_SOFTWARE_CA.crl \
                 -outform der
 
     rsync -avzP /var/tmp/$CAMELZ_PKI_SOFTWARE_CA.crl cmlue1mpki01:/var/www/crl.camels.io/html/$CAMELZ_PKI_SOFTWARE_CA.crl
@@ -755,7 +755,7 @@ created in the Default-VPC within the CaMeLz-Management Account.
 
 ### Operate the CaMeLz TLS Certification Authority
 
-Perform these steps while logged in as root to the Default-PKI-CertificateAuthority Instance.
+Perform these steps while logged in as root to the Default-PKI-CertificationAuthority Instance.
 
 1. **Copy the TLS Server configuration file**
 
@@ -782,7 +782,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
 
     ```bash
     CAMELZ_PKI_CN=*.camelz.io \
-    CAMELZ_PKI_SAN=DNS:*.camelz.io,DNS:*.p.camelz.io,DNS:*.r.camelz.io,DNS:*.us-east-2.camel.io,DNS:*.us-west-2.camel.io,DNS:*.p.us-east-2.camel.io,DNS:*.p.us-west-2.camel.io,,DNS:*.r.us-east-2.camel.io,DNS:*.r.us-west-2.camel.io \
+    CAMELZ_PKI_SAN=DNS:*.camelz.io,DNS:*.us-east-2.camel.io,DNS:*.us-west-2.camel.io \
     openssl req -new \
                 -config $CAMELZ_PKI_HOME/tls-server.conf \
                 -out $CAMELZ_PKI_HOME/certs/star.camelz.io.csr \
@@ -816,13 +816,26 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
     For additional security, since it copies the private key out of the more secure private directory,
     we will password protect this file.
 
+    You must paste the commands separately in the two blocks below, due to zip prompting for the password.
+
     ```bash
-    mkdir -p $CAMELZ_PKI_HOME/certs/star.camelz.io
-    cp $CAMELZ_PKI_HOME/private/star.camelz.io.key $CAMELZ_PKI_HOME/certs/star.camelz.io
-    cp $CAMELZ_PKI_HOME/certs/star.camelz.io.crt $CAMELZ_PKI_HOME/certs/star.camelz.io
-    cp $CAMELZ_PKI_TLS_CA_HOME/$CAMELZ_PKI_TLS_CA.chain.crt $CAMELZ_PKI_HOME/certs/star.camelz.io/star.camelz.io.chain.crt
-    zip -e -r $CAMELZ_PKI_HOME/certs/star.camelz.io.zip $CAMELZ_PKI_HOME/certs/star.camelz.io
-    rm -Rf $CAMELZ_PKI_HOME/certs/star.camelz.io
+    mkdir -p /tmp/star.camelz.io
+    cp $CAMELZ_PKI_HOME/private/star.camelz.io.key /tmp/star.camelz.io
+    cp $CAMELZ_PKI_HOME/certs/star.camelz.io.crt /tmp/star.camelz.io
+    cp $CAMELZ_PKI_TLS_CA_HOME/$CAMELZ_PKI_TLS_CA.chain.crt /tmp/star.camelz.io/star.camelz.io.chain.crt
+    pushd /tmp
+    zip -e -r $CAMELZ_PKI_HOME/certs/star.camelz.io.zip star.camelz.io
+    ```
+
+    ```bash
+    popd
+    rm -Rf /tmp/star.camelz.io
+    ```
+
+1. **Verify ZIP bundle**
+
+    ```bash
+    unzip star.camelz.io.zip
     ```
 
 1. **Create PKCS#12 bundle**
@@ -838,6 +851,12 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
                    -in $CAMELZ_PKI_HOME/certs/star.camelz.io.crt \
                    -certfile $CAMELZ_PKI_TLS_CA_HOME/$CAMELZ_PKI_TLS_CA.chain.crt \
                    -out $CAMELZ_PKI_HOME/certs/star.camelz.io.pfx
+    ```
+
+1. **Verify PKCS#12 bundle**
+
+    ```bash
+    openssl pkcs12 -in star.camelz.io.pfx -info -nodes
     ```
 
 1. **Extract files from PKCS#12 bundle**
@@ -863,7 +882,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
 
     ```bash
     CAMELZ_PKI_CN=crt.camelz.io \
-    CAMELZ_PKI_SAN=DNS:crt.camelz.io,DNS:crt.p.camel.io,DNS:crt.r.camel.io,DNS:crt.p.us-east-2.camel.io,DNS:crt.r.us-west-2.camel.io \
+    CAMELZ_PKI_SAN=DNS:crt.camelz.io,DNS:crt.us-east-2.camel.io,DNS:crt.us-west-2.camel.io \
     openssl req -new \
                 -config $CAMELZ_PKI_HOME/tls-server.conf \
                 -out $CAMELZ_PKI_HOME/certs/crt.camelz.io.csr \
@@ -897,13 +916,26 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
     For additional security, since it copies the private key out of the more secure private directory,
     we will password protect this file.
 
+    You must paste the commands separately in the two blocks below, due to zip prompting for the password.
+
     ```bash
-    mkdir -p $CAMELZ_PKI_HOME/certs/crt.camelz.io
-    cp $CAMELZ_PKI_HOME/private/crt.camelz.io.key $CAMELZ_PKI_HOME/certs/crt.camelz.io
-    cp $CAMELZ_PKI_HOME/certs/crt.camelz.io.crt $CAMELZ_PKI_HOME/certs/crt.camelz.io
-    cp $CAMELZ_PKI_TLS_CA_HOME/$CAMELZ_PKI_TLS_CA.chain.crt $CAMELZ_PKI_HOME/certs/star.camelz.io/crt.camelz.io.chain.crt
-    zip -e -r $CAMELZ_PKI_HOME/certs/crt.camelz.io.zip $CAMELZ_PKI_HOME/certs/crt.camelz.io
-    rm -Rf $CAMELZ_PKI_HOME/certs/crt.camelz.io
+    mkdir -p /tmp/crt.camelz.io
+    cp $CAMELZ_PKI_HOME/private/crt.camelz.io.key /tmp/crt.camelz.io
+    cp $CAMELZ_PKI_HOME/certs/crt.camelz.io.crt /tmp/crt.camelz.io
+    cp $CAMELZ_PKI_TLS_CA_HOME/$CAMELZ_PKI_TLS_CA.chain.crt /tmp/crt.camelz.io/crt.camelz.io.chain.crt
+    pushd /tmp
+    zip -e -r $CAMELZ_PKI_HOME/certs/crt.camelz.io.zip crt.camelz.io
+    ```
+
+    ```bash
+    popd
+    rm -Rf /tmp/crt.camelz.io
+    ```
+
+1. **Verify ZIP bundle**
+
+    ```bash
+    unzip crt.camelz.io.zip
     ```
 
 1. **Create PKCS#12 bundle**
@@ -919,6 +951,12 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
                    -in $CAMELZ_PKI_HOME/certs/crt.camelz.io.crt \
                    -certfile $CAMELZ_PKI_TLS_CA_HOME/$CAMELZ_PKI_TLS_CA.chain.crt \
                    -out $CAMELZ_PKI_HOME/certs/crt.camelz.io.pfx
+    ```
+
+1. **Verify PKCS#12 bundle**
+
+    ```bash
+    openssl pkcs12 -in crt.camelz.io.pfx -info -nodes
     ```
 
 1. **Extract files from PKCS#12 bundle**
@@ -944,7 +982,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
 
     ```bash
     CAMELZ_PKI_CN=crl.camelz.io \
-    CAMELZ_PKI_SAN=DNS:crl.camelz.io,DNS:crl.p.camel.io,DNS:crl.r.camel.io,DNS:crl.p.us-east-2.camel.io,DNS:crl.r.us-west-2.camel.io \
+    CAMELZ_PKI_SAN=DNS:crl.camelz.io,DNS:crl.us-east-2.camel.io,DNS:crl.us-west-2.camel.io \
     openssl req -new \
                 -config $CAMELZ_PKI_HOME/tls-server.conf \
                 -out $CAMELZ_PKI_HOME/certs/crl.camelz.io.csr \
@@ -978,13 +1016,26 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
     For additional security, since it copies the private key out of the more secure private directory,
     we will password protect this file.
 
+    You must paste the commands separately in the two blocks below, due to zip prompting for the password.
+
     ```bash
-    mkdir -p $CAMELZ_PKI_HOME/certs/crl.camelz.io
-    cp $CAMELZ_PKI_HOME/private/crl.camelz.io.key $CAMELZ_PKI_HOME/certs/crl.camelz.io
-    cp $CAMELZ_PKI_HOME/certs/crl.camelz.io.crt $CAMELZ_PKI_HOME/certs/crl.camelz.io
-    cp $CAMELZ_PKI_TLS_CA_HOME/$CAMELZ_PKI_TLS_CA.chain.crt $CAMELZ_PKI_HOME/certs/crl.camelz.io/star.camelz.io.chain.crt
-    zip -e -r $CAMELZ_PKI_HOME/certs/crl.camelz.io.zip $CAMELZ_PKI_HOME/certs/crl.camelz.io
-    rm -Rf $CAMELZ_PKI_HOME/certs/crl.camelz.io
+    mkdir -p /tmp/crl.camelz.io
+    cp $CAMELZ_PKI_HOME/private/crl.camelz.io.key /tmp/crl.camelz.io
+    cp $CAMELZ_PKI_HOME/certs/crl.camelz.io.crt /tmp/crl.camelz.io
+    cp $CAMELZ_PKI_TLS_CA_HOME/$CAMELZ_PKI_TLS_CA.chain.crt /tmp/crl.camelz.io/crl.camelz.io.chain.crt
+    pushd /tmp
+    zip -e -r $CAMELZ_PKI_HOME/certs/crl.camelz.io.zip crl.camelz.io
+    ```
+
+    ```bash
+    popd
+    rm -Rf /tmp/crl.camelz.io
+    ```
+
+1. **Verify ZIP bundle**
+
+    ```bash
+    unzip crl.camelz.io.zip
     ```
 
 1. **Create PKCS#12 bundle**
@@ -1000,6 +1051,12 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
                    -in $CAMELZ_PKI_HOME/certs/crl.camelz.io.crt \
                    -certfile $CAMELZ_PKI_TLS_CA_HOME/$CAMELZ_PKI_TLS_CA.chain.crt \
                    -out $CAMELZ_PKI_HOME/certs/crl.camelz.io.pfx
+    ```
+
+1. **Verify PKCS#12 bundle**
+
+    ```bash
+    openssl pkcs12 -in crl.camelz.io.pfx -info -nodes
     ```
 
 1. **Extract files from PKCS#12 bundle**
@@ -1025,7 +1082,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
 
     ```bash
     CAMELZ_PKI_CN=ocsp.camelz.io \
-    CAMELZ_PKI_SAN=DNS:ocsp.camelz.io,DNS:ocsp.p.camel.io,DNS:ocsp.r.camel.io,DNS:ocsp.p.us-east-2.camel.io,DNS:ocsp.r.us-west-2.camel.io \
+    CAMELZ_PKI_SAN=DNS:ocsp.camelz.io,DNS:ocsp.us-east-2.camel.io,DNS:ocsp.us-west-2.camel.io \
     openssl req -new \
                 -config $CAMELZ_PKI_HOME/tls-server.conf \
                 -out $CAMELZ_PKI_HOME/certs/ocsp.camelz.io.csr \
@@ -1059,13 +1116,26 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
     For additional security, since it copies the private key out of the more secure private directory,
     we will password protect this file.
 
+    You must paste the commands separately in the two blocks below, due to zip prompting for the password.
+
     ```bash
-    mkdir -p $CAMELZ_PKI_HOME/certs/ocsp.camelz.io
-    cp $CAMELZ_PKI_HOME/private/ocsp.camelz.io.key $CAMELZ_PKI_HOME/certs/ocsp.camelz.io
-    cp $CAMELZ_PKI_HOME/certs/ocsp.camelz.io.crt $CAMELZ_PKI_HOME/certs/ocsp.camelz.io
-    cp $CAMELZ_PKI_TLS_CA_HOME/$CAMELZ_PKI_TLS_CA.chain.crt $CAMELZ_PKI_HOME/certs/ocsp.camelz.io/ocsp.camelz.io.chain.crt
-    zip -e -r $CAMELZ_PKI_HOME/certs/ocsp.camelz.io.zip $CAMELZ_PKI_HOME/certs/ocsp.camelz.io
-    rm -Rf $CAMELZ_PKI_HOME/certs/ocsp.camelz.io
+    mkdir -p /tmp/ocsp.camelz.io
+    cp $CAMELZ_PKI_HOME/private/ocsp.camelz.io.key /tmp/ocsp.camelz.io
+    cp $CAMELZ_PKI_HOME/certs/ocsp.camelz.io.crt /tmp/ocsp.camelz.io
+    cp $CAMELZ_PKI_TLS_CA_HOME/$CAMELZ_PKI_TLS_CA.chain.crt /tmp/ocsp.camelz.io/ocsp.camelz.io.chain.crt
+    pushd /tmp
+    zip -e -r $CAMELZ_PKI_HOME/certs/ocsp.camelz.io.zip ocsp.camelz.io
+    ```
+
+    ```bash
+    popd
+    rm -Rf /tmp/ocsp.camelz.io
+    ```
+
+1. **Verify ZIP bundle**
+
+    ```bash
+    unzip ocsp.camelz.io.zip
     ```
 
 1. **Create PKCS#12 bundle**
@@ -1081,6 +1151,12 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
                    -in $CAMELZ_PKI_HOME/certs/ocsp.camelz.io.crt \
                    -certfile $CAMELZ_PKI_TLS_CA_HOME/$CAMELZ_PKI_TLS_CA.chain.crt \
                    -out $CAMELZ_PKI_HOME/certs/ocsp.camelz.io.pfx
+    ```
+
+1. **Verify PKCS#12 bundle**
+
+    ```bash
+    openssl pkcs12 -in ocsp.camelz.io.pfx -info -nodes
     ```
 
 1. **Extract files from PKCS#12 bundle**
@@ -1143,13 +1219,26 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
     For additional security, since it copies the private key out of the more secure private directory,
     we will password protect this file.
 
+    You must paste the commands separately in the two blocks below, due to zip prompting for the password.
+
     ```bash
-    mkdir -p $CAMELZ_PKI_HOME/certs/mcrawford@camelz.io
-    cp $CAMELZ_PKI_HOME/private/mcrawford@camelz.io.key $CAMELZ_PKI_HOME/certs/mcrawford@camelz.io
-    cp $CAMELZ_PKI_HOME/certs/mcrawford@camelz.io.crt $CAMELZ_PKI_HOME/certs/mcrawford@camelz.io
-    cp $CAMELZ_PKI_TLS_CA_HOME/$CAMELZ_PKI_TLS_CA.chain.crt $CAMELZ_PKI_HOME/certs/mcrawford@camelz.io/mcrawford@camelz.io.chain.crt
-    zip -e -r $CAMELZ_PKI_HOME/certs/smcrawford@camelz.io.zip $CAMELZ_PKI_HOME/certs/mcrawford@camelz.io
-    rm -Rf $CAMELZ_PKI_HOME/certs/mcrawford@camelz.io
+    mkdir -p /tmp/mcrawford@camelz.io
+    cp $CAMELZ_PKI_HOME/private/mcrawford@camelz.io.key /tmp/mcrawford@camelz.io
+    cp $CAMELZ_PKI_HOME/certs/mcrawford@camelz.io.crt /tmp/mcrawford@camelz.io
+    cp $CAMELZ_PKI_TLS_CA_HOME/$CAMELZ_PKI_TLS_CA.chain.crt /tmp/mcrawford@camelz.io/mcrawford@camelz.io.chain.crt
+    pushd /tmp
+    zip -e -r $CAMELZ_PKI_HOME/certs/mcrawford@camelz.io.zip mcrawford@camelz.io
+    ```
+
+    ```bash
+    popd
+    rm -Rf /tmp/mcrawford@camelz.io
+    ```
+
+1. **Verify ZIP bundle**
+
+    ```bash
+    unzip mcrawford@camelz.io.zip
     ```
 
 1. **Create PKCS#12 bundle**
@@ -1167,6 +1256,12 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
                    -out $CAMELZ_PKI_HOME/certs/mcrawford@camelz.io.pfx
     ```
 
+1. **Verify PKCS#12 bundle**
+
+    ```bash
+    openssl pkcs12 -in mcrawford@camelz.io.pfx -info
+    ```
+
 1. **Extract files from PKCS#12 bundle**
 
     Apache wants separate files, so if we use that format to transfer to a Linux server, we need to split the bundle
@@ -1175,7 +1270,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
     ```bash
     openssl pkcs12 -in mcrawford@camelz.io.pfx \
                    -out mcrawford@camelz.io.key \
-                   -nocerts -nodes
+                   -nocerts
     openssl pkcs12 -in mcrawford@camelz.io.pfx \
                    -out mcrawford@camelz.io.crt \
                    -clcerts -nokeys
@@ -1184,29 +1279,65 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
                    -nodes -nokeys -cacerts
     ```
 
-1. **Revoke certificate**
+1. **Revoke certificate** (Skipped)
 
     When the support contract ends, we revoke the certificate.
 
+    Note this step and the additional steps to publish a new CRL were skipped on the final iteration of testing,
+    as I wanted to keep this cert.
+
     ```bash
-    openssl ca -config etc/tls-ca.conf \
-               -revoke ca/tls-ca/02.pem \
-               -crl_reason affiliationChanged
+    serial=$(openssl x509 -noout -serial -in $CAMELZ_PKI_HOME/certs/mcrawford@camelz.io.crt | sed -e 's/^serial=//')
+
+    openssl ca -config $CAMELZ_PKI_TLS_CA_HOME/$CAMELZ_PKI_TLS_CA.conf \
+               -revoke $CAMELZ_PKI_TLS_CA_HOME/certs/$serial.pem \
+               -crl_reason keyCompromise
     ```
 
-1. **Create CRL**
+1. **Create updated CRL** (Skipped)
 
-    The next CRL contains the revoked certificate.
+    The updated CRL contains the revoked certificate.
 
     ```bash
     openssl ca -gencrl \
-               -config etc/tls-ca.conf \
-               -out crl/tls-ca.crl
+               -config $CAMELZ_PKI_TLS_CA_HOME/$CAMELZ_PKI_TLS_CA.conf \
+               -out $CAMELZ_PKI_TLS_CA_HOME/$CAMELZ_PKI_TLS_CA.crl
+    ```
+
+1. **Verify updated CRL** (Skipped)
+
+    Verify the Issuer, Validity Date Range, Extensions, and CA Issuer & OCSP URLs are correct.
+    Also that now we should see the recently revoked certificate.
+
+    ```bash
+    openssl crl -in $CAMELZ_PKI_TLS_CA_HOME/$CAMELZ_PKI_TLS_CA.crl -text -noout
+    ```
+
+1. **Publish updated CRL** (Skipped)
+
+    All published CRLs must be in DER format. MIME type: application/pkix-crl. [RFC 2585#section-4.2]
+
+    The commands below assume we have setup the appropriate AWS security groups to allow the rsync operation from the
+    Default-PKI-CertificationAuthorityInstance (cmlue1mpkica01) Instance to the Default-PKI-Instance (cmlue1pki01)
+    Instance, where the crl.camelz.io website is hosted, and the certificate needs to be copied as shown in the command
+    below.
+
+    Note you can't actually DO this without a lot more setup than is efficient to setup here, due to needing to run
+    portions of this as root, which isn't setup for SSH. So, it's best to copy the crt to /tmp as root, then rsync
+    as ec2-user, then copy on the receiving end to the correct location as root again, and then fix permissions. Use
+    this command as a guide to where the result should be located when you're done.
+
+    ```bash
+    openssl crl -in $CAMELZ_PKI_TLS_CA_HOME/$CAMELZ_PKI_TLS_CA.crl \
+                -out /var/tmp/$CAMELZ_PKI_TLS_CA.crl \
+                -outform der
+
+    rsync -avzP /var/tmp/$CAMELZ_PKI_TLS_CA.crl cmlue1mpki01:/var/www/crl.camels.io/html/$CAMELZ_PKI_TLS_CA.crl
     ```
 
 ### Operate the CaMeLz User Certification Authority
 
-Perform these steps while logged in as root to the Default-PKI-CertificateAuthority Instance.
+Perform these steps while logged in as root to the Default-PKI-CertificationAuthority Instance.
 
 1. **Copy the Email configuration file**
 
@@ -1217,7 +1348,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
     - Copy $CAMELZ_HOME/certificates/email.conf  
       to $CAMELZ_PKI_HOME/email.conf
 
-## Create the ccrawford@camelz.io Email Certificate
+#### Create the ccrawford@camelz.io Email Certificate
 
 1. **Create email request**
 
@@ -1245,7 +1376,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
     openssl ca -config $CAMELZ_PKI_USER_CA_HOME/$CAMELZ_PKI_USER_CA.conf \
                -in $CAMELZ_PKI_HOME/certs/ccrawford@camelz.io.csr \
                -out $CAMELZ_PKI_HOME/certs/ccrawford@camelz.io.crt \
-               -extensions email_ext
+               -extensions user_ext
     ```
 
 1. **Verify email certificate**
@@ -1256,7 +1387,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
 
 1. **Create PKCS#12 bundle**
 
-    We pack the private key, the certificate, and the CA chain into a PKCS#12 bundle. This format (often with a .pfx extension) is used to distribute keys and certificates to end users. The friendly names help identify individual certificates within the bundle.
+    We pack the private key, the certificate, and the CA chain into a PKCS#12 bundle for distribution.
 
     ```bash
     openssl pkcs12 -export \
@@ -1269,6 +1400,12 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
                    -out $CAMELZ_PKI_HOME/certs/ccrawford@camelz.io.pfx
     ```
 
+1. **Verify PKCS#12 bundle**
+
+    ```bash
+    openssl pkcs12 -in ccrawford@camelz.io.pfx -info
+    ```
+
 1. **Extract files from PKCS#12 bundle**
 
     Apache wants separate files, so if we use that format to transfer to a Linux server, we need to split the bundle
@@ -1277,7 +1414,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
     ```bash
     openssl pkcs12 -in ccrawford@camelz.io.pfx \
                    -out ccrawford@camelz.io.key \
-                   -nocerts -nodes
+                   -nocerts
     openssl pkcs12 -in ccrawford@camelz.io.pfx \
                    -out ccrawford@camelz.io.crt \
                    -clcerts -nokeys
@@ -1286,14 +1423,14 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
                    -nodes -nokeys -cacerts
     ```
 
-## Revoke the ccrawford@camelz.io Email Certificate
+#### Revoke the ccrawford@camelz.io Email Certificate
 
 1. **Revoke certificate**
 
     When Cayman's laptop goes missing, we revoke his certificate.
 
     ```bash
-    serial=$(openssl x509 -noout -serial -in ccrawford@camelz.io.crt | sed -e 's/^serial=//')
+    serial=$(openssl x509 -noout -serial -in $CAMELZ_PKI_HOME/certs/ccrawford@camelz.io.crt | sed -e 's/^serial=//')
 
     openssl ca -config $CAMELZ_PKI_USER_CA_HOME/$CAMELZ_PKI_USER_CA.conf \
                -revoke $CAMELZ_PKI_USER_CA_HOME/certs/$serial.pem \
@@ -1324,8 +1461,8 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
     All published CRLs must be in DER format. MIME type: application/pkix-crl. [RFC 2585#section-4.2]
 
     The commands below assume we have setup the appropriate AWS security groups to allow the rsync operation from the
-    Default-PKI-CertificateAuthorityInstance (cmlue1mpkica01) Instance to the Default-PKI-Instance (cmlue1pki01)
-    Instance, where the crt.camelz.io website is hosted, and the certificate needs to be copied as shown in the command
+    Default-PKI-CertificationAuthorityInstance (cmlue1mpkica01) Instance to the Default-PKI-Instance (cmlue1pki01)
+    Instance, where the crl.camelz.io website is hosted, and the certificate needs to be copied as shown in the command
     below.
 
     Note you can't actually DO this without a lot more setup than is efficient to setup here, due to needing to run
@@ -1335,7 +1472,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
 
     ```bash
     openssl crl -in $CAMELZ_PKI_USER_CA_HOME/$CAMELZ_PKI_USER_CA.crl \
-                -out -in /var/tmp/$CAMELZ_PKI_USER_CA.crl \
+                -out /var/tmp/$CAMELZ_PKI_USER_CA.crl \
                 -outform der
 
     rsync -avzP /var/tmp/$CAMELZ_PKI_USER_CA.crl cmlue1mpki01:/var/www/crl.camels.io/html/$CAMELZ_PKI_USER_CA.crl
@@ -1343,7 +1480,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
 
 ### Operate the CaMeLz Software Certification Authority
 
-Perform these steps while logged in as root to the Default-PKI-CertificateAuthority Instance.
+Perform these steps while logged in as root to the Default-PKI-CertificationAuthority Instance.
 
 1. **Copy the Code Sign configuration file**
 
@@ -1354,7 +1491,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
     - Copy $CAMELZ_HOME/certificates/codesign.conf  
       to $CAMELZ_PKI_HOME/codesign.conf
 
-## Create the CaMeLz Software Certificate
+#### Create the CaMeLz Software Certificate
 
 1. **Create code-signing request**
 
@@ -1394,22 +1531,7 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
 
 1. **Create PKCS#12 bundle**
 
-    We create a PKCS#12 bundle for distribution.
-
-    ```bash
-    openssl pkcs12 -export \
-                   -name "Green Software Certificate" \
-                   -caname "Green Software CA" \
-                   -caname "Green Root CA" \
-                   -inkey certs/software.key \
-                   -in certs/software.crt \
-                   -certfile ca/software-ca-chain.pem \
-                   -out certs/software.pfx
-    ```
-
-1. **Create PKCS#12 bundle**
-
-    We pack the private key, the certificate, and the CA chain into a PKCS#12 bundle. This format (often with a .pfx extension) is used to distribute keys and certificates to end users. The friendly names help identify individual certificates within the bundle.
+    We pack the private key, the certificate, and the CA chain into a PKCS#12 bundle for distribution.
 
     ```bash
     openssl pkcs12 -export \
@@ -1422,6 +1544,12 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
                    -out $CAMELZ_PKI_HOME/certs/camelz-software.pfx
     ```
 
+1. **Verify PKCS#12 bundle**
+
+    ```bash
+    openssl pkcs12 -in camelz-software.pfx -info
+    ```
+
 1. **Extract files from PKCS#12 bundle**
 
     Apache wants separate files, so if we use that format to transfer to a Linux server, we need to split the bundle
@@ -1430,49 +1558,13 @@ Perform these steps while logged in as root to the Default-PKI-CertificateAuthor
     ```bash
     openssl pkcs12 -in camelz-software.pfx \
                    -out camelz-software.key \
-                   -nocerts -nodes
+                   -nocerts
     openssl pkcs12 -in camelz-software.pfx \
                    -out camelz-software.crt \
                    -clcerts -nokeys
     openssl pkcs12 -in camelz-software.pfx \
                    -out camelz-software.chain.crt \
                    -nodes -nokeys -cacerts
-    ```
-
-## Publish Certificates
-
-Showing specific publishing methods separately in this section, but these are above in more detail near where each
-certificate is created.
-
-1. **Create DER certificate**
-
-    All published certificates must be in DER format. MIME type: application/pkix-cert. [RFC 2585#section-4.1]
-
-    ```bash
-    openssl x509 -in $CAMELZ_PKI_ROOT_CA_HOME/$CAMELZ_PKI_ROOT_CA.crt \
-                 -in /var/tmp/$CAMELZ_PKI_ROOT_CA.cer
-                 -outform der
-    ```
-
-1. **Create DER CRL**
-
-    All published CRLs must be in DER format. MIME type: application/pkix-crl. [RFC 2585#section-4.2]
-
-    ```bash
-    openssl crl -in $CAMELZ_PKI_ROOT_CA_HOME/$CAMELZ_PKI_ROOT_CA.crl \
-                -out -in /var/tmp/$CAMELZ_PKI_ROOT_CA.crl \
-                -outform der
-    ```
-
-1. **Create PKCS#7 bundle**
-
-    PKCS#7 is used to bundle two or more certificates. MIME type: application/pkcs7-mime. [RFC 5273#page-3]
-
-    ```bash
-    openssl crl2pkcs7 -nocrl \
-                      -certfile $CAMELZ_PKI_ROOT_CA_HOME/$CAMELZ_PKI_ROOT_CA.chain.crt \
-                      -out $CAMELZ_PKI_ROOT_CA_HOME/$CAMELZ_PKI_ROOT_CA.chain.p7c \
-                      -outform der
     ```
 
 ## Research Notes
@@ -1482,7 +1574,7 @@ certificate is created.
 Use these commands to download & convert examples of certificates, CRLs & OCSP checks, to understand industry best
 practices on how to setup a PKI.
 
-1. ** Obtain Certificate Chains**
+1. **Obtain Certificate Chains**
 
     ```bash
     sites=( "www.akamai.com" \
@@ -1497,7 +1589,7 @@ practices on how to setup a PKI.
     done
     ```
 
-1. ** Download & Convert CA Issuer certificates**
+1. **Download & Convert CA Issuer certificates**
 
     These should be in DER format, so we must download, convert to PEM, then convert to Text.
 
@@ -1527,7 +1619,7 @@ practices on how to setup a PKI.
     done
     ```
 
-1. ** Download & Convert CRLs**
+1. **Download & Convert CRLs**
 
     These should be in DER format, so we must download, convert to PEM, then convert to Text.
 
@@ -1567,7 +1659,7 @@ practices on how to setup a PKI.
     done
     ```
 
-1. ** Verify OSCP Responses**
+1. **Verify OSCP Responses**
 
     ```bash
     sites=( "www.akamai.com" \
@@ -1601,7 +1693,6 @@ practices on how to setup a PKI.
 
 ### Certificate Revocation List URL Examples
 
-- http://crl.$domain_suffix/$name.crl
 - http://crl.rootca1.amazontrust.com/rootca1.crl
 - http://crl.rootg2.amazontrust.com/rootg2.crl
 - http://crl3.digicert.com/DigiCertGlobalRootCA.crl
@@ -1617,7 +1708,6 @@ practices on how to setup a PKI.
 
 ### Online Certificate Status Protocol URL Examples
 
-- http://ocsp.$domain_suffix
 - http://ocsp.rootca1.amazontrust.com
 - http://ocsp.rootg2.amazontrust.com
 - http://ocsp.digicert.com
@@ -1627,8 +1717,3 @@ practices on how to setup a PKI.
 - http://ocsp.pki.goog/gtsr1
 - http://ocsp.usertrust.com
 - http://ocsp.sectigo.com
-
-
-## Fixes
-1. Remove Extended key usage in TLS Certificate Authority - maybe? Some do have this, may need to have 2 separate sub_ca_ext sections, with for the TLS, without for the others
-1. Add nameConstraint for email in TLS Certificate Authority

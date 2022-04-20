@@ -1,0 +1,41 @@
+Certificate Revocation List (CRL):
+        Version 2 (0x1)
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: /C=US/O=CaMeLz/CN=CaMeLz Software Certification Authority
+        Last Update: Apr 19 16:42:26 2022 GMT
+        Next Update: May 19 16:42:26 2022 GMT
+        CRL extensions:
+            X509v3 Authority Key Identifier:
+                keyid:B3:0D:E5:14:DE:B6:0F:C7:29:D1:6B:A0:67:B9:3A:5E:3D:A4:8D:87
+
+            X509v3 CRL Number:
+                4097
+No Revoked Certificates.
+    Signature Algorithm: sha256WithRSAEncryption
+         1e:2a:d1:20:58:26:e4:ed:a8:c7:e1:a4:3a:8d:ba:8d:ad:90:
+         d9:77:71:18:1e:86:15:53:09:0d:0b:9f:fc:90:38:5f:ae:3e:
+         96:be:11:90:fc:6f:3b:dd:32:0f:9d:ac:c7:f1:80:a5:67:1a:
+         8f:c6:3d:a3:d8:78:75:30:1e:8f:e1:09:5a:60:cf:a1:56:55:
+         0c:f9:4a:04:fb:07:c2:b2:e3:79:8a:13:9f:0b:87:15:75:b7:
+         e2:5c:a7:1c:4c:7e:ca:b4:1f:27:63:b1:7c:96:4f:13:ed:4b:
+         38:63:2e:72:e6:48:95:49:8f:53:5c:4a:0b:30:a1:29:11:24:
+         15:18:cc:e3:8e:6c:36:2c:98:17:29:a9:5d:71:e2:25:70:8f:
+         14:ae:8d:71:1d:ac:c1:dc:36:fc:20:86:a7:54:c9:d9:a3:c1:
+         06:2e:6b:0c:87:58:b7:bd:e7:6c:b7:47:d4:c8:9a:7e:23:8f:
+         b8:8d:99:c8:c8:53:d4:34:00:1a:8a:b1:16:31:1e:41:f2:35:
+         5e:64:74:4e:3b:11:38:03:65:63:ed:b4:79:4f:f0:bd:7d:ba:
+         51:1f:28:99:a0:34:0c:ed:bf:0f:6d:86:72:25:ff:a0:bb:93:
+         2b:d4:f3:6a:e0:82:4f:b8:04:5e:27:36:c4:e3:c8:ef:43:4f:
+         40:bd:83:7d
+-----BEGIN X509 CRL-----
+MIIByzCBtAIBATANBgkqhkiG9w0BAQsFADBQMQswCQYDVQQGEwJVUzEPMA0GA1UE
+CgwGQ2FNZUx6MTAwLgYDVQQDDCdDYU1lTHogU29mdHdhcmUgQ2VydGlmaWNhdGlv
+biBBdXRob3JpdHkXDTIyMDQxOTE2NDIyNloXDTIyMDUxOTE2NDIyNlqgMDAuMB8G
+A1UdIwQYMBaAFLMN5RTetg/HKdFroGe5Ol49pI2HMAsGA1UdFAQEAgIQATANBgkq
+hkiG9w0BAQsFAAOCAQEAHirRIFgm5O2ox+GkOo26ja2Q2XdxGB6GFVMJDQuf/JA4
+X64+lr4RkPxvO90yD52sx/GApWcaj8Y9o9h4dTAej+EJWmDPoVZVDPlKBPsHwrLj
+eYoTnwuHFXW34lynHEx+yrQfJ2OxfJZPE+1LOGMucuZIlUmPU1xKCzChKREkFRjM
+445sNiyYFympXXHiJXCPFK6NcR2swdw2/CCGp1TJ2aPBBi5rDIdYt73nbLdH1Mia
+fiOPuI2ZyMhT1DQAGoqxFjEeQfI1XmR0TjsROANlY+20eU/wvX26UR8omaA0DO2/
+D22GciX/oLuTK9TzauCCT7gEXic2xOPI70NPQL2DfQ==
+-----END X509 CRL-----

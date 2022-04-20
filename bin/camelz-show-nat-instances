@@ -7,8 +7,8 @@
 #
 
 camelz_accounts='camelzm camelzl camelza camelzn camelzc camelzb camelzp camelzr camelzd'
-alfa_accounts='alfa-camelzp alfa-camelzr alfa-camelzd'
-zulu_accounts='zulu-camelzp zulu-camelzd'
+alfa_accounts='camelzp-alfa camelzr-alfa camelzd-alfa'
+zulu_accounts='camelzp-zulu camelzd-zulu'
 accounts="$camelz_accounts $alfa_accounts $zulu_accounts"
 regions='us-east-1 us-east-2 us-west-2'
 user=administrator

@@ -1,0 +1,60 @@
+Certificate Revocation List (CRL):
+        Version 2 (0x1)
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: /C=US/O=CaMeLz/CN=CaMeLz Root Certification Authority
+        Last Update: Apr 18 19:44:13 2022 GMT
+        Next Update: Apr 18 19:44:13 2023 GMT
+        CRL extensions:
+            X509v3 Authority Key Identifier:
+                keyid:17:CB:2E:25:D6:42:21:A9:6A:AF:E7:55:A1:CC:F5:BE:17:3B:C5:32
+
+            X509v3 CRL Number:
+                4097
+No Revoked Certificates.
+    Signature Algorithm: sha256WithRSAEncryption
+         6f:bc:c7:82:7d:10:04:e0:f2:c5:b3:20:1c:bf:cc:70:88:d6:
+         ae:6c:ca:a5:47:53:e9:a0:b6:c8:12:83:52:c2:47:62:88:c9:
+         05:21:da:45:1b:9a:41:68:0c:7f:d0:3c:b3:11:c9:d1:71:04:
+         6e:7e:11:64:c3:b7:11:5c:d8:08:5f:b3:d6:29:ba:c0:2c:82:
+         5d:52:49:08:47:30:05:6a:74:ac:58:5b:29:9a:9d:17:98:d7:
+         e7:e0:6f:fa:6d:6c:20:49:3b:92:f4:52:d1:0c:54:23:4c:d7:
+         5f:b5:4c:78:40:f1:92:e7:54:14:5c:15:d5:5e:c3:c7:09:7b:
+         e1:bf:45:35:82:eb:ff:bd:b0:c6:9f:29:f9:29:50:3c:b0:4e:
+         d5:ef:b9:1a:38:3b:22:ee:50:fc:8e:bb:21:9e:5e:93:ff:fa:
+         c9:62:7f:57:ca:9c:c2:8e:f0:5d:1c:b5:eb:85:e9:e3:3c:ed:
+         fc:ef:66:88:40:17:75:ea:56:e5:11:a0:9a:28:a1:5d:e5:49:
+         81:04:90:d8:2f:dd:03:c5:4a:c4:d2:e2:68:bb:72:e7:c5:fc:
+         10:13:73:89:3f:5b:7a:5b:f6:82:9d:4f:1e:e0:74:54:15:77:
+         2a:53:8c:f9:59:58:87:d9:7c:04:a5:1e:7d:95:2a:ed:90:bf:
+         26:49:a8:e4:4e:93:ff:e4:61:56:8e:1a:20:ee:9a:22:52:2c:
+         b5:96:2a:74:9a:f0:c3:81:26:8e:c5:2d:25:1e:d9:64:96:09:
+         91:3c:83:a9:61:55:96:b4:96:e8:8b:20:1c:fa:57:53:36:8a:
+         5f:d4:67:91:42:62:01:ec:7d:73:70:3f:bf:19:de:e1:4b:2f:
+         32:bb:6e:f1:f7:99:b6:a0:61:d0:92:43:cb:e9:19:16:e5:38:
+         52:c7:76:ba:7d:0e:95:5c:f4:51:d9:7d:1a:97:de:d4:35:49:
+         76:11:55:df:30:0a:60:cd:6b:74:63:89:23:db:d0:e3:4a:ee:
+         10:f7:c8:86:a9:e4:f4:1c:5d:e3:99:50:19:f1:0e:93:49:7f:
+         1b:3c:39:07:9a:b4:07:e0:d3:6c:9f:74:be:4d:ad:39:5b:6b:
+         f4:a4:a8:93:6c:10:d1:6f:82:23:04:ad:8f:b1:b3:42:56:f4:
+         1f:60:94:0b:56:f9:e1:53:4f:52:c5:44:05:94:08:7f:ca:00:
+         86:06:82:52:51:68:ce:6d:89:65:2d:9b:b8:6f:6e:82:26:3f:
+         0b:8c:a9:e5:0b:67:d4:e6:35:49:db:a9:15:41:0a:26:1f:97:
+         56:46:cc:fb:85:b9:1a:d5:b2:2f:6e:eb:74:b9:d8:c3:31:3a:
+         09:2c:cc:18:46:23:d9:2d
+-----BEGIN X509 CRL-----
+MIICxzCBsAIBATANBgkqhkiG9w0BAQsFADBMMQswCQYDVQQGEwJVUzEPMA0GA1UE
+CgwGQ2FNZUx6MSwwKgYDVQQDDCNDYU1lTHogUm9vdCBDZXJ0aWZpY2F0aW9uIEF1
+dGhvcml0eRcNMjIwNDE4MTk0NDEzWhcNMjMwNDE4MTk0NDEzWqAwMC4wHwYDVR0j
+BBgwFoAUF8suJdZCIalqr+dVocz1vhc7xTIwCwYDVR0UBAQCAhABMA0GCSqGSIb3
+DQEBCwUAA4ICAQBvvMeCfRAE4PLFsyAcv8xwiNaubMqlR1PpoLbIEoNSwkdiiMkF
+IdpFG5pBaAx/0DyzEcnRcQRufhFkw7cRXNgIX7PWKbrALIJdUkkIRzAFanSsWFsp
+mp0XmNfn4G/6bWwgSTuS9FLRDFQjTNdftUx4QPGS51QUXBXVXsPHCXvhv0U1guv/
+vbDGnyn5KVA8sE7V77kaODsi7lD8jrshnl6T//rJYn9XypzCjvBdHLXrhenjPO38
+72aIQBd16lblEaCaKKFd5UmBBJDYL90DxUrE0uJou3LnxfwQE3OJP1t6W/aCnU8e
+4HRUFXcqU4z5WViH2XwEpR59lSrtkL8mSajkTpP/5GFWjhog7poiUiy1lip0mvDD
+gSaOxS0lHtlklgmRPIOpYVWWtJboiyAc+ldTNopf1GeRQmIB7H1zcD+/Gd7hSy8y
+u27x95m2oGHQkkPL6RkW5ThSx3a6fQ6VXPRR2X0al97UNUl2EVXfMApgzWt0Y4kj
+29DjSu4Q98iGqeT0HF3jmVAZ8Q6TSX8bPDkHmrQH4NNsn3S+Ta05W2v0pKiTbBDR
+b4IjBK2PsbNCVvQfYJQLVvnhU09SxUQFlAh/ygCGBoJSUWjObYllLZu4b26CJj8L
+jKnlC2fU5jVJ26kVQQomH5dWRsz7hbka1bIvbut0udjDMToJLMwYRiPZLQ==
+-----END X509 CRL-----

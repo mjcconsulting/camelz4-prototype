@@ -10,7 +10,7 @@ approach, where code blocks can be copied and pasted into a terminal session to 
 More documentation will be added once the initial code has been modified, augmented and tested into AWS accounts.
 
 ## Modules
-The CaMeLz POC 4 System is build in a modular design. Please see the [modules](.modules) section.
+The CaMeLz POC 4 System is build in a modular design. Please see the [modules](modules) section.
 
 ## Links
 Collecting here some links for how we might want to restructure this, based on the techniques

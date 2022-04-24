@@ -1,18 +1,16 @@
-# CaMeLz Gen4 Prototype
-This contains the scripts used to prototype Cross-Account Multi-Environment Landing Zone Gen IV
+![CaMeLz - Cross-account Multi-environment Landing-zone](images/headers/CaMeLz-Header-1280x400-L.png?raw=true "CaMeLz")
+# CaMeLz POC 4
 
-WIP: In the middle of restructuring this...
+This repository is being used to prototype the design and implementation of the CaMeLz framework, and is a work in
+progress. Documentation in particular may lag behind the code.
+
+Currently restructuring the script-based approach which was in the camelz3-prototype repo into a more user-friendly
+approach, where code blocks can be copied and pasted into a terminal session to implement each module in order
+
+More documentation will be added once the initial code has been modified, augmented and tested into AWS accounts.
 
 ## Modules
-The CaMeLz POC 4 System is build in a modular design.
-
-WIP: Converting the code from the prior script-based sequence of Modules to something closer to how
-AWS structures it's on-line workshops and training (See links below).
-
-1.  **[DNS](./modules/dns/)**
-1.  **[VPC](./modules/vpc/)**
-1.  **[Instances](./modules/instances/)**
-
+The CaMeLz POC 4 System is build in a modular design. Please see the [modules](.modules) section.
 
 ## Links
 Collecting here some links for how we might want to restructure this, based on the techniques

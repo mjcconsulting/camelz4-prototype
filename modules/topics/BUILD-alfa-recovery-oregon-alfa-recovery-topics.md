@@ -31,7 +31,7 @@ CaMeLz-Alfa-Recovery Account.
     ```bash
     aws sns subscribe --topic-arn $alfa_oregon_recovery_events_topic_arn \
                       --protocol email \
-                      --notification-endpoint $user_email \
+                      --notification-endpoint aws-r-alfa-events@camelz.io \
                       --profile $profile --region us-west-2 --output text
     ```
 
@@ -51,6 +51,6 @@ CaMeLz-Alfa-Recovery Account.
     ```bash
     aws sns subscribe --topic-arn $alfa_oregon_recovery_alarms_topic_arn \
                       --protocol email \
-                      --notification-endpoint $user_email \
+                      --notification-endpoint aws-r-alfa-alarms@camelz.io \
                       --profile $profile --region us-west-2 --output text
     ```

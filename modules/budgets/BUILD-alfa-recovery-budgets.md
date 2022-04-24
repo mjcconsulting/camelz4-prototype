@@ -40,7 +40,7 @@ CaMeLz-Alfa-Recovery Account.
     ```bash
     aws sns subscribe --topic-arn $alfa_global_recovery_budgets_topic_arn \
                       --protocol email \
-                      --notification-endpoint $user_email \
+                      --notification-endpoint aws-r-alfa-budgets@camelz.io \
                       --profile $profile --region us-east-1 --output text
     ```
 

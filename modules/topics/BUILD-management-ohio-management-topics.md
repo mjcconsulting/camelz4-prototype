@@ -31,7 +31,7 @@ CaMeLz-Management Account.
     ```bash
     aws sns subscribe --topic-arn $ohio_management_events_topic_arn \
                       --protocol email \
-                      --notification-endpoint $user_email \
+                      --notification-endpoint aws-events@camelz.io \
                       --profile $profile --region us-east-2 --output text
     ```
 
@@ -51,6 +51,6 @@ CaMeLz-Management Account.
     ```bash
     aws sns subscribe --topic-arn $ohio_management_alarms_topic_arn \
                       --protocol email \
-                      --notification-endpoint $user_email \
+                      --notification-endpoint aws-alarms@camelz.io \
                       --profile $profile --region us-east-2 --output text
     ```

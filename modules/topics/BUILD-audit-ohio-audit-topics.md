@@ -31,7 +31,7 @@ CaMeLz-Audit Account.
     ```bash
     aws sns subscribe --topic-arn $ohio_audit_events_topic_arn \
                       --protocol email \
-                      --notification-endpoint $user_email \
+                      --notification-endpoint aws-a-events@camelz.io \
                       --profile $profile --region us-east-2 --output text
     ```
 
@@ -51,6 +51,6 @@ CaMeLz-Audit Account.
     ```bash
     aws sns subscribe --topic-arn $ohio_audit_alarms_topic_arn \
                       --protocol email \
-                      --notification-endpoint $user_email \
+                      --notification-endpoint aws-a-alarms@camelz.io \
                       --profile $profile --region us-east-2 --output text
     ```

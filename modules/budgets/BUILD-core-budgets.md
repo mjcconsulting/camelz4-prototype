@@ -40,7 +40,7 @@ CaMeLz-Core Account.
     ```bash
     aws sns subscribe --topic-arn $global_core_budgets_topic_arn \
                       --protocol email \
-                      --notification-endpoint $user_email \
+                      --notification-endpoint aws-c-budgets@camelz.io \
                       --profile $profile --region us-east-1 --output text
     ```
 

@@ -32,7 +32,7 @@ CaMeLz-Production Account.
     ```bash
     aws sns subscribe --topic-arn $global_production_events_topic_arn \
                       --protocol email \
-                      --notification-endpoint $user_email \
+                      --notification-endpoint aws-p-events@camelz.io \
                       --profile $profile --region us-east-1 --output text
     ```
 
@@ -52,6 +52,6 @@ CaMeLz-Production Account.
     ```bash
     aws sns subscribe --topic-arn $global_production_alarms_topic_arn \
                       --protocol email \
-                      --notification-endpoint $user_email \
+                      --notification-endpoint aws-p-alarms@camelz.io \
                       --profile $profile --region us-east-1 --output text
     ```

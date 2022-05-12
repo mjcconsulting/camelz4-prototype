@@ -261,6 +261,9 @@ alfa_lax_alarms_topic_arn=
 alfa_mia_events_topic_arn=
 alfa_mia_alarms_topic_arn=
 
+bravo_sea_events_topic_arn=
+bravo_sea_alarms_topic_arn=
+
 zulu_dfw_events_topic_arn=
 zulu_dfw_alarms_topic_arn=
 

@@ -45,93 +45,93 @@ user_phone=@administrator_phone@
 ## Accounts & Profiles ################################################################################################
 
 ## Organization
-management_account_email=aws+camelz@mjcconsulting.com
+management_account_email=aws@camelz.io
 management_account_name=CaMeLz-Management
 management_account_alias=camelzm
 management_profile=$management_account_alias-$user
 
-log_account_email=aws-la+camelz@mjcconsulting.com
+log_account_email=aws-la@camelz.io
 log_account_name=CaMeLz-Log-Archive
 log_account_alias=camelzl
 log_profile=$log_account_alias-$user
 
-audit_account_email=aws-a+camelz@mjcconsulting.com
+audit_account_email=aws-a@camelz.io
 audit_account_name=CaMeLz-Audit
 audit_account_alias=camelza
 audit_profile=$audit_account_alias-$user
 
-network_account_email=aws-n+camelz@mjcconsulting.com
+network_account_email=aws-n@camelz.io
 network_account_name=CaMeLz-Network
 network_account_alias=camelzn
 network_profile=$network_account_alias-$user
 
-core_account_email=aws-c+camelz@mjcconsulting.com
+core_account_email=aws-c@camelz.io
 core_account_name=CaMeLz-Core
 core_account_alias=camelzc
 core_profile=$core_account_alias-$user
 
-mcrawford_sandbox_account_email=aws-x+camelz-mcrawford@mjcconsulting.com
+mcrawford_sandbox_account_email=aws-x-mcrawford@camelz.io
 mcrawford_sandbox_account_name=CaMeLz-MCrawford-Sandbox
 mcrawford_sandbox_account_alias=camelzx-mcrawford
 mcrawford_sandbox_profile=$mcrawford_sandbox_account_alias-$user
 
-build_account_email=aws-b+camelz@mjcconsulting.com
+build_account_email=aws-b@camelz.io
 build_account_name=CaMeLz-Build
 build_account_alias=camelzb
 build_profile=$build_account_alias-$user
 
-production_account_email=aws-p+camelz@mjcconsulting.com
+production_account_email=aws-p@camelz.io
 production_account_name=CaMeLz-Production
 production_account_alias=camelzp
 production_profile=$production_account_alias-$user
 
-recovery_account_email=aws-r+camelz@mjcconsulting.com
+recovery_account_email=aws-r@camelz.io
 recovery_account_name=CaMeLz-Recovery
 recovery_account_alias=camelzr
 recovery_profile=$recovery_account_alias-$user
 
-development_account_email=aws-d+camelz@mjcconsulting.com
+development_account_email=aws-d@camelz.io
 development_account_name=CaMeLz-Development
 development_account_alias=camelzd
 development_profile=$development_account_alias-$user
 
 
 ## Client: Alfa
-alfa_production_account_email=aws-p+camelz-alfa@mjcconsulting.com
+alfa_production_account_email=aws-p-alfa@camelz.io
 alfa_production_account_name=CaMeLz-Alfa-Production
 alfa_production_account_alias=camelzp-alfa
 alfa_production_profile=$alfa_production_account_alias-$user
 
-alfa_recovery_account_email=aws-r+camelz-alfa@mjcconsulting.com
+alfa_recovery_account_email=aws-r-alfa@camelz.io
 alfa_recovery_account_name=CaMeLz-Alfa-Recovery
 alfa_recovery_account_alias=camelzr-alfa
 alfa_recovery_profile=$alfa_recovery_account_alias-$user
 
-alfa_development_account_email=aws-d+camelz-alfa@mjcconsulting.com
+alfa_development_account_email=aws-d-alfa@camelz.io
 alfa_development_account_name=CaMeLz-Alfa-Development
 alfa_development_account_alias=camelzd-alfa
 alfa_development_profile=$alfa_development_account_alias-$user
 
 
 ## Client: Bravo
-bravo_production_account_email=aws-p+camelz-bravo@mjcconsulting.com
+bravo_production_account_email=aws-p-bravo@camelz.io
 bravo_production_account_name=CaMeLz-Bravo-Production
 bravo_production_account_alias=camelzp-bravo
 bravo_production_profile=$bravo_production_account_alias-$user
 
-bravo_development_account_email=aws-d+camelz-bravo@mjcconsulting.com
+bravo_development_account_email=aws-d-bravo@camelz.io
 bravo_development_account_name=CaMeLz-Bravo-Development
 bravo_development_account_alias=camelzd-bravo
 bravo_development_profile=$bravo_development_account_alias-$user
 
 
 ## Client: Zulu
-zulu_production_account_email=aws-p+camelz-zulu@mjcconsulting.com
+zulu_production_account_email=aws-p-zulu@camelz.io
 zulu_production_account_name=CaMeLz-Zulu-Production
 zulu_production_account_alias=camelzp-zulu
 zulu_production_profile=$zulu_production_account_alias-$user
 
-zulu_development_account_email=aws-d+camelz-zulu@mjcconsulting.com
+zulu_development_account_email=aws-d-zulu@camelz.io
 zulu_development_account_name=CaMeLz-Zulu-Development
 zulu_development_account_alias=camelzd-zulu
 zulu_development_profile=$zulu_development_account_alias-$user

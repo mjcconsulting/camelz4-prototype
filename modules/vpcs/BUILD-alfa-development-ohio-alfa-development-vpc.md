@@ -137,7 +137,7 @@ This module builds the Alfa-Development VPC in the AWS Ohio (us-east-2) Region w
 
     ```bash
     alfa_ohio_development_public_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
-                                                                    --cidr-block $alfa_ohio_development_subnet_publica_cidr \
+                                                                    --cidr-block $alfa_ohio_development_public_subneta_cidr \
                                                                     --availability-zone us-east-2a \
                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-PublicSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                     --query 'Subnet.SubnetId' \
@@ -149,7 +149,7 @@ This module builds the Alfa-Development VPC in the AWS Ohio (us-east-2) Region w
 
     ```bash
     alfa_ohio_development_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
-                                                                    --cidr-block $alfa_ohio_development_subnet_publicb_cidr \
+                                                                    --cidr-block $alfa_ohio_development_public_subnetb_cidr \
                                                                     --availability-zone us-east-2b \
                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-PublicSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                     --query 'Subnet.SubnetId' \
@@ -161,7 +161,7 @@ This module builds the Alfa-Development VPC in the AWS Ohio (us-east-2) Region w
 
     ```bash
     alfa_ohio_development_public_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
-                                                                    --cidr-block $alfa_ohio_development_subnet_publicc_cidr \
+                                                                    --cidr-block $alfa_ohio_development_public_subnetc_cidr \
                                                                     --availability-zone us-east-2c \
                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-PublicSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                     --query 'Subnet.SubnetId' \
@@ -169,11 +169,83 @@ This module builds the Alfa-Development VPC in the AWS Ohio (us-east-2) Region w
     camelz-variable alfa_ohio_development_public_subnetc_id
     ```
 
+1. **Create Public1 Subnet A**
+
+    ```bash
+    alfa_ohio_development_public1_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                     --cidr-block $alfa_ohio_development_public1_subneta_cidr \
+                                                                     --availability-zone us-east-2a \
+                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Public1SubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                     --query 'Subnet.SubnetId' \
+                                                                     --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_public1_subneta_id
+    ```
+
+1. **Create Public1 Subnet B**
+
+    ```bash
+    alfa_ohio_development_public1_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                     --cidr-block $alfa_ohio_development_public1_subnetb_cidr \
+                                                                     --availability-zone us-east-2b \
+                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Public1SubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                     --query 'Subnet.SubnetId' \
+                                                                     --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_public1_subnetb_id
+    ```
+
+1. **Create Public1 Subnet C**
+
+    ```bash
+    alfa_ohio_development_public1_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                     --cidr-block $alfa_ohio_development_public1_subnetc_cidr \
+                                                                     --availability-zone us-east-2c \
+                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Public1SubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                     --query 'Subnet.SubnetId' \
+                                                                     --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_public1_subnetc_id
+    ```
+
+1. **Create Public7 Subnet A**
+
+    ```bash
+    alfa_ohio_development_public7_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                     --cidr-block $alfa_ohio_development_public7_subneta_cidr \
+                                                                     --availability-zone us-east-2a \
+                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Public7SubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                     --query 'Subnet.SubnetId' \
+                                                                     --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_public7_subneta_id
+    ```
+
+1. **Create Public7 Subnet B**
+
+    ```bash
+    alfa_ohio_development_public7_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                     --cidr-block $alfa_ohio_development_public7_subnetb_cidr \
+                                                                     --availability-zone us-east-2b \
+                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Public7SubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                     --query 'Subnet.SubnetId' \
+                                                                     --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_public7_subnetb_id
+    ```
+
+1. **Create Public7 Subnet C**
+
+    ```bash
+    alfa_ohio_development_public7_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                     --cidr-block $alfa_ohio_development_public7_subnetc_cidr \
+                                                                     --availability-zone us-east-2c \
+                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Public7SubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                     --query 'Subnet.SubnetId' \
+                                                                     --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_public7_subnetc_id
+    ```
+
 1. **Create Web Subnet A**
 
     ```bash
     alfa_ohio_development_web_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
-                                                                 --cidr-block $alfa_ohio_development_subnet_weba_cidr \
+                                                                 --cidr-block $alfa_ohio_development_web_subneta_cidr \
                                                                  --availability-zone us-east-2a \
                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-WebSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                  --query 'Subnet.SubnetId' \
@@ -185,7 +257,7 @@ This module builds the Alfa-Development VPC in the AWS Ohio (us-east-2) Region w
 
     ```bash
     alfa_ohio_development_web_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
-                                                                 --cidr-block $alfa_ohio_development_subnet_webb_cidr \
+                                                                 --cidr-block $alfa_ohio_development_web_subnetb_cidr \
                                                                  --availability-zone us-east-2b \
                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-WebSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                  --query 'Subnet.SubnetId' \
@@ -197,7 +269,7 @@ This module builds the Alfa-Development VPC in the AWS Ohio (us-east-2) Region w
 
     ```bash
     alfa_ohio_development_web_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
-                                                                 --cidr-block $alfa_ohio_development_subnet_webc_cidr \
+                                                                 --cidr-block $alfa_ohio_development_web_subnetc_cidr \
                                                                  --availability-zone us-east-2c \
                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-WebSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                  --query 'Subnet.SubnetId' \
@@ -205,11 +277,83 @@ This module builds the Alfa-Development VPC in the AWS Ohio (us-east-2) Region w
     camelz-variable alfa_ohio_development_web_subnetc_id
     ```
 
+1. **Create Web1 Subnet A**
+
+    ```bash
+    alfa_ohio_development_web1_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                  --cidr-block $alfa_ohio_development_web1_subneta_cidr \
+                                                                  --availability-zone us-east-2a \
+                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Web1SubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                  --query 'Subnet.SubnetId' \
+                                                                  --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_web1_subneta_id
+    ```
+
+1. **Create Web1 Subnet B**
+
+    ```bash
+    alfa_ohio_development_web1_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                  --cidr-block $alfa_ohio_development_web1_subnetb_cidr \
+                                                                  --availability-zone us-east-2b \
+                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Web1SubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                  --query 'Subnet.SubnetId' \
+                                                                  --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_web1_subnetb_id
+    ```
+
+1. **Create Web1 Subnet C**
+
+    ```bash
+    alfa_ohio_development_web1_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                  --cidr-block $alfa_ohio_development_web1_subnetc_cidr \
+                                                                  --availability-zone us-east-2c \
+                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Web1SubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                  --query 'Subnet.SubnetId' \
+                                                                  --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_web1_subnetc_id
+    ```
+
+1. **Create Web7 Subnet A**
+
+    ```bash
+    alfa_ohio_development_web7_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                  --cidr-block $alfa_ohio_development_web7_subneta_cidr \
+                                                                  --availability-zone us-east-2a \
+                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Web7SubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                  --query 'Subnet.SubnetId' \
+                                                                  --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_web7_subneta_id
+    ```
+
+1. **Create Web7 Subnet B**
+
+    ```bash
+    alfa_ohio_development_web7_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                  --cidr-block $alfa_ohio_development_web7_subnetb_cidr \
+                                                                  --availability-zone us-east-2b \
+                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Web7SubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                  --query 'Subnet.SubnetId' \
+                                                                  --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_web7_subnetb_id
+    ```
+
+1. **Create Web7 Subnet C**
+
+    ```bash
+    alfa_ohio_development_web7_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                  --cidr-block $alfa_ohio_development_web7_subnetc_cidr \
+                                                                  --availability-zone us-east-2c \
+                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Web7SubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                  --query 'Subnet.SubnetId' \
+                                                                  --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_web7_subnetc_id
+    ```
+
 1. **Create Application Subnet A**
 
     ```bash
     alfa_ohio_development_application_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
-                                                                         --cidr-block $alfa_ohio_development_subnet_applicationa_cidr \
+                                                                         --cidr-block $alfa_ohio_development_application_subneta_cidr \
                                                                          --availability-zone us-east-2a \
                                                                          --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-ApplicationSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                          --query 'Subnet.SubnetId' \
@@ -221,7 +365,7 @@ This module builds the Alfa-Development VPC in the AWS Ohio (us-east-2) Region w
 
     ```bash
     alfa_ohio_development_application_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
-                                                                         --cidr-block $alfa_ohio_development_subnet_applicationb_cidr \
+                                                                         --cidr-block $alfa_ohio_development_application_subnetb_cidr \
                                                                          --availability-zone us-east-2b \
                                                                          --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-ApplicationSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                          --query 'Subnet.SubnetId' \
@@ -233,7 +377,7 @@ This module builds the Alfa-Development VPC in the AWS Ohio (us-east-2) Region w
 
     ```bash
     alfa_ohio_development_application_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
-                                                                         --cidr-block $alfa_ohio_development_subnet_applicationc_cidr \
+                                                                         --cidr-block $alfa_ohio_development_application_subnetc_cidr \
                                                                          --availability-zone us-east-2c \
                                                                          --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-ApplicationSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                          --query 'Subnet.SubnetId' \
@@ -241,11 +385,191 @@ This module builds the Alfa-Development VPC in the AWS Ohio (us-east-2) Region w
     camelz-variable alfa_ohio_development_application_subnetc_id
     ```
 
+1. **Create Application1 Subnet A**
+
+    ```bash
+    alfa_ohio_development_application1_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                          --cidr-block $alfa_ohio_development_application1_subneta_cidr \
+                                                                          --availability-zone us-east-2a \
+                                                                          --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Application1SubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                          --query 'Subnet.SubnetId' \
+                                                                          --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_application1_subneta_id
+    ```
+
+1. **Create Application1 Subnet B**
+
+    ```bash
+    alfa_ohio_development_application1_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                          --cidr-block $alfa_ohio_development_application1_subnetb_cidr \
+                                                                          --availability-zone us-east-2b \
+                                                                          --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Application1SubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                          --query 'Subnet.SubnetId' \
+                                                                          --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_application1_subnetb_id
+    ```
+
+1. **Create Application1 Subnet C**
+
+    ```bash
+    alfa_ohio_development_application1_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                          --cidr-block $alfa_ohio_development_application1_subnetc_cidr \
+                                                                          --availability-zone us-east-2c \
+                                                                          --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Application1SubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                          --query 'Subnet.SubnetId' \
+                                                                          --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_application1_subnetc_id
+    ```
+
+1. **Create Application2 Subnet A**
+
+    ```bash
+    alfa_ohio_development_application2_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                          --cidr-block $alfa_ohio_development_application2_subneta_cidr \
+                                                                          --availability-zone us-east-2a \
+                                                                          --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Application2SubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                          --query 'Subnet.SubnetId' \
+                                                                          --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_application2_subneta_id
+    ```
+
+1. **Create Application2 Subnet B**
+
+    ```bash
+    alfa_ohio_development_application2_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                          --cidr-block $alfa_ohio_development_application2_subnetb_cidr \
+                                                                          --availability-zone us-east-2b \
+                                                                          --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Application2SubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                          --query 'Subnet.SubnetId' \
+                                                                          --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_application2_subnetb_id
+    ```
+
+1. **Create Application2 Subnet C**
+
+    ```bash
+    alfa_ohio_development_application2_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                          --cidr-block $alfa_ohio_development_application2_subnetc_cidr \
+                                                                          --availability-zone us-east-2c \
+                                                                          --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Application2SubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                          --query 'Subnet.SubnetId' \
+                                                                          --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_application2_subnetc_id
+    ```
+
+1. **Create Application3 Subnet A**
+
+    ```bash
+    alfa_ohio_development_application3_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                          --cidr-block $alfa_ohio_development_application3_subneta_cidr \
+                                                                          --availability-zone us-east-2a \
+                                                                          --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Application3SubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                          --query 'Subnet.SubnetId' \
+                                                                          --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_application3_subneta_id
+    ```
+
+1. **Create Application3 Subnet B**
+
+    ```bash
+    alfa_ohio_development_application3_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                          --cidr-block $alfa_ohio_development_application3_subnetb_cidr \
+                                                                          --availability-zone us-east-2b \
+                                                                          --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Application3SubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                          --query 'Subnet.SubnetId' \
+                                                                          --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_application3_subnetb_id
+    ```
+
+1. **Create Application3 Subnet C**
+
+    ```bash
+    alfa_ohio_development_application3_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                          --cidr-block $alfa_ohio_development_application3_subnetc_cidr \
+                                                                          --availability-zone us-east-2c \
+                                                                          --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Application3SubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                          --query 'Subnet.SubnetId' \
+                                                                          --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_application3_subnetc_id
+    ```
+
+1. **Create Cache Subnet A**
+
+    ```bash
+    alfa_ohio_development_cache_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                   --cidr-block $alfa_ohio_development_cache_subneta_cidr \
+                                                                   --availability-zone us-east-2a \
+                                                                   --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-CacheSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                   --query 'Subnet.SubnetId' \
+                                                                   --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_cache_subneta_id
+    ```
+
+1. **Create Cache Subnet B**
+
+    ```bash
+    alfa_ohio_development_cache_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                   --cidr-block $alfa_ohio_development_cache_subnetb_cidr \
+                                                                   --availability-zone us-east-2b \
+                                                                   --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-CacheSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                   --query 'Subnet.SubnetId' \
+                                                                   --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_cache_subnetb_id
+    ```
+
+1. **Create Cache Subnet C**
+
+    ```bash
+    alfa_ohio_development_cache_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                   --cidr-block $alfa_ohio_development_cache_subnetc_cidr \
+                                                                   --availability-zone us-east-2c \
+                                                                   --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-CacheSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                   --query 'Subnet.SubnetId' \
+                                                                   --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_cache_subnetc_id
+    ```
+
+1. **Create Cache1 Subnet A**
+
+    ```bash
+    alfa_ohio_development_cache1_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                    --cidr-block $alfa_ohio_development_cache1_subneta_cidr \
+                                                                    --availability-zone us-east-2a \
+                                                                    --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Cache1SubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                    --query 'Subnet.SubnetId' \
+                                                                    --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_cache1_subneta_id
+    ```
+
+1. **Create Cache1 Subnet B**
+
+    ```bash
+    alfa_ohio_development_cache1_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                    --cidr-block $alfa_ohio_development_cache1_subnetb_cidr \
+                                                                    --availability-zone us-east-2b \
+                                                                    --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Cache1SubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                    --query 'Subnet.SubnetId' \
+                                                                    --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_cache1_subnetb_id
+    ```
+
+1. **Create Cache1 Subnet C**
+
+    ```bash
+    alfa_ohio_development_cache1_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                    --cidr-block $alfa_ohio_development_cache1_subnetc_cidr \
+                                                                    --availability-zone us-east-2c \
+                                                                    --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Cache1SubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                    --query 'Subnet.SubnetId' \
+                                                                    --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_cache1_subnetc_id
+    ```
+
 1. **Create Database Subnet A**
 
     ```bash
     alfa_ohio_development_database_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
-                                                                      --cidr-block $alfa_ohio_development_subnet_databasea_cidr \
+                                                                      --cidr-block $alfa_ohio_development_database_subneta_cidr \
                                                                       --availability-zone us-east-2a \
                                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-DatabaseSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                       --query 'Subnet.SubnetId' \
@@ -257,7 +581,7 @@ This module builds the Alfa-Development VPC in the AWS Ohio (us-east-2) Region w
 
     ```bash
     alfa_ohio_development_database_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
-                                                                      --cidr-block $alfa_ohio_development_subnet_databaseb_cidr \
+                                                                      --cidr-block $alfa_ohio_development_database_subnetb_cidr \
                                                                       --availability-zone us-east-2b \
                                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-DatabaseSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                       --query 'Subnet.SubnetId' \
@@ -269,7 +593,7 @@ This module builds the Alfa-Development VPC in the AWS Ohio (us-east-2) Region w
 
     ```bash
     alfa_ohio_development_database_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
-                                                                      --cidr-block $alfa_ohio_development_subnet_databasec_cidr \
+                                                                      --cidr-block $alfa_ohio_development_database_subnetc_cidr \
                                                                       --availability-zone us-east-2c \
                                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-DatabaseSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                       --query 'Subnet.SubnetId' \
@@ -277,119 +601,119 @@ This module builds the Alfa-Development VPC in the AWS Ohio (us-east-2) Region w
     camelz-variable alfa_ohio_development_database_subnetc_id
     ```
 
-1. **Create Directory Subnet A**
+1. **Create Database1 Subnet A**
 
     ```bash
-    alfa_ohio_development_directory_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
-                                                                       --cidr-block $alfa_ohio_development_subnet_directorya_cidr \
+    alfa_ohio_development_database1_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                       --cidr-block $alfa_ohio_development_database1_subneta_cidr \
                                                                        --availability-zone us-east-2a \
-                                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-DirectorySubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Database1SubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                        --query 'Subnet.SubnetId' \
                                                                        --profile $profile --region us-east-2 --output text)
-    camelz-variable alfa_ohio_development_directory_subneta_id
+    camelz-variable alfa_ohio_development_database1_subneta_id
     ```
 
-1. **Create Directory Subnet B**
+1. **Create Database1 Subnet B**
 
     ```bash
-    alfa_ohio_development_directory_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
-                                                                       --cidr-block $alfa_ohio_development_subnet_directoryb_cidr \
+    alfa_ohio_development_database1_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                       --cidr-block $alfa_ohio_development_database1_subnetb_cidr \
                                                                        --availability-zone us-east-2b \
-                                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-DirectorySubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Database1SubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                        --query 'Subnet.SubnetId' \
                                                                        --profile $profile --region us-east-2 --output text)
-    camelz-variable alfa_ohio_development_directory_subnetb_id
+    camelz-variable alfa_ohio_development_database1_subnetb_id
     ```
 
-1. **Create Directory Subnet C**
+1. **Create Database1 Subnet C**
 
     ```bash
-    alfa_ohio_development_directory_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
-                                                                       --cidr-block $alfa_ohio_development_subnet_directoryc_cidr \
+    alfa_ohio_development_database1_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                       --cidr-block $alfa_ohio_development_database1_subnetc_cidr \
                                                                        --availability-zone us-east-2c \
-                                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-DirectorySubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Database1SubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                        --query 'Subnet.SubnetId' \
                                                                        --profile $profile --region us-east-2 --output text)
-    camelz-variable alfa_ohio_development_directory_subnetc_id
+    camelz-variable alfa_ohio_development_database1_subnetc_id
     ```
 
-1. **Create Management Subnet A**
+1. **Create Optional Subnet A**
 
     ```bash
-    alfa_ohio_development_management_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
-                                                                        --cidr-block $alfa_ohio_development_subnet_managementa_cidr \
-                                                                        --availability-zone us-east-2a \
-                                                                        --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-ManagementSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                                        --query 'Subnet.SubnetId' \
-                                                                        --profile $profile --region us-east-2 --output text)
-    camelz-variable alfa_ohio_development_management_subneta_id
+    alfa_ohio_development_optional_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                      --cidr-block $alfa_ohio_development_optional_subneta_cidr \
+                                                                      --availability-zone us-east-2a \
+                                                                      --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-OptionalSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                      --query 'Subnet.SubnetId' \
+                                                                      --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_optional_subneta_id
     ```
 
-1. **Create Management Subnet B**
+1. **Create Optional Subnet B**
 
     ```bash
-    alfa_ohio_development_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
-                                                                        --cidr-block $alfa_ohio_development_subnet_managementb_cidr \
-                                                                        --availability-zone us-east-2b \
-                                                                        --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-ManagementSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                                        --query 'Subnet.SubnetId' \
-                                                                        --profile $profile --region us-east-2 --output text)
-    camelz-variable alfa_ohio_development_management_subnetb_id
+    alfa_ohio_development_optional_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                      --cidr-block $alfa_ohio_development_optional_subnetb_cidr \
+                                                                      --availability-zone us-east-2b \
+                                                                      --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-OptionalSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                      --query 'Subnet.SubnetId' \
+                                                                      --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_optional_subnetb_id
     ```
 
-1. **Create Management Subnet C**
+1. **Create Optional Subnet C**
 
     ```bash
-    alfa_ohio_development_management_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
-                                                                        --cidr-block $alfa_ohio_development_subnet_managementc_cidr \
-                                                                        --availability-zone us-east-2c \
-                                                                        --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-ManagementSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                                        --query 'Subnet.SubnetId' \
-                                                                        --profile $profile --region us-east-2 --output text)
-    camelz-variable alfa_ohio_development_management_subnetc_id
+    alfa_ohio_development_optional_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                      --cidr-block $alfa_ohio_development_optional_subnetc_cidr \
+                                                                      --availability-zone us-east-2c \
+                                                                      --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-OptionalSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                      --query 'Subnet.SubnetId' \
+                                                                      --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_optional_subnetc_id
     ```
 
-1. **Create Gateway Subnet A**
+1. **Create Optional1 Subnet A**
 
     ```bash
-    alfa_ohio_development_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
-                                                                     --cidr-block $alfa_ohio_development_subnet_gatewaya_cidr \
-                                                                     --availability-zone us-east-2a \
-                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-GatewaySubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                                     --query 'Subnet.SubnetId' \
-                                                                     --profile $profile --region us-east-2 --output text)
-    camelz-variable alfa_ohio_development_gateway_subneta_id
+    alfa_ohio_development_optional1_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                       --cidr-block $alfa_ohio_development_optional1_subneta_cidr \
+                                                                       --availability-zone us-east-2a \
+                                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Optional1SubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                       --query 'Subnet.SubnetId' \
+                                                                       --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_optional1_subneta_id
     ```
 
-1. **Create Gateway Subnet B**
+1. **Create Optional1 Subnet B**
 
     ```bash
-    alfa_ohio_development_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
-                                                                     --cidr-block $alfa_ohio_development_subnet_gatewayb_cidr \
-                                                                     --availability-zone us-east-2b \
-                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-GatewaySubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                                     --query 'Subnet.SubnetId' \
-                                                                     --profile $profile --region us-east-2 --output text)
-    camelz-variable alfa_ohio_development_gateway_subnetb_id
+    alfa_ohio_development_optional1_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                       --cidr-block $alfa_ohio_development_optional1_subnetb_cidr \
+                                                                       --availability-zone us-east-2b \
+                                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Optional1SubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                       --query 'Subnet.SubnetId' \
+                                                                       --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_optional1_subnetb_id
     ```
 
-1. **Create Gateway Subnet C**
+1. **Create Optional1 Subnet C**
 
     ```bash
-    alfa_ohio_development_gateway_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
-                                                                     --cidr-block $alfa_ohio_development_subnet_gatewayc_cidr \
-                                                                     --availability-zone us-east-2c \
-                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-GatewaySubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                                     --query 'Subnet.SubnetId' \
-                                                                     --profile $profile --region us-east-2 --output text)
-    camelz-variable alfa_ohio_development_gateway_subnetc_id
+    alfa_ohio_development_optional1_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                       --cidr-block $alfa_ohio_development_optional1_subnetc_cidr \
+                                                                       --availability-zone us-east-2c \
+                                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-Optional1SubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                       --query 'Subnet.SubnetId' \
+                                                                       --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_optional1_subnetc_id
     ```
 
 1. **Create Endpoint Subnet A**
 
     ```bash
     alfa_ohio_development_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
-                                                                      --cidr-block $alfa_ohio_development_subnet_endpointa_cidr \
+                                                                      --cidr-block $alfa_ohio_development_endpoint_subneta_cidr \
                                                                       --availability-zone us-east-2a \
                                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-EndpointSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                       --query 'Subnet.SubnetId' \
@@ -401,7 +725,7 @@ This module builds the Alfa-Development VPC in the AWS Ohio (us-east-2) Region w
 
     ```bash
     alfa_ohio_development_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
-                                                                      --cidr-block $alfa_ohio_development_subnet_endpointb_cidr \
+                                                                      --cidr-block $alfa_ohio_development_endpoint_subnetb_cidr \
                                                                       --availability-zone us-east-2b \
                                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-EndpointSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                       --query 'Subnet.SubnetId' \
@@ -413,12 +737,84 @@ This module builds the Alfa-Development VPC in the AWS Ohio (us-east-2) Region w
 
     ```bash
     alfa_ohio_development_endpoint_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
-                                                                      --cidr-block $alfa_ohio_development_subnet_endpointc_cidr \
+                                                                      --cidr-block $alfa_ohio_development_endpoint_subnetc_cidr \
                                                                       --availability-zone us-east-2c \
                                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-EndpointSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                       --query 'Subnet.SubnetId' \
                                                                       --profile $profile --region us-east-2 --output text)
     camelz-variable alfa_ohio_development_endpoint_subnetc_id
+    ```
+
+1. **Create Firewall Subnet A**
+
+    ```bash
+    alfa_ohio_development_firewall_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                      --cidr-block $alfa_ohio_development_firewall_subneta_cidr \
+                                                                      --availability-zone us-east-2a \
+                                                                      --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-FirewallSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                      --query 'Subnet.SubnetId' \
+                                                                      --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_firewall_subneta_id
+    ```
+
+1. **Create Firewall Subnet B**
+
+    ```bash
+    alfa_ohio_development_firewall_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                      --cidr-block $alfa_ohio_development_firewall_subnetb_cidr \
+                                                                      --availability-zone us-east-2b \
+                                                                      --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-FirewallSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                      --query 'Subnet.SubnetId' \
+                                                                      --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_firewall_subnetb_id
+    ```
+
+1. **Create Firewall Subnet C**
+
+    ```bash
+    alfa_ohio_development_firewall_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                      --cidr-block $alfa_ohio_development_firewall_subnetc_cidr \
+                                                                      --availability-zone us-east-2c \
+                                                                      --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-FirewallSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                      --query 'Subnet.SubnetId' \
+                                                                      --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_firewall_subnetc_id
+    ```
+
+1. **Create Gateway Subnet A**
+
+    ```bash
+    alfa_ohio_development_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                     --cidr-block $alfa_ohio_development_gateway_subneta_cidr \
+                                                                     --availability-zone us-east-2a \
+                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-GatewaySubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                     --query 'Subnet.SubnetId' \
+                                                                     --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_gateway_subneta_id
+    ```
+
+1. **Create Gateway Subnet B**
+
+    ```bash
+    alfa_ohio_development_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                     --cidr-block $alfa_ohio_development_gateway_subnetb_cidr \
+                                                                     --availability-zone us-east-2b \
+                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-GatewaySubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                     --query 'Subnet.SubnetId' \
+                                                                     --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_gateway_subnetb_id
+    ```
+
+1. **Create Gateway Subnet C**
+
+    ```bash
+    alfa_ohio_development_gateway_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_development_vpc_id \
+                                                                     --cidr-block $alfa_ohio_development_gateway_subnetc_cidr \
+                                                                     --availability-zone us-east-2c \
+                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Development-GatewaySubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                     --query 'Subnet.SubnetId' \
+                                                                     --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_development_gateway_subnetc_id
     ```
 
 1. **Create Public Route Table, Default Route and Associate with Public Subnets**
@@ -442,11 +838,39 @@ This module builds the Alfa-Development VPC in the AWS Ohio (us-east-2) Region w
     aws ec2 associate-route-table --route-table-id $alfa_ohio_development_public_rtb_id --subnet-id $alfa_ohio_development_public_subnetc_id \
                                   --profile $profile --region us-east-2 --output text
 
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_public_rtb_id --subnet-id $alfa_ohio_development_public1_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_public_rtb_id --subnet-id $alfa_ohio_development_public1_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_public_rtb_id --subnet-id $alfa_ohio_development_public1_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_public_rtb_id --subnet-id $alfa_ohio_development_public7_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_public_rtb_id --subnet-id $alfa_ohio_development_public7_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_public_rtb_id --subnet-id $alfa_ohio_development_public7_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+
     aws ec2 associate-route-table --route-table-id $alfa_ohio_development_public_rtb_id --subnet-id $alfa_ohio_development_web_subneta_id \
                                   --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $alfa_ohio_development_public_rtb_id --subnet-id $alfa_ohio_development_web_subnetb_id \
                                   --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $alfa_ohio_development_public_rtb_id --subnet-id $alfa_ohio_development_web_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_public_rtb_id --subnet-id $alfa_ohio_development_web1_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_public_rtb_id --subnet-id $alfa_ohio_development_web1_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_public_rtb_id --subnet-id $alfa_ohio_development_web1_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_public_rtb_id --subnet-id $alfa_ohio_development_web7_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_public_rtb_id --subnet-id $alfa_ohio_development_web7_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_public_rtb_id --subnet-id $alfa_ohio_development_web7_subnetc_id \
                                   --profile $profile --region us-east-2 --output text
     ```
 
@@ -532,7 +956,7 @@ This module builds the Alfa-Development VPC in the AWS Ohio (us-east-2) Region w
                                                                     --iam-instance-profile Name=ManagedInstance \
                                                                     --key-name administrator \
                                                                     --network-interfaces "AssociatePublicIpAddress=true,DeleteOnTermination=true,Description=Alfa-Development-NAT-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_ohio_development_nat_sg_id],SubnetId=$alfa_ohio_development_public_subneta_id" \
-                                                                    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Development-NAT-Instance},{Key=Hostname,Value=alfue2dnat01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Development-NAT-Instance},{Key=Hostname,Value=alfue2pnat01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                     --query 'Instances[0].InstanceId' \
                                                                     --profile $profile --region us-east-2 --output text)
       camelz-variable alfa_ohio_development_nat_instance_id
@@ -576,15 +1000,29 @@ This module builds the Alfa-Development VPC in the AWS Ohio (us-east-2) Region w
 
     aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtba_id --subnet-id $alfa_ohio_development_application_subneta_id \
                                   --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtba_id --subnet-id $alfa_ohio_development_application1_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtba_id --subnet-id $alfa_ohio_development_application2_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtba_id --subnet-id $alfa_ohio_development_application3_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtba_id --subnet-id $alfa_ohio_development_cache_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtba_id --subnet-id $alfa_ohio_development_cache1_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtba_id --subnet-id $alfa_ohio_development_database_subneta_id \
                                   --profile $profile --region us-east-2 --output text
-    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtba_id --subnet-id $alfa_ohio_development_directory_subneta_id \
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtba_id --subnet-id $alfa_ohio_development_database1_subneta_id \
                                   --profile $profile --region us-east-2 --output text
-    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtba_id --subnet-id $alfa_ohio_development_management_subneta_id \
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtba_id --subnet-id $alfa_ohio_development_optional_subneta_id \
                                   --profile $profile --region us-east-2 --output text
-    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtba_id --subnet-id $alfa_ohio_development_gateway_subneta_id \
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtba_id --subnet-id $alfa_ohio_development_optional1_subneta_id \
                                   --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtba_id --subnet-id $alfa_ohio_development_endpoint_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtba_id --subnet-id $alfa_ohio_development_firewall_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtba_id --subnet-id $alfa_ohio_development_gateway_subneta_id \
                                   --profile $profile --region us-east-2 --output text
     ```
 
@@ -612,15 +1050,29 @@ This module builds the Alfa-Development VPC in the AWS Ohio (us-east-2) Region w
 
     aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbb_id --subnet-id $alfa_ohio_development_application_subnetb_id \
                                   --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbb_id --subnet-id $alfa_ohio_development_application1_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbb_id --subnet-id $alfa_ohio_development_application2_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbb_id --subnet-id $alfa_ohio_development_application3_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbb_id --subnet-id $alfa_ohio_development_cache_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbb_id --subnet-id $alfa_ohio_development_cache1_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbb_id --subnet-id $alfa_ohio_development_database_subnetb_id \
                                   --profile $profile --region us-east-2 --output text
-    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbb_id --subnet-id $alfa_ohio_development_directory_subnetb_id \
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbb_id --subnet-id $alfa_ohio_development_database1_subnetb_id \
                                   --profile $profile --region us-east-2 --output text
-    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbb_id --subnet-id $alfa_ohio_development_management_subnetb_id \
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbb_id --subnet-id $alfa_ohio_development_optional_subnetb_id \
                                   --profile $profile --region us-east-2 --output text
-    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbb_id --subnet-id $alfa_ohio_development_gateway_subnetb_id \
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbb_id --subnet-id $alfa_ohio_development_optional1_subnetb_id \
                                   --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbb_id --subnet-id $alfa_ohio_development_endpoint_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbb_id --subnet-id $alfa_ohio_development_firewall_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbb_id --subnet-id $alfa_ohio_development_gateway_subnetb_id \
                                   --profile $profile --region us-east-2 --output text
     ```
 
@@ -648,15 +1100,29 @@ This module builds the Alfa-Development VPC in the AWS Ohio (us-east-2) Region w
 
     aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbc_id --subnet-id $alfa_ohio_development_application_subnetc_id \
                                   --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbc_id --subnet-id $alfa_ohio_development_application1_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbc_id --subnet-id $alfa_ohio_development_application2_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbc_id --subnet-id $alfa_ohio_development_application3_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbc_id --subnet-id $alfa_ohio_development_cache_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbc_id --subnet-id $alfa_ohio_development_cache1_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbc_id --subnet-id $alfa_ohio_development_database_subnetc_id \
                                   --profile $profile --region us-east-2 --output text
-    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbc_id --subnet-id $alfa_ohio_development_directory_subnetc_id \
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbc_id --subnet-id $alfa_ohio_development_database1_subnetc_id \
                                   --profile $profile --region us-east-2 --output text
-    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbc_id --subnet-id $alfa_ohio_development_management_subnetc_id \
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbc_id --subnet-id $alfa_ohio_development_optional_subnetc_id \
                                   --profile $profile --region us-east-2 --output text
-    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbc_id --subnet-id $alfa_ohio_development_gateway_subnetc_id \
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbc_id --subnet-id $alfa_ohio_development_optional1_subnetc_id \
                                   --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbc_id --subnet-id $alfa_ohio_development_endpoint_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbc_id --subnet-id $alfa_ohio_development_firewall_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_development_private_rtbc_id --subnet-id $alfa_ohio_development_gateway_subnetc_id \
                                   --profile $profile --region us-east-2 --output text
     ```
 

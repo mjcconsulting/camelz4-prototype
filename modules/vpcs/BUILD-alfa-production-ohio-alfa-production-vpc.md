@@ -137,7 +137,7 @@ This module builds the Alfa-Production VPC in the AWS Ohio (us-east-2) Region wi
 
     ```bash
     alfa_ohio_production_public_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
-                                                                   --cidr-block $alfa_ohio_production_subnet_publica_cidr \
+                                                                   --cidr-block $alfa_ohio_production_public_subneta_cidr \
                                                                    --availability-zone us-east-2a \
                                                                    --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-PublicSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                    --query 'Subnet.SubnetId' \
@@ -149,7 +149,7 @@ This module builds the Alfa-Production VPC in the AWS Ohio (us-east-2) Region wi
 
     ```bash
     alfa_ohio_production_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
-                                                                   --cidr-block $alfa_ohio_production_subnet_publicb_cidr \
+                                                                   --cidr-block $alfa_ohio_production_public_subnetb_cidr \
                                                                    --availability-zone us-east-2b \
                                                                    --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-PublicSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                    --query 'Subnet.SubnetId' \
@@ -161,7 +161,7 @@ This module builds the Alfa-Production VPC in the AWS Ohio (us-east-2) Region wi
 
     ```bash
     alfa_ohio_production_public_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
-                                                                   --cidr-block $alfa_ohio_production_subnet_publicc_cidr \
+                                                                   --cidr-block $alfa_ohio_production_public_subnetc_cidr \
                                                                    --availability-zone us-east-2c \
                                                                    --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-PublicSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                    --query 'Subnet.SubnetId' \
@@ -169,11 +169,83 @@ This module builds the Alfa-Production VPC in the AWS Ohio (us-east-2) Region wi
     camelz-variable alfa_ohio_production_public_subnetc_id
     ```
 
+1. **Create Public1 Subnet A**
+
+    ```bash
+    alfa_ohio_production_public1_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                    --cidr-block $alfa_ohio_production_public1_subneta_cidr \
+                                                                    --availability-zone us-east-2a \
+                                                                    --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Public1SubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                    --query 'Subnet.SubnetId' \
+                                                                    --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_public1_subneta_id
+    ```
+
+1. **Create Public1 Subnet B**
+
+    ```bash
+    alfa_ohio_production_public1_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                    --cidr-block $alfa_ohio_production_public1_subnetb_cidr \
+                                                                    --availability-zone us-east-2b \
+                                                                    --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Public1SubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                    --query 'Subnet.SubnetId' \
+                                                                    --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_public1_subnetb_id
+    ```
+
+1. **Create Public1 Subnet C**
+
+    ```bash
+    alfa_ohio_production_public1_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                    --cidr-block $alfa_ohio_production_public1_subnetc_cidr \
+                                                                    --availability-zone us-east-2c \
+                                                                    --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Public1SubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                    --query 'Subnet.SubnetId' \
+                                                                    --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_public1_subnetc_id
+    ```
+
+1. **Create Public7 Subnet A**
+
+    ```bash
+    alfa_ohio_production_public7_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                    --cidr-block $alfa_ohio_production_public7_subneta_cidr \
+                                                                    --availability-zone us-east-2a \
+                                                                    --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Public7SubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                    --query 'Subnet.SubnetId' \
+                                                                    --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_public7_subneta_id
+    ```
+
+1. **Create Public7 Subnet B**
+
+    ```bash
+    alfa_ohio_production_public7_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                    --cidr-block $alfa_ohio_production_public7_subnetb_cidr \
+                                                                    --availability-zone us-east-2b \
+                                                                    --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Public7SubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                    --query 'Subnet.SubnetId' \
+                                                                    --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_public7_subnetb_id
+    ```
+
+1. **Create Public7 Subnet C**
+
+    ```bash
+    alfa_ohio_production_public7_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                    --cidr-block $alfa_ohio_production_public7_subnetc_cidr \
+                                                                    --availability-zone us-east-2c \
+                                                                    --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Public7SubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                    --query 'Subnet.SubnetId' \
+                                                                    --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_public7_subnetc_id
+    ```
+
 1. **Create Web Subnet A**
 
     ```bash
     alfa_ohio_production_web_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
-                                                                --cidr-block $alfa_ohio_production_subnet_weba_cidr \
+                                                                --cidr-block $alfa_ohio_production_web_subneta_cidr \
                                                                 --availability-zone us-east-2a \
                                                                 --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-WebSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                 --query 'Subnet.SubnetId' \
@@ -185,7 +257,7 @@ This module builds the Alfa-Production VPC in the AWS Ohio (us-east-2) Region wi
 
     ```bash
     alfa_ohio_production_web_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
-                                                                --cidr-block $alfa_ohio_production_subnet_webb_cidr \
+                                                                --cidr-block $alfa_ohio_production_web_subnetb_cidr \
                                                                 --availability-zone us-east-2b \
                                                                 --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-WebSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                 --query 'Subnet.SubnetId' \
@@ -197,7 +269,7 @@ This module builds the Alfa-Production VPC in the AWS Ohio (us-east-2) Region wi
 
     ```bash
     alfa_ohio_production_web_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
-                                                                --cidr-block $alfa_ohio_production_subnet_webc_cidr \
+                                                                --cidr-block $alfa_ohio_production_web_subnetc_cidr \
                                                                 --availability-zone us-east-2c \
                                                                 --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-WebSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                 --query 'Subnet.SubnetId' \
@@ -205,11 +277,83 @@ This module builds the Alfa-Production VPC in the AWS Ohio (us-east-2) Region wi
     camelz-variable alfa_ohio_production_web_subnetc_id
     ```
 
+1. **Create Web1 Subnet A**
+
+    ```bash
+    alfa_ohio_production_web1_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                 --cidr-block $alfa_ohio_production_web1_subneta_cidr \
+                                                                 --availability-zone us-east-2a \
+                                                                 --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Web1SubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                 --query 'Subnet.SubnetId' \
+                                                                 --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_web1_subneta_id
+    ```
+
+1. **Create Web1 Subnet B**
+
+    ```bash
+    alfa_ohio_production_web1_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                 --cidr-block $alfa_ohio_production_web1_subnetb_cidr \
+                                                                 --availability-zone us-east-2b \
+                                                                 --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Web1SubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                 --query 'Subnet.SubnetId' \
+                                                                 --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_web1_subnetb_id
+    ```
+
+1. **Create Web1 Subnet C**
+
+    ```bash
+    alfa_ohio_production_web1_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                 --cidr-block $alfa_ohio_production_web1_subnetc_cidr \
+                                                                 --availability-zone us-east-2c \
+                                                                 --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Web1SubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                 --query 'Subnet.SubnetId' \
+                                                                 --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_web1_subnetc_id
+    ```
+
+1. **Create Web7 Subnet A**
+
+    ```bash
+    alfa_ohio_production_web7_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                 --cidr-block $alfa_ohio_production_web7_subneta_cidr \
+                                                                 --availability-zone us-east-2a \
+                                                                 --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Web7SubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                 --query 'Subnet.SubnetId' \
+                                                                 --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_web7_subneta_id
+    ```
+
+1. **Create Web7 Subnet B**
+
+    ```bash
+    alfa_ohio_production_web7_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                 --cidr-block $alfa_ohio_production_web7_subnetb_cidr \
+                                                                 --availability-zone us-east-2b \
+                                                                 --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Web7SubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                 --query 'Subnet.SubnetId' \
+                                                                 --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_web7_subnetb_id
+    ```
+
+1. **Create Web7 Subnet C**
+
+    ```bash
+    alfa_ohio_production_web7_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                 --cidr-block $alfa_ohio_production_web7_subnetc_cidr \
+                                                                 --availability-zone us-east-2c \
+                                                                 --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Web7SubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                 --query 'Subnet.SubnetId' \
+                                                                 --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_web7_subnetc_id
+    ```
+
 1. **Create Application Subnet A**
 
     ```bash
     alfa_ohio_production_application_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
-                                                                        --cidr-block $alfa_ohio_production_subnet_applicationa_cidr \
+                                                                        --cidr-block $alfa_ohio_production_application_subneta_cidr \
                                                                         --availability-zone us-east-2a \
                                                                         --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-ApplicationSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                         --query 'Subnet.SubnetId' \
@@ -221,7 +365,7 @@ This module builds the Alfa-Production VPC in the AWS Ohio (us-east-2) Region wi
 
     ```bash
     alfa_ohio_production_application_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
-                                                                        --cidr-block $alfa_ohio_production_subnet_applicationb_cidr \
+                                                                        --cidr-block $alfa_ohio_production_application_subnetb_cidr \
                                                                         --availability-zone us-east-2b \
                                                                         --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-ApplicationSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                         --query 'Subnet.SubnetId' \
@@ -233,7 +377,7 @@ This module builds the Alfa-Production VPC in the AWS Ohio (us-east-2) Region wi
 
     ```bash
     alfa_ohio_production_application_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
-                                                                        --cidr-block $alfa_ohio_production_subnet_applicationc_cidr \
+                                                                        --cidr-block $alfa_ohio_production_application_subnetc_cidr \
                                                                         --availability-zone us-east-2c \
                                                                         --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-ApplicationSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                         --query 'Subnet.SubnetId' \
@@ -241,11 +385,191 @@ This module builds the Alfa-Production VPC in the AWS Ohio (us-east-2) Region wi
     camelz-variable alfa_ohio_production_application_subnetc_id
     ```
 
+1. **Create Application1 Subnet A**
+
+    ```bash
+    alfa_ohio_production_application1_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                         --cidr-block $alfa_ohio_production_application1_subneta_cidr \
+                                                                         --availability-zone us-east-2a \
+                                                                         --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Application1SubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                         --query 'Subnet.SubnetId' \
+                                                                         --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_application1_subneta_id
+    ```
+
+1. **Create Application1 Subnet B**
+
+    ```bash
+    alfa_ohio_production_application1_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                         --cidr-block $alfa_ohio_production_application1_subnetb_cidr \
+                                                                         --availability-zone us-east-2b \
+                                                                         --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Application1SubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                         --query 'Subnet.SubnetId' \
+                                                                         --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_application1_subnetb_id
+    ```
+
+1. **Create Application1 Subnet C**
+
+    ```bash
+    alfa_ohio_production_application1_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                         --cidr-block $alfa_ohio_production_application1_subnetc_cidr \
+                                                                         --availability-zone us-east-2c \
+                                                                         --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Application1SubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                         --query 'Subnet.SubnetId' \
+                                                                         --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_application1_subnetc_id
+    ```
+
+1. **Create Application2 Subnet A**
+
+    ```bash
+    alfa_ohio_production_application2_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                         --cidr-block $alfa_ohio_production_application2_subneta_cidr \
+                                                                         --availability-zone us-east-2a \
+                                                                         --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Application2SubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                         --query 'Subnet.SubnetId' \
+                                                                         --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_application2_subneta_id
+    ```
+
+1. **Create Application2 Subnet B**
+
+    ```bash
+    alfa_ohio_production_application2_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                         --cidr-block $alfa_ohio_production_application2_subnetb_cidr \
+                                                                         --availability-zone us-east-2b \
+                                                                         --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Application2SubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                         --query 'Subnet.SubnetId' \
+                                                                         --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_application2_subnetb_id
+    ```
+
+1. **Create Application2 Subnet C**
+
+    ```bash
+    alfa_ohio_production_application2_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                         --cidr-block $alfa_ohio_production_application2_subnetc_cidr \
+                                                                         --availability-zone us-east-2c \
+                                                                         --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Application2SubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                         --query 'Subnet.SubnetId' \
+                                                                         --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_application2_subnetc_id
+    ```
+
+1. **Create Application3 Subnet A**
+
+    ```bash
+    alfa_ohio_production_application3_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                         --cidr-block $alfa_ohio_production_application3_subneta_cidr \
+                                                                         --availability-zone us-east-2a \
+                                                                         --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Application3SubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                         --query 'Subnet.SubnetId' \
+                                                                         --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_application3_subneta_id
+    ```
+
+1. **Create Application3 Subnet B**
+
+    ```bash
+    alfa_ohio_production_application3_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                         --cidr-block $alfa_ohio_production_application3_subnetb_cidr \
+                                                                         --availability-zone us-east-2b \
+                                                                         --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Application3SubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                         --query 'Subnet.SubnetId' \
+                                                                         --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_application3_subnetb_id
+    ```
+
+1. **Create Application3 Subnet C**
+
+    ```bash
+    alfa_ohio_production_application3_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                         --cidr-block $alfa_ohio_production_application3_subnetc_cidr \
+                                                                         --availability-zone us-east-2c \
+                                                                         --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Application3SubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                         --query 'Subnet.SubnetId' \
+                                                                         --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_application3_subnetc_id
+    ```
+
+1. **Create Cache Subnet A**
+
+    ```bash
+    alfa_ohio_production_cache_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                  --cidr-block $alfa_ohio_production_cache_subneta_cidr \
+                                                                  --availability-zone us-east-2a \
+                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-CacheSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                  --query 'Subnet.SubnetId' \
+                                                                  --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_cache_subneta_id
+    ```
+
+1. **Create Cache Subnet B**
+
+    ```bash
+    alfa_ohio_production_cache_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                  --cidr-block $alfa_ohio_production_cache_subnetb_cidr \
+                                                                  --availability-zone us-east-2b \
+                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-CacheSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                  --query 'Subnet.SubnetId' \
+                                                                  --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_cache_subnetb_id
+    ```
+
+1. **Create Cache Subnet C**
+
+    ```bash
+    alfa_ohio_production_cache_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                  --cidr-block $alfa_ohio_production_cache_subnetc_cidr \
+                                                                  --availability-zone us-east-2c \
+                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-CacheSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                  --query 'Subnet.SubnetId' \
+                                                                  --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_cache_subnetc_id
+    ```
+
+1. **Create Cache1 Subnet A**
+
+    ```bash
+    alfa_ohio_production_cache1_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                   --cidr-block $alfa_ohio_production_cache1_subneta_cidr \
+                                                                   --availability-zone us-east-2a \
+                                                                   --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Cache1SubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                   --query 'Subnet.SubnetId' \
+                                                                   --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_cache1_subneta_id
+    ```
+
+1. **Create Cache1 Subnet B**
+
+    ```bash
+    alfa_ohio_production_cache1_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                   --cidr-block $alfa_ohio_production_cache1_subnetb_cidr \
+                                                                   --availability-zone us-east-2b \
+                                                                   --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Cache1SubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                   --query 'Subnet.SubnetId' \
+                                                                   --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_cache1_subnetb_id
+    ```
+
+1. **Create Cache1 Subnet C**
+
+    ```bash
+    alfa_ohio_production_cache1_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                   --cidr-block $alfa_ohio_production_cache1_subnetc_cidr \
+                                                                   --availability-zone us-east-2c \
+                                                                   --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Cache1SubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                   --query 'Subnet.SubnetId' \
+                                                                   --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_cache1_subnetc_id
+    ```
+
 1. **Create Database Subnet A**
 
     ```bash
     alfa_ohio_production_database_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
-                                                                     --cidr-block $alfa_ohio_production_subnet_databasea_cidr \
+                                                                     --cidr-block $alfa_ohio_production_database_subneta_cidr \
                                                                      --availability-zone us-east-2a \
                                                                      --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-DatabaseSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                      --query 'Subnet.SubnetId' \
@@ -257,7 +581,7 @@ This module builds the Alfa-Production VPC in the AWS Ohio (us-east-2) Region wi
 
     ```bash
     alfa_ohio_production_database_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
-                                                                     --cidr-block $alfa_ohio_production_subnet_databaseb_cidr \
+                                                                     --cidr-block $alfa_ohio_production_database_subnetb_cidr \
                                                                      --availability-zone us-east-2b \
                                                                      --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-DatabaseSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                      --query 'Subnet.SubnetId' \
@@ -269,12 +593,120 @@ This module builds the Alfa-Production VPC in the AWS Ohio (us-east-2) Region wi
 
     ```bash
     alfa_ohio_production_database_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
-                                                                     --cidr-block $alfa_ohio_production_subnet_databasec_cidr \
+                                                                     --cidr-block $alfa_ohio_production_database_subnetc_cidr \
                                                                      --availability-zone us-east-2c \
                                                                      --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-DatabaseSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                      --query 'Subnet.SubnetId' \
                                                                      --profile $profile --region us-east-2 --output text)
     camelz-variable alfa_ohio_production_database_subnetc_id
+    ```
+
+1. **Create Database1 Subnet A**
+
+    ```bash
+    alfa_ohio_production_database1_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                      --cidr-block $alfa_ohio_production_database1_subneta_cidr \
+                                                                      --availability-zone us-east-2a \
+                                                                      --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Database1SubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                      --query 'Subnet.SubnetId' \
+                                                                      --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_database1_subneta_id
+    ```
+
+1. **Create Database1 Subnet B**
+
+    ```bash
+    alfa_ohio_production_database1_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                      --cidr-block $alfa_ohio_production_database1_subnetb_cidr \
+                                                                      --availability-zone us-east-2b \
+                                                                      --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Database1SubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                      --query 'Subnet.SubnetId' \
+                                                                      --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_database1_subnetb_id
+    ```
+
+1. **Create Database1 Subnet C**
+
+    ```bash
+    alfa_ohio_production_database1_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                      --cidr-block $alfa_ohio_production_database1_subnetc_cidr \
+                                                                      --availability-zone us-east-2c \
+                                                                      --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Database1SubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                      --query 'Subnet.SubnetId' \
+                                                                      --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_database1_subnetc_id
+    ```
+
+1. **Create Optional Subnet A**
+
+    ```bash
+    alfa_ohio_production_optional_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                     --cidr-block $alfa_ohio_production_optional_subneta_cidr \
+                                                                     --availability-zone us-east-2a \
+                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-OptionalSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                     --query 'Subnet.SubnetId' \
+                                                                     --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_optional_subneta_id
+    ```
+
+1. **Create Optional Subnet B**
+
+    ```bash
+    alfa_ohio_production_optional_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                     --cidr-block $alfa_ohio_production_optional_subnetb_cidr \
+                                                                     --availability-zone us-east-2b \
+                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-OptionalSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                     --query 'Subnet.SubnetId' \
+                                                                     --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_optional_subnetb_id
+    ```
+
+1. **Create Optional Subnet C**
+
+    ```bash
+    alfa_ohio_production_optional_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                     --cidr-block $alfa_ohio_production_optional_subnetc_cidr \
+                                                                     --availability-zone us-east-2c \
+                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-OptionalSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                     --query 'Subnet.SubnetId' \
+                                                                     --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_optional_subnetc_id
+    ```
+
+1. **Create Optional1 Subnet A**
+
+    ```bash
+    alfa_ohio_production_optional1_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                      --cidr-block $alfa_ohio_production_optional1_subneta_cidr \
+                                                                      --availability-zone us-east-2a \
+                                                                      --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Optional1SubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                      --query 'Subnet.SubnetId' \
+                                                                      --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_optional1_subneta_id
+    ```
+
+1. **Create Optional1 Subnet B**
+
+    ```bash
+    alfa_ohio_production_optional1_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                      --cidr-block $alfa_ohio_production_optional1_subnetb_cidr \
+                                                                      --availability-zone us-east-2b \
+                                                                      --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Optional1SubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                      --query 'Subnet.SubnetId' \
+                                                                      --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_optional1_subnetb_id
+    ```
+
+1. **Create Optional1 Subnet C**
+
+    ```bash
+    alfa_ohio_production_optional1_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                      --cidr-block $alfa_ohio_production_optional1_subnetc_cidr \
+                                                                      --availability-zone us-east-2c \
+                                                                      --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-Optional1SubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                      --query 'Subnet.SubnetId' \
+                                                                      --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_optional1_subnetc_id
     ```
 
 1. **Create Directory Subnet A**
@@ -313,83 +745,11 @@ This module builds the Alfa-Production VPC in the AWS Ohio (us-east-2) Region wi
     camelz-variable alfa_ohio_production_directory_subnetc_id
     ```
 
-1. **Create Management Subnet A**
-
-    ```bash
-    alfa_ohio_production_management_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
-                                                                       --cidr-block $alfa_ohio_production_subnet_managementa_cidr \
-                                                                       --availability-zone us-east-2a \
-                                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-ManagementSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                                       --query 'Subnet.SubnetId' \
-                                                                       --profile $profile --region us-east-2 --output text)
-    camelz-variable alfa_ohio_production_management_subneta_id
-    ```
-
-1. **Create Management Subnet B**
-
-    ```bash
-    alfa_ohio_production_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
-                                                                       --cidr-block $alfa_ohio_production_subnet_managementb_cidr \
-                                                                       --availability-zone us-east-2b \
-                                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-ManagementSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                                       --query 'Subnet.SubnetId' \
-                                                                       --profile $profile --region us-east-2 --output text)
-    camelz-variable alfa_ohio_production_management_subnetb_id
-    ```
-
-1. **Create Management Subnet C**
-
-    ```bash
-    alfa_ohio_production_management_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
-                                                                       --cidr-block $alfa_ohio_production_subnet_managementc_cidr \
-                                                                       --availability-zone us-east-2c \
-                                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-ManagementSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                                       --query 'Subnet.SubnetId' \
-                                                                       --profile $profile --region us-east-2 --output text)
-    camelz-variable alfa_ohio_production_management_subnetc_id
-    ```
-
-1. **Create Gateway Subnet A**
-
-    ```bash
-    alfa_ohio_production_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
-                                                                    --cidr-block $alfa_ohio_production_subnet_gatewaya_cidr \
-                                                                    --availability-zone us-east-2a \
-                                                                    --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-GatewaySubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                                    --query 'Subnet.SubnetId' \
-                                                                    --profile $profile --region us-east-2 --output text)
-    camelz-variable alfa_ohio_production_gateway_subneta_id
-    ```
-
-1. **Create Gateway Subnet B**
-
-    ```bash
-    alfa_ohio_production_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
-                                                                    --cidr-block $alfa_ohio_production_subnet_gatewayb_cidr \
-                                                                    --availability-zone us-east-2b \
-                                                                    --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-GatewaySubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                                    --query 'Subnet.SubnetId' \
-                                                                    --profile $profile --region us-east-2 --output text)
-    camelz-variable alfa_ohio_production_gateway_subnetb_id
-    ```
-
-1. **Create Gateway Subnet C**
-
-    ```bash
-    alfa_ohio_production_gateway_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
-                                                                    --cidr-block $alfa_ohio_production_subnet_gatewayc_cidr \
-                                                                    --availability-zone us-east-2c \
-                                                                    --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-GatewaySubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                                    --query 'Subnet.SubnetId' \
-                                                                    --profile $profile --region us-east-2 --output text)
-    camelz-variable alfa_ohio_production_gateway_subnetc_id
-    ```
-
 1. **Create Endpoint Subnet A**
 
     ```bash
     alfa_ohio_production_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
-                                                                     --cidr-block $alfa_ohio_production_subnet_endpointa_cidr \
+                                                                     --cidr-block $alfa_ohio_production_endpoint_subneta_cidr \
                                                                      --availability-zone us-east-2a \
                                                                      --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-EndpointSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                      --query 'Subnet.SubnetId' \
@@ -401,7 +761,7 @@ This module builds the Alfa-Production VPC in the AWS Ohio (us-east-2) Region wi
 
     ```bash
     alfa_ohio_production_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
-                                                                     --cidr-block $alfa_ohio_production_subnet_endpointb_cidr \
+                                                                     --cidr-block $alfa_ohio_production_endpoint_subnetb_cidr \
                                                                      --availability-zone us-east-2b \
                                                                      --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-EndpointSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                      --query 'Subnet.SubnetId' \
@@ -413,12 +773,84 @@ This module builds the Alfa-Production VPC in the AWS Ohio (us-east-2) Region wi
 
     ```bash
     alfa_ohio_production_endpoint_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
-                                                                     --cidr-block $alfa_ohio_production_subnet_endpointc_cidr \
+                                                                     --cidr-block $alfa_ohio_production_endpoint_subnetc_cidr \
                                                                      --availability-zone us-east-2c \
                                                                      --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-EndpointSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                      --query 'Subnet.SubnetId' \
                                                                      --profile $profile --region us-east-2 --output text)
     camelz-variable alfa_ohio_production_endpoint_subnetc_id
+    ```
+
+1. **Create Firewall Subnet A**
+
+    ```bash
+    alfa_ohio_production_firewall_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                     --cidr-block $alfa_ohio_production_firewall_subneta_cidr \
+                                                                     --availability-zone us-east-2a \
+                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-FirewallSubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                     --query 'Subnet.SubnetId' \
+                                                                     --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_firewall_subneta_id
+    ```
+
+1. **Create Firewall Subnet B**
+
+    ```bash
+    alfa_ohio_production_firewall_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                     --cidr-block $alfa_ohio_production_firewall_subnetb_cidr \
+                                                                     --availability-zone us-east-2b \
+                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-FirewallSubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                     --query 'Subnet.SubnetId' \
+                                                                     --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_firewall_subnetb_id
+    ```
+
+1. **Create Firewall Subnet C**
+
+    ```bash
+    alfa_ohio_production_firewall_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                     --cidr-block $alfa_ohio_production_firewall_subnetc_cidr \
+                                                                     --availability-zone us-east-2c \
+                                                                     --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-FirewallSubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                     --query 'Subnet.SubnetId' \
+                                                                     --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_firewall_subnetc_id
+    ```
+
+1. **Create Gateway Subnet A**
+
+    ```bash
+    alfa_ohio_production_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                    --cidr-block $alfa_ohio_production_gateway_subneta_cidr \
+                                                                    --availability-zone us-east-2a \
+                                                                    --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-GatewaySubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                    --query 'Subnet.SubnetId' \
+                                                                    --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_gateway_subneta_id
+    ```
+
+1. **Create Gateway Subnet B**
+
+    ```bash
+    alfa_ohio_production_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                    --cidr-block $alfa_ohio_production_gateway_subnetb_cidr \
+                                                                    --availability-zone us-east-2b \
+                                                                    --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-GatewaySubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                    --query 'Subnet.SubnetId' \
+                                                                    --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_gateway_subnetb_id
+    ```
+
+1. **Create Gateway Subnet C**
+
+    ```bash
+    alfa_ohio_production_gateway_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
+                                                                    --cidr-block $alfa_ohio_production_gateway_subnetc_cidr \
+                                                                    --availability-zone us-east-2c \
+                                                                    --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-GatewaySubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                    --query 'Subnet.SubnetId' \
+                                                                    --profile $profile --region us-east-2 --output text)
+    camelz-variable alfa_ohio_production_gateway_subnetc_id
     ```
 
 1. **Create Public Route Table, Default Route and Associate with Public Subnets**
@@ -442,11 +874,39 @@ This module builds the Alfa-Production VPC in the AWS Ohio (us-east-2) Region wi
     aws ec2 associate-route-table --route-table-id $alfa_ohio_production_public_rtb_id --subnet-id $alfa_ohio_production_public_subnetc_id \
                                   --profile $profile --region us-east-2 --output text
 
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_public_rtb_id --subnet-id $alfa_ohio_production_public1_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_public_rtb_id --subnet-id $alfa_ohio_production_public1_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_public_rtb_id --subnet-id $alfa_ohio_production_public1_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_public_rtb_id --subnet-id $alfa_ohio_production_public7_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_public_rtb_id --subnet-id $alfa_ohio_production_public7_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_public_rtb_id --subnet-id $alfa_ohio_production_public7_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+
     aws ec2 associate-route-table --route-table-id $alfa_ohio_production_public_rtb_id --subnet-id $alfa_ohio_production_web_subneta_id \
                                   --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $alfa_ohio_production_public_rtb_id --subnet-id $alfa_ohio_production_web_subnetb_id \
                                   --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $alfa_ohio_production_public_rtb_id --subnet-id $alfa_ohio_production_web_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_public_rtb_id --subnet-id $alfa_ohio_production_web1_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_public_rtb_id --subnet-id $alfa_ohio_production_web1_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_public_rtb_id --subnet-id $alfa_ohio_production_web1_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_public_rtb_id --subnet-id $alfa_ohio_production_web7_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_public_rtb_id --subnet-id $alfa_ohio_production_web7_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_public_rtb_id --subnet-id $alfa_ohio_production_web7_subnetc_id \
                                   --profile $profile --region us-east-2 --output text
     ```
 
@@ -576,15 +1036,31 @@ This module builds the Alfa-Production VPC in the AWS Ohio (us-east-2) Region wi
 
     aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtba_id --subnet-id $alfa_ohio_production_application_subneta_id \
                                   --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtba_id --subnet-id $alfa_ohio_production_application1_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtba_id --subnet-id $alfa_ohio_production_application2_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtba_id --subnet-id $alfa_ohio_production_application3_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtba_id --subnet-id $alfa_ohio_production_cache_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtba_id --subnet-id $alfa_ohio_production_cache1_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtba_id --subnet-id $alfa_ohio_production_database_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtba_id --subnet-id $alfa_ohio_production_database1_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtba_id --subnet-id $alfa_ohio_production_optional_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtba_id --subnet-id $alfa_ohio_production_optional1_subneta_id \
                                   --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtba_id --subnet-id $alfa_ohio_production_directory_subneta_id \
                                   --profile $profile --region us-east-2 --output text
-    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtba_id --subnet-id $alfa_ohio_production_management_subneta_id \
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtba_id --subnet-id $alfa_ohio_production_endpoint_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtba_id --subnet-id $alfa_ohio_production_firewall_subneta_id \
                                   --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtba_id --subnet-id $alfa_ohio_production_gateway_subneta_id \
-                                  --profile $profile --region us-east-2 --output text
-    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtba_id --subnet-id $alfa_ohio_production_endpoint_subneta_id \
                                   --profile $profile --region us-east-2 --output text
     ```
 
@@ -612,15 +1088,31 @@ This module builds the Alfa-Production VPC in the AWS Ohio (us-east-2) Region wi
 
     aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbb_id --subnet-id $alfa_ohio_production_application_subnetb_id \
                                   --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbb_id --subnet-id $alfa_ohio_production_application1_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbb_id --subnet-id $alfa_ohio_production_application2_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbb_id --subnet-id $alfa_ohio_production_application3_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbb_id --subnet-id $alfa_ohio_production_cache_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbb_id --subnet-id $alfa_ohio_production_cache1_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbb_id --subnet-id $alfa_ohio_production_database_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbb_id --subnet-id $alfa_ohio_production_database1_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbb_id --subnet-id $alfa_ohio_production_optional_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbb_id --subnet-id $alfa_ohio_production_optional1_subnetb_id \
                                   --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbb_id --subnet-id $alfa_ohio_production_directory_subnetb_id \
                                   --profile $profile --region us-east-2 --output text
-    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbb_id --subnet-id $alfa_ohio_production_management_subnetb_id \
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbb_id --subnet-id $alfa_ohio_production_endpoint_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbb_id --subnet-id $alfa_ohio_production_firewall_subnetb_id \
                                   --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbb_id --subnet-id $alfa_ohio_production_gateway_subnetb_id \
-                                  --profile $profile --region us-east-2 --output text
-    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbb_id --subnet-id $alfa_ohio_production_endpoint_subnetb_id \
                                   --profile $profile --region us-east-2 --output text
     ```
 
@@ -648,15 +1140,31 @@ This module builds the Alfa-Production VPC in the AWS Ohio (us-east-2) Region wi
 
     aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbc_id --subnet-id $alfa_ohio_production_application_subnetc_id \
                                   --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbc_id --subnet-id $alfa_ohio_production_application1_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbc_id --subnet-id $alfa_ohio_production_application2_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbc_id --subnet-id $alfa_ohio_production_application3_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbc_id --subnet-id $alfa_ohio_production_cache_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbc_id --subnet-id $alfa_ohio_production_cache1_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbc_id --subnet-id $alfa_ohio_production_database_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbc_id --subnet-id $alfa_ohio_production_database1_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbc_id --subnet-id $alfa_ohio_production_optional_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbc_id --subnet-id $alfa_ohio_production_optional1_subnetc_id \
                                   --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbc_id --subnet-id $alfa_ohio_production_directory_subnetc_id \
                                   --profile $profile --region us-east-2 --output text
-    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbc_id --subnet-id $alfa_ohio_production_management_subnetc_id \
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbc_id --subnet-id $alfa_ohio_production_endpoint_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbc_id --subnet-id $alfa_ohio_production_firewall_subnetc_id \
                                   --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbc_id --subnet-id $alfa_ohio_production_gateway_subnetc_id \
-                                  --profile $profile --region us-east-2 --output text
-    aws ec2 associate-route-table --route-table-id $alfa_ohio_production_private_rtbc_id --subnet-id $alfa_ohio_production_endpoint_subnetc_id \
                                   --profile $profile --region us-east-2 --output text
     ```
 

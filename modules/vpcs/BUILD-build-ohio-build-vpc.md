@@ -1,6 +1,6 @@
 # Modules:VPCs:Build Account:Ohio:Build VPC
 
-This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the CaMeLz-Build Account.
+This module builds the Build-VPC in the AWS Ohio (us-east-2) Region within the CaMeLz-Build Account.
 
 ## Dependencies
 
@@ -14,7 +14,7 @@ This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the C
     profile=$build_profile
     ```
 
-1.  **Create VPC**
+1. **Create VPC**
 
     ```bash
     ohio_build_vpc_id=$(aws ec2 create-vpc --cidr-block $ohio_build_vpc_cidr \
@@ -33,7 +33,7 @@ This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the C
                                  --profile $profile --region us-east-2 --output text
     ```
 
-1.  **Tag Attached Default Resources Created With VPC**
+1. **Tag Attached Default Resources Created With VPC**
 
     Creating a VPC also creates a set of attached default resources which do not have the same tags propagated.
     We will also tag these associated resources to insure consistency in the list displays.
@@ -79,7 +79,7 @@ This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the C
                         --profile $profile --region us-east-2 --output text
     ```
 
-1.  **Create VPC Flow Log**
+1. **Create VPC Flow Log**
 
     ```bash
     aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Build/Ohio" \
@@ -93,7 +93,7 @@ This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the C
                              --profile $profile --region us-east-2 --output text
     ```
 
-1.  **Create Internet Gateway**
+1. **Create Internet Gateway**
 
     ```bash
     ohio_build_igw_id=$(aws ec2 create-internet-gateway --tag-specifications "ResourceType=internet-gateway,Tags=[{Key=Name,Value=Build-InternetGateway},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
@@ -106,7 +106,7 @@ This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the C
                                     --profile $profile --region us-east-2 --output text
     ```
 
-1.  **Create Private Hosted Zone**
+1. **Create Private Hosted Zone**
 
     ```bash
     ohio_build_private_hostedzone_id=$(aws route53 create-hosted-zone --name $ohio_build_private_domain \
@@ -118,7 +118,7 @@ This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the C
     camelz-variable ohio_build_private_hostedzone_id
     ```
 
-1.  **Create DHCP Options Set**
+1. **Create DHCP Options Set**
 
     ```bash
     ohio_build_dopt_id=$(aws ec2 create-dhcp-options --dhcp-configurations "Key=domain-name,Values=[$ohio_build_private_domain]" \
@@ -133,11 +133,11 @@ This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the C
                                    --profile $profile --region us-east-2 --output text
     ```
 
-1.  **Create Public Subnet A**
+1. **Create Public Subnet A**
 
     ```bash
     ohio_build_public_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
-                                                         --cidr-block $ohio_build_subnet_publica_cidr \
+                                                         --cidr-block $ohio_build_public_subneta_cidr \
                                                          --availability-zone us-east-2a \
                                                          --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-PublicSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                          --query 'Subnet.SubnetId' \
@@ -145,11 +145,11 @@ This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the C
     camelz-variable ohio_build_public_subneta_id
     ```
 
-1.  **Create Public Subnet B**
+1. **Create Public Subnet B**
 
     ```bash
     ohio_build_public_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
-                                                         --cidr-block $ohio_build_subnet_publicb_cidr \
+                                                         --cidr-block $ohio_build_public_subnetb_cidr \
                                                          --availability-zone us-east-2b \
                                                          --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-PublicSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                          --query 'Subnet.SubnetId' \
@@ -157,11 +157,11 @@ This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the C
     camelz-variable ohio_build_public_subnetb_id
     ```
 
-1.  **Create Public Subnet C**
+1. **Create Public Subnet C**
 
     ```bash
     ohio_build_public_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
-                                                         --cidr-block $ohio_build_subnet_publicc_cidr \
+                                                         --cidr-block $ohio_build_public_subnetc_cidr \
                                                          --availability-zone us-east-2c \
                                                          --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-PublicSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                          --query 'Subnet.SubnetId' \
@@ -169,11 +169,47 @@ This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the C
     camelz-variable ohio_build_public_subnetc_id
     ```
 
-1.  **Create Web Subnet A**
+1. **Create Public7 Subnet A**
+
+    ```bash
+    ohio_build_public7_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
+                                                          --cidr-block $ohio_build_public7_subneta_cidr \
+                                                          --availability-zone us-east-2a \
+                                                          --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-Public7SubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                          --query 'Subnet.SubnetId' \
+                                                          --profile $profile --region us-east-2 --output text)
+    camelz-variable ohio_build_public7_subneta_id
+    ```
+
+1. **Create Public7 Subnet B**
+
+    ```bash
+    ohio_build_public7_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
+                                                          --cidr-block $ohio_build_public7_subnetb_cidr \
+                                                          --availability-zone us-east-2b \
+                                                          --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-Public7SubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                          --query 'Subnet.SubnetId' \
+                                                          --profile $profile --region us-east-2 --output text)
+    camelz-variable ohio_build_public7_subnetb_id
+    ```
+
+1. **Create Public7 Subnet C**
+
+    ```bash
+    ohio_build_public7_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
+                                                          --cidr-block $ohio_build_public7_subnetc_cidr \
+                                                          --availability-zone us-east-2c \
+                                                          --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-Public7SubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                          --query 'Subnet.SubnetId' \
+                                                          --profile $profile --region us-east-2 --output text)
+    camelz-variable ohio_build_public7_subnetc_id
+    ```
+
+1. **Create Web Subnet A**
 
     ```bash
     ohio_build_web_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
-                                                      --cidr-block $ohio_build_subnet_weba_cidr \
+                                                      --cidr-block $ohio_build_web_subneta_cidr \
                                                       --availability-zone us-east-2a \
                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-WebSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                       --query 'Subnet.SubnetId' \
@@ -181,11 +217,11 @@ This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the C
     camelz-variable ohio_build_web_subneta_id
     ```
 
-1.  **Create Web Subnet B**
+1. **Create Web Subnet B**
 
     ```bash
     ohio_build_web_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
-                                                      --cidr-block $ohio_build_subnet_webb_cidr \
+                                                      --cidr-block $ohio_build_web_subnetb_cidr \
                                                       --availability-zone us-east-2b \
                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-WebSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                       --query 'Subnet.SubnetId' \
@@ -193,11 +229,11 @@ This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the C
     camelz-variable ohio_build_web_subnetb_id
     ```
 
-1.  **Create Web Subnet C**
+1. **Create Web Subnet C**
 
     ```bash
     ohio_build_web_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
-                                                      --cidr-block $ohio_build_subnet_webc_cidr \
+                                                      --cidr-block $ohio_build_web_subnetc_cidr \
                                                       --availability-zone us-east-2c \
                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-WebSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                       --query 'Subnet.SubnetId' \
@@ -205,11 +241,47 @@ This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the C
     camelz-variable ohio_build_web_subnetc_id
     ```
 
-1.  **Create Application Subnet A**
+1. **Create Web7 Subnet A**
+
+    ```bash
+    ohio_build_web7_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
+                                                       --cidr-block $ohio_build_web7_subneta_cidr \
+                                                       --availability-zone us-east-2a \
+                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-Web7SubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                       --query 'Subnet.SubnetId' \
+                                                       --profile $profile --region us-east-2 --output text)
+    camelz-variable ohio_build_web7_subneta_id
+    ```
+
+1. **Create Web7 Subnet B**
+
+    ```bash
+    ohio_build_web7_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
+                                                       --cidr-block $ohio_build_web7_subnetb_cidr \
+                                                       --availability-zone us-east-2b \
+                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-Web7SubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                       --query 'Subnet.SubnetId' \
+                                                       --profile $profile --region us-east-2 --output text)
+    camelz-variable ohio_build_web7_subnetb_id
+    ```
+
+1. **Create Web7 Subnet C**
+
+    ```bash
+    ohio_build_web7_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
+                                                       --cidr-block $ohio_build_web7_subnetc_cidr \
+                                                       --availability-zone us-east-2c \
+                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-Web7SubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                       --query 'Subnet.SubnetId' \
+                                                       --profile $profile --region us-east-2 --output text)
+    camelz-variable ohio_build_web7_subnetc_id
+    ```
+
+1. **Create Application Subnet A**
 
     ```bash
     ohio_build_application_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
-                                                              --cidr-block $ohio_build_subnet_applicationa_cidr \
+                                                              --cidr-block $ohio_build_application_subneta_cidr \
                                                               --availability-zone us-east-2a \
                                                               --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-ApplicationSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                               --query 'Subnet.SubnetId' \
@@ -217,194 +289,211 @@ This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the C
     camelz-variable ohio_build_application_subneta_id
     ```
 
-1.  **Create Application Subnet B**
+1. **Create Application Subnet B**
 
     ```bash
     ohio_build_application_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
-                                                              --cidr-block $ohio_build_subnet_applicationb_cidr \
+                                                              --cidr-block $ohio_build_application_subnetb_cidr \
                                                               --availability-zone us-east-2b \
                                                               --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-ApplicationSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                               --query 'Subnet.SubnetId' \
                                                               --profile $profile --region us-east-2 --output text)
     camelz-variable ohio_build_application_subnetb_id
+    ```
 
-1.  **Create Application Subnet C**
+1. **Create Application Subnet C**
 
     ```bash
     ohio_build_application_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
-                                                              --cidr-block $ohio_build_subnet_applicationc_cidr \
+                                                              --cidr-block $ohio_build_application_subnetc_cidr \
                                                               --availability-zone us-east-2c \
                                                               --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-ApplicationSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                               --query 'Subnet.SubnetId' \
                                                               --profile $profile --region us-east-2 --output text)
     camelz-variable ohio_build_application_subnetc_id
+    ```
 
-1.  **Create Database Subnet A**
+1. **Create Cache Subnet A**
+
+    ```bash
+    ohio_build_cache_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
+                                                        --cidr-block $ohio_build_cache_subneta_cidr \
+                                                        --availability-zone us-east-2a \
+                                                        --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-CacheSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                        --query 'Subnet.SubnetId' \
+                                                        --profile $profile --region us-east-2 --output text)
+    camelz-variable ohio_build_cache_subneta_id
+    ```
+
+1. **Create Cache Subnet B**
+
+    ```bash
+    ohio_build_cache_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
+                                                        --cidr-block $ohio_build_cache_subnetb_cidr \
+                                                        --availability-zone us-east-2b \
+                                                        --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-CacheSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                        --query 'Subnet.SubnetId' \
+                                                        --profile $profile --region us-east-2 --output text)
+    camelz-variable ohio_build_cache_subnetb_id
+    ```
+
+1. **Create Cache Subnet C**
+
+    ```bash
+    ohio_build_cache_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
+                                                        --cidr-block $ohio_build_cache_subnetc_cidr \
+                                                        --availability-zone us-east-2c \
+                                                        --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-CacheSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                        --query 'Subnet.SubnetId' \
+                                                        --profile $profile --region us-east-2 --output text)
+    camelz-variable ohio_build_cache_subnetc_id
+    ```
+
+1. **Create Database Subnet A**
 
     ```bash
     ohio_build_database_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
-                                                           --cidr-block $ohio_build_subnet_databasea_cidr \
+                                                           --cidr-block $ohio_build_database_subneta_cidr \
                                                            --availability-zone us-east-2a \
                                                            --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-DatabaseSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                            --query 'Subnet.SubnetId' \
                                                            --profile $profile --region us-east-2 --output text)
     camelz-variable ohio_build_database_subneta_id
+    ```
 
-1.  **Create Database Subnet B**
+1. **Create Database Subnet B**
 
     ```bash
     ohio_build_database_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
-                                                           --cidr-block $ohio_build_subnet_databaseb_cidr \
+                                                           --cidr-block $ohio_build_database_subnetb_cidr \
                                                            --availability-zone us-east-2b \
                                                            --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-DatabaseSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                            --query 'Subnet.SubnetId' \
                                                            --profile $profile --region us-east-2 --output text)
     camelz-variable ohio_build_database_subnetb_id
+    ```
 
-1.  **Create Database Subnet C**
+1. **Create Database Subnet C**
 
     ```bash
     ohio_build_database_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
-                                                           --cidr-block $ohio_build_subnet_databasec_cidr \
+                                                           --cidr-block $ohio_build_database_subnetc_cidr \
                                                            --availability-zone us-east-2c \
                                                            --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-DatabaseSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                            --query 'Subnet.SubnetId' \
                                                            --profile $profile --region us-east-2 --output text)
     camelz-variable ohio_build_database_subnetc_id
+    ```
 
-1.  **Create Directory Subnet A**
-
-    ```bash
-    ohio_build_directory_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
-                                                            --cidr-block $ohio_build_subnet_directorya_cidr \
-                                                            --availability-zone us-east-2a \
-                                                            --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-DirectorySubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                            --query 'Subnet.SubnetId' \
-                                                            --profile $profile --region us-east-2 --output text)
-    camelz-variable ohio_build_directory_subneta_id
-
-1.  **Create Directory Subnet B**
-
-    ```bash
-    ohio_build_directory_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
-                                                            --cidr-block $ohio_build_subnet_directoryb_cidr \
-                                                            --availability-zone us-east-2b \
-                                                            --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-DirectorySubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                            --query 'Subnet.SubnetId' \
-                                                            --profile $profile --region us-east-2 --output text)
-    camelz-variable ohio_build_directory_subnetb_id
-
-1.  **Create Directory Subnet C**
-
-    ```bash
-    ohio_build_directory_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
-                                                            --cidr-block $ohio_build_subnet_directoryc_cidr \
-                                                            --availability-zone us-east-2c \
-                                                            --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-DirectorySubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                            --query 'Subnet.SubnetId' \
-                                                            --profile $profile --region us-east-2 --output text)
-    camelz-variable ohio_build_directory_subnetc_id
-
-1.  **Create Management Subnet A**
-
-    ```bash
-    ohio_build_management_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
-                                                             --cidr-block $ohio_build_subnet_managementa_cidr \
-                                                             --availability-zone us-east-2a \
-                                                             --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-ManagementSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                             --query 'Subnet.SubnetId' \
-                                                             --profile $profile --region us-east-2 --output text)
-    camelz-variable ohio_build_management_subneta_id
-
-1.  **Create Management Subnet B**
-
-    ```bash
-    ohio_build_management_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
-                                                             --cidr-block $ohio_build_subnet_managementb_cidr \
-                                                             --availability-zone us-east-2b \
-                                                             --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-ManagementSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                             --query 'Subnet.SubnetId' \
-                                                             --profile $profile --region us-east-2 --output text)
-    camelz-variable ohio_build_management_subnetb_id
-
-1.  **Create Management Subnet C**
-
-    ```bash
-    ohio_build_management_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
-                                                             --cidr-block $ohio_build_subnet_managementc_cidr \
-                                                             --availability-zone us-east-2c \
-                                                             --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-ManagementSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                             --query 'Subnet.SubnetId' \
-                                                             --profile $profile --region us-east-2 --output text)
-    camelz-variable ohio_build_management_subnetc_id
-
-1.  **Create Gateway Subnet A**
-
-    ```bash
-    ohio_build_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
-                                                          --cidr-block $ohio_build_subnet_gatewaya_cidr \
-                                                          --availability-zone us-east-2a \
-                                                          --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-GatewaySubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                          --query 'Subnet.SubnetId' \
-                                                          --profile $profile --region us-east-2 --output text)
-    camelz-variable ohio_build_gateway_subneta_id
-
-1.  **Create Gateway Subnet B**
-
-    ```bash
-    ohio_build_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
-                                                          --cidr-block $ohio_build_subnet_gatewayb_cidr \
-                                                          --availability-zone us-east-2b \
-                                                          --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-GatewaySubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                          --query 'Subnet.SubnetId' \
-                                                          --profile $profile --region us-east-2 --output text)
-    camelz-variable ohio_build_gateway_subnetb_id
-
-1.  **Create Gateway Subnet C**
-
-    ```bash
-    ohio_build_gateway_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
-                                                          --cidr-block $ohio_build_subnet_gatewayc_cidr \
-                                                          --availability-zone us-east-2c \
-                                                          --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-GatewaySubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
-                                                          --query 'Subnet.SubnetId' \
-                                                          --profile $profile --region us-east-2 --output text)
-    camelz-variable ohio_build_gateway_subnetc_id
-
-1.  **Create Endpoint Subnet A**
+1. **Create Endpoint Subnet A**
 
     ```bash
     ohio_build_endpoint_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
-                                                           --cidr-block $ohio_build_subnet_endpointa_cidr \
+                                                           --cidr-block $ohio_build_endpoint_subneta_cidr \
                                                            --availability-zone us-east-2a \
                                                            --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-EndpointSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                            --query 'Subnet.SubnetId' \
                                                            --profile $profile --region us-east-2 --output text)
     camelz-variable ohio_build_endpoint_subneta_id
+    ```
 
-1.  **Create Endpoint Subnet B**
+1. **Create Endpoint Subnet B**
 
     ```bash
     ohio_build_endpoint_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
-                                                           --cidr-block $ohio_build_subnet_endpointb_cidr \
+                                                           --cidr-block $ohio_build_endpoint_subnetb_cidr \
                                                            --availability-zone us-east-2b \
                                                            --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-EndpointSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                            --query 'Subnet.SubnetId' \
                                                            --profile $profile --region us-east-2 --output text)
     camelz-variable ohio_build_endpoint_subnetb_id
+    ```
 
-1.  **Create Endpoint Subnet C**
+1. **Create Endpoint Subnet C**
 
     ```bash
     ohio_build_endpoint_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
-                                                           --cidr-block $ohio_build_subnet_endpointc_cidr \
+                                                           --cidr-block $ohio_build_endpoint_subnetc_cidr \
                                                            --availability-zone us-east-2c \
                                                            --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-EndpointSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                            --query 'Subnet.SubnetId' \
                                                            --profile $profile --region us-east-2 --output text)
     camelz-variable ohio_build_endpoint_subnetc_id
+    ```
 
-1.  **Create Public Route Table, Default Route and Associate with Public Subnets**
+1. **Create Firewall Subnet A**
+
+    ```bash
+    ohio_build_firewall_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
+                                                           --cidr-block $ohio_build_firewall_subneta_cidr \
+                                                           --availability-zone us-east-2a \
+                                                           --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-FirewallSubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                           --query 'Subnet.SubnetId' \
+                                                           --profile $profile --region us-east-2 --output text)
+    camelz-variable ohio_build_firewall_subneta_id
+    ```
+
+1. **Create Firewall Subnet B**
+
+    ```bash
+    ohio_build_firewall_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
+                                                           --cidr-block $ohio_build_firewall_subnetb_cidr \
+                                                           --availability-zone us-east-2b \
+                                                           --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-FirewallSubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                           --query 'Subnet.SubnetId' \
+                                                           --profile $profile --region us-east-2 --output text)
+    camelz-variable ohio_build_firewall_subnetb_id
+    ```
+
+1. **Create Firewall Subnet C**
+
+    ```bash
+    ohio_build_firewall_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
+                                                           --cidr-block $ohio_build_firewall_subnetc_cidr \
+                                                           --availability-zone us-east-2c \
+                                                           --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-FirewallSubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                           --query 'Subnet.SubnetId' \
+                                                           --profile $profile --region us-east-2 --output text)
+    camelz-variable ohio_build_firewall_subnetc_id
+    ```
+
+1. **Create Gateway Subnet A**
+
+    ```bash
+    ohio_build_gateway_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
+                                                          --cidr-block $ohio_build_gateway_subneta_cidr \
+                                                          --availability-zone us-east-2a \
+                                                          --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-GatewaySubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                          --query 'Subnet.SubnetId' \
+                                                          --profile $profile --region us-east-2 --output text)
+    camelz-variable ohio_build_gateway_subneta_id
+    ```
+
+1. **Create Gateway Subnet B**
+
+    ```bash
+    ohio_build_gateway_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
+                                                          --cidr-block $ohio_build_gateway_subnetb_cidr \
+                                                          --availability-zone us-east-2b \
+                                                          --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-GatewaySubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                          --query 'Subnet.SubnetId' \
+                                                          --profile $profile --region us-east-2 --output text)
+    camelz-variable ohio_build_gateway_subnetb_id
+    ```
+
+1. **Create Gateway Subnet C**
+
+    ```bash
+    ohio_build_gateway_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_build_vpc_id \
+                                                          --cidr-block $ohio_build_gateway_subnetc_cidr \
+                                                          --availability-zone us-east-2c \
+                                                          --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Build-GatewaySubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Build},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                          --query 'Subnet.SubnetId' \
+                                                          --profile $profile --region us-east-2 --output text)
+    camelz-variable ohio_build_gateway_subnetc_id
+    ```
+
+1. **Create Public Route Table, Default Route and Associate with Public Subnets**
 
     ```bash
     ohio_build_public_rtb_id=$(aws ec2 create-route-table --vpc-id $ohio_build_vpc_id \
@@ -425,6 +514,13 @@ This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the C
     aws ec2 associate-route-table --route-table-id $ohio_build_public_rtb_id --subnet-id $ohio_build_public_subnetc_id \
                                   --profile $profile --region us-east-2 --output text
 
+    aws ec2 associate-route-table --route-table-id $ohio_build_public_rtb_id --subnet-id $ohio_build_public7_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $ohio_build_public_rtb_id --subnet-id $ohio_build_public7_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $ohio_build_public_rtb_id --subnet-id $ohio_build_public7_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+
     aws ec2 associate-route-table --route-table-id $ohio_build_public_rtb_id --subnet-id $ohio_build_web_subneta_id \
                                   --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $ohio_build_public_rtb_id --subnet-id $ohio_build_web_subnetb_id \
@@ -432,7 +528,15 @@ This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the C
     aws ec2 associate-route-table --route-table-id $ohio_build_public_rtb_id --subnet-id $ohio_build_web_subnetc_id \
                                   --profile $profile --region us-east-2 --output text
 
-1.  **Create NAT Gateways - OR - NAT Instances**
+    aws ec2 associate-route-table --route-table-id $ohio_build_public_rtb_id --subnet-id $ohio_build_web7_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $ohio_build_public_rtb_id --subnet-id $ohio_build_web7_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $ohio_build_public_rtb_id --subnet-id $ohio_build_web7_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+    ```
+
+1. **Create NAT Gateways - OR - NAT Instances**
 
     This Step can create either NAT Gateway(s) or NAT Instance(s), depending on what you want to do.
     - NAT Gateways are the recommended and scalable approach. But, you can't turn them off, and they are $32/each per
@@ -535,7 +639,7 @@ This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the C
     fi
     ```
 
-1.  **Create Private Route Table for Availability Zone A, Default Route and Associate with Private Subnets**
+1. **Create Private Route Table for Availability Zone A, Default Route and Associate with Private Subnets**
 
     ```bash
     ohio_build_private_rtba_id=$(aws ec2 create-route-table --vpc-id $ohio_build_vpc_id \
@@ -558,19 +662,19 @@ This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the C
 
     aws ec2 associate-route-table --route-table-id $ohio_build_private_rtba_id --subnet-id $ohio_build_application_subneta_id \
                                   --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $ohio_build_private_rtba_id --subnet-id $ohio_build_cache_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $ohio_build_private_rtba_id --subnet-id $ohio_build_database_subneta_id \
-                                  --profile $profile --region us-east-2 --output text
-    aws ec2 associate-route-table --route-table-id $ohio_build_private_rtba_id --subnet-id $ohio_build_directory_subneta_id \
-                                  --profile $profile --region us-east-2 --output text
-    aws ec2 associate-route-table --route-table-id $ohio_build_private_rtba_id --subnet-id $ohio_build_build_subneta_id \
-                                  --profile $profile --region us-east-2 --output text
-    aws ec2 associate-route-table --route-table-id $ohio_build_private_rtba_id --subnet-id $ohio_build_gateway_subneta_id \
                                   --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $ohio_build_private_rtba_id --subnet-id $ohio_build_endpoint_subneta_id \
                                   --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $ohio_build_private_rtba_id --subnet-id $ohio_build_firewall_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $ohio_build_private_rtba_id --subnet-id $ohio_build_gateway_subneta_id \
+                                  --profile $profile --region us-east-2 --output text
     ```
 
-1.  **Create Private Route Table for Availability Zone B, Default Route and Associate with Private Subnets**
+1. **Create Private Route Table for Availability Zone B, Default Route and Associate with Private Subnets**
 
     ```bash
     ohio_build_private_rtbb_id=$(aws ec2 create-route-table --vpc-id $ohio_build_vpc_id \
@@ -594,18 +698,19 @@ This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the C
 
     aws ec2 associate-route-table --route-table-id $ohio_build_private_rtbb_id --subnet-id $ohio_build_application_subnetb_id \
                                   --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $ohio_build_private_rtbb_id --subnet-id $ohio_build_cache_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $ohio_build_private_rtbb_id --subnet-id $ohio_build_database_subnetb_id \
-                                  --profile $profile --region us-east-2 --output text
-    aws ec2 associate-route-table --route-table-id $ohio_build_private_rtbb_id --subnet-id $ohio_build_directory_subnetb_id \
-                                  --profile $profile --region us-east-2 --output text
-    aws ec2 associate-route-table --route-table-id $ohio_build_private_rtbb_id --subnet-id $ohio_build_build_subnetb_id \
-                                  --profile $profile --region us-east-2 --output text
-    aws ec2 associate-route-table --route-table-id $ohio_build_private_rtbb_id --subnet-id $ohio_build_gateway_subnetb_id \
                                   --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $ohio_build_private_rtbb_id --subnet-id $ohio_build_endpoint_subnetb_id \
                                   --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $ohio_build_private_rtbb_id --subnet-id $ohio_build_firewall_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $ohio_build_private_rtbb_id --subnet-id $ohio_build_gateway_subnetb_id \
+                                  --profile $profile --region us-east-2 --output text
+    ```
 
-1.  **Create Private Route Table for Availability Zone C, Default Route and Associate with Private Subnets**
+1. **Create Private Route Table for Availability Zone C, Default Route and Associate with Private Subnets**
 
     ```bash
     ohio_build_private_rtbc_id=$(aws ec2 create-route-table --vpc-id $ohio_build_vpc_id \
@@ -629,19 +734,19 @@ This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the C
 
     aws ec2 associate-route-table --route-table-id $ohio_build_private_rtbc_id --subnet-id $ohio_build_application_subnetc_id \
                                   --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $ohio_build_private_rtbc_id --subnet-id $ohio_build_cache_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $ohio_build_private_rtbc_id --subnet-id $ohio_build_database_subnetc_id \
-                                  --profile $profile --region us-east-2 --output text
-    aws ec2 associate-route-table --route-table-id $ohio_build_private_rtbc_id --subnet-id $ohio_build_directory_subnetc_id \
-                                  --profile $profile --region us-east-2 --output text
-    aws ec2 associate-route-table --route-table-id $ohio_build_private_rtbc_id --subnet-id $ohio_build_build_subnetc_id \
-                                  --profile $profile --region us-east-2 --output text
-    aws ec2 associate-route-table --route-table-id $ohio_build_private_rtbc_id --subnet-id $ohio_build_gateway_subnetc_id \
                                   --profile $profile --region us-east-2 --output text
     aws ec2 associate-route-table --route-table-id $ohio_build_private_rtbc_id --subnet-id $ohio_build_endpoint_subnetc_id \
                                   --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $ohio_build_private_rtbc_id --subnet-id $ohio_build_firewall_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
+    aws ec2 associate-route-table --route-table-id $ohio_build_private_rtbc_id --subnet-id $ohio_build_gateway_subnetc_id \
+                                  --profile $profile --region us-east-2 --output text
     ```
 
-1.  **Create VPC Endpoint Security Group**
+1. **Create VPC Endpoint Security Group**
 
     ```bash
     ohio_build_vpce_sg_id=$(aws ec2 create-security-group --group-name Build-VPCEndpointSecurityGroup \
@@ -663,7 +768,7 @@ This module builds the Build VPC in the AWS Ohio (us-east-2) Region within the C
                                              --profile $profile --region us-east-2 --output text
     ```
 
-1.  **Create VPC Endpoints for SSM and SSMMessages**
+1. **Create VPC Endpoints for SSM and SSMMessages**
 
     ```bash
     ohio_build_ssm_vpce_id=$(aws ec2 create-vpc-endpoint --vpc-id $ohio_build_vpc_id \

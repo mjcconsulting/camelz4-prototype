@@ -65,7 +65,7 @@ This module builds the Alfa-Recovery VPC in the AWS Oregon (us-west-2) Region wi
                                Key=Project,Value=CaMeLz-POC-4 \
                         --profile $profile --region us-west-2 --output text
 
-    # Tag Default-DefaultSecurityGroup
+    # Tag Alfa-Recovery-DefaultSecurityGroup
     default_sg_id=$(aws ec2 describe-security-groups --filters Name=vpc-id,Values=$alfa_oregon_recovery_vpc_id \
                                                                Name=group-name,Values=default \
                                                      --query 'SecurityGroups[0].GroupId' \

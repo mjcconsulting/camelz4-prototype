@@ -1,6 +1,6 @@
 # Modules:VPCs:Build Account:Global:Build VPC
 
-This module builds the Build-VPC in the AWS Virginia (us-east-1) Region within the CaMeLz-Build Account.
+This module builds the Build VPC in the AWS Virginia (us-east-1) Region within the CaMeLz-Build Account.
 
 ## Dependencies
 
@@ -65,7 +65,7 @@ This module builds the Build-VPC in the AWS Virginia (us-east-1) Region within t
                                Key=Project,Value=CaMeLz-POC-4 \
                         --profile $profile --region us-east-1 --output text
 
-    # Tag Default-DefaultSecurityGroup
+    # Tag Build-DefaultSecurityGroup
     default_sg_id=$(aws ec2 describe-security-groups --filters Name=vpc-id,Values=$global_build_vpc_id \
                                                                Name=group-name,Values=default \
                                                      --query 'SecurityGroups[0].GroupId' \

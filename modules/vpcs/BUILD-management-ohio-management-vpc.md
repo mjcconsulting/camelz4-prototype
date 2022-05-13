@@ -65,7 +65,7 @@ This module builds the Management VPC in the AWS Ohio (us-east-2) Region within 
                                Key=Project,Value=CaMeLz-POC-4 \
                         --profile $profile --region us-east-2 --output text
 
-    # Tag Default-DefaultSecurityGroup
+    # Tag Management-DefaultSecurityGroup
     default_sg_id=$(aws ec2 describe-security-groups --filters Name=vpc-id,Values=$ohio_management_vpc_id \
                                                                Name=group-name,Values=default \
                                                      --query 'SecurityGroups[0].GroupId' \

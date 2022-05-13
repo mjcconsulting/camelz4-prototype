@@ -65,7 +65,7 @@ This module builds the Alfa-Production VPC in the AWS Oregon (us-west-2) Region 
                                Key=Project,Value=CaMeLz-POC-4 \
                         --profile $profile --region us-west-2 --output text
 
-    # Tag Default-DefaultSecurityGroup
+    # Tag Alfa-Production-DefaultSecurityGroup
     default_sg_id=$(aws ec2 describe-security-groups --filters Name=vpc-id,Values=$alfa_oregon_production_vpc_id \
                                                                Name=group-name,Values=default \
                                                      --query 'SecurityGroups[0].GroupId' \

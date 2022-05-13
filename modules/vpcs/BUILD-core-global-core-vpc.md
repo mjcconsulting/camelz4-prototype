@@ -65,7 +65,7 @@ This module builds the Core VPC in the AWS Virginia (us-east-1) Region within th
                                Key=Project,Value=CaMeLz-POC-4 \
                         --profile $profile --region us-east-1 --output text
 
-    # Tag Default-DefaultSecurityGroup
+    # Tag Core-DefaultSecurityGroup
     default_sg_id=$(aws ec2 describe-security-groups --filters Name=vpc-id,Values=$global_core_vpc_id \
                                                                Name=group-name,Values=default \
                                                      --query 'SecurityGroups[0].GroupId' \

@@ -40,7 +40,7 @@ CaMeLz-MCrawford-Sandbox Account.
     ```bash
     aws sns subscribe --topic-arn $mcrawford_global_sandbox_budgets_topic_arn \
                       --protocol email \
-                      --notification-endpoint $user_email \
+                      --notification-endpoint aws-x-mcrawford-budgets@camelz.io \
                       --profile $profile --region us-east-1 --output text
     ```
 

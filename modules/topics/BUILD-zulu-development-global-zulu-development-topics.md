@@ -31,7 +31,7 @@ CaMeLz-Zulu-Development Account.
     ```bash
     aws sns subscribe --topic-arn $zulu_global_development_events_topic_arn \
                       --protocol email \
-                      --notification-endpoint $user_email \
+                      --notification-endpoint aws-d-zulu-events@camelz.io \
                       --profile $profile --region us-east-1 --output text
     ```
 
@@ -51,6 +51,6 @@ CaMeLz-Zulu-Development Account.
     ```bash
     aws sns subscribe --topic-arn $zulu_global_development_alarms_topic_arn \
                       --protocol email \
-                      --notification-endpoint $user_email \
+                      --notification-endpoint aws-d-zulu-alarms@camelz.io \
                       --profile $profile --region us-east-1 --output text
     ```

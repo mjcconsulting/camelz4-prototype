@@ -32,7 +32,7 @@ CaMeLz-Development Account.
     ```bash
     aws sns subscribe --topic-arn $global_development_events_topic_arn \
                       --protocol email \
-                      --notification-endpoint $user_email \
+                      --notification-endpoint aws-d-events@camelz.io \
                       --profile $profile --region us-east-1 --output text
     ```
 
@@ -52,6 +52,6 @@ CaMeLz-Development Account.
     ```bash
     aws sns subscribe --topic-arn $global_development_alarms_topic_arn \
                       --protocol email \
-                      --notification-endpoint $user_email \
+                      --notification-endpoint aws-d-alarms@camelz.io \
                       --profile $profile --region us-east-1 --output text
     ```

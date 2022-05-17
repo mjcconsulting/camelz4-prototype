@@ -32,7 +32,7 @@ CaMeLz-Management Account.
     ```bash
     aws sns subscribe --topic-arn $mcrawford_global_sandbox_events_topic_arn \
                       --protocol email \
-                      --notification-endpoint $user_email \
+                      --notification-endpoint aws-x-mcrawford-events@camelz.io \
                       --profile $profile --region us-east-1 --output text
     ```
 
@@ -52,6 +52,6 @@ CaMeLz-Management Account.
     ```bash
     aws sns subscribe --topic-arn $mcrawford_global_sandbox_alarms_topic_arn \
                       --protocol email \
-                      --notification-endpoint $user_email \
+                      --notification-endpoint aws-x-mcrawford-alarms@camelz.io \
                       --profile $profile --region us-east-1 --output text
     ```

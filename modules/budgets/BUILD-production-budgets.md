@@ -40,7 +40,7 @@ CaMeLz-Production Account.
     ```bash
     aws sns subscribe --topic-arn $global_production_budgets_topic_arn \
                       --protocol email \
-                      --notification-endpoint $user_email \
+                      --notification-endpoint aws-p-budgets@camelz.io \
                       --profile $profile --region us-east-1 --output text
     ```
 

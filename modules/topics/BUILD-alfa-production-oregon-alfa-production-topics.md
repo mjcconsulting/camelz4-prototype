@@ -31,7 +31,7 @@ CaMeLz-Alfa-Production Account.
     ```bash
     aws sns subscribe --topic-arn $alfa_oregon_production_events_topic_arn \
                       --protocol email \
-                      --notification-endpoint $user_email \
+                      --notification-endpoint aws-p-alfa-events@camelz.io \
                       --profile $profile --region us-west-2 --output text
     ```
 
@@ -51,6 +51,6 @@ CaMeLz-Alfa-Production Account.
     ```bash
     aws sns subscribe --topic-arn $alfa_oregon_production_alarms_topic_arn \
                       --protocol email \
-                      --notification-endpoint $user_email \
+                      --notification-endpoint aws-p-alfa-alarms@camelz.io \
                       --profile $profile --region us-west-2 --output text
     ```

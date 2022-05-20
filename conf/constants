@@ -339,6 +339,9 @@ alfa_ohio_development_private_domain=d.us-east-2.alfa.$domain
 ## - Region: Oregon
 alfa_oregon_management_public_domain=us-west-2.alfa.$domain
 
+alfa_oregon_production_public_domain=p.us-west-2.alfa.$domain
+alfa_oregon_production_private_domain=p.us-west-2.alfa.$domain
+
 alfa_oregon_recovery_public_domain=r.us-west-2.alfa.$domain
 alfa_oregon_recovery_private_domain=r.us-west-2.alfa.$domain
 

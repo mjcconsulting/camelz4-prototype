@@ -192,7 +192,11 @@ Do not create
 
 1. **[Alfa-Production-HostedZone](./BUILD-alfa-production-ohio-alfa-production-hostedzone.md)** (p.us-east-2.alfa.camelz.io)
 
+#### **Oregon Region**
+
 ### **Alfa-Recovery Account**
+
+1. **[Alfa-Production-HostedZone](./BUILD-alfa-production-oregon-alfa-production-hostedzone.md)** (p.us-west-2.alfa.camelz.io)
 
 #### **Oregon Region**
 

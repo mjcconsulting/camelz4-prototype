@@ -44,7 +44,7 @@ within the CaMeLz-Management Account.
     global_management_lws_sg_id=$(aws ec2 create-security-group --group-name Management-LinuxWebServer-InstanceSecurityGroup \
                                                                 --description Management-LinuxWebServer-InstanceSecurityGroup \
                                                                 --vpc-id $global_management_vpc_id \
-                                                                --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Management-LinuxWebServer-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                                --tag-specifications "ResourceType=security-group,Tags=[{Key=Name,Value=Management-LinuxWebServer-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Application,Value=LinuxWebServer},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                 --query 'GroupId' \
                                                                 --profile $profile --region us-east-1 --output text)
     camelz-variable global_management_lws_sg_id
@@ -183,13 +183,13 @@ within the CaMeLz-Management Account.
     global_management_las_sg_id=$(aws ec2 create-security-group --group-name Management-LinuxApplicationServer-InstanceSecurityGroup \
                                                                 --description Management-LinuxApplicationServer-InstanceSecurityGroup \
                                                                 --vpc-id $global_management_vpc_id \
-                                                                --tag-specifications ResourceType=security-group,Tags=[{Key=Name,Value=Management-LinuxApplicationServer-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Application,Value=LinuxApplicationServer},{Key=Project,Value=CaMeLz-POC-4}] \
+                                                                --tag-specifications "ResourceType=security-group,Tags=[{Key=Name,Value=Management-LinuxApplicationServer-InstanceSecurityGroup},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Application,Value=LinuxApplicationServer},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                 --query 'GroupId' \
                                                                 --profile $profile --region us-east-1 --output text)
     camelz-variable global_management_las_sg_id
 
     aws ec2 authorize-security-group-ingress --group-id $global_management_las_sg_id \
-                                             --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=0.0.0.0/0,Description=\"Global (ICMP)\"}]" \
+                                             --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=0.0.0.0/0,Description=\"All (ICMP)\"}]" \
                                              --profile $profile --region us-east-1 --output text
 
     aws ec2 authorize-security-group-ingress --group-id $global_management_las_sg_id \

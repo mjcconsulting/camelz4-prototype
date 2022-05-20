@@ -189,8 +189,8 @@ within the CaMeLz-Alfa-Recovery Account.
     camelz-variable alfa_oregon_recovery_las_sg_id
 
     aws ec2 authorize-security-group-ingress --group-id $alfa_oregon_recovery_las_sg_id \
-                                             --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=0.0.0.0/0,Description=\"Global (ICMP)\"}]" \
-                                             --tag-specifications "ResourceType=security-group-rule,Tags=[{Key=Name,Value=\"Global (ICMP)\"}]" \
+                                             --ip-permissions "IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=0.0.0.0/0,Description=\"All (ICMP)\"}]" \
+                                             --tag-specifications "ResourceType=security-group-rule,Tags=[{Key=Name,Value=\"All (ICMP)\"}]" \
                                              --profile $profile --region us-west-2 --output text
 
     aws ec2 authorize-security-group-ingress --group-id $alfa_oregon_recovery_las_sg_id \

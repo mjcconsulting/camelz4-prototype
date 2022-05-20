@@ -997,7 +997,7 @@ This module builds the Alfa-Production VPC in the AWS Oregon (us-west-2) Region 
                                                                      --iam-instance-profile Name=ManagedInstance \
                                                                      --key-name administrator \
                                                                      --network-interfaces "AssociatePublicIpAddress=true,DeleteOnTermination=true,Description=Alfa-Production-NAT-NetworkInterfaceA-eth0,DeviceIndex=0,Groups=[$alfa_oregon_production_nat_sg_id],SubnetId=$alfa_oregon_production_public_subneta_id" \
-                                                                     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Production-NAT-Instance},{Key=Hostname,Value=alfue2pnat01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}]" \
+                                                                     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=Alfa-Production-NAT-Instance},{Key=Hostname,Value=alfuw2pnat01a},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Utility,Value=NAT},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                      --query 'Instances[0].InstanceId' \
                                                                      --profile $profile --region us-west-2 --output text)
       camelz-variable alfa_oregon_production_nat_instance_id

@@ -85,6 +85,10 @@ This module builds the Core VPC in the AWS Oregon (us-west-2) Region within the 
     aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Core" \
                               --profile $profile --region us-west-2 --output text
 
+    aws logs put-retention-policy --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Core" \
+                                  --retention-in-days 14 \
+                                  --profile $profile --region us-west-2 --output text
+
     aws ec2 create-flow-logs --resource-type VPC --resource-ids $oregon_core_vpc_id \
                              --traffic-type ALL \
                              --log-destination-type cloud-watch-logs \

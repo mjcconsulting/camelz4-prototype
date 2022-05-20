@@ -88,6 +88,10 @@ This module builds the Alfa-Miami-DataCenter VPC in the AWS Ohio (us-east-2) Reg
     aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Alfa-Miami-DataCenter" \
                               --profile $profile --region us-east-2 --output text
 
+    aws logs put-retention-policy --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Alfa-Miami-DataCenter" \
+                                  --retention-in-days 14 \
+                                  --profile $profile --region us-east-2 --output text
+
     aws ec2 create-flow-logs --resource-type VPC --resource-ids $alfa_mia_vpc_id \
                              --traffic-type ALL \
                              --log-destination-type cloud-watch-logs \

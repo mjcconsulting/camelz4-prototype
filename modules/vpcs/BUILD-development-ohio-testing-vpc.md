@@ -87,6 +87,10 @@ This module builds the Testing VPC in the AWS Ohio (us-east-2) Region within the
     aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Testing" \
                               --profile $profile --region us-east-2 --output text
 
+    aws logs put-retention-policy --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Testing" \
+                                  --retention-in-days 14 \
+                                  --profile $profile --region us-east-2 --output text
+
     aws ec2 create-flow-logs --resource-type VPC --resource-ids $ohio_testing_vpc_id \
                              --traffic-type ALL \
                              --log-destination-type cloud-watch-logs \
@@ -716,7 +720,7 @@ This module builds the Testing VPC in the AWS Ohio (us-east-2) Region within the
 
     ```bash
     ohio_testing_directory_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_testing_vpc_id \
-                                                              --cidr-block $ohio_testing_subnet_directorya_cidr \
+                                                              --cidr-block $ohio_testing_directory_subneta_cidr \
                                                               --availability-zone us-east-2a \
                                                               --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Testing-DirectorySubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Testing},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                               --query 'Subnet.SubnetId' \
@@ -728,7 +732,7 @@ This module builds the Testing VPC in the AWS Ohio (us-east-2) Region within the
 
     ```bash
     ohio_testing_directory_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_testing_vpc_id \
-                                                              --cidr-block $ohio_testing_subnet_directoryb_cidr \
+                                                              --cidr-block $ohio_testing_directory_subnetb_cidr \
                                                               --availability-zone us-east-2b \
                                                               --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Testing-DirectorySubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Testing},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                               --query 'Subnet.SubnetId' \
@@ -740,7 +744,7 @@ This module builds the Testing VPC in the AWS Ohio (us-east-2) Region within the
 
     ```bash
     ohio_testing_directory_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_testing_vpc_id \
-                                                              --cidr-block $ohio_testing_subnet_directoryc_cidr \
+                                                              --cidr-block $ohio_testing_directory_subnetc_cidr \
                                                               --availability-zone us-east-2c \
                                                               --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Testing-DirectorySubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Testing},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                               --query 'Subnet.SubnetId' \

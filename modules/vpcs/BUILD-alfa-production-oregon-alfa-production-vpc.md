@@ -85,6 +85,10 @@ This module builds the Alfa-Production VPC in the AWS Oregon (us-west-2) Region 
     aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Alfa-Production" \
                               --profile $profile --region us-west-2 --output text
 
+    aws logs put-retention-policy --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Alfa-Production" \
+                                  --retention-in-days 14 \
+                                  --profile $profile --region us-west-2 --output text
+
     aws ec2 create-flow-logs --resource-type VPC --resource-ids $alfa_oregon_production_vpc_id \
                              --traffic-type ALL \
                              --log-destination-type cloud-watch-logs \
@@ -714,7 +718,7 @@ This module builds the Alfa-Production VPC in the AWS Oregon (us-west-2) Region 
 
     ```bash
     alfa_oregon_production_directory_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_oregon_production_vpc_id \
-                                                                        --cidr-block $alfa_oregon_production_subnet_directorya_cidr \
+                                                                        --cidr-block $alfa_oregon_production_directory_subneta_cidr \
                                                                         --availability-zone us-west-2a \
                                                                         --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-DirectorySubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                         --query 'Subnet.SubnetId' \
@@ -726,7 +730,7 @@ This module builds the Alfa-Production VPC in the AWS Oregon (us-west-2) Region 
 
     ```bash
     alfa_oregon_production_directory_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_oregon_production_vpc_id \
-                                                                        --cidr-block $alfa_oregon_production_subnet_directoryb_cidr \
+                                                                        --cidr-block $alfa_oregon_production_directory_subnetb_cidr \
                                                                         --availability-zone us-west-2b \
                                                                         --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-DirectorySubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                         --query 'Subnet.SubnetId' \
@@ -738,7 +742,7 @@ This module builds the Alfa-Production VPC in the AWS Oregon (us-west-2) Region 
 
     ```bash
     alfa_oregon_production_directory_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_oregon_production_vpc_id \
-                                                                        --cidr-block $alfa_oregon_production_subnet_directoryc_cidr \
+                                                                        --cidr-block $alfa_oregon_production_directory_subnetc_cidr \
                                                                         --availability-zone us-west-2c \
                                                                         --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-DirectorySubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                         --query 'Subnet.SubnetId' \

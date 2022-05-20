@@ -85,6 +85,10 @@ This module builds the Core VPC in the AWS Virginia (us-east-1) Region within th
     aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Core" \
                               --profile $profile --region us-east-1 --output text
 
+    aws logs put-retention-policy --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Core" \
+                                  --retention-in-days 14 \
+                                  --profile $profile --region us-east-1 --output text
+
     aws ec2 create-flow-logs --resource-type VPC --resource-ids $global_core_vpc_id \
                              --traffic-type ALL \
                              --log-destination-type cloud-watch-logs \

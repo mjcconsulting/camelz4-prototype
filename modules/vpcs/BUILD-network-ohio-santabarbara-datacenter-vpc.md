@@ -88,6 +88,10 @@ This module builds the SantaBarbara-DataCenter VPC in the AWS Ohio (us-east-2) R
     aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/SantaBarbara-DataCenter" \
                               --profile $profile --region us-east-2 --output text
 
+    aws logs put-retention-policy --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/SantaBarbara-DataCenter" \
+                                  --retention-in-days 14 \
+                                  --profile $profile --region us-east-2 --output text
+
     aws ec2 create-flow-logs --resource-type VPC --resource-ids $cml_sba_vpc_id \
                              --traffic-type ALL \
                              --log-destination-type cloud-watch-logs \

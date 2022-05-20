@@ -85,6 +85,10 @@ This module builds the Alfa-Production VPC in the AWS Ohio (us-east-2) Region wi
     aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Alfa-Production" \
                               --profile $profile --region us-east-2 --output text
 
+    aws logs put-retention-policy --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Alfa-Production" \
+                                  --retention-in-days 14 \
+                                  --profile $profile --region us-east-2 --output text
+
     aws ec2 create-flow-logs --resource-type VPC --resource-ids $alfa_ohio_production_vpc_id \
                              --traffic-type ALL \
                              --log-destination-type cloud-watch-logs \
@@ -714,7 +718,7 @@ This module builds the Alfa-Production VPC in the AWS Ohio (us-east-2) Region wi
 
     ```bash
     alfa_ohio_production_directory_subneta_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
-                                                                      --cidr-block $alfa_ohio_production_subnet_directorya_cidr \
+                                                                      --cidr-block $alfa_ohio_production_directory_subneta_cidr \
                                                                       --availability-zone us-east-2a \
                                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-DirectorySubnetA},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                       --query 'Subnet.SubnetId' \
@@ -726,7 +730,7 @@ This module builds the Alfa-Production VPC in the AWS Ohio (us-east-2) Region wi
 
     ```bash
     alfa_ohio_production_directory_subnetb_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
-                                                                      --cidr-block $alfa_ohio_production_subnet_directoryb_cidr \
+                                                                      --cidr-block $alfa_ohio_production_directory_subnetb_cidr \
                                                                       --availability-zone us-east-2b \
                                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-DirectorySubnetB},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                       --query 'Subnet.SubnetId' \
@@ -738,7 +742,7 @@ This module builds the Alfa-Production VPC in the AWS Ohio (us-east-2) Region wi
 
     ```bash
     alfa_ohio_production_directory_subnetc_id=$(aws ec2 create-subnet --vpc-id $alfa_ohio_production_vpc_id \
-                                                                      --cidr-block $alfa_ohio_production_subnet_directoryc_cidr \
+                                                                      --cidr-block $alfa_ohio_production_directory_subnetc_cidr \
                                                                       --availability-zone us-east-2c \
                                                                       --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Alfa-Production-DirectorySubnetC},{Key=Company,Value=Alfa},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                       --query 'Subnet.SubnetId' \

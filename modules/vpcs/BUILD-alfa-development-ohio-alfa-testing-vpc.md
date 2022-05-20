@@ -87,6 +87,10 @@ This module builds the Alfa-Testing VPC in the AWS Ohio (us-east-2) Region withi
     aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Alfa-Testing" \
                               --profile $profile --region us-east-2 --output text
 
+    aws logs put-retention-policy --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Alfa-Testing" \
+                                  --retention-in-days 14 \
+                                  --profile $profile --region us-east-2 --output text
+
     aws ec2 create-flow-logs --resource-type VPC --resource-ids $alfa_ohio_testing_vpc_id \
                              --traffic-type ALL \
                              --log-destination-type cloud-watch-logs \

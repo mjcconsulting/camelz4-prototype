@@ -82,14 +82,15 @@ This module builds the Development VPC in the AWS Ohio (us-east-2) Region within
 1. **Create VPC Flow Log**
 
     ```bash
-    aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Development/Ohio" \
+    aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Development" \
                               --profile $profile --region us-east-2 --output text
 
     aws ec2 create-flow-logs --resource-type VPC --resource-ids $ohio_development_vpc_id \
                              --traffic-type ALL \
                              --log-destination-type cloud-watch-logs \
-                             --log-destination "arn:aws:logs:us-east-2:${production_account_id}:log-group:/${company_name_lc}/${system_name_lc}/FlowLog/Development/Ohio" \
+                             --log-destination "arn:aws:logs:us-east-2:${production_account_id}:log-group:/${company_name_lc}/${system_name_lc}/FlowLog/Development" \
                              --deliver-logs-permission-arn "arn:aws:iam::${production_account_id}:role/FlowLog" \
+                             --tag-specifications "ResourceType=vpc-flow-log,Tags=[{Key=Name,Value=Development-FlowLog},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                              --profile $profile --region us-east-2 --output text
     ```
 

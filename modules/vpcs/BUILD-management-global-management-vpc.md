@@ -82,14 +82,15 @@ This module builds the Management VPC in the AWS Virginia (us-east-1) Region wit
 1. **Create VPC Flow Log**
 
     ```bash
-    aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Management/Global" \
+    aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Management" \
                               --profile $profile --region us-east-1 --output text
 
     aws ec2 create-flow-logs --resource-type VPC --resource-ids $global_management_vpc_id \
                              --traffic-type ALL \
                              --log-destination-type cloud-watch-logs \
-                             --log-destination "arn:aws:logs:us-east-1:${management_account_id}:log-group:/${company_name_lc}/${system_name_lc}/FlowLog/Management/Global" \
+                             --log-destination "arn:aws:logs:us-east-1:${management_account_id}:log-group:/${company_name_lc}/${system_name_lc}/FlowLog/Management" \
                              --deliver-logs-permission-arn "arn:aws:iam::${management_account_id}:role/FlowLog" \
+                             --tag-specifications "ResourceType=vpc-flow-log,Tags=[{Key=Name,Value=Management-FlowLog},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
                              --profile $profile --region us-east-1 --output text
     ```
 

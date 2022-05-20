@@ -85,14 +85,15 @@ This module builds the Alfa-LosAngeles-DataCenter VPC in the AWS Ohio (us-east-2
 1. **Create VPC Flow Log**
 
     ```bash
-    aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/ Alfa-LosAngeles-DataCenter/Ohio" \
+    aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Alfa-LosAngeles-DataCenter" \
                               --profile $profile --region us-east-2 --output text
 
     aws ec2 create-flow-logs --resource-type VPC --resource-ids $alfa_lax_vpc_id \
                              --traffic-type ALL \
                              --log-destination-type cloud-watch-logs \
-                             --log-destination "arn:aws:logs:us-east-2:${network_account_id}:log-group:/${company_name_lc}/${system_name_lc}/FlowLog/ Alfa-LosAngeles-DataCenter/Ohio" \
+                             --log-destination "arn:aws:logs:us-east-2:${network_account_id}:log-group:/${company_name_lc}/${system_name_lc}/FlowLog/Alfa-LosAngeles-DataCenter" \
                              --deliver-logs-permission-arn "arn:aws:iam::${network_account_id}:role/FlowLog" \
+                             --tag-specifications "ResourceType=vpc-flow-log,Tags=[{Key=Name,Value=Alfa-LosAngeles-DataCenter-FlowLog},{Key=Company,Value=Alfa},{Key=Location,Value=LosAngeles},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}]" \
                              --profile $profile --region us-east-2 --output text
     ```
 

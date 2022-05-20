@@ -82,14 +82,15 @@ This module builds the Alfa-Recovery VPC in the AWS Oregon (us-west-2) Region wi
 1. **Create VPC Flow Log**
 
     ```bash
-    aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Alfa-Recovery/Oregon" \
+    aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Alfa-Recovery" \
                               --profile $profile --region us-west-2 --output text
 
     aws ec2 create-flow-logs --resource-type VPC --resource-ids $alfa_oregon_recovery_vpc_id \
                              --traffic-type ALL \
                              --log-destination-type cloud-watch-logs \
-                             --log-destination "arn:aws:logs:us-west-2:${alfa_recovery_account_id}:log-group:/${company_name_lc}/${system_name_lc}/FlowLog/Alfa-Recovery/Oregon" \
+                             --log-destination "arn:aws:logs:us-west-2:${alfa_recovery_account_id}:log-group:/${company_name_lc}/${system_name_lc}/FlowLog/Alfa-Recovery" \
                              --deliver-logs-permission-arn "arn:aws:iam::${alfa_recovery_account_id}:role/FlowLog" \
+                             --tag-specifications "ResourceType=vpc-flow-log,Tags=[{Key=Name,Value=Alfa-Recovery-FlowLog},{Key=Company,Value=Alfa},{Key=Environment,Value=Recovery},{Key=Project,Value=CaMeLz-POC-4}]" \
                              --profile $profile --region us-west-2 --output text
     ```
 

@@ -82,14 +82,15 @@ This module builds the Network VPC in the AWS Oregon (us-west-2) Region within t
 1. **Create VPC Flow Log**
 
     ```bash
-    aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Network/Oregon" \
+    aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Network" \
                               --profile $profile --region us-west-2 --output text
 
     aws ec2 create-flow-logs --resource-type VPC --resource-ids $oregon_network_vpc_id \
                              --traffic-type ALL \
                              --log-destination-type cloud-watch-logs \
-                             --log-destination "arn:aws:logs:us-west-2:${network_account_id}:log-group:/${company_name_lc}/${system_name_lc}/FlowLog/Network/Oregon" \
+                             --log-destination "arn:aws:logs:us-west-2:${network_account_id}:log-group:/${company_name_lc}/${system_name_lc}/FlowLog/Network" \
                              --deliver-logs-permission-arn "arn:aws:iam::${network_account_id}:role/FlowLog" \
+                             --tag-specifications "ResourceType=vpc-flow-log,Tags=[{Key=Name,Value=Network-FlowLog},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Network},{Key=Project,Value=CaMeLz-POC-4}]" \
                              --profile $profile --region us-west-2 --output text
     ```
 

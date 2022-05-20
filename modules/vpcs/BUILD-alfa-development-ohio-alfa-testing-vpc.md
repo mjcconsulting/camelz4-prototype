@@ -84,14 +84,15 @@ This module builds the Alfa-Testing VPC in the AWS Ohio (us-east-2) Region withi
 1. **Create VPC Flow Log**
 
     ```bash
-    aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Alfa-Testing/Ohio" \
+    aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Alfa-Testing" \
                               --profile $profile --region us-east-2 --output text
 
     aws ec2 create-flow-logs --resource-type VPC --resource-ids $alfa_ohio_testing_vpc_id \
                              --traffic-type ALL \
                              --log-destination-type cloud-watch-logs \
-                             --log-destination "arn:aws:logs:us-east-2:${alfa_testing_account_id}:log-group:/${company_name_lc}/${system_name_lc}/FlowLog/Alfa-Testing/Ohio" \
+                             --log-destination "arn:aws:logs:us-east-2:${alfa_testing_account_id}:log-group:/${company_name_lc}/${system_name_lc}/FlowLog/Alfa-Testing" \
                              --deliver-logs-permission-arn "arn:aws:iam::${alfa_testing_account_id}:role/FlowLog" \
+                             --tag-specifications "ResourceType=vpc-flow-log,Tags=[{Key=Name,Value=Alfa-Testing-FlowLog},{Key=Company,Value=Alfa},{Key=Environment,Value=Testing},{Key=Project,Value=CaMeLz-POC-4}]" \
                              --profile $profile --region us-east-2 --output text
     ```
 

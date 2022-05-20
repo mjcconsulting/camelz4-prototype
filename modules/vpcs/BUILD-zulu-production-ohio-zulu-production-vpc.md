@@ -82,14 +82,15 @@ This module builds the Zulu-Production VPC in the AWS Ohio (us-east-2) Region wi
 1. **Create VPC Flow Log**
 
     ```bash
-    aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Zulu-Production/Ohio" \
+    aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Zulu-Production" \
                               --profile $profile --region us-east-2 --output text
 
     aws ec2 create-flow-logs --resource-type VPC --resource-ids $zulu_ohio_production_vpc_id \
                              --traffic-type ALL \
                              --log-destination-type cloud-watch-logs \
-                             --log-destination "arn:aws:logs:us-east-2:${zulu_production_account_id}:log-group:/${company_name_lc}/${system_name_lc}/FlowLog/Zulu-Production/Ohio" \
+                             --log-destination "arn:aws:logs:us-east-2:${zulu_production_account_id}:log-group:/${company_name_lc}/${system_name_lc}/FlowLog/Zulu-Production" \
                              --deliver-logs-permission-arn "arn:aws:iam::${zulu_production_account_id}:role/FlowLog" \
+                             --tag-specifications "ResourceType=vpc-flow-log,Tags=[{Key=Name,Value=Zulu-Production-FlowLog},{Key=Company,Value=Zulu},{Key=Environment,Value=Production},{Key=Project,Value=CaMeLz-POC-4}]" \
                              --profile $profile --region us-east-2 --output text
     ```
 

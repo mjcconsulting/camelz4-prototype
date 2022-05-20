@@ -82,14 +82,15 @@ This module builds the Management VPC in the AWS Ohio (us-east-2) Region within 
 1. **Create VPC Flow Log**
 
     ```bash
-    aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Management/Ohio" \
+    aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Management" \
                               --profile $profile --region us-east-2 --output text
 
     aws ec2 create-flow-logs --resource-type VPC --resource-ids $ohio_management_vpc_id \
                              --traffic-type ALL \
                              --log-destination-type cloud-watch-logs \
-                             --log-destination "arn:aws:logs:us-east-2:${management_account_id}:log-group:/${company_name_lc}/${system_name_lc}/FlowLog/Management/Ohio" \
+                             --log-destination "arn:aws:logs:us-east-2:${management_account_id}:log-group:/${company_name_lc}/${system_name_lc}/FlowLog/Management" \
                              --deliver-logs-permission-arn "arn:aws:iam::${management_account_id}:role/FlowLog" \
+                             --tag-specifications "ResourceType=vpc-flow-log,Tags=[{Key=Name,Value=Management-FlowLog},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
                              --profile $profile --region us-east-2 --output text
     ```
 
@@ -425,7 +426,7 @@ This module builds the Management VPC in the AWS Ohio (us-east-2) Region within 
 
     ```bash
     ohio_management_directory_subneta_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
-                                                                 --cidr-block $ohio_management_subnet_directorya_cidr \
+                                                                 --cidr-block $ohio_management_directory_subneta_cidr \
                                                                  --availability-zone us-east-2a \
                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-DirectorySubnetA},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                  --query 'Subnet.SubnetId' \
@@ -437,7 +438,7 @@ This module builds the Management VPC in the AWS Ohio (us-east-2) Region within 
 
     ```bash
     ohio_management_directory_subnetb_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
-                                                                 --cidr-block $ohio_management_subnet_directoryb_cidr \
+                                                                 --cidr-block $ohio_management_directory_subnetb_cidr \
                                                                  --availability-zone us-east-2b \
                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-DirectorySubnetB},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                  --query 'Subnet.SubnetId' \
@@ -449,7 +450,7 @@ This module builds the Management VPC in the AWS Ohio (us-east-2) Region within 
 
     ```bash
     ohio_management_directory_subnetc_id=$(aws ec2 create-subnet --vpc-id $ohio_management_vpc_id \
-                                                                 --cidr-block $ohio_management_subnet_directoryc_cidr \
+                                                                 --cidr-block $ohio_management_directory_subnetc_cidr \
                                                                  --availability-zone us-east-2c \
                                                                  --tag-specifications "ResourceType=subnet,Tags=[{Key=Name,Value=Management-DirectorySubnetC},{Key=Company,Value=CaMeLz},{Key=Environment,Value=Management},{Key=Project,Value=CaMeLz-POC-4}]" \
                                                                  --query 'Subnet.SubnetId' \

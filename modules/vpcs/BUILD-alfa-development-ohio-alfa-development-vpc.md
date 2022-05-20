@@ -82,14 +82,15 @@ This module builds the Alfa-Development VPC in the AWS Ohio (us-east-2) Region w
 1. **Create VPC Flow Log**
 
     ```bash
-    aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Alfa-Development/Ohio" \
+    aws logs create-log-group --log-group-name "/$company_name_lc/$system_name_lc/FlowLog/Alfa-Development" \
                               --profile $profile --region us-east-2 --output text
 
     aws ec2 create-flow-logs --resource-type VPC --resource-ids $alfa_ohio_development_vpc_id \
                              --traffic-type ALL \
                              --log-destination-type cloud-watch-logs \
-                             --log-destination "arn:aws:logs:us-east-2:${alfa_development_account_id}:log-group:/${company_name_lc}/${system_name_lc}/FlowLog/Alfa-Development/Ohio" \
+                             --log-destination "arn:aws:logs:us-east-2:${alfa_development_account_id}:log-group:/${company_name_lc}/${system_name_lc}/FlowLog/Alfa-Development" \
                              --deliver-logs-permission-arn "arn:aws:iam::${alfa_development_account_id}:role/FlowLog" \
+                             --tag-specifications "ResourceType=vpc-flow-log,Tags=[{Key=Name,Value=Alfa-Development-FlowLog},{Key=Company,Value=Alfa},{Key=Environment,Value=Development},{Key=Project,Value=CaMeLz-POC-4}]" \
                              --profile $profile --region us-east-2 --output text
     ```
 
